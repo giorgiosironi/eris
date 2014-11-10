@@ -1,3 +1,5 @@
 - independent seed initialization of generators
 - generators should be objects
 - for all
+- find out the best distribution for genVector? it is not random at all
+- same goes for genInt, it is not random but starts from 0 and increases?

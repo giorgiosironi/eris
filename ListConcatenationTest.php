@@ -18,6 +18,32 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
             });
     }
 
+    public function testLeftIdentityElement()
+    {
+        $this->forAll([
+            'any' => $this->genVector($this->genInt()),
+        ])
+            ->__invoke(function($any) {
+                $this->assertEquals(
+                    $any,
+                    array_merge([], $any)
+                );
+            });
+    }
+
+    public function testRightIdentityElement()
+    {
+        $this->forAll([
+            'any' => $this->genVector($this->genInt()),
+        ])
+            ->__invoke(function($any) {
+                $this->assertEquals(
+                    $any,
+                    array_merge($any, [])
+                );
+            });
+    }
+
     private function forAll($generators)
     {
         $this->generators = $generators;
