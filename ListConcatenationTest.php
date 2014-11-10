@@ -1,4 +1,9 @@
 <?php
+function my_array_merge($first, $second)
+{
+    $result = array_merge($first, $second);
+    return $result;
+}
 
 class ListConcatenationTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +18,7 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
             ->__invoke(function($first, $second) {
                 $this->assertEquals(
                     count($first) + count($second),
-                    count(array_merge($first, $second))
+                    count(my_array_merge($first, $second))
                 );
             });
     }
@@ -26,7 +31,7 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
             ->__invoke(function($any) {
                 $this->assertEquals(
                     $any,
-                    array_merge([], $any)
+                    my_array_merge([], $any)
                 );
             });
     }
@@ -39,7 +44,7 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
             ->__invoke(function($any) {
                 $this->assertEquals(
                     $any,
-                    array_merge($any, [])
+                    my_array_merge($any, [])
                 );
             });
     }
