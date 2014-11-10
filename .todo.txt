@@ -1,0 +1,3 @@
+- independent seed initialization of generators
+- generators should be objects
+- for all
