@@ -4,11 +4,13 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
 {
     public function testLengthIsConserved()
     {
-        $first = [1, 2];
-        $second = [3, 4, 5];
+        $first = [rand(), rand()];
+        $second = [rand(), rand(), rand()];
         $this->assertEquals(
             count($first) + count($second),
             count(array_merge($first, $second))
         );
     }
+
+    
 }
