@@ -13,7 +13,7 @@ class Vector
     public function __invoke()
     {
         $vector = [];
-        for ($i = 0; $i < rand(1, 10); $i++) {
+        for ($i = 0; $i < rand(1, 100); $i++) {
             $vector[] = call_user_func($this->elementGenerator);
         }
         return $vector;

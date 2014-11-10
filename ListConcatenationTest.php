@@ -2,6 +2,11 @@
 function my_array_merge($first, $second)
 {
     $result = array_merge($first, $second);
+    
+    // bug: if $result has more than 5 elements...
+    if (count($result) >= 5) {
+        $result[] = 'Oops!';
+    }
     return $result;
 }
 
