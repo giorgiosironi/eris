@@ -3,3 +3,6 @@
 - find out the best distribution for genVector? it is not random at all
 -- same goes for genInt, it is not random but starts from 0 and increases?
 -- or maybe a good shrinking will bypass the problem, since you can start from an arbitrary point but then shrink to the simplest case that fails
+- extract Evaluation object
+- should shrink one at the time
+-- should actually shrink, not just call them again

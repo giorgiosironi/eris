@@ -19,9 +19,16 @@ class ForAll
             foreach ($this->generators as $name => $generator) {
                 $values[] = $generator();
             }
-            call_user_func_array(
-                $assertion, $values
-            );
+
+            try {
+                call_user_func_array(
+                    $assertion, $values
+                );
+            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
+                require_once 'Shrinking.php';
+                $shrinking = new Shrinking($this->generators, $assertion);
+                $shrinking->from($values);
+            }
         }
     }
 }
