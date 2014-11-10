@@ -46,21 +46,8 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
 
     private function forAll($generators)
     {
-        $this->generators = $generators;
-        return $this;
-    }
-
-    public function __invoke($assertion)
-    {
-        for ($i = 0; $i < $this->iterations; $i++) {
-            $values = [];
-            foreach ($this->generators as $name => $generator) {
-                $values[] = $generator();
-            }
-            call_user_func_array(
-                $assertion, $values
-            );
-        }
+        require_once __DIR__ . '/src/Quantifier/ForAll.php';
+        return new Quantifier\ForAll($generators, $this->iterations, $this);
     }
 
     private function genVector($elementGenerator)
