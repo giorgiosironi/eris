@@ -65,13 +65,8 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
 
     private function genVector($elementGenerator)
     {
-        return function() use ($elementGenerator) {
-            $vector = [];
-            for ($i = 0; $i < rand(1, 10); $i++) {
-                $vector[] = $elementGenerator();
-            }
-            return $vector;
-        };
+        require_once __DIR__ . '/src/Generator/Vector.php';
+        return new Generator\Vector($elementGenerator);
     } 
 
     private function genInt()
