@@ -19,15 +19,13 @@ class ForAll
             foreach ($this->generators as $name => $generator) {
                 $values[] = $generator();
             }
-
-            try {
-                call_user_func_array(
-                    $assertion, $values
-                );
-            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                $shrinking = new Shrinking($this->generators, $assertion);
-                $shrinking->from($values);
-            }
+            Evaluation::of($assertion)
+                ->with($values)
+                ->onFailure(function() use ($assertion, $values) {
+                    $shrinking = new Shrinking($this->generators, $assertion);
+                    $shrinking->from($values);
+                })
+                ->execute();
         }
     }
 }
