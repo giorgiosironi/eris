@@ -22,7 +22,6 @@ class Shrinking
         }
 
         while ($newValues = $this->shrink()) {
-            var_dump($newValues);
             try {
                 call_user_func_array($this->assertion, $newValues);
                 break;
