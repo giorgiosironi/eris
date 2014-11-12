@@ -56,13 +56,11 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
 
     private function forAll($generators)
     {
-        require_once __DIR__ . '/src/Quantifier/ForAll.php';
         return new Quantifier\ForAll($generators, $this->iterations, $this);
     }
 
     private function genVector($elementGenerator)
     {
-        require_once __DIR__ . '/src/Generator/Vector.php';
         return new Generator\Vector($elementGenerator);
     } 
 

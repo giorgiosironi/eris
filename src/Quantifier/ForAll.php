@@ -25,7 +25,6 @@ class ForAll
                     $assertion, $values
                 );
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                require_once 'Shrinking.php';
                 $shrinking = new Shrinking($this->generators, $assertion);
                 $shrinking->from($values);
             }

@@ -1,0 +1,16 @@
+{
+    "name": "giorgiosironi/brioches-php",
+    "description": "PHP library for property-based testing.",
+    "authors": [
+        {
+            "name": "Giorgio Sironi",
+            "email": "info@giorgiosironi.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-0": {"" : "src/"}
+    }
+}
