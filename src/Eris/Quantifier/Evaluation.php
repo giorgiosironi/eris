@@ -1,6 +1,9 @@
 <?php
 namespace Eris\Quantifier;
 
+/**
+ * TODO: change namespace. To what?
+ */
 final class Evaluation
 {
     private $assertion;

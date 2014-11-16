@@ -2,6 +2,9 @@
 namespace Eris\Quantifier;
 use PHPUnit_Framework_AssertionFailedError;
 
+/**
+ * TODO: change namespace. To what?
+ */
 class Shrinking
 {
     private $generators;
