@@ -26,20 +26,22 @@ class Shrinking
         $this->lastTriedValues = $values;
 
         while ($newValues = $this->shrink()) {
-                $continue = false;
-                $this->lastTriedValues = $newValues;
-                Evaluation::of($this->assertion)
-                    ->with($newValues)
-                    ->onFailure(function($e, $newValues) use (&$smallestValues, &$smallestException, &$continue) {
-
-                $smallestValues = $newValues;
-                $smallestException = $e;
-                $continue = true;
-                    })
-                    ->execute();
-                if (!$continue) {
-                    break;
-                }
+            $break = null;
+            $this->lastTriedValues = $newValues;
+            Evaluation::of($this->assertion)
+                ->with($newValues)
+                ->onFailure(function($e, $newValues) use (&$smallestValues, &$smallestException, &$break) {
+                    $smallestValues = $newValues;
+                    $smallestException = $e;
+                    $break = false;
+                })
+                ->onSuccess(function() use (&$break) {
+                    $break = true;
+                })
+                ->execute();
+            if ($break) {
+                break;
+            }
         }
         throw $smallestException;
     }
