@@ -2,11 +2,7 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
-/**
- * Note: for implementation simplicity, right now this is just
- * a PositiveInteger generator.
- */
-class Integer implements Generator
+class Natural implements Generator
 {
     public function __construct($lowerLimit = 1, $upperLimit = 1000)
     {

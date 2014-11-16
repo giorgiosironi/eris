@@ -8,3 +8,4 @@
 - explicit dependency on PHP 5.4 in composer.json
 - license?
 - rename Integer to Natural
+- limits to shrinking in algorithm: all cases may fail
