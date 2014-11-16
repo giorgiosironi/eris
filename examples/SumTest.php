@@ -53,4 +53,19 @@ class ListConcatenationTest extends BaseTestCase
                 );
             });
     }
+
+    public function testPropertyNeverSatisfied()
+    {
+        $this->forAll([
+            $this->genNat(),
+            $this->genNat(),
+        ])
+            ->__invoke(function($first, $second) {
+                $this->assertEquals(
+                    -1,
+                    my_sum($first, $second),
+                    "Summing $first and $second"
+                );
+            });
+    }
 }

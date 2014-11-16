@@ -28,6 +28,10 @@ class Shrinking
 
         while ($newValues = $this->shrink()) {
             $break = null;
+            if ($newValues === $this->lastTriedValues) {
+                throw $smallestException;
+            }
+            $this->lastTriedValues = $newValues;
             Evaluation::of($this->assertion)
                 ->with($newValues)
                 ->onFailure(function($newValues, $e) use (&$smallestValues, &$smallestException, &$break) {
@@ -56,7 +60,6 @@ class Shrinking
         if ($this->generatorToShrink == count($this->generators)) {
             $this->generatorToShrink = 0;
         }
-        $this->lastTriedValues = $values;
         return $values;
     }
 }
