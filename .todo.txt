@@ -1,8 +1,5 @@
 - independent seed initialization of generators
-- generators should be objects
-- find out the best distribution for genVector? it is not random at all
--- same goes for genInt, it is not random but starts from 0 and increases?
--- or maybe a good shrinking will bypass the problem, since you can start from an arbitrary point but then shrink to the simplest case that fails
-- extract Evaluation object
-- should shrink one at the time
--- should actually shrink, not just call them again
+- Generator interface
+-- the uniform distribution for genInt may be ok, but what should be the initial upper limit?
+- use Evaluation object consistently
+- shrinking of generators A and B should continue shrinking B after A has arrived to the smallest value that still fails (see testEqualToReferencePhpImplementation).

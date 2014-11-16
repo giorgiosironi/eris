@@ -1,6 +1,10 @@
 <?php
 namespace Generator;
 
+/**
+ * Note: for implementation simplicity, right now this is just
+ * a PositiveInteger generator.
+ */
 class Integer
 {
     public function __construct()
