@@ -4,6 +4,8 @@ namespace Quantifier;
 final class Evaluation
 {
     private $assertion;
+    private $onFailure;
+    private $onSuccess;
     
     public static function of($assertion)
     {
@@ -14,6 +16,7 @@ final class Evaluation
     {
         $this->assertion = $assertion;
         $this->onFailure = function() {};
+        $this->onSuccess = function() {};
     }
 
     public function with($values)
@@ -28,6 +31,12 @@ final class Evaluation
         return $this;
     }
 
+    public function onSuccess(callable $action)
+    {
+        $this->onSuccess = $action;
+        return $this;
+    }
+
     public function execute()
     {
         try {
@@ -35,7 +44,10 @@ final class Evaluation
                 $this->assertion, $this->values
             );
         } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-            call_user_func($this->onFailure, $e);
+            // TODO: change order of arguments
+            call_user_func($this->onFailure, $e, $this->values);
+            return;
         }
+        call_user_func_array($this->onSuccess, $this->values);
     }
 }
