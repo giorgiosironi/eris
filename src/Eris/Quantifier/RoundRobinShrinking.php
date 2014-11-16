@@ -5,7 +5,7 @@ use PHPUnit_Framework_AssertionFailedError;
 /**
  * TODO: change namespace. To what?
  */
-class Shrinking
+class RoundRobinShrinking
 {
     private $generators;
     private $assertion;

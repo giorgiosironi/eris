@@ -22,7 +22,7 @@ class ForAll
             Evaluation::of($assertion)
                 ->with($values)
                 ->onFailure(function($values, $exception) use ($assertion) {
-                    $shrinking = new Shrinking($this->generators, $assertion);
+                    $shrinking = new RoundRobinShrinking($this->generators, $assertion);
                     $shrinking->from($values, $exception);
                 })
                 ->execute();
