@@ -7,7 +7,7 @@ namespace Eris;
  *
  * Generic interface for a type <T>.
  */
-interface GeneratorInterface
+interface Generator
 {
     /**
      * @return T

@@ -1,12 +1,12 @@
 <?php
 namespace Eris\Generator;
-use Eris\GeneratorInterface;
+use Eris\Generator;
 
 /**
  * Note: for implementation simplicity, right now this is just
  * a PositiveInteger generator.
  */
-class Integer implements GeneratorInterface
+class Integer implements Generator
 {
     public function __construct()
     {
