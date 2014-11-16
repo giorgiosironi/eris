@@ -21,4 +21,18 @@ class ListConcatenationTest extends BaseTestCase
                 );
             });
     }
+
+    public function testEqualToReferencePhpImplementation()
+    {
+        $this->forAll([
+            'first' => $this->genInt(),
+            'second' => $this->genInt(),
+        ])
+            ->__invoke(function($first, $second) {
+                $this->assertEquals(
+                    $first + $second,
+                    my_sum($first, $second)
+                );
+            });
+    }
 }
