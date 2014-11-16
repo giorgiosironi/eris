@@ -1,4 +1,5 @@
 - independent seed initialization of generators
+-- which leads to reproducibility
 - Generator interface
 -- the uniform distribution for genInt may be ok, but what should be the initial upper limit?
 - use Evaluation object consistently
