@@ -26,15 +26,20 @@ class Shrinking
         $this->lastTriedValues = $values;
 
         while ($newValues = $this->shrink()) {
-            try {
+                $continue = false;
                 $this->lastTriedValues = $newValues;
-                call_user_func_array($this->assertion, $newValues);
-                break;
-            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
+                Evaluation::of($this->assertion)
+                    ->with($newValues)
+                    ->onFailure(function($e, $newValues) use (&$smallestValues, &$smallestException, &$continue) {
+
                 $smallestValues = $newValues;
                 $smallestException = $e;
-                continue;
-            }
+                $continue = true;
+                    })
+                    ->execute();
+                if (!$continue) {
+                    break;
+                }
         }
         throw $smallestException;
     }
@@ -49,6 +54,7 @@ class Shrinking
         if ($this->generatorToShrink == count($this->generators)) {
             $this->generatorToShrink = 0;
         }
+        var_Dump($values);
         return $values;
     }
 }
