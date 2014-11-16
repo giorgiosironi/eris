@@ -10,7 +10,7 @@ function my_array_merge($first, $second)
     return $result;
 }
 
-class ListConcatenationTest extends \PHPUnit_Framework_TestCase
+class ListConcatenationTest extends BaseTestCase
 {
     private $iterations = 100;
 
@@ -52,20 +52,5 @@ class ListConcatenationTest extends \PHPUnit_Framework_TestCase
                     my_array_merge($any, [])
                 );
             });
-    }
-
-    private function forAll($generators)
-    {
-        return new Quantifier\ForAll($generators, $this->iterations, $this);
-    }
-
-    private function genVector($elementGenerator)
-    {
-        return new Generator\Vector($elementGenerator);
-    } 
-
-    private function genInt()
-    {
-        return function() { return rand(); };
     }
 }
