@@ -21,9 +21,9 @@ class ForAll
             }
             Evaluation::of($assertion)
                 ->with($values)
-                ->onFailure(function($values) use ($assertion) {
+                ->onFailure(function($values, $exception) use ($assertion) {
                     $shrinking = new Shrinking($this->generators, $assertion);
-                    $shrinking->from($values);
+                    $shrinking->from($values, $exception);
                 })
                 ->execute();
         }

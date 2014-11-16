@@ -1,5 +1,6 @@
 <?php
 namespace Quantifier;
+use PHPUnit_Framework_AssertionFailedError;
 
 class Shrinking
 {
@@ -13,16 +14,13 @@ class Shrinking
         $this->assertion = $assertion;
     }
 
-    public function from(array $values)
+    /**
+     * Precondition: $values should fail $this->assertion
+     */
+    public function from(array $values, PHPUnit_Framework_AssertionFailedError $exception)
     {
         $smallestValues = $values;
-        $smallestException = null;
-        Evaluation::of($this->assertion)
-            ->with($values)
-            ->onFailure(function($values, $e) use (&$smallestException) {
-                $smallestException = $e;
-            })
-            ->execute();
+        $smallestException = $exception;
         $this->lastTriedValues = $values;
 
         while ($newValues = $this->shrink()) {
