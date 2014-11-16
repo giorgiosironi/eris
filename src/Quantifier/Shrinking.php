@@ -15,11 +15,13 @@ class Shrinking
     public function from(array $values)
     {
         $smallestValues = $values;
-        try {
-            call_user_func_array($this->assertion, $values);
-        } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-            $smallestException = $e;
-        }
+        $smallestException = null;
+        Evaluation::of($this->assertion)
+            ->with($values)
+            ->onFailure(function($e) use (&$smallestException) {
+                $smallestException = $e;
+            })
+            ->execute();
 
         while ($newValues = $this->shrink()) {
             try {

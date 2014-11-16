@@ -35,7 +35,7 @@ final class Evaluation
                 $this->assertion, $this->values
             );
         } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-            call_user_func($this->onFailure);
+            call_user_func($this->onFailure, $e);
         }
     }
 }
