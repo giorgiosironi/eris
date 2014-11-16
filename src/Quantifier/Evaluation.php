@@ -44,8 +44,7 @@ final class Evaluation
                 $this->assertion, $this->values
             );
         } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-            // TODO: change order of arguments
-            call_user_func($this->onFailure, $e, $this->values);
+            call_user_func($this->onFailure, $this->values, $e);
             return;
         }
         call_user_func_array($this->onSuccess, $this->values);

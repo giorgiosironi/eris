@@ -19,7 +19,7 @@ class Shrinking
         $smallestException = null;
         Evaluation::of($this->assertion)
             ->with($values)
-            ->onFailure(function($e) use (&$smallestException) {
+            ->onFailure(function($values, $e) use (&$smallestException) {
                 $smallestException = $e;
             })
             ->execute();
@@ -30,7 +30,7 @@ class Shrinking
             $this->lastTriedValues = $newValues;
             Evaluation::of($this->assertion)
                 ->with($newValues)
-                ->onFailure(function($e, $newValues) use (&$smallestValues, &$smallestException, &$break) {
+                ->onFailure(function($newValues, $e) use (&$smallestValues, &$smallestException, &$break) {
                     $smallestValues = $newValues;
                     $smallestException = $e;
                     $break = false;
