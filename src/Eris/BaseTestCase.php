@@ -3,15 +3,7 @@ namespace Eris;
 
 abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
-    private $iterations = 100;
+    use TestTrait;
 
-    protected function forAll($generators)
-    {
-        return new Quantifier\ForAll($generators, $this->iterations, $this);
-    }
-
-    protected function genNat()
-    {
-        return new Generator\Natural();
-    }
+    protected $iterations = 100;
 }
