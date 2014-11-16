@@ -7,3 +7,4 @@
 - extract Trait for non-invasive use in PHPUnit test cases
 - explicit dependency on PHP 5.4 in composer.json
 - license?
+- rename Integer to Natural

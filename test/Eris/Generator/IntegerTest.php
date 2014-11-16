@@ -30,4 +30,12 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($lastValue - 1, $generator->shrink());
         $this->assertEquals($lastValue - 2, $generator->shrink());
     }
+
+    public function testCannotShrinkBelowZero()
+    {
+        $generator = new Integer($lowerLimit = 1, $upperLimit = 1);
+        $lastValue = $generator();
+        $this->assertEquals(0, $generator->shrink());
+        $this->assertEquals(0, $generator->shrink());
+    }
 }
