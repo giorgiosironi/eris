@@ -14,4 +14,9 @@ trait TestTrait
     {
         return new Generator\Natural();
     }
+
+    protected function sample(Generator $generator, $size = 10)
+    {
+        return Sample::of($generator)->withSize($size);
+    }
 }

@@ -2,5 +2,6 @@
 -- which leads to reproducibility
 - Generator interface
 -- the uniform distribution for genInt may be ok, but what should be the initial upper limit?
+- implies()
 - shrinking of generators A and B should continue shrinking B after A has arrived to the smallest value that still fails (see testEqualToReferencePhpImplementation).
 - readme
