@@ -22,4 +22,12 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
             $this->assertLessThan(1200, $bucketValue);
         }
     }
+
+    public function testShrinksLinearly()
+    {
+        $generator = new Integer(1, $upperLimit = 1000);
+        $lastValue = $generator();
+        $this->assertEquals($lastValue - 1, $generator->shrink());
+        $this->assertEquals($lastValue - 2, $generator->shrink());
+    }
 }
