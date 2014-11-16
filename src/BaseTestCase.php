@@ -9,11 +9,6 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         return new Quantifier\ForAll($generators, $this->iterations, $this);
     }
 
-    protected function genVector($elementGenerator)
-    {
-        return new Generator\Vector($elementGenerator);
-    } 
-
     protected function genInt()
     {
         return new Generator\Integer();
