@@ -1,11 +1,12 @@
 <?php
 namespace Generator;
+use GeneratorInterface;
 
 /**
  * Note: for implementation simplicity, right now this is just
  * a PositiveInteger generator.
  */
-class Integer
+class Integer implements GeneratorInterface
 {
     public function __construct()
     {
