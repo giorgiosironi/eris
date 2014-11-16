@@ -12,7 +12,7 @@ class ListConcatenationTest extends BaseTestCase
     public function testRightIdentityElement()
     {
         $this->forAll([
-            'number' => $this->genInt(),
+            $this->genInt(),
         ])
             ->__invoke(function($number) {
                 $this->assertEquals(
@@ -26,7 +26,7 @@ class ListConcatenationTest extends BaseTestCase
     public function testLeftIdentityElement()
     {
         $this->forAll([
-            'number' => $this->genInt(),
+            $this->genInt(),
         ])
             ->__invoke(function($number) {
                 $this->assertEquals(
@@ -40,8 +40,8 @@ class ListConcatenationTest extends BaseTestCase
     public function testEqualToReferencePhpImplementation()
     {
         $this->forAll([
-            'first' => $this->genInt(),
-            'second' => $this->genInt(),
+            $this->genInt(),
+            $this->genInt(),
         ])
             ->__invoke(function($first, $second) {
                 $this->assertEquals(
