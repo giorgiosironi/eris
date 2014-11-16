@@ -31,7 +31,8 @@ class ListConcatenationTest extends BaseTestCase
             ->__invoke(function($first, $second) {
                 $this->assertEquals(
                     $first + $second,
-                    my_sum($first, $second)
+                    my_sum($first, $second),
+                    "Summing $first and $second"
                 );
             });
     }

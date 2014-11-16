@@ -5,6 +5,7 @@ class Shrinking
 {
     private $generators;
     private $assertion;
+    private $generatorToShrink = 0;
     
     public function __construct(array $generators, callable $assertion)
     {
@@ -26,6 +27,7 @@ class Shrinking
 
         while ($newValues = $this->shrink()) {
             try {
+                $this->lastTriedValues = $newValues;
                 call_user_func_array($this->assertion, $newValues);
                 break;
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
@@ -41,9 +43,13 @@ class Shrinking
     private function shrink()
     {
         $values = $this->lastTriedValues;
-        $newFirstValue = array_values($this->generators)[0]->shrink();
-        $firstKey = array_keys($values)[0];
+        $newFirstValue = array_values($this->generators)[$this->generatorToShrink]->shrink();
+        $firstKey = array_keys($values)[$this->generatorToShrink];
         $values[$firstKey] = $newFirstValue;
+        $this->generatorToShrink++;
+        if ($this->generatorToShrink == count($this->generators)) {
+            $this->generatorToShrink = 0;
+        }
         return $values;
     }
 }

@@ -18,6 +18,9 @@ class Integer
 
     public function shrink()
     {
+        if ($this->lastGenerated == 0) {
+            return;
+        }
         $this->lastGenerated--;
         return $this->lastGenerated;
     }
