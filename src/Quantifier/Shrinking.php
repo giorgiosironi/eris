@@ -22,6 +22,7 @@ class Shrinking
                 $smallestException = $e;
             })
             ->execute();
+        $this->lastTriedValues = $values;
 
         while ($newValues = $this->shrink()) {
             try {
@@ -39,10 +40,10 @@ class Shrinking
 
     private function shrink()
     {
-        array_values($this->generators)[0]->shrink();
-        foreach ($this->generators as $name => $generator) {
-            $values[] = $generator();
-        }
+        $values = $this->lastTriedValues;
+        $newFirstValue = array_values($this->generators)[0]->shrink();
+        $firstKey = array_keys($values)[0];
+        $values[$firstKey] = $newFirstValue;
         return $values;
     }
 }

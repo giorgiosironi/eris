@@ -7,16 +7,18 @@ class Integer
     {
         $this->lowerLimit = 1;
         $this->upperLimit = 1000;
+        $this->lastGenerated = null;
     }
 
     public function __invoke()
     {
-        return rand($this->lowerLimit, $this->upperLimit);
+        $this->lastGenerated = rand($this->lowerLimit, $this->upperLimit);
+        return $this->lastGenerated;
     }
 
     public function shrink()
     {
-        $this->upperLimit--;
-        return $this;
+        $this->lastGenerated--;
+        return $this->lastGenerated;
     }
 }
