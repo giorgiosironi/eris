@@ -8,10 +8,10 @@ use Eris\Generator;
  */
 class Integer implements Generator
 {
-    public function __construct()
+    public function __construct($lowerLimit = 1, $upperLimit = 1000)
     {
-        $this->lowerLimit = 1;
-        $this->upperLimit = 1000;
+        $this->lowerLimit = $lowerLimit;
+        $this->upperLimit = $upperLimit;
         $this->lastGenerated = null;
     }
 
