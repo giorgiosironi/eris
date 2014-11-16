@@ -4,7 +4,6 @@
 -- the uniform distribution for genInt may be ok, but what should be the initial upper limit?
 - shrinking of generators A and B should continue shrinking B after A has arrived to the smallest value that still fails (see testEqualToReferencePhpImplementation).
 - extract Trait for non-invasive use in PHPUnit test cases
-- explicit dependency on PHP 5.4 in composer.json
 - readme
 - license?
 - limits to shrinking in algorithm: all cases may fail
