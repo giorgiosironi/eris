@@ -37,7 +37,6 @@ class Shrinking
             }
         }
         throw $smallestException;
-
     }
 
     private function shrink()
