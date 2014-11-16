@@ -1,4 +1,5 @@
 <?php
+namespace Eris;
 
 class BaseTestCase extends \PHPUnit_Framework_TestCase
 {

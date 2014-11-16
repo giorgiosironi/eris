@@ -1,6 +1,6 @@
 <?php
-namespace Generator;
-use GeneratorInterface;
+namespace Eris\Generator;
+use Eris\GeneratorInterface;
 
 /**
  * Note: for implementation simplicity, right now this is just

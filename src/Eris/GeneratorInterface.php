@@ -1,4 +1,5 @@
 <?php
+namespace Eris;
 
 /**
  * TODO: rename to Generator once inside a Brioche\ namespace.

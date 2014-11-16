@@ -1,5 +1,5 @@
 <?php
-namespace Quantifier;
+namespace Eris\Quantifier;
 use PHPUnit_Framework_AssertionFailedError;
 
 class Shrinking

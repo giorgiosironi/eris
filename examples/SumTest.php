@@ -1,4 +1,6 @@
 <?php
+use Eris\BaseTestCase;
+
 function my_sum($first, $second)
 {
     if ($first >= 42) {

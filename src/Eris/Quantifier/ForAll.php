@@ -1,5 +1,5 @@
 <?php
-namespace Quantifier;
+namespace Eris\Quantifier;
 
 class ForAll
 {
