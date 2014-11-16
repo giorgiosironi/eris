@@ -12,7 +12,7 @@ trait TestTrait
 
     protected function genNat()
     {
-        return new Generator\Natural();
+        return new Generator\Natural(0, $this->iterations * 10);
     }
 
     protected function sample(Generator $generator, $size = 10)

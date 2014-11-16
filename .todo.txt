@@ -1,7 +1,9 @@
-- independent seed initialization of generators
--- which leads to reproducibility
-- Generator interface
--- the uniform distribution for genInt may be ok, but what should be the initial upper limit?
+Features
+- independent seed initialization of generators, which leads to reproducibility
 - implies()
-- shrinking of generators A and B should continue shrinking B after A has arrived to the smallest value that still fails (see testEqualToReferencePhpImplementation).
-- readme
+- 3D shrinking (or N-D): if generators A and B are shrinking, after A has arrived to the smallest value that still fails B should continue shrinking (see testEqualToReferencePhpImplementation).
+- More and more generators, starting from Vector
+
+Clarifications
+-- the uniform distribution for genInt may be ok, but what should be the initial upper limit? Now it's 10 * $iterations
+- readme should contains a detailed description
