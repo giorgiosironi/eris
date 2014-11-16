@@ -17,7 +17,22 @@ class ListConcatenationTest extends BaseTestCase
             ->__invoke(function($number) {
                 $this->assertEquals(
                     $number,
-                    my_sum($number, 0)
+                    my_sum($number, 0),
+                    "Summing $number to 0"
+                );
+            });
+    }
+
+    public function testLeftIdentityElement()
+    {
+        $this->forAll([
+            'number' => $this->genInt(),
+        ])
+            ->__invoke(function($number) {
+                $this->assertEquals(
+                    $number,
+                    my_sum(0, $number),
+                    "Summing 0 to $number"
                 );
             });
     }
