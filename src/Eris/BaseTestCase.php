@@ -1,7 +1,7 @@
 <?php
 namespace Eris;
 
-class BaseTestCase extends \PHPUnit_Framework_TestCase
+abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
     private $iterations = 100;
 
