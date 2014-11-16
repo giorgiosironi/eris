@@ -19,4 +19,9 @@ trait TestTrait
     {
         return Sample::of($generator)->withSize($size);
     }
+
+    protected function sampleShrink(Generator $generator)
+    {
+        return Sample::of($generator)->shrink();
+    }
 }

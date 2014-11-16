@@ -23,4 +23,18 @@ class Sample
         }        
         return $this;
     }
+
+    public function shrink()
+    {
+        $this->collected[] = $this->generator->__invoke();
+        $lastValues = null;
+        while ($values = $this->generator->shrink()) {
+            if ($values === $lastValues) {
+                break;
+            }
+            $this->collected[] = $values;
+            $lastValues = $values;
+        }
+        return $this;
+    }
 }

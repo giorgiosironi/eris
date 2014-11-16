@@ -9,4 +9,10 @@ class SampleTest extends \PHPUnit_Framework_TestCase
         $generator = $this->genNat();
         var_dump($this->sample($generator));
     }    
+
+    public function testSamplingShrinking()
+    {
+        $generator = $this->genNat();
+        var_dump($this->sampleShrink($generator));
+    }    
 }
