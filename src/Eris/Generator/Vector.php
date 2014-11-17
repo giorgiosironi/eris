@@ -26,7 +26,7 @@ class Vector implements Generator
 
     public function shrink()
     {
-        $elementsToShrink = rand(1, (int)(($this->size - 1)/2));
+        $elementsToShrink = rand(1, (int)($this->size/2));
 
         for ($i = 0; $i < $elementsToShrink; $i++) {
             $elementToShrink = rand(0, $this->size - 1);
