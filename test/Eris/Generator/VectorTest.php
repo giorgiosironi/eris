@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class NaturalTest extends \PHPUnit_Framework_TestCase
+class VectorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
