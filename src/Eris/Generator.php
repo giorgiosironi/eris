@@ -15,4 +15,10 @@ interface Generator
      * @return T
      */
     public function shrink();
+
+    /**
+     * @param mixed
+     * @return boolean
+     */
+    public function contains($element);
 }
