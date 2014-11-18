@@ -29,12 +29,19 @@ class Vector implements Generator
     public function shrink()
     {
         $elementsToShrink = rand(1, (int)($this->size/2));
+        $attempts = 10;
 
-        for ($i = 0; $i < $elementsToShrink; $i++) {
+        while ($elementsToShrink > 0 && $attempts > 0) {
             $elementToShrink = rand(0, $this->size - 1);
 
-            $shrinkedElement = $this->generators[$elementToShrink]->shrink();
-            $this->lastGeneratedVector[$elementToShrink] = $shrinkedElement;
+            $shrinkedValue = $this->generators[$elementToShrink]->shrink();
+
+            if ($shrinkedValue === $this->lastGeneratedVector[$elementToShrink]) {
+                $attempts--;
+                continue;
+            }
+            $elementsToShrink--;
+            $this->lastGeneratedVector[$elementToShrink] = $shrinkedValue;
         }
 
         return $this->lastGeneratedVector;
