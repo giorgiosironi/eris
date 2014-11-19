@@ -24,4 +24,13 @@ class Natural implements Generator
         }
         return $this->lastGenerated;
     }
+
+    public function contains($element)
+    {
+        return is_numeric($element)
+            && ($element === (int) floor($element))
+            && ($element === (int) ceil($element))
+            && ($element >= $this->lowerLimit)
+            && ($element <= $this->upperLimit);
+    }
 }
