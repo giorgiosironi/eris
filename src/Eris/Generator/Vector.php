@@ -5,28 +5,26 @@ use Eris\Generator;
 class Vector implements Generator
 {
     private $size;
-    private $generators;
     private $elementsGenerator;
-    private $lastGeneratedVector;
 
     public function __construct($size = 1, Generator $elementsGenerator)
     {
         $this->size = $size;
-        $this->generators = $this->initialize(
-            $size,
-            $elementsGenerator
-        );
         $this->elementsGenerator = $elementsGenerator;
     }
 
     public function __invoke()
     {
-        $this->lastGeneratedVector = $this->pick();
+        $generator = $this->elementsGenerator;
+        $sampleVector = [];
+        for ($i = 0; $i < $this->size; $i++) {
+            $sampleVector[] = $generator();
+        }
 
-        return $this->lastGeneratedVector;
+        return $sampleVector;
     }
 
-    public function shrink()
+    public function shrink($vector)
     {
         $elementsToShrink = rand(1, (int)($this->size/2));
         $attempts = 10;
@@ -34,17 +32,17 @@ class Vector implements Generator
         while ($elementsToShrink > 0 && $attempts > 0) {
             $elementToShrink = rand(0, $this->size - 1);
 
-            $shrinkedValue = $this->generators[$elementToShrink]->shrink();
+            $shrinkedValue = $this->elementsGenerator->shrink($vector[$elementToShrink]);
 
-            if ($shrinkedValue === $this->lastGeneratedVector[$elementToShrink]) {
+            if ($shrinkedValue === $vector[$elementToShrink]) {
                 $attempts--;
                 continue;
             }
             $elementsToShrink--;
-            $this->lastGeneratedVector[$elementToShrink] = $shrinkedValue;
+            $vector[$elementToShrink] = $shrinkedValue;
         }
 
-        return $this->lastGeneratedVector;
+        return $vector;
     }
 
     public function contains($generatedVector)
@@ -62,26 +60,5 @@ class Vector implements Generator
         }
 
         return true;
-    }
-
-    private function initialize($size, Generator $generator)
-    {
-        $vector = [];
-        for ($i = 0; $i < $size; $i++) {
-            $elementGenerator = clone $generator;
-            $vector[] = $elementGenerator;
-        }
-
-        return $vector;
-    }
-
-    private function pick()
-    {
-        $sampleVector = [];
-        foreach ($this->generators as $elementGenerator) {
-            $sampleVector[] = $elementGenerator();
-        }
-
-        return $sampleVector;
     }
 }
