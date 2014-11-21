@@ -8,21 +8,19 @@ class Natural implements Generator
     {
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
-        $this->lastGenerated = null;
     }
 
     public function __invoke()
     {
-        $this->lastGenerated = rand($this->lowerLimit, $this->upperLimit);
-        return $this->lastGenerated;
+        return rand($this->lowerLimit, $this->upperLimit);
     }
 
-    public function shrink()
+    public function shrink($element)
     {
-        if ($this->lastGenerated > 0) {
-            $this->lastGenerated--;
+        if ($element > 0) {
+            $element--;
         }
-        return $this->lastGenerated;
+        return $element;
     }
 
     public function contains($element)

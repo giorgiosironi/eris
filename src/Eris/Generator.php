@@ -12,9 +12,10 @@ interface Generator
     public function __invoke();
 
     /**
+     * @param T
      * @return T
      */
-    public function shrink();
+    public function shrink($element);
 
     /**
      * @param mixed

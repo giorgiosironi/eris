@@ -32,7 +32,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
 
         $previousSum = array_reduce($vector, $this->sum);
         for ($i = 0; $i < 15; $i++) {
-            $vector = $generator->shrink();
+            $vector = $generator->shrink($vector);
             $currentSum = array_reduce($vector, $this->sum);
             $this->assertLessThanOrEqual($previousSum, $currentSum);
             $previousSum = $currentSum;
