@@ -66,6 +66,21 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             });
     }
 
+    public function testMultipleSuchThatClauses()
+    {
+        $this->forAll([
+            $this->genNat(),
+        ])
+            ->suchThat($this->greaterThan(42))
+            ->suchThat($this->lessThan(900))
+            ->__invoke(function($number) {
+                $this->assertTrue(
+                    $number > 42 && $number < 900,
+                    "\$number was filtered to be between 42 and 900, but it is $number"
+                );
+            });
+    }
+
     public function testSuchThatWhichSkipsTooManyValues()
     {
         $this->forAll([
