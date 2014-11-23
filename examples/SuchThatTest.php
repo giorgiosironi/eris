@@ -78,4 +78,23 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    /**
+     * The current implementation shows no problem as PHPUnit prefers to show 
+     * the exception from the test method than the one from teardown
+     * when both fail.
+     */
+    public function testSuchThatFailingWillNaturallyHaveALowEvaluationRatioSoWeDontWantThatErrorToObscureTheTrueOne()
+    {
+        $this->forAll([
+            $this->genNat(),
+        ])
+            ->suchThat($this->greaterThan(100))
+            ->__invoke(function($number) {
+                $this->assertTrue(
+                    $number <= 100,
+                    "\$number should be less or equal to 100, but it is $number"
+                );
+            });
+    }
 }
