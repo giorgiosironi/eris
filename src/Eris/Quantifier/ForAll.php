@@ -13,8 +13,22 @@ class ForAll
         $this->iterations = $iterations;
     }
 
-    public function suchThat(callable $antecedent)
+    /**
+     * Examples of calls:
+     * suchThat($matcher1, $matcher2, ..., $matcherN)
+     * suchThat(callable $takesNArguments)
+     * @return self
+     */
+    public function suchThat(/* see docblock */)
     {
+        $arguments = func_get_args();
+        if ($arguments[0] instanceof \PHPUnit_Framework_Constraint) {
+            $antecedent = Antecedent::fromConstraints($arguments);
+        } else if ($arguments && count($arguments) == 1) {
+            $antecedent = Antecedent::fromCallback($arguments[0]);
+        } else {
+            throw new \InvalidArgumentException("Invalid call to suchThat: " . var_export($arguments, true));
+        }
         $this->antecedents[] = $antecedent; 
         return $this;
     }
@@ -27,7 +41,10 @@ class ForAll
                 $values[] = $generator();
             }
             foreach ($this->antecedents as $antecedentToVerify) {
-                if (!call_user_func_array($antecedentToVerify, $values)) {
+                if (!call_user_func(
+                    [$antecedentToVerify, 'evaluate'],
+                    $values
+                )) {
                     continue 2;
                 }
             }
