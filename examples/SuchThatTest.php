@@ -65,4 +65,17 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testSuchThatWhichSkipsTooManyValues()
+    {
+        $this->forAll([
+            $this->genNat(),
+        ])
+            ->suchThat($this->greaterThan(800))
+            ->__invoke(function($number) {
+                $this->assertTrue(
+                    $number > 800
+                );
+            });
+    }
 }

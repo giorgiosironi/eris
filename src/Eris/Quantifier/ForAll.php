@@ -6,6 +6,7 @@ class ForAll
     private $generators;
     private $iterations;
     private $antecedents = [];
+    private $evaluations = 0;
     
     public function __construct(array $generators, $iterations)
     {
@@ -15,7 +16,7 @@ class ForAll
 
     /**
      * Examples of calls:
-     * suchThat($matcher1, $matcher2, ..., $matcherN)
+     * suchThat($constraint1, $constraint2, ..., $constraintN)
      * suchThat(callable $takesNArguments)
      * @return self
      */
@@ -49,6 +50,7 @@ class ForAll
                     continue 2;
                 }
             }
+            $this->evaluations++;
             Evaluation::of($assertion)
                 ->with($values)
                 ->onFailure(function($values, $exception) use ($assertion) {
@@ -57,5 +59,10 @@ class ForAll
                 })
                 ->execute();
         }
+    }
+
+    public function evaluationRatio()
+    {
+        return $this->evaluations / $this->iterations;
     }
 }
