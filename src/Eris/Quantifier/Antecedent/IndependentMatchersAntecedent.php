@@ -1,8 +1,9 @@
 <?php
 namespace Eris\Quantifier\Antecedent;
 use PHPUnit_Framework_ExpectationFailedException;
+use Eris\Quantifier\Antecedent;
 
-class IndependentMatchersAntecedent
+class IndependentMatchersAntecedent implements Antecedent
 {
     private $constraints;
     

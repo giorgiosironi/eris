@@ -1,7 +1,8 @@
 <?php
 namespace Eris\Quantifier\Antecedent;
+use Eris\Quantifier\Antecedent;
 
-class SingleCallbackAntecedent
+class SingleCallbackAntecedent implements Antecedent
 {
     private $callback;
 
