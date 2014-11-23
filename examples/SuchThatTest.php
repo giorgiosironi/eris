@@ -37,7 +37,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             });
     }
 
-    public function testSuchThatWithOnePHPUnitMatcher()
+    public function testSuchThatWithOnePHPUnitConstraint()
     {
         $this->forAll([
             $this->genNat(),
@@ -51,7 +51,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             });
     }
 
-    public function testSuchThatWithMultiplePHPUnitMatchers()
+    public function testSuchThatWithMultiplePHPUnitConstraints()
     {
         $this->forAll([
             $this->genNat(),

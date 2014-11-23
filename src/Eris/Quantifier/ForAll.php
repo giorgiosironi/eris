@@ -23,7 +23,7 @@ class ForAll
     {
         $arguments = func_get_args();
         if ($arguments[0] instanceof \PHPUnit_Framework_Constraint) {
-            $antecedent = Antecedent\IndependentMatchersAntecedent::fromAll($arguments);
+            $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
         } else if ($arguments && count($arguments) == 1) {
             $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
