@@ -26,14 +26,14 @@ class Sample
 
     public function shrink()
     {
-        $lastValues = $this->generator->__invoke();
-        $this->collected[] = $lastValues;
-        while ($values = $this->generator->shrink($lastValues)) {
-            if ($values === $lastValues) {
+        $lastValue = $this->generator->__invoke();
+        $this->collected[] = $lastValue;
+        while ($value = $this->generator->shrink($lastValue)) {
+            if ($value === $lastValue) {
                 break;
             }
-            $this->collected[] = $values;
-            $lastValues = $values;
+            $this->collected[] = $value;
+            $lastValue = $value;
         }
         return $this;
     }
