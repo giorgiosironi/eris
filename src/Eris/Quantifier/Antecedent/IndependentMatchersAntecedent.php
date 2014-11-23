@@ -1,22 +1,16 @@
 <?php
-namespace Eris\Quantifier;
-use PHPUnit_Framework_Constraint_Callback;
+namespace Eris\Quantifier\Antecedent;
 use PHPUnit_Framework_ExpectationFailedException;
 
-class Antecedent
+class IndependentMatchersAntecedent
 {
     private $constraints;
     
-    public static function fromConstraints($constraints)
+    public static function fromAll($constraints)
     {
         return new self($constraints);
     }
 
-    public static function fromCallback($callback)
-    {
-        return new self([new PHPUnit_Framework_Constraint_Callback($callback)]);
-    }
-    
     private function __construct($constraints)
     {
         $this->constraints = $constraints;
@@ -25,6 +19,7 @@ class Antecedent
     public function evaluate(array $values)
     {
         for ($i = 0; $i < count($this->constraints); $i++) {
+            // TODO: use Evaluation object?
             try {
                 $this->constraints[$i]->evaluate($values[$i]);
             } catch (PHPUnit_Framework_ExpectationFailedException $e) {
