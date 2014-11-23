@@ -1,5 +1,6 @@
 Features
 - independent seed initialization of generators, which leads to reproducibility
+-- check out https://github.com/ircmaxell/RandomLib/blob/master/composer.json
 - implies()
 - 3D shrinking (or N-D): if generators A and B are shrinking, after A has arrived to the smallest value that still fails B should continue shrinking (see testEqualToReferencePhpImplementation).
 - More and more generators, starting from Vector
