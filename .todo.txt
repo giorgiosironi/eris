@@ -5,6 +5,23 @@ Features
 - 3D shrinking (or N-D): if generators A and B are shrinking, after A has arrived to the smallest value that still fails B should continue shrinking (see testEqualToReferencePhpImplementation).
 - More and more generators, starting from Vector
 
+Ideas from ScalaCheck book
+- As you can see, classify accepts one or two labels after the classification condition, depending on how explicit you want the distribution report to be. The labels can be of any type; 
+- Prop.throws is a boolean method that returns true only if a certain exception is thrown when a given expression is evaluated. 
+- When ScalaCheck finds a case that fulfills an existential property, it reports the property as proved instead of passed as it does for universally quantified properties. 
+- Gen.choose to create a generator that returns a random number in a specified inclusive interval. 
+- c1 <- Gen.numChar c2 <- Gen.alphaUpperChar c3 <- Gen.alphaLowerChar c4 <- Gen.alphaChar c5 <- Gen.alphaNumChar } 
+- Gen.const takes any value and wraps it inside a generator. Anytime that generator is evaluated it returns this value. 
+- Gen.frequency takes a list of pairs of integers and generators. It then returns a new generator, which uses the provided generators to generate values with the integers as probability weights. 
+- Gen.oneOf takes two or more generators and returns a new generator that randomly picks one of the given generators 
+- Gen.listOf is a generator combinator that takes another generator as its parameter. When evaluated, listOf will generate lists of random lengths, using the given generator to produce the list elements. 
+- The Shrink type is a class with only one method, named shrink: trait Shrink[T] { def shrink(x: T): scala.collection.immutable.Stream[T] } 
+- On each iteration, a generator size is calculated. The size is used by some generators to decide how they should produce data. You can see more about this in Chapter 6 . The calculated size depends on the testing parameters and on the current iteration index. 
+- The minSuccessfulTests parameter tells ScalaCheck how many times a property must evaluate to true before it should be considered passed. The default value is 100. 
+- When testing a property, ScalaCheck starts with the value of the minimum size parameter for the generators, then increases it in a linear fashion up to the value of the maximum size parameter. By default, the lower bound is zero and the upper bound is 100. 
+
+
+
 Clarifications
 -- the uniform distribution for genInt may be ok, but what should be the initial upper limit? Now it's 10 * $iterations
 - readme should contains a detailed description
