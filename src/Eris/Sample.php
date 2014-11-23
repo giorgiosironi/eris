@@ -26,9 +26,9 @@ class Sample
 
     public function shrink()
     {
-        $this->collected[] = $this->generator->__invoke();
-        $lastValues = null;
-        while ($values = $this->generator->shrink()) {
+        $lastValues = $this->generator->__invoke();
+        $this->collected[] = $lastValues;
+        while ($values = $this->generator->shrink($lastValues)) {
             if ($values === $lastValues) {
                 break;
             }
