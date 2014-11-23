@@ -53,7 +53,8 @@ class RoundRobinShrinking
     private function shrink()
     {
         $values = $this->lastTriedValues;
-        $newFirstValue = array_values($this->generators)[$this->generatorToShrink]->shrink();
+        $oldFirstValue = $this->lastTriedValues[$this->generatorToShrink];
+        $newFirstValue = array_values($this->generators)[$this->generatorToShrink]->shrink($oldFirstValue);
         $firstKey = array_keys($values)[$this->generatorToShrink];
         $values[$firstKey] = $newFirstValue;
         $this->generatorToShrink++;
