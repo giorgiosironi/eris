@@ -5,11 +5,18 @@ class ForAll
 {
     private $generators;
     private $iterations;
+    private $antecedents = [];
     
     public function __construct(array $generators, $iterations)
     {
         $this->generators = $generators;
         $this->iterations = $iterations;
+    }
+
+    public function suchThat(callable $antecedent)
+    {
+        $this->antecedents[] = $antecedent; 
+        return $this;
     }
 
     public function __invoke($assertion)
@@ -18,6 +25,11 @@ class ForAll
             $values = [];
             foreach ($this->generators as $name => $generator) {
                 $values[] = $generator();
+            }
+            foreach ($this->antecedents as $antecedentToVerify) {
+                if (!call_user_func_array($antecedentToVerify, $values)) {
+                    continue 2;
+                }
             }
             Evaluation::of($assertion)
                 ->with($values)
