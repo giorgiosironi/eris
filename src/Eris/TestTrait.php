@@ -6,6 +6,7 @@ trait TestTrait
 {
     private $quantifiers = [];
     protected $iterations = 100;
+    // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
 
     /**
