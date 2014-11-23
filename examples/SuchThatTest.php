@@ -20,7 +20,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             });
     }
 
-    public function testSuchThatWithPHPUnitMatchers()
+    public function testSuchThatWithOnePHPUnitMatchers()
     {
         $this->forAll([
             $this->genNat(),
@@ -30,6 +30,21 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 $this->assertTrue(
                     $number > 42,
                     "\$number was filtered to be more than 42, but it's $number"
+                );
+            });
+    }
+
+    public function testSuchThatWithMultiplePHPUnitMatchers()
+    {
+        $this->forAll([
+            $this->genNat(),
+            $this->genNat(),
+        ])
+            ->suchThat($this->greaterThan(42), $this->greaterThan(23))
+            ->__invoke(function($first, $second) {
+                $this->assertTrue(
+                    $first + $second > 42 + 23,
+                    "\$first and \$second were filtered to be more than 42 and 23, but they are $first and $second"
                 );
             });
     }

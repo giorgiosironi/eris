@@ -38,7 +38,8 @@ class ForAll
         for ($i = 0; $i < $this->iterations; $i++) {
             $values = [];
             foreach ($this->generators as $name => $generator) {
-                $values[] = $generator();
+                $value = $generator();
+                $values[] = $value;
             }
             foreach ($this->antecedents as $antecedentToVerify) {
                 if (!call_user_func(
