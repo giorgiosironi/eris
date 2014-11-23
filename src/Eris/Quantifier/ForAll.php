@@ -25,7 +25,7 @@ class ForAll
         if ($arguments[0] instanceof \PHPUnit_Framework_Constraint) {
             $antecedent = Antecedent::fromConstraints($arguments);
         } else if ($arguments && count($arguments) == 1) {
-            $antecedent = Antecedent::fromCallback($arguments[0]);
+            $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
             throw new \InvalidArgumentException("Invalid call to suchThat: " . var_export($arguments, true));
         }
