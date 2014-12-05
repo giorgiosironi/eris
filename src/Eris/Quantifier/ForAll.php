@@ -1,5 +1,7 @@
 <?php
 namespace Eris\Quantifier;
+use BadMethodCallException;
+use PHPUnit_Framework_Constraint;
 
 class ForAll
 {
@@ -7,6 +9,15 @@ class ForAll
     private $iterations;
     private $antecedents = [];
     private $evaluations = 0;
+    private $aliases = [
+        'andAlso' => 'when',
+        'theCondition' => 'when',
+        'andTheCondition' => 'when',
+        'andAlso' => 'when',
+        'then' => '__invoke',
+        'implies' => '__invoke',
+        'imply' => '__invoke',
+    ];
     
     public function __construct(array $generators, $iterations)
     {
@@ -16,19 +27,19 @@ class ForAll
 
     /**
      * Examples of calls:
-     * suchThat($constraint1, $constraint2, ..., $constraintN)
-     * suchThat(callable $takesNArguments)
+     * when($constraint1, $constraint2, ..., $constraintN)
+     * when(callable $takesNArguments)
      * @return self
      */
-    public function suchThat(/* see docblock */)
+    public function when(/* see docblock */)
     {
         $arguments = func_get_args();
-        if ($arguments[0] instanceof \PHPUnit_Framework_Constraint) {
+        if ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
             $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
         } else if ($arguments && count($arguments) == 1) {
             $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
-            throw new \InvalidArgumentException("Invalid call to suchThat: " . var_export($arguments, true));
+            throw new \InvalidArgumentException("Invalid call to when(): " . var_export($arguments, true));
         }
         $this->antecedents[] = $antecedent; 
         return $this;
@@ -59,6 +70,23 @@ class ForAll
                 })
                 ->execute();
         }
+    }
+
+    /**
+     * @see $this->aliases
+     * @method then($assertion)
+     * @method implies($assertion)
+     * @method imply($assertion)
+     */
+    public function __call($method, $arguments)
+    {
+        if (isset($this->aliases[$method])) {
+            return call_user_func_array(
+                [$this, $this->aliases[$method]],
+                $arguments
+            );
+        }
+        throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
     }
 
     public function evaluationRatio()
