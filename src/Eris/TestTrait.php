@@ -1,13 +1,34 @@
 <?php
 namespace Eris;
+use OutOfBoundsException;
 
 trait TestTrait
 {
+    private $quantifiers = [];
     protected $iterations = 100;
+    // TODO: what is the correct name for this concept?
+    protected $minimumEvaluationRatio = 0.5;
+
+    /**
+     * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
+     * in your tearDown() method.
+     * @after
+     */
+    public function checkConstraintsHaveNotSkippedTooManyIterations()
+    {
+        foreach ($this->quantifiers as $quantifier) {
+            $evaluationRatio = $quantifier->evaluationRatio();
+            if ($evaluationRatio < $this->minimumEvaluationRatio) {
+                throw new OutOfBoundsException("Evaluation ratio {$evaluationRatio} is under the threshold {$this->minimumEvaluationRatio}");
+            }
+        }
+    }
 
     protected function forAll($generators)
     {
-        return new Quantifier\ForAll($generators, $this->iterations, $this);
+        $quantifier = new Quantifier\ForAll($generators, $this->iterations, $this);
+        $this->quantifiers[] = $quantifier;
+        return $quantifier;
     }
 
     protected function genNat()
