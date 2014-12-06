@@ -36,6 +36,11 @@ trait TestTrait
         return new Generator\Natural(0, $this->iterations * 10);
     }
 
+    protected function genString()
+    {
+        return new Generator\String($this->iterations * 10);
+    }
+
     protected function sample(Generator $generator, $size = 10)
     {
         return Sample::of($generator)->withSize($size);
