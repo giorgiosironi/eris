@@ -20,6 +20,29 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(127 - 32, count($usedChars));
     }
 
+    public function testShrinksByChoppingOffChars()
+    {
+        $generator = new String(10);
+        $lastValue = $generator();
+        $this->assertEquals('abcde', $generator->shrink('abcdef'));
+    }
+
+    public function testCannotShrinkTheEmptyString()
+    {
+        $generator = new String(10);
+        $lastValue = $generator();
+        $this->assertEquals('', $generator->shrink(''));
+    }
+
+    public function testContainsIsBasedOnLength()
+    {
+        // TODO: what exactly contains() is used for?
+        // is this implementation precise enough?
+        $generator = new String(10);
+        $this->assertTrue($generator->contains('abcdefghij'), 'The generator should contain 10-char strings');
+        $this->assertFalse($generator->contains('abcdefghijl'), 'The generator should not contain 11-char strings');
+    }
+
     private function accumulateLengths(array $lengths, $length)
     {
         if (!isset($lengths[$length])) {

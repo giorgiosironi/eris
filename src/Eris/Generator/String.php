@@ -23,9 +23,11 @@ class String implements Generator
 
     public function shrink($element)
     {
+        return substr($element, 0, -1);
     }
 
     public function contains($element)
     {
+        return strlen($element) <= $this->maximumLength;
     }
 }
