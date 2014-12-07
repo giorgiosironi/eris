@@ -1,10 +1,14 @@
 {
-    "name": "giorgiosironi/brioches-php",
-    "description": "PHP library for property-based testing.",
+    "name": "giorgiosironi/eris",
+    "description": "PHP library for property-based testing. Integrates with PHPUnit.",
     "authors": [
         {
             "name": "Giorgio Sironi",
             "email": "info@giorgiosironi.com"
+        },
+        {
+            "name": "Mirko Bonadei",
+            "email": "mirko.bonadei@gmail.com"
         }
     ],
     "require": {
