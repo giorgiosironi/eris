@@ -27,15 +27,19 @@ trait TestTrait
     }
 
     /**
+     * Maybe: we could add --filter options to the command here, 
+     * since now the original command is printed.
      * @after
      */
     public function dumpSeedForReproducing()
     {
-        global $argv;
-        $command = "ERIS_SEED={$this->seed} " . implode(" ", $argv);
-        echo PHP_EOL;
-        echo "Reproduce with:", PHP_EOL;
-        echo $command, PHP_EOL;
+        if ($this->hasFailed()) {
+            global $argv;
+            $command = "ERIS_SEED={$this->seed} " . implode(" ", $argv);
+            echo PHP_EOL;
+            echo "Reproduce with:", PHP_EOL;
+            echo $command, PHP_EOL;
+        }
     }
 
     /**
