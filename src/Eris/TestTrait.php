@@ -4,10 +4,39 @@ use OutOfBoundsException;
 
 trait TestTrait
 {
+    // TODO: make this private as much as possible
     private $quantifiers = [];
     protected $iterations = 100;
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
+    protected $seed;
+
+    /**
+     * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
+     * in your setUp() method.
+     * @before
+     */
+    public function seedingRandomNumberGeneration()
+    {
+        if ($seed = getenv('ERIS_SEED')) {
+            $this->seed = $seed;
+        } else {
+            $this->seed = (int) (microtime(true)*1000000);
+        }
+        srand($this->seed);
+    }
+
+    /**
+     * @after
+     */
+    public function dumpSeedForReproducing()
+    {
+        global $argv;
+        $command = "ERIS_SEED={$this->seed} " . implode(" ", $argv);
+        echo PHP_EOL;
+        echo "Reproduce with:", PHP_EOL;
+        echo $command, PHP_EOL;
+    }
 
     /**
      * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
