@@ -34,5 +34,22 @@ class OneOfTest extends BaseTestCase
             });
     }
 
-    // TODO: vector of oneOf
+
+    public function testVectorOfOneOfGenerators()
+    {
+        $this->markTestSkipped("We have not wired the genVector method yet?");
+        $this->forAll([
+            $this->genVector(
+                $this->genOneOf([2, 4, 6, 8, 10, 12])
+            )
+        ])
+            ->__invoke(function($vector) {
+                $sum = array_sum($vector);
+                $isEven = function($number) { return $mumber % 2 == 0; };
+                $this->assertTrue(
+                    $isEven($sum), 
+                    "$sum is not even, but it's the sum of the vector " . var_export($vector, true)
+                );
+            });
+    }
 }
