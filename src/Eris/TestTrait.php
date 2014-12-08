@@ -36,6 +36,11 @@ trait TestTrait
         return new Generator\Natural(0, $this->iterations * 10);
     }
 
+    protected function genVector(Generator $elementGenerator)
+    {
+        return new Generator\Vector($this->iterations * 10, $elementGenerator);
+    }
+
     protected function sample(Generator $generator, $size = 10)
     {
         return Sample::of($generator)->withSize($size);
