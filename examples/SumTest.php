@@ -1,5 +1,4 @@
 <?php
-use Eris\BaseTestCase;
 use Eris\TestTrait;
 
 function my_sum($first, $second)
