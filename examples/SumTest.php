@@ -9,7 +9,7 @@ function my_sum($first, $second)
     return $first + $second;
 }
 
-class ListConcatenationTest extends BaseTestCase
+class SumTest extends BaseTestCase
 {
     public function testRightIdentityElement()
     {
