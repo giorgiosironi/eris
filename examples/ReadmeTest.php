@@ -10,8 +10,8 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
         ])
             ->then(function($number) {
                 $this->assertTrue(
-                    $number > 42,
-                    "\$number is not greater than 42 apparently"
+                    $number < 42,
+                    "$number is not less than 42 apparently"
                 );
             });
     }
