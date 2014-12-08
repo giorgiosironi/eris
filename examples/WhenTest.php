@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Some of these would make good unit tests, but importing them
- * doesn't solve the problem as the more important ones are the failures
- * We need to look into end-to-end testing
- */
 class WhenTest extends \PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
