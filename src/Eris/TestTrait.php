@@ -38,7 +38,12 @@ trait TestTrait
 
     protected function genOneOf(/*$a, $b, ...*/)
     {
-        return Generator\OneOf::fromArray(func_get_args());
+        $arguments = func_get_args();
+        if (count($arguments) == 1) {
+            return Generator\OneOf::fromArray($arguments[0]);
+        } else {
+            return Generator\OneOf::fromArray($arguments);
+        }
     }
 
     protected function sample(Generator $generator, $size = 10)
