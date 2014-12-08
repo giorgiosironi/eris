@@ -28,6 +28,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testOneOfTests()
+    {
+        $this->runExample('OneOfTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     private function runExample($testFile)
     {
         $examplesDir = realpath(__DIR__ . '/../../examples');
