@@ -11,6 +11,7 @@
             "email": "mirko.bonadei@gmail.com"
         }
     ],
+    "license": "MIT",
     "require": {
         "php": ">=5.4",
         "phpunit/phpunit": "~3.7|~4.0"
