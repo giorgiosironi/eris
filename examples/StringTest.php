@@ -1,5 +1,5 @@
 <?php
-use Eris\BaseTestCase;
+use Eris\TestTrait;
 
 function concatenation($first, $second)
 {
@@ -9,8 +9,10 @@ function concatenation($first, $second)
     return $first . $second;
 }
 
-class StringTest extends BaseTestCase
+class StringTest extends PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testRightIdentityElement()
     {
         $this->forAll([

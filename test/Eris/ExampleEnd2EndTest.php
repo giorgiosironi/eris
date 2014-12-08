@@ -14,6 +14,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
+    public function testVectorTests()
+    {
+        $this->runExample('VectorTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     public function testWhenTests()
     {
         $this->runExample('WhenTest.php');
