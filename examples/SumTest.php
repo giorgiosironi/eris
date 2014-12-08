@@ -1,5 +1,6 @@
 <?php
 use Eris\BaseTestCase;
+use Eris\TestTrait;
 
 function my_sum($first, $second)
 {
@@ -9,8 +10,10 @@ function my_sum($first, $second)
     return $first + $second;
 }
 
-class ListConcatenationTest extends BaseTestCase
+class ListConcatenationTest extends PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testRightIdentityElement()
     {
         $this->forAll([
