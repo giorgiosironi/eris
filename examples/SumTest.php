@@ -1,5 +1,5 @@
 <?php
-use Eris\BaseTestCase;
+use Eris\TestTrait;
 
 function my_sum($first, $second)
 {
@@ -9,8 +9,10 @@ function my_sum($first, $second)
     return $first + $second;
 }
 
-class SumTest extends BaseTestCase
+class SumTest extends PHPUnit_Framework_TestCase
 {
+    use TestTrait;
+
     public function testRightIdentityElement()
     {
         $this->forAll([
