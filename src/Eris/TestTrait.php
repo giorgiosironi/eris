@@ -45,9 +45,9 @@ trait TestTrait
     /**
      * PHPUnit 4.x-only feature. If you want to use it in 3.x, you must
      * require the class of the generator you want to use.
-     * @before
+     * @beforeClass
      */
-    public function loadAllErisGenerators()
+    public static function loadAllErisGenerators()
     {
         foreach(glob(__DIR__ . '/Generator/*.php') as $filename) {
             require_once($filename);
