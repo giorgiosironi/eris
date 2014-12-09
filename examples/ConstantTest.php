@@ -10,7 +10,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll([
-                $this->genNat(),
+                Generator\nat(),
                 new Generator\Constant(2)
             ])
             ->then(function($number, $alwaysTwo) {
@@ -22,7 +22,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll([
-                $this->genNat(),
+                Generator\nat(),
                 2
             ])
             ->then(function($number, $alwaysTwo) {
