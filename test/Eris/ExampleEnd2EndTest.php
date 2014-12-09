@@ -6,6 +6,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 {
     private $phpunitCommand;
     private $output;
+    private $testFile;
     private $testsByName;
     private $results;
     private $returnCode;
@@ -48,8 +49,15 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testElementsTests()
+    {
+        $this->runExample('ElementsTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     private function runExample($testFile)
     {
+        $this->testFile = $testFile;
         $examplesDir = realpath(__DIR__ . '/../../examples');
         $samplesTestCase = $examplesDir . '/' . $testFile;
         $logFile = tempnam(sys_get_temp_dir(), 'phpunit_log_');
@@ -89,7 +97,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     private function assertTestsAreFailing($number)
     {
-        $this->assertSame($number, $this->returnCode);
+        $this->assertSame(
+            $number,
+            $this->returnCode,
+            "The test examples/{$this->testFile} was expected to have $number red tests, but instead has {$this->returnCode}. Run it with `vendor/bin/phpunit examples/{$this->testFile} and find out why"
+        );
         $this->assertEquals(
             $number,
             ((string) $this->results->testsuite->attributes()['failures'])
