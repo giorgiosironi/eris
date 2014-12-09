@@ -28,6 +28,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
+    public function testStringTests()
+    {
+        $this->runExample('StringTest.php');
+        $this->assertTestsAreFailing(1);
+    }
+
     public function testWhenTests()
     {
         $this->runExample('WhenTest.php');

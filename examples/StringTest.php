@@ -31,8 +31,8 @@ class StringTest extends PHPUnit_Framework_TestCase
     public function testLengthPreservation()
     {
         $this->forAll([
-            $this->genString(),
-            $this->genString(),
+            Generator\string(1000),
+            Generator\string(1000),
         ])
             ->__invoke(function($first, $second) {
                 $result = concatenation($first, $second);
