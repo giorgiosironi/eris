@@ -3,7 +3,7 @@ use Eris\BaseTestCase;
 
 class ElementsTest extends BaseTestCase
 {
-    public function testOneOfOnlyProducesElementsFromTheGivenArguments()
+    public function testElementsOnlyProducesElementsFromTheGivenArguments()
     {
         $this->forAll([
             $this->elements(1, 2, 3),
@@ -21,7 +21,7 @@ class ElementsTest extends BaseTestCase
      * which is perfectly fine as if you have a single
      * element this generator is useless.
      */
-    public function testOneOfOnlyProducesElementsFromTheGivenArrayDomain()
+    public function testElementsOnlyProducesElementsFromTheGivenArrayDomain()
     {
         $this->forAll([
             $this->elements([1, 2, 3]),
@@ -35,7 +35,7 @@ class ElementsTest extends BaseTestCase
     }
 
 
-    public function testVectorOfOneOfGenerators()
+    public function testVectorOfElementsGenerators()
     {
         $this->markTestSkipped("We have not wired the genVector method yet?");
         $this->forAll([
