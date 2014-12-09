@@ -20,9 +20,9 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * This means you cannot have a oneOf Generator with a single element,
-     * which is perfectly fine as if you have a single
-     * element this generator is useless.
+     * This means you cannot have a Elements Generator with a single element,
+     * which is perfectly fine as if you have a single element this generator
+     * is useless. Use Constant Generator instead
      */
     public function testElementsOnlyProducesElementsFromTheGivenArrayDomain()
     {
