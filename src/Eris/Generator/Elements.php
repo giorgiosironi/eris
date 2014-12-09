@@ -2,15 +2,15 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
-class OneOf implements Generator
+class Elements implements Generator
 {
     private $domain;
-    
+
     public static function fromArray(array $domain)
     {
         return new self($domain);
     }
-    
+
     private function __construct($domain)
     {
         $this->domain = $domain;

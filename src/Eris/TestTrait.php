@@ -36,13 +36,13 @@ trait TestTrait
         return new Generator\Natural(0, $this->iterations * 10);
     }
 
-    protected function genOneOf(/*$a, $b, ...*/)
+    protected function elements(/*$a, $b, ...*/)
     {
         $arguments = func_get_args();
         if (count($arguments) == 1) {
-            return Generator\OneOf::fromArray($arguments[0]);
+            return Generator\Elements::fromArray($arguments[0]);
         } else {
-            return Generator\OneOf::fromArray($arguments);
+            return Generator\Elements::fromArray($arguments);
         }
     }
 

@@ -29,9 +29,9 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testOneOfTests()
+    public function testElementsTests()
     {
-        $this->runExample('OneOfTest.php');
+        $this->runExample('ElementsTest.php');
         $this->assertAllTestsArePassing();
     }
 
@@ -49,7 +49,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     private function theTest($name)
     {
-        if ($this->testsByName === null) { 
+        if ($this->testsByName === null) {
             $this->testsByName = [];
             foreach ($this->results->testsuite->testcase as $testCase) {
                 $testName = (string) $testCase->attributes()['name'];
@@ -68,7 +68,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     private function assertTestsAreFailing($number)
     {
         $this->assertSame(
-            $number, 
+            $number,
             $this->returnCode,
             "The test examples/{$this->testFile} was expected to have $number red tests, but instead has {$this->returnCode}. Run it with `vendor/bin/phpunit examples/{$this->testFile} and find out why"
         );
