@@ -2,6 +2,17 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+function elements(/*$a, $b, ...*/)
+{
+    $arguments = func_get_args();
+    if (count($arguments) == 1) {
+        return Generator\Elements::fromArray($arguments[0]);
+    } else {
+        return Generator\Elements::fromArray($arguments);
+    }
+}
+
+
 class Elements implements Generator
 {
     private $domain;
