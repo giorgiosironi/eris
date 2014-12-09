@@ -2,12 +2,17 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+function vector($size, Generator $elementsGenerator)
+{
+    return new Vector($size, $elementsGenerator);
+}
+
 class Vector implements Generator
 {
     private $size;
     private $elementsGenerator;
 
-    public function __construct($size = 1, Generator $elementsGenerator)
+    public function __construct($size, Generator $elementsGenerator)
     {
         $this->size = $size;
         $this->elementsGenerator = $elementsGenerator;

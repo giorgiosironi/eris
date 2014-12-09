@@ -1,4 +1,5 @@
 <?php
+use Eris\Generator;
 use Eris\TestTrait;
 
 class VectorTest extends PHPUnit_Framework_TestCase
@@ -8,8 +9,8 @@ class VectorTest extends PHPUnit_Framework_TestCase
     public function testConcatenationMaintainsLength()
     {
         $this->forAll([
-            $this->genVector($this->genNat()),
-            $this->genVector($this->genNat()),
+            Generator\vector(10, Generator\nat(1000)),
+            Generator\vector(10, Generator\nat(1000)),
         ])
             ->__invoke(function($first, $second) {
                 var_dump($first, $second);

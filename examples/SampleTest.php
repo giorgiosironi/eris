@@ -1,4 +1,5 @@
 <?php
+use Eris\Generator;
 
 class SampleTest extends \PHPUnit_Framework_TestCase
 {
@@ -6,13 +7,13 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     public function testSamplingValues()
     {
-        $generator = $this->genNat();
+        $generator = Generator\nat(1000);
         var_dump($this->sample($generator));
-    }    
+    }
 
     public function testSamplingShrinking()
     {
-        $generator = $this->genNat();
+        $generator = Generator\nat(1000);
         var_dump($this->sampleShrink($generator));
-    }    
+    }
 }

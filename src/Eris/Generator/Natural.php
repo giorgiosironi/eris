@@ -2,10 +2,23 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+function pos($upperLimit = PHP_INT_MAX)
+{
+    return new Natural(1, $upperLimit);
+}
+
+function nat($upperLimit = PHP_INT_MAX)
+{
+    return new Natural(0, $upperLimit);
+}
+
 class Natural implements Generator
 {
-    public function __construct($lowerLimit = 1, $upperLimit = 1000)
+    public function __construct($lowerLimit, $upperLimit)
     {
+        if ($lowerLimit < 0) {
+            throw new InvalidArgumentException('Natural generator lower limit must be >= 0');
+        }
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
     }

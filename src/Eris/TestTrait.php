@@ -27,7 +27,7 @@ trait TestTrait
     }
 
     /**
-     * Maybe: we could add --filter options to the command here, 
+     * Maybe: we could add --filter options to the command here,
      * since now the original command is printed.
      * @after
      */
@@ -39,6 +39,18 @@ trait TestTrait
             echo PHP_EOL;
             echo "Reproduce with:", PHP_EOL;
             echo $command, PHP_EOL;
+        }
+    }
+
+    /**
+     * PHPUnit 4.x-only feature. If you want to use it in 3.x, you must
+     * require the class of the generator you want to use.
+     * @beforeClass
+     */
+    public static function loadAllErisGenerators()
+    {
+        foreach(glob(__DIR__ . '/Generator/*.php') as $filename) {
+            require_once($filename);
         }
     }
 
@@ -62,21 +74,6 @@ trait TestTrait
         $quantifier = new Quantifier\ForAll($generators, $this->iterations, $this);
         $this->quantifiers[] = $quantifier;
         return $quantifier;
-    }
-
-    protected function genNat()
-    {
-        return new Generator\Natural(0, $this->iterations * 10);
-    }
-
-    protected function genString()
-    {
-        return new Generator\String($this->iterations * 10);
-    }
-
-    protected function genVector(Generator $elementGenerator)
-    {
-        return new Generator\Vector($this->iterations * 10, $elementGenerator);
     }
 
     protected function sample(Generator $generator, $size = 10)

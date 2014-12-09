@@ -1,4 +1,5 @@
 <?php
+use Eris\Generator;
 use Eris\TestTrait;
 
 function concatenation($first, $second)
@@ -16,7 +17,7 @@ class StringTest extends PHPUnit_Framework_TestCase
     public function testRightIdentityElement()
     {
         $this->forAll([
-            $this->genString(),
+            Generator\string(1000),
         ])
             ->__invoke(function($string) {
                 $this->assertEquals(
