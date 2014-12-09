@@ -76,11 +76,6 @@ trait TestTrait
         return $quantifier;
     }
 
-    protected function genNat()
-    {
-        return new Generator\Natural(0, $this->iterations * 10);
-    }
-
     protected function elements(/*$a, $b, ...*/)
     {
         $arguments = func_get_args();
