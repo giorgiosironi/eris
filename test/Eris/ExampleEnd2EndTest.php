@@ -4,6 +4,8 @@ use SimpleXMLElement;
 
 class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 {
+    private $phpunitCommand;
+    private $output;
     private $testsByName;
     private $results;
     private $returnCode;
@@ -45,10 +47,20 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $examplesDir = realpath(__DIR__ . '/../../examples');
         $samplesTestCase = $examplesDir . '/' . $testFile;
         $logFile = tempnam(sys_get_temp_dir(), 'phpunit_log_');
-        $phpunitCommand = "vendor/bin/phpunit --log-junit $logFile $samplesTestCase";
-        exec($phpunitCommand, $output, $returnCode);
+        $this->phpunitCommand = "vendor/bin/phpunit --log-junit $logFile $samplesTestCase";
+        exec($this->phpunitCommand, $output, $returnCode);
+        $this->output = $output;
         $this->returnCode = $returnCode;
-        $this->results = new SimpleXMLElement(file_get_contents($logFile));
+        $contentsOfXmlLog = file_get_contents($logFile);
+        if (!$contentsOfXmlLog) {
+            $this->fail(
+                "It appears the command" . PHP_EOL
+                . $this->phpunitCommand . PHP_EOL
+                . "has crashed without leaving a log for us to analyze." . PHP_EOL
+                . "This was its output: " . implode(PHP_EOL, $this->output) . PHP_EOL
+            );
+        }
+        $this->results = new SimpleXMLElement($contentsOfXmlLog);
     }
 
     private function theTest($name)
