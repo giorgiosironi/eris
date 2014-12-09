@@ -76,16 +76,6 @@ trait TestTrait
         return $quantifier;
     }
 
-    protected function elements(/*$a, $b, ...*/)
-    {
-        $arguments = func_get_args();
-        if (count($arguments) == 1) {
-            return Generator\Elements::fromArray($arguments[0]);
-        } else {
-            return Generator\Elements::fromArray($arguments);
-        }
-    }
-
     protected function sample(Generator $generator, $size = 10)
     {
         return Sample::of($generator)->withSize($size);
