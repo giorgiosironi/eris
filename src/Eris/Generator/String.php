@@ -2,10 +2,15 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+function string($maximumLength)
+{
+    return new String($maximumLength);
+}
+
 class String implements Generator
 {
     private $maximumLength;
-    
+
     public function __construct($maximumLength)
     {
         $this->maximumLength = $maximumLength;
