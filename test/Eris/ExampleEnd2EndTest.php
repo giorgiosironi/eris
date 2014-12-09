@@ -8,6 +8,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     private $results;
     private $returnCode;
 
+    public function testConstantGenerator()
+    {
+        $this->runExample('ConstantTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     public function testTheSampleAndSampleShrinkTestShouldBePassing()
     {
         $this->runExample('SampleTest.php');
@@ -47,7 +53,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     private function theTest($name)
     {
-        if ($this->testsByName === null) { 
+        if ($this->testsByName === null) {
             $this->testsByName = [];
             foreach ($this->results->testsuite->testcase as $testCase) {
                 $testName = (string) $testCase->attributes()['name'];
