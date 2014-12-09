@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Quantifier;
+use Eris\Generator;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 
@@ -18,10 +19,10 @@ class ForAll
         'implies' => '__invoke',
         'imply' => '__invoke',
     ];
-    
+
     public function __construct(array $generators, $iterations)
     {
-        $this->generators = $generators;
+        $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
     }
 
@@ -41,7 +42,7 @@ class ForAll
         } else {
             throw new \InvalidArgumentException("Invalid call to when(): " . var_export($arguments, true));
         }
-        $this->antecedents[] = $antecedent; 
+        $this->antecedents[] = $antecedent;
         return $this;
     }
 
@@ -92,5 +93,18 @@ class ForAll
     public function evaluationRatio()
     {
         return $this->evaluations / $this->iterations;
+    }
+
+    private function generatorsFrom($supposedToBeGenerators)
+    {
+        $generators = [];
+        foreach($supposedToBeGenerators as $supposedToBeGenerator) {
+            if (!$supposedToBeGenerator instanceof Generator) {
+                $generators[] = new Generator\Constant($supposedToBeGenerator);
+            } else {
+                $generators[] = $supposedToBeGenerator;
+            }
+        }
+        return $generators;
     }
 }
