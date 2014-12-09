@@ -40,9 +40,8 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
 
     public function testVectorOfElementsGenerators()
     {
-        $this->markTestSkipped("We have not wired the genVector method yet?");
         $this->forAll([
-            $this->genVector(
+            Generator\vector(4,
                 Generator\elements([2, 4, 6, 8, 10, 12])
             )
         ])
