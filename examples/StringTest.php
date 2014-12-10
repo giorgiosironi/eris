@@ -1,6 +1,5 @@
 <?php
 use Eris\Generator;
-use Eris\TestTrait;
 
 function concatenation($first, $second)
 {
@@ -12,7 +11,7 @@ function concatenation($first, $second)
 
 class StringTest extends PHPUnit_Framework_TestCase
 {
-    use TestTrait;
+    use Eris\TestTrait;
 
     public function testRightIdentityElement()
     {

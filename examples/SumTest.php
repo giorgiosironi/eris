@@ -1,6 +1,5 @@
 <?php
 use Eris\Generator;
-use Eris\TestTrait;
 
 function my_sum($first, $second)
 {
@@ -12,7 +11,7 @@ function my_sum($first, $second)
 
 class SumTest extends PHPUnit_Framework_TestCase
 {
-    use TestTrait;
+    use Eris\TestTrait;
 
     public function testRightIdentityElement()
     {

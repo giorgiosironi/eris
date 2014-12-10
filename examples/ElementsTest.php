@@ -1,10 +1,9 @@
 <?php
-use Eris\TestTrait;
 use Eris\Generator;
 
 class ElementsTest extends \PHPUnit_Framework_TestCase
 {
-    use TestTrait;
+    use Eris\TestTrait;
 
     public function testElementsOnlyProducesElementsFromTheGivenArguments()
     {

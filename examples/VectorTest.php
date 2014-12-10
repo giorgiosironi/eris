@@ -1,10 +1,9 @@
 <?php
 use Eris\Generator;
-use Eris\TestTrait;
 
 class VectorTest extends PHPUnit_Framework_TestCase
 {
-    use TestTrait;
+    use Eris\TestTrait;
 
     public function testConcatenationMaintainsLength()
     {
