@@ -55,6 +55,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
+    public function testBooleanTests()
+    {
+        $this->runExample('BooleanTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     private function runExample($testFile)
     {
         $this->testFile = $testFile;
