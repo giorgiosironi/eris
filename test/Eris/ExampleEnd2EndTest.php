@@ -97,9 +97,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     private function assertTestsAreFailing($number)
     {
-        if ($number != $this->returnCode) {
-            var_dump($this->results->asXML());
-        }
         $this->assertSame(
             $number,
             $this->returnCode,
