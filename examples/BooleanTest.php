@@ -14,7 +14,7 @@ class BooleanTest extends PHPUnit_Framework_TestCase
             ->then(function($boolValue) {
                 $this->assertTrue(
                     ($boolValue === true || $boolValue === false),
-                    "$boolValue is true or false"
+                    "$boolValue is not true nor false"
                 );
             });
     }

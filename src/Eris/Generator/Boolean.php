@@ -9,10 +9,6 @@ function bool()
 
 class Boolean implements Generator
 {
-    public function __construct()
-    {
-    }
-
     public function __invoke()
     {
         $booleanValues = [true, false];
