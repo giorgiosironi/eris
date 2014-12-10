@@ -1,17 +1,16 @@
 <?php
-use Eris\TestTrait;
 use Eris\Generator;
 
 class ElementsTest extends \PHPUnit_Framework_TestCase
 {
-    use TestTrait;
+    use Eris\TestTrait;
 
     public function testElementsOnlyProducesElementsFromTheGivenArguments()
     {
         $this->forAll([
             Generator\elements(1, 2, 3),
         ])
-            ->__invoke(function($number) {
+            ->then(function($number) {
                 $this->assertContains(
                     $number,
                     [1, 2, 3]
@@ -29,7 +28,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
         $this->forAll([
             Generator\elements([1, 2, 3]),
         ])
-            ->__invoke(function($number) {
+            ->then(function($number) {
                 $this->assertContains(
                     $number,
                     [1, 2, 3]
@@ -45,7 +44,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
                 Generator\elements([2, 4, 6, 8, 10, 12])
             )
         ])
-            ->__invoke(function($vector) {
+            ->then(function($vector) {
                 $sum = array_sum($vector);
                 $isEven = function($number) { return $number % 2 == 0; };
                 $this->assertTrue(
