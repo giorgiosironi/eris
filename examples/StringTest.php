@@ -18,7 +18,7 @@ class StringTest extends PHPUnit_Framework_TestCase
         $this->forAll([
             Generator\string(1000),
         ])
-            ->__invoke(function($string) {
+            ->then(function($string) {
                 $this->assertEquals(
                     $string,
                     concatenation($string, ''),
@@ -33,7 +33,7 @@ class StringTest extends PHPUnit_Framework_TestCase
             Generator\string(1000),
             Generator\string(1000),
         ])
-            ->__invoke(function($first, $second) {
+            ->then(function($first, $second) {
                 $result = concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),
