@@ -43,4 +43,12 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $lastValue = $generator();
         $this->assertEquals(0, $generator->shrink($lastValue));
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenDomainBoundariesAreNotIntegers()
+    {
+        $generator = new Integer("zero", "twenty");
+    }
 }

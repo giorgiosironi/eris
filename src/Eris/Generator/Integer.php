@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use InvalidArgumentException;
 
 define('PHP_INT_MIN', ~PHP_INT_MAX);
 
@@ -23,10 +24,11 @@ class Integer implements Generator
 {
     public function __construct($lowerLimit = PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
     {
-        if ($lowerLimit < PHP_INT_MIN || $upperLimit > PHP_INT_MAX) {
-            throw new InvalidArgumentException('
-                Integer generator lower limit must be >= ' . PHP_INT_MIN .
-                ' and upper limit must be <= ' . PHP_INT_MAX
+        if ((!$this->contains($lowerLimit)) || (!$this->contains($upperLimit))) {
+            throw new InvalidArgumentException(
+                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
+                "upperLimit (" . var_export($upperLimit, true) . ") should " .
+                "be Integers between " . PHP_INT_MIN . " and " . PHP_INT_MAX
             );
         }
         $this->lowerLimit = $lowerLimit;
