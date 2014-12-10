@@ -23,6 +23,20 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $value);
     }
 
+    public function testUniformity()
+    {
+        $generator = new Integer(-10, 10000);
+        $values = [];
+        for ($i = 0; $i < 50; $i++) {
+            $values[] = $generator();
+        }
+        $this->assertGreaterThan(
+            40,
+            count(array_filter($values, function($n) { return $n > 0; })),
+            "The positive numbers should be a vast majority given the interval [-10, 10000]"
+        );
+    }
+
     public function testCannotShrinkStopsToZero()
     {
         $generator = new Integer($lowerLimit = 0, $upperLimit = 0);
