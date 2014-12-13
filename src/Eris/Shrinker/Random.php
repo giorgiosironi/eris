@@ -28,6 +28,7 @@ class Random // implements Shrinker
             if ($elementsAfterShrink === $elements) {
                 $attempts->increase();
                 $attempts->ensureLimit($this->giveUpAfter, $exception);
+                continue;
             }
 
             Evaluation::of($this->assertion)
