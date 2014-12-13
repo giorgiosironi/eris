@@ -24,13 +24,8 @@ class Integer implements Generator
 {
     public function __construct($lowerLimit = PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
     {
-        if ((!$this->contains($lowerLimit)) || (!$this->contains($upperLimit))) {
-            throw new InvalidArgumentException(
-                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
-                "upperLimit (" . var_export($upperLimit, true) . ") should " .
-                "be Integers between " . PHP_INT_MIN . " and " . PHP_INT_MAX
-            );
-        }
+        $this->checkLimits($lowerLimit, $upperLimit);
+
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
     }
@@ -43,10 +38,10 @@ class Integer implements Generator
 
     public function shrink($element)
     {
-        if ($element > 0) {
+        if ($element > 0 && $element > $this->lowerLimit) {
             return $element - 1;
         }
-        if ($element < 0) {
+        if ($element < 0 && $element < $this->upperLimit) {
             return $element + 1;
         }
 
@@ -56,5 +51,23 @@ class Integer implements Generator
     public function contains($element)
     {
         return is_int($element);
+    }
+
+    private function checkLimits($lowerLimit, $upperLimit)
+    {
+        if ((!$this->contains($lowerLimit)) || (!$this->contains($upperLimit))) {
+            throw new InvalidArgumentException(
+                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
+                "upperLimit (" . var_export($upperLimit, true) . ") should " .
+                "be Integers between " . PHP_INT_MIN . " and " . PHP_INT_MAX
+            );
+        }
+
+        if ($lowerLimit > $upperLimit) {
+            throw new InvalidArgumentException(
+                "lower limit must be lower than the upper limit. " .
+                "in this case {$lowerLimit} is not lower than {$upperLimit}."
+            );
+        }
     }
 }

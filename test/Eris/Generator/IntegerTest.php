@@ -23,6 +23,26 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $value);
     }
 
+    public function testShrinkStopsAtTheLowerLimitWhenItIsGreaterThanZero()
+    {
+        $generator = new Integer(10, 20);
+        $value = $generator();
+        for ($i = 0; $i < 11; $i++) {
+            $value = $generator->shrink($value);
+        }
+        $this->assertEquals(10, $value);
+    }
+
+    public function testShrinkStopsAtTheUpperLimitWhenItIsLowerThanZero()
+    {
+        $generator = new Integer(-20, -10);
+        $value = $generator();
+        for ($i = 0; $i < 11; $i++) {
+            $value = $generator->shrink($value);
+        }
+        $this->assertEquals(-10, $value);
+    }
+
     public function testUniformity()
     {
         $generator = new Integer(-10, 10000);
@@ -50,5 +70,20 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function testExceptionWhenDomainBoundariesAreNotIntegers()
     {
         $generator = new Integer("zero", "twenty");
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenLowerLimitIsGreaterThenUpperLimit()
+    {
+        $generator = new Integer(1, 0);
+    }
+
+    public function testCanGenerateSingleInteger()
+    {
+        $generator = new Integer(42, 42);
+        $this->assertEquals(42, $generator());
+        $this->assertEquals(42, $generator->shrink($generator()));
     }
 }
