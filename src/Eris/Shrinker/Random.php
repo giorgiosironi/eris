@@ -14,8 +14,7 @@ class Random // implements Shrinker
     {
         $this->generator = new Tuple($generators);
         $this->assertion = $assertion;
-        $this->attempts = new Attempts();
-        $this->giveUpAfter = 100;
+        $this->attempts = new Attempts($giveUpAfter = 100);
     }
 
     /**
@@ -25,7 +24,7 @@ class Random // implements Shrinker
     {
         $attemptFailed = function() use (&$exception) {
             $this->attempts->increase();
-            $this->attempts->ensureLimit($this->giveUpAfter, $exception);
+            $this->attempts->ensureLimit($exception);
         };
 
         while ($elementsAfterShrink = $this->generator->shrink($elements)) {
@@ -56,6 +55,12 @@ class Random // implements Shrinker
 class Attempts
 {
     private $total = 0;
+    private $giveUpAfter;
+    
+    public function __construct($giveUpAfter)
+    {
+        $this->giveUpAfter = $giveUpAfter;
+    }
 
     public function increase()
     {
@@ -67,9 +72,9 @@ class Attempts
         $this->total = 0;
     }
 
-    public function ensureLimit($limit, \Exception $exception)
+    public function ensureLimit(\Exception $exception)
     {
-        if ($this->total >= $limit) {
+        if ($this->total >= $this->giveUpAfter) {
             throw $exception;
         }
     }
