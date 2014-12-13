@@ -38,6 +38,8 @@ class Integer implements Generator
 
     public function shrink($element)
     {
+        $this->checkValueToShrink($element);
+
         if ($element > 0 && $element > $this->lowerLimit) {
             return $element - 1;
         }
@@ -50,12 +52,14 @@ class Integer implements Generator
 
     public function contains($element)
     {
-        return is_int($element);
+        return is_int($element)
+            && $element >= $this->lowerLimit
+            && $element <= $this->upperLimit;
     }
 
     private function checkLimits($lowerLimit, $upperLimit)
     {
-        if ((!$this->contains($lowerLimit)) || (!$this->contains($upperLimit))) {
+        if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
             throw new InvalidArgumentException(
                 "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
                 "upperLimit (" . var_export($upperLimit, true) . ") should " .
@@ -67,6 +71,16 @@ class Integer implements Generator
             throw new InvalidArgumentException(
                 "lower limit must be lower than the upper limit. " .
                 "in this case {$lowerLimit} is not lower than {$upperLimit}."
+            );
+        }
+    }
+
+    private function checkValueToShrink($value)
+    {
+        if (!$this->contains($value)) {
+            throw new InvalidArgumentException(
+                "Cannot shrink {$value} because does not belongs to the domain of " .
+                "Integers between {$this->lowerLimit} and {$this->upperLimit}"
             );
         }
     }

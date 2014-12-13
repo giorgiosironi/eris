@@ -86,4 +86,13 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(42, $generator());
         $this->assertEquals(42, $generator->shrink($generator()));
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new Integer(100, 200);
+        $generator->shrink(300);
+    }
 }
