@@ -30,9 +30,10 @@ class Natural implements Generator
 
     public function shrink($element)
     {
-        if ($element > 0) {
+        if ($element > $this->lowerLimit) {
             $element--;
         }
+
         return $element;
     }
 
