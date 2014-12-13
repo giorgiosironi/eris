@@ -29,6 +29,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
+    public function testTupleTest()
+    {
+        $this->runExample('TupleTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     public function testStringTests()
     {
         $this->runExample('StringTest.php');
