@@ -1,7 +1,26 @@
 # Eris
 
-Eris is a porting of Quickcheck and property-based testing tools to the PHP and PHPUnit ecosystem.
+Eris is a porting of [QuickCheck](https://github.com/giorgiosironi/eris-example) and property-based testing tools to the PHP and PHPUnit ecosystem.
 
+In property-based testing, several properties that the System Under Test must respect are defined, and a large sample of generated inputs is sent to it in an attempt to break the properties.
+
+## Installation
+
+You can install Eris through [Composer](https://getcomposer.org/) by adding:
+
+```json
+    "require": {
+        "giorgiosironi/eris": "dev-master"
+    }
+```
+
+to your composer.json, and run `composer install`.
+
+You can run some of Eris example tests with `vendor/bin/phpunit vendor/giorgiosironi/eris/examples`.
+
+Here is an [empty sample project](https://github.com/giorgiosironi/eris-example) installing Eris.
+
+Please note the project is in alpha stage and the API may change at any time.
 
 ## Example usage within PHPUnit
 
