@@ -17,4 +17,17 @@ class FloatTest extends \PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testAPropertyHoldingOnlyForPositiveNumbers()
+    {
+        $this->forAll([
+            Generator\float(-10.0, 100.0),
+        ])
+            ->then(function($number) {
+                $this->assertTrue(
+                    $number >= 0,
+                    "$number is not a (loosely) positive number"
+                );
+            });
+    }
 }
