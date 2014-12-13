@@ -37,12 +37,8 @@ class Integer implements Generator
 
     public function __invoke()
     {
-        $possibleValues = [
-            rand($this->lowerLimit, 0),
-            rand(0, $this->upperLimit)
-        ];
-        $index = array_rand($possibleValues);
-        return $possibleValues[$index];
+        $valueWithoutOffset = rand(0, $this->upperLimit - $this->lowerLimit);
+        return $this->lowerLimit + $valueWithoutOffset;
     }
 
     public function shrink($element)
