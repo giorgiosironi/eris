@@ -37,7 +37,7 @@ class Integer implements Generator
 
     public function __invoke()
     {
-        $valueWithoutOffset = rand(0, $this->upperLimit - $this->lowerLimit);
+        $valueWithoutOffset = rand(0, $this->upperLimit - ($this->lowerLimit + 1));
         return $this->lowerLimit + $valueWithoutOffset;
     }
 
