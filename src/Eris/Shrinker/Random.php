@@ -49,6 +49,10 @@ class Random // implements Shrinker
     }
 }
 
+/**
+ * @private
+ * Do not use outside of this file.
+ */
 class Attempts
 {
     private $total = 0;
