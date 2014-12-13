@@ -22,7 +22,7 @@ class StringTest extends PHPUnit_Framework_TestCase
                 $this->assertEquals(
                     $string,
                     concatenation($string, ''),
-                    "Concatenating $string to ''"
+                    "Concatenating '$string' to ''"
                 );
             });
     }
@@ -38,7 +38,7 @@ class StringTest extends PHPUnit_Framework_TestCase
                 $this->assertEquals(
                     strlen($first) + strlen($second),
                     strlen($result),
-                    "Concatenating $first to $second gives $result"
+                    "Concatenating '$first' to '$second' gives '$result'"
                 );
             });
     }
