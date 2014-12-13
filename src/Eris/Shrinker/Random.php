@@ -8,7 +8,7 @@ class Random // implements Shrinker
 {
     private $generator;
     private $assertion;
-    private $giveUpAfter;
+    private $attempts;
 
     public function __construct(array $generators, callable $assertion)
     {
