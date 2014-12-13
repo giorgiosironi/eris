@@ -22,36 +22,54 @@ class Random // implements Shrinker
      */
     public function from(array $elements, AssertionFailed $exception)
     {
-        $attempts = 0;
+        $attempts = new Attempts();
 
         while ($elementsAfterShrink = $this->generator->shrink($elements)) {
             if ($elementsAfterShrink === $elements) {
-                $attempts += 1;
-                if ($attempts >= $this->giveUpAfter) {
-                    throw $exception;
-                }
+                $attempts->increase();
+                $attempts->ensureLimit($this->giveUpAfter, $exception);
             }
 
             Evaluation::of($this->assertion)
                 ->with($elementsAfterShrink)
                 ->onFailure(
                     function($elementsAfterShrink, $exceptionAfterShrink)
-                        use (&$elements, &$exception, &$attempts) {
+                        use (&$elements, &$exception, $attempts) {
                         if ($elements !== $elementsAfterShrink) {
-                            $attempts = 0;
+                            $attempts->reset();
                         }
                         $elements = $elementsAfterShrink;
                         $exception = $exceptionAfterShrink;
                     }
                 )
-                ->onSuccess(function() use ($exception, &$attempts) {
-                    $attempts += 1;
-                    if ($attempts >= $this->giveUpAfter) {
-                        throw $exception;
-                    }
+                ->onSuccess(function() use ($exception, $attempts) {
+                    $attempts->increase();
+                    $attempts->ensureLimit($this->giveUpAfter, $exception);
                 })
                 ->execute();
         }
         throw $exception;
+    }
+}
+
+class Attempts
+{
+    private $total = 0;
+
+    public function increase()
+    {
+        $this->total++;
+    }
+
+    public function reset()
+    {
+        $this->total = 0;
+    }
+
+    public function ensureLimit($limit, \Exception $exception)
+    {
+        if ($this->total >= $limit) {
+            throw $exception;
+        }
     }
 }
