@@ -28,9 +28,7 @@ class Random // implements Shrinker
         };
 
         $weGotASimplerFailingInput = function($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
-            if ($elements !== $elementsAfterShrink) {
-                $this->attempts->reset();
-            }
+            $this->attempts->reset();
             $elements = $elementsAfterShrink;
             $exception = $exceptionAfterShrink;
         };
