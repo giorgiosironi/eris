@@ -36,4 +36,10 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
         $lastValue = $generator();
         $this->assertEquals(0, $generator->shrink($lastValue));
     }
+
+    public function testCouldNotShrinkMoreLowerLimit()
+    {
+        $generator = new Natural(10, 100);
+        $this->assertEquals(10, $generator->shrink(10));
+    }
 }
