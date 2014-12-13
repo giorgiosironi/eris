@@ -22,12 +22,12 @@ class Random // implements Shrinker
      */
     public function from(array $elements, AssertionFailed $exception)
     {
-        $attemptFailed = function() use (&$exception) {
+        $onBadShrink = function() use ($exception) {
             $this->attempts->increase();
             $this->attempts->ensureLimit($exception);
         };
 
-        $weGotASimplerFailingInput = function($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
+        $onGoodShrink = function($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
             $this->attempts->reset();
             $elements = $elementsAfterShrink;
             $exception = $exceptionAfterShrink;
@@ -35,14 +35,14 @@ class Random // implements Shrinker
 
         while ($elementsAfterShrink = $this->generator->shrink($elements)) {
             if ($elementsAfterShrink === $elements) {
-                $attemptFailed();
+                $onBadShrink();
                 continue;
             }
 
             Evaluation::of($this->assertion)
                 ->with($elementsAfterShrink)
-                ->onFailure($weGotASimplerFailingInput)
-                ->onSuccess($attemptFailed)
+                ->onFailure($onGoodShrink)
+                ->onSuccess($onBadShrink)
                 ->execute();
         }
         throw $exception;
