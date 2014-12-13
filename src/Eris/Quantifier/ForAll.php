@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Quantifier;
 use Eris\Generator;
+use Eris\Shrinker;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 
@@ -66,7 +67,7 @@ class ForAll
             Evaluation::of($assertion)
                 ->with($values)
                 ->onFailure(function($values, $exception) use ($assertion) {
-                    $shrinking = new RoundRobinShrinking($this->generators, $assertion);
+                    $shrinking = new Shrinker\Random($this->generators, $assertion);
                     $shrinking->from($values, $exception);
                 })
                 ->execute();

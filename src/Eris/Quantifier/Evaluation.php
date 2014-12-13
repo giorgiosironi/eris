@@ -9,12 +9,12 @@ final class Evaluation
     private $assertion;
     private $onFailure;
     private $onSuccess;
-    
+
     public static function of($assertion)
     {
         return new self($assertion);
     }
-    
+
     private function __construct($assertion)
     {
         $this->assertion = $assertion;
@@ -43,9 +43,7 @@ final class Evaluation
     public function execute()
     {
         try {
-            call_user_func_array(
-                $this->assertion, $this->values
-            );
+            call_user_func_array($this->assertion, $this->values);
         } catch (\PHPUnit_Framework_AssertionFailedError $e) {
             call_user_func($this->onFailure, $this->values, $e);
             return;
