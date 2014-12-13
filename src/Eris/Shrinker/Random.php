@@ -27,6 +27,14 @@ class Random // implements Shrinker
             $this->attempts->ensureLimit($exception);
         };
 
+        $weGotASimplerFailingInput = function($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
+            if ($elements !== $elementsAfterShrink) {
+                $this->attempts->reset();
+            }
+            $elements = $elementsAfterShrink;
+            $exception = $exceptionAfterShrink;
+        };
+
         while ($elementsAfterShrink = $this->generator->shrink($elements)) {
             if ($elementsAfterShrink === $elements) {
                 $attemptFailed();
@@ -35,16 +43,7 @@ class Random // implements Shrinker
 
             Evaluation::of($this->assertion)
                 ->with($elementsAfterShrink)
-                ->onFailure(
-                    function($elementsAfterShrink, $exceptionAfterShrink)
-                        use (&$elements, &$exception) {
-                        if ($elements !== $elementsAfterShrink) {
-                            $this->attempts->reset();
-                        }
-                        $elements = $elementsAfterShrink;
-                        $exception = $exceptionAfterShrink;
-                    }
-                )
+                ->onFailure($weGotASimplerFailingInput)
                 ->onSuccess($attemptFailed)
                 ->execute();
         }
