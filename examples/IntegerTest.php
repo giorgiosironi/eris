@@ -1,0 +1,43 @@
+<?php
+use Eris\Generator;
+use Eris\TestTrait;
+
+class IntegerTest extends PHPUnit_Framework_TestCase
+{
+    use TestTrait;
+
+    public function testSumIsCommutative()
+    {
+        $this->forAll([
+            Generator\int(-1000, 1000),
+            Generator\int(-1000, 1000),
+        ])
+            ->then(function($first, $second) {
+                $x = $first + $second;
+                $y = $second + $first;
+                $this->assertEquals(
+                    $x,
+                    $y,
+                    "Sum between {$first} and {$second} should be commutative"
+                );
+            });
+    }
+
+    public function testSumIsAssociative()
+    {
+        $this->forAll([
+            Generator\int(-1000, 1000),
+            Generator\neg(),
+            Generator\pos(),
+        ])
+            ->then(function($first, $second, $third) {
+                $x = $first + ($second + $third);
+                $y = ($first + $second) + $third;
+                $this->assertEquals(
+                    $x,
+                    $y,
+                    "Sum between {$first} and {$second} should be associative"
+                );
+            });
+    }
+}

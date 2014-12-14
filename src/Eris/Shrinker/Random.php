@@ -22,7 +22,7 @@ class Random // implements Shrinker
      */
     public function from(array $elements, AssertionFailed $exception)
     {
-        $onBadShrink = function() use ($exception) {
+        $onBadShrink = function() use (&$exception) {
             $this->attempts->increase();
             $this->attempts->ensureLimit($exception);
         };

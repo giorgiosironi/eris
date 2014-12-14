@@ -36,6 +36,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('StringTest.php');
         $this->assertTestsAreFailing(1);
+        $errorMessage = (string) $this->theTest('testLengthPreservation')->failure;
+        $this->assertRegexp(
+            "/Concatenating '' to '.{6}' gives '.{6}ERROR'/",
+            $errorMessage,
+            "It seems there is a problem with shrinking: we were expecting a minimal error message but instead the one for StringTest::testLengthPreservation() didn't match"
+        );
     }
 
     public function testSumTests()
@@ -67,6 +73,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testBooleanTests()
     {
         $this->runExample('BooleanTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
+    public function testIntegerTests()
+    {
+        $this->runExample('IntegerTest.php');
         $this->assertAllTestsArePassing();
     }
 

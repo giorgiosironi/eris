@@ -38,7 +38,13 @@ class StringTest extends PHPUnit_Framework_TestCase
                 $this->assertEquals(
                     strlen($first) + strlen($second),
                     strlen($result),
-                    "Concatenating '$first' to '$second' gives '$result'"
+                    "Concatenating '$first' to '$second' gives '$result'" . PHP_EOL
+                    . var_export($first, true) . PHP_EOL
+                    . "strlen(): " . strlen($first) . PHP_EOL
+                    . var_export($second, true) . PHP_EOL
+                    . "strlen(): " . strlen($second) . PHP_EOL
+                    . var_export($result, true) . PHP_EOL
+                    . "strlen(): " . strlen($result)
                 );
             });
     }
