@@ -34,7 +34,7 @@ class Integer implements Generator
 
     public function __invoke()
     {
-        $valueWithoutOffset = rand(0, $this->upperLimit - ($this->lowerLimit + 1));
+        $valueWithoutOffset = rand(0, $this->safeLimit());
         return $this->lowerLimit + $valueWithoutOffset;
     }
 
@@ -85,5 +85,20 @@ class Integer implements Generator
                 "Integers between {$this->lowerLimit} and {$this->upperLimit}"
             );
         }
+    }
+
+    private function safeLimit()
+    {
+        if ($this->isIntegerOverflow($this->upperLimit - $this->lowerLimit)) {
+            $safeLowerLimit = $this->lowerLimit + 1 + $this->upperLimit;
+            return $this->upperLimit - $safeLowerLimit;
+        }
+
+        return $this->upperLimit - $this->lowerLimit;
+    }
+
+    private function isIntegerOverflow($value)
+    {
+        return !is_int($value);
     }
 }
