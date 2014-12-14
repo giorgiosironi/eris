@@ -3,7 +3,9 @@ namespace Eris\Generator;
 use Eris\Generator;
 use InvalidArgumentException;
 
-define('PHP_INT_MIN', ~PHP_INT_MAX);
+if (!defined('PHP_INT_MIN')) {
+    define('PHP_INT_MIN', ~PHP_INT_MAX);
+}
 
 function pos($upperLimit = PHP_INT_MAX)
 {
