@@ -17,9 +17,8 @@ class Natural implements Generator
 {
     public function __construct($lowerLimit, $upperLimit)
     {
-        if ($lowerLimit < 0) {
-            throw new InvalidArgumentException('Natural generator lower limit must be >= 0');
-        }
+        $this->checkLimits($lowerLimit, $upperLimit);
+
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
     }
@@ -45,5 +44,19 @@ class Natural implements Generator
             && ($element === (int) ceil($element))
             && ($element >= $this->lowerLimit)
             && ($element <= $this->upperLimit);
+    }
+
+    public function checkLimits($lowerLimit, $upperLimit)
+    {
+        if ($lowerLimit < 0) {
+            throw new InvalidArgumentException('Natural generator lower limit must be >= 0');
+        }
+
+        if ($lowerLimit > $upperLimit) {
+            throw new InvalidArgumentException(
+                "lower limit must be lower than the upper limit. " .
+                "in this case {$lowerLimit} is not lower than {$upperLimit}."
+            );
+        }
     }
 }
