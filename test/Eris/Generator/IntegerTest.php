@@ -43,6 +43,17 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-10, $value);
     }
 
+    public function testShouldEventuallyGenerateAllTheValues()
+    {
+        $generator = new Integer(3, 7);
+        $values = [];
+        for ($i = 0; $i < 100; $i++) {
+            $value = $generator();
+            $values[$value] = true;
+        }
+        $this->assertEquals(5, count($values), "Only generated the following values: " . var_export(array_keys($values), true));
+    }
+
     public function testUniformity()
     {
         $generator = new Integer(-10, 10000);
