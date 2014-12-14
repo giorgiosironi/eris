@@ -5,7 +5,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function testElementsOnlyProducesElementsFromTheGivenArguments()
+    public function testAPropertyHoldingForAllNumbers()
     {
         $this->forAll([
             Generator\float(-100.0, 100.0),
