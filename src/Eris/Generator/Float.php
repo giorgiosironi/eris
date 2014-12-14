@@ -2,6 +2,11 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+/**
+ * @param float $lowerLimit
+ * @param float $upperLimit
+ * @return Eris\Generator\Float
+ */
 function float($lowerLimit, $upperLimit)
 {
     return new Float($lowerLimit, $upperLimit);
@@ -14,8 +19,8 @@ class Float implements Generator
 
     public function __construct($lowerLimit, $upperLimit)
     {
-        $this->lowerLimit = $lowerLimit;
-        $this->upperLimit = $upperLimit;
+        $this->lowerLimit = (float) $lowerLimit;
+        $this->upperLimit = (float) $upperLimit;
     }
 
     public function __invoke()
