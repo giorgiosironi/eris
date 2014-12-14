@@ -16,10 +16,12 @@ class Sequence implements Generator
     public function __construct($singleElementGenerator, $currentSize)
     {
         $this->singleElementGenerator = $singleElementGenerator;
-        $this->sizeGenerator = $currentSize;
+        // TODO: Generator::box($singleElementGenerator);
         if (!($this->singleElementGenerator instanceof Generator)) {
             $this->singleElementGenerator = new Constant($this->singleElementGenerator);
         }
+        $this->sizeGenerator = $currentSize;
+        // TODO: Generator::box($currentSize);
         if (!($this->sizeGenerator instanceof Generator)) {
             $this->sizeGenerator = new Constant($this->sizeGenerator);
         }
