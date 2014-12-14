@@ -12,6 +12,17 @@ function charAscii()
     return Character::ascii();
 }
 
+/**
+ * Generates character in the ASCII 32-127 range, excluding non-printable ones
+ * or modifiers such as CR, LF and Tab.
+ *
+ * @return Generator\Character
+ */
+function charPrintableAscii()
+{
+    return Character::printableAscii();
+}
+
 class Character implements Generator
 {
     private $lowerLimit;
