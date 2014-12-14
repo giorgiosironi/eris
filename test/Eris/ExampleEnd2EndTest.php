@@ -76,6 +76,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
+    public function testIntegerTests()
+    {
+        $this->runExample('IntegerTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     private function runExample($testFile)
     {
         $this->testFile = $testFile;

@@ -2,11 +2,6 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
-function pos($upperLimit = PHP_INT_MAX)
-{
-    return new Natural(1, $upperLimit);
-}
-
 function nat($upperLimit = PHP_INT_MAX)
 {
     return new Natural(0, $upperLimit);
