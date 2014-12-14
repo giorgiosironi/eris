@@ -15,6 +15,12 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testCharactersCannotShrink()
+    {
+        $generator = Character::ascii(); 
+        $this->assertEquals('A', $generator->shrink('A'));
+    }
+
     public function testContainsOnlyTheSpecifiedRange()
     {
         $generator = Character::ascii(); 

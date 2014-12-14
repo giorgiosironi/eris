@@ -1,7 +1,8 @@
 <?php
 namespace Eris\Generator;
+use Eris\Generator;
 
-class Character
+class Character implements Generator
 {
     public static function ascii()
     {
@@ -11,6 +12,11 @@ class Character
     public function __invoke()
     {
         return chr(rand(0, 127)); 
+    }
+
+    public function shrink($value)
+    {
+        return $value;
     }
 
     public function contains($value)
