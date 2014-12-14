@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use InvalidArgumentException;
 
 /**
  * @param float $lowerLimit
@@ -19,6 +20,7 @@ class Float implements Generator
 
     public function __construct($lowerLimit, $upperLimit)
     {
+        $this->ensureValidityOfBoundaries($lowerLimit, $upperLimit);
         $this->lowerLimit = (float) $lowerLimit;
         $this->upperLimit = (float) $upperLimit;
     }
@@ -47,6 +49,21 @@ class Float implements Generator
         return is_float($element)
             && $element >= $this->lowerLimit
             && $element <= $this->upperLimit; 
+    }
+
+    private function ensureValidityOfBoundaries($lowerLimit, $upperLimit)
+    {
+        $this->ensureIsNumeric($lowerLimit);
+        $this->ensureIsNumeric($upperLimit);
+    }
+
+    private function ensureIsNumeric($value)
+    {
+        if (!is_numeric($value)) {
+            throw new InvalidArgumentException(
+                var_export($value, true) . " is not a valid numerical boundary"
+            );
+        }
     }
 }
 

@@ -57,4 +57,20 @@ class FloatTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($generator->contains(0), "0 is contained but it should not be");
         
     }
+
+    public function testNumbersAreCastedAtCreation()
+    {
+        $this->assertEquals(
+            new Float(4.0, 8.0),
+            new Float(4, 8)
+        ); 
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testNonNumbersCannotBeUsedForCreation()
+    {
+        new Float(4, "eight");
+    }
 }
