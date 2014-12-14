@@ -43,6 +43,17 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-10, $value);
     }
 
+    public function testShouldEventuallyGenerateAllTheValues()
+    {
+        $generator = new Integer(3, 7);
+        $values = [];
+        for ($i = 0; $i < 100; $i++) {
+            $value = $generator();
+            $values[$value] = true;
+        }
+        $this->assertEquals(5, count($values), "Only generated the following values: " . var_export(array_keys($values), true));
+    }
+
     public function testUniformity()
     {
         $generator = new Integer(-10, 10000);
@@ -94,5 +105,27 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Integer(100, 200);
         $generator->shrink(300);
+    }
+
+    public function testOverflowIsAvoidedWhenDealingWithMachineLowerLimit()
+    {
+        $generator = new Integer(ERIS_PHP_INT_MIN, 7);
+        $value = $generator();
+        $this->assertTrue(
+            $generator->contains($value),
+            "{$value} does not belongs to the domain of Integers " .
+            "between " . ERIS_PHP_INT_MIN . " and 7"
+        );
+    }
+
+    public function testOverflowIsAvoidedWhenLowerLimitIsCloseToTheMachineLimit()
+    {
+        $generator = new Integer(ERIS_PHP_INT_MIN + 4, 7);
+        $value = $generator();
+        $this->assertTrue(
+            $generator->contains($value),
+            "{$value} does not belongs to the domain of Integers " .
+            "between " . (ERIS_PHP_INT_MIN + 4) . " and 7"
+        );
     }
 }
