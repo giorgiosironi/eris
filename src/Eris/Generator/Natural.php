@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use InvalidArgumentException;
 
 function pos($upperLimit = PHP_INT_MAX)
 {
