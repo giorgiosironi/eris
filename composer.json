@@ -16,6 +16,13 @@
         "php": ">=5.4",
         "phpunit/phpunit": "~4.0"
     },
+    "require-dev": {
+        "icomefromthenet/reverse-regex": "v0.0.6.2"
+    },
+    "suggest":
+    {
+        "icomefromthenet/reverse-regex": "v0.0.6.2 for the regex() Generator"
+    },
     "autoload": {
         "psr-0": {"" : "src/"}
     }
