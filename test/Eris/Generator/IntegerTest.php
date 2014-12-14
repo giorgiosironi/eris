@@ -109,23 +109,23 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     public function testOverflowIsAvoidedWhenDealingWithMachineLowerLimit()
     {
-        $generator = new Integer(PHP_INT_MIN, 7);
+        $generator = new Integer(ERIS_PHP_INT_MIN, 7);
         $value = $generator();
         $this->assertTrue(
             $generator->contains($value),
             "{$value} does not belongs to the domain of Integers " .
-            "between " . PHP_INT_MIN . " and 7"
+            "between " . ERIS_PHP_INT_MIN . " and 7"
         );
     }
 
     public function testOverflowIsAvoidedWhenLowerLimitIsCloseToTheMachineLimit()
     {
-        $generator = new Integer(PHP_INT_MIN + 4, 7);
+        $generator = new Integer(ERIS_PHP_INT_MIN + 4, 7);
         $value = $generator();
         $this->assertTrue(
             $generator->contains($value),
             "{$value} does not belongs to the domain of Integers " .
-            "between " . (PHP_INT_MIN + 4) . " and 7"
+            "between " . (ERIS_PHP_INT_MIN + 4) . " and 7"
         );
     }
 }
