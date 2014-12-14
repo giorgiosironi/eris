@@ -3,8 +3,8 @@ namespace Eris\Generator;
 use Eris\Generator;
 use InvalidArgumentException;
 
-if (!defined('PHP_INT_MIN')) {
-    define('PHP_INT_MIN', ~PHP_INT_MAX);
+if (!defined('ERIS_PHP_INT_MIN')) {
+    define('ERIS_PHP_INT_MIN', ~PHP_INT_MAX);
 }
 
 function pos($upperLimit = PHP_INT_MAX)
@@ -12,19 +12,19 @@ function pos($upperLimit = PHP_INT_MAX)
     return new Integer(0, $upperLimit);
 }
 
-function neg($lowerLimit = PHP_INT_MIN)
+function neg($lowerLimit = ERIS_PHP_INT_MIN)
 {
     return new Integer($lowerLimit, 0);
 }
 
-function int($lowerLimit = PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
+function int($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
 {
     return new Integer($lowerLimit, $upperLimit);
 }
 
 class Integer implements Generator
 {
-    public function __construct($lowerLimit = PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
+    public function __construct($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
     {
         $this->checkLimits($lowerLimit, $upperLimit);
 
@@ -65,7 +65,7 @@ class Integer implements Generator
             throw new InvalidArgumentException(
                 "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
                 "upperLimit (" . var_export($upperLimit, true) . ") should " .
-                "be Integers between " . PHP_INT_MIN . " and " . PHP_INT_MAX
+                "be Integers between " . ERIS_PHP_INT_MIN . " and " . PHP_INT_MAX
             );
         }
 
