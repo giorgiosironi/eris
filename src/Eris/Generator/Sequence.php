@@ -12,7 +12,6 @@ class Sequence implements Generator
 {
     private $sizeGenerator;
     private $singleElementGenerator;
-    private $shrinkSize;
 
     public function __construct($singleElementGenerator, $currentSize)
     {
@@ -24,7 +23,6 @@ class Sequence implements Generator
         if (!($this->sizeGenerator instanceof Generator)) {
             $this->sizeGenerator = new Constant($this->sizeGenerator);
         }
-        $this->shrinkSize = new Boolean();
     }
 
     public function __invoke()
@@ -41,14 +39,12 @@ class Sequence implements Generator
             );
         }
 
-        $willShrinkSize = $this->shrinkSize->__invoke();
-        if ($willShrinkSize) {
-            $indexOfElementToRemove = array_rand($sequence);
-            unset($sequence[$indexOfElementToRemove]);
-            $sequence = array_values($sequence);
+        $willShrinkInSize = (new Boolean())->__invoke();
+        if ($willShrinkInSize) {
+            $sequence = $this->shrinkInSize($sequence);
         }
-        if (!$willShrinkSize) {
-            $sequence = $this->vector(count($sequence))->shrink($sequence);
+        if (!$willShrinkInSize) {
+            $sequence = $this->shrinkTheElements($sequence);
         }
         return $sequence;
     }
@@ -56,6 +52,18 @@ class Sequence implements Generator
     public function contains($sequence)
     {
         return $this->vector(count($sequence))->contains($sequence);
+    }
+
+    private function shrinkInSize($sequence)
+    {
+        $indexOfElementToRemove = array_rand($sequence);
+        unset($sequence[$indexOfElementToRemove]);
+        return array_values($sequence);
+    }
+
+    private function shrinkTheElements($sequence)
+    {
+        return $this->vector(count($sequence))->shrink($sequence);
     }
 
     private function vector($size)
