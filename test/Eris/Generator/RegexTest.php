@@ -10,7 +10,6 @@ class RegexTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 100; $i++) {
             $value = $generator();
             $this->assertRegexp($expression, $value);
-            // actually not implemented yet:
             $this->assertTrue($generator->contains($value));
         }
     }  
