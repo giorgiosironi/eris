@@ -14,14 +14,26 @@ function charAscii()
 
 class Character implements Generator
 {
+    private $lowerLimit;
+
     public static function ascii()
     {
-        return new self();
+        return new self($lowerLimit = 0);
+    }
+
+    public static function printableAscii()
+    {
+        return new self($lowerLimit = 32);
+    }
+    
+    private function __construct($lowerLimit)
+    {
+        $this->lowerLimit = $lowerLimit;
     }
 
     public function __invoke()
     {
-        return chr(rand(0, 127)); 
+        return chr(rand($this->lowerLimit, 127)); 
     }
 
     public function shrink($value)
@@ -33,7 +45,7 @@ class Character implements Generator
     {
         return is_string($value)
             && strlen($value) == 1
-            && ord($value) >= 0
+            && ord($value) >= $this->lowerLimit
             && ord($value) <= 127;
     }
 }
