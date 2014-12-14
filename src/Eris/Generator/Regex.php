@@ -42,7 +42,7 @@ class Regex implements Generator
 
     public function contains($value)
     {
-      return is_string($value)
-          && (bool) preg_match($this->expression, $value);
+        return is_string($value)
+            && (bool) preg_match("/{$this->expression}/", $value);
     }
 }
