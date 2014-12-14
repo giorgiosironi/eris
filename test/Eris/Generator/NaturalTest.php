@@ -35,4 +35,37 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
         $generator = new Natural(10, 100);
         $this->assertEquals(10, $generator->shrink(10));
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenLowerLimitIsLowerThanZero()
+    {
+        new Natural(-1, 1);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenLowerLimitIsGreaterThanUpperLimit()
+    {
+        new Natural(10, 5);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenLimitsAreNotIntegers()
+    {
+        new Natural("nine", "twenty");
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new Natural(2, 4);
+        $generator->shrink(5);
+    }
 }
