@@ -5,7 +5,7 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->singleElementGenerator = new Natural(0, 100);
+        $this->singleElementGenerator = new Natural(1, 100);
     }
 
     public function testConstructWithSize()
