@@ -2,6 +2,16 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+/**
+ * Generates character in the ASCII 0-127 range.
+ *
+ * @return Generator\Character
+ */
+function charAscii()
+{
+    return Character::ascii();
+}
+
 class Character implements Generator
 {
     public static function ascii()
