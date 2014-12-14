@@ -57,4 +57,12 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     {
         new Natural(10, 5);
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenLimitsAreNotIntegers()
+    {
+        new Natural("nine", "twenty");
+    }
 }

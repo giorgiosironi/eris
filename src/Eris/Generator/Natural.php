@@ -48,6 +48,14 @@ class Natural implements Generator
 
     public function checkLimits($lowerLimit, $upperLimit)
     {
+        if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
+            throw new InvalidArgumentException(
+                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
+                "upperLimit (" . var_export($upperLimit, true) . ") should " .
+                "be Integers between 0 " . " and " . PHP_INT_MAX
+            );
+        }
+
         if ($lowerLimit < 0) {
             throw new InvalidArgumentException('Natural generator lower limit must be >= 0');
         }
