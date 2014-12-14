@@ -65,4 +65,13 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     {
         new Natural("nine", "twenty");
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new Natural(2, 4);
+        $generator->shrink(5);
+    }
 }

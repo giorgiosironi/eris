@@ -30,6 +30,8 @@ class Natural implements Generator
 
     public function shrink($element)
     {
+        $this->checkValueToShrink($element);
+
         if ($element > $this->lowerLimit) {
             $element--;
         }
@@ -46,7 +48,7 @@ class Natural implements Generator
             && ($element <= $this->upperLimit);
     }
 
-    public function checkLimits($lowerLimit, $upperLimit)
+    private function checkLimits($lowerLimit, $upperLimit)
     {
         if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
             throw new InvalidArgumentException(
@@ -64,6 +66,16 @@ class Natural implements Generator
             throw new InvalidArgumentException(
                 "lower limit must be lower than the upper limit. " .
                 "in this case {$lowerLimit} is not lower than {$upperLimit}."
+            );
+        }
+    }
+
+    private function checkValueToShrink($value)
+    {
+        if (!$this->contains($value)) {
+            throw new InvalidArgumentException(
+                "Cannot shrink {$value} because does not belongs to the domain of " .
+                "Naturals between {$this->lowerLimit} and {$this->upperLimit}"
             );
         }
     }
