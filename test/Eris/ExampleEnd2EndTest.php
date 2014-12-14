@@ -44,6 +44,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRegexTests()
+    {
+        $this->runExample('RegexTest.php');
+        $this->assertAllTestsArePassing(3);
+    }
+
     public function testSumTests()
     {
         $this->runExample('SumTest.php');

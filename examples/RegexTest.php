@@ -11,7 +11,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
             Generator\regex("[a-z]{10}"),
         ])
             ->then(function($string) {
-                var_dump($string);
+                $this->assertEquals(10, strlen($string));
             });
     }
 }
