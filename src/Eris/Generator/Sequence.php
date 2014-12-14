@@ -34,6 +34,13 @@ class Sequence implements Generator
 
     public function shrink($sequence)
     {
+        if (!$this->contains($sequence)) {
+            throw new InvalidArgumentException(
+                'Cannot shrink {' . var_export($sequence, true) . '} because ' .
+                'it does not belongs to the domain of this sequence'
+            );
+        }
+
         $willShrinkSize = $this->shrinkSize->__invoke();
         if ($willShrinkSize) {
             $indexOfElementToRemove = array_rand($sequence);
@@ -48,8 +55,7 @@ class Sequence implements Generator
 
     public function contains($sequence)
     {
-        return $this->sizeGenerator->contains(count($sequence)) &&
-            $this->vector(count($sequence))->contains($sequence);
+        return $this->vector(count($sequence))->contains($sequence);
     }
 
     private function vector($size)

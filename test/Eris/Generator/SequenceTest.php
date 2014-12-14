@@ -64,19 +64,34 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($generator->contains($elements));
     }
 
-    public function testDoNotContainElementsWhenSizeIsNotContainedInGivenGenerator()
+    public function testDoNotContainsElementsWhenElementAreNotContainedInGivenGenerator()
     {
+        $aString = 'a string';
+        $this->assertFalse($this->singleElementGenerator->contains($aString));
         $generator = new Sequence($this->singleElementGenerator, 2);
-        $elements = [
-            $this->singleElementGenerator->__invoke(),
-            $this->singleElementGenerator->__invoke(),
-            $this->singleElementGenerator->__invoke(),
-        ];
+        $elements = [$aString, $aString];
         $this->assertFalse($generator->contains($elements));
     }
 
+    public function testContainsAnEmptySequence()
+    {
+        $generator = new Sequence($this->singleElementGenerator, 2);
+        $this->assertTrue($generator->contains([]));
+    }
 
-    public function sumOf($elements)
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testCannotShrinkSomethingThatIsNotContainedInDomain()
+    {
+        $aString = 'a string';
+        $this->assertFalse($this->singleElementGenerator->contains($aString));
+        $generator = new Sequence($this->singleElementGenerator, 2);
+        $generator->shrink([$aString]);
+    }
+
+
+    private function sumOf($elements)
     {
         return array_reduce(
             $elements,
