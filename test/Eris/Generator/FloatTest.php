@@ -73,4 +73,12 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     {
         new Float(4, "eight");
     }
+
+    public function testTheOrderOfIntervalBoundariesDoesNotMatter()
+    {
+        $this->assertEquals(
+            new Float(0.0, 1.0),
+            new Float(1.0, 0.0)
+        );
+    }
 }

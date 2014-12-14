@@ -18,11 +18,13 @@ class Float implements Generator
     private $lowerLimit;
     private $upperLimit;
 
-    public function __construct($lowerLimit, $upperLimit)
+    public function __construct($oneLimit, $otherLimit)
     {
-        $this->ensureValidityOfBoundaries($lowerLimit, $upperLimit);
-        $this->lowerLimit = (float) $lowerLimit;
-        $this->upperLimit = (float) $upperLimit;
+        $this->ensureIsNumeric($oneLimit);
+        $this->ensureIsNumeric($otherLimit);
+
+        $this->lowerLimit = min((float) $oneLimit, (float) $otherLimit);
+        $this->upperLimit = max((float) $oneLimit, (float) $otherLimit);
     }
 
     public function __invoke()
@@ -49,12 +51,6 @@ class Float implements Generator
         return is_float($element)
             && $element >= $this->lowerLimit
             && $element <= $this->upperLimit; 
-    }
-
-    private function ensureValidityOfBoundaries($lowerLimit, $upperLimit)
-    {
-        $this->ensureIsNumeric($lowerLimit);
-        $this->ensureIsNumeric($upperLimit);
     }
 
     private function ensureIsNumeric($value)
