@@ -46,4 +46,12 @@ class VectorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->vectorGenerator->contains($vector));
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $this->vectorGenerator->shrink("twenty");
+    }
 }
