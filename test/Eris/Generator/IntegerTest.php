@@ -72,14 +72,6 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $generator = new Integer("zero", "twenty");
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testExceptionWhenLowerLimitIsGreaterThenUpperLimit()
-    {
-        $generator = new Integer(1, 0);
-    }
-
     public function testCanGenerateSingleInteger()
     {
         $generator = new Integer(42, 42);
@@ -94,5 +86,13 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Integer(100, 200);
         $generator->shrink(300);
+    }
+
+    public function testTheOrderOfBoundariesDoesNotMatter()
+    {
+        $this->assertEquals(
+            new Integer(100, -100),
+            new Integer(-100, 100)
+        );
     }
 }

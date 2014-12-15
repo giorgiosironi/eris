@@ -24,12 +24,12 @@ function int($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
 
 class Integer implements Generator
 {
-    public function __construct($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
+    public function __construct($oneLimit = ERIS_PHP_INT_MIN, $otherLimit = PHP_INT_MAX)
     {
-        $this->checkLimits($lowerLimit, $upperLimit);
+        $this->checkLimits($oneLimit, $otherLimit);
 
-        $this->lowerLimit = $lowerLimit;
-        $this->upperLimit = $upperLimit;
+        $this->lowerLimit = min($oneLimit, $otherLimit);
+        $this->upperLimit = max($oneLimit, $otherLimit);
     }
 
     public function __invoke()
@@ -66,13 +66,6 @@ class Integer implements Generator
                 "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
                 "upperLimit (" . var_export($upperLimit, true) . ") should " .
                 "be Integers between " . ERIS_PHP_INT_MIN . " and " . PHP_INT_MAX
-            );
-        }
-
-        if ($lowerLimit > $upperLimit) {
-            throw new InvalidArgumentException(
-                "lower limit must be lower than the upper limit. " .
-                "in this case {$lowerLimit} is not lower than {$upperLimit}."
             );
         }
     }
