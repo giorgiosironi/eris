@@ -58,6 +58,10 @@ class Sequence implements Generator
 
     private function shrinkInSize($sequence)
     {
+        if (count($sequence) === 0) {
+            return $sequence;
+        }
+
         $indexOfElementToRemove = array_rand($sequence);
         unset($sequence[$indexOfElementToRemove]);
         return array_values($sequence);
