@@ -37,7 +37,7 @@ class Sequence implements Generator
         if (!$this->contains($sequence)) {
             throw new InvalidArgumentException(
                 'Cannot shrink {' . var_export($sequence, true) . '} because ' .
-                'it does not belongs to the domain of this sequence'
+                'it does not belong to the domain of this sequence'
             );
         }
 
