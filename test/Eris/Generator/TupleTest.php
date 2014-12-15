@@ -98,4 +98,16 @@ class TupleTest extends \PHPUnit_Framework_TestCase
         $elementsAfterShrink = $generator->shrink($elements);
         $this->assertEquals([], $elementsAfterShrink);
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new Tuple([
+            $this->generatorForSingleElement,
+            $this->generatorForSingleElement,
+        ]);
+        $generator->shrink([1.0, 25.6]);
+    }
 }

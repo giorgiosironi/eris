@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use DomainException;
 
 function tuple(array $generators)
 {
@@ -30,6 +31,8 @@ class Tuple implements Generator
 
     public function shrink($tuple)
     {
+        $this->checkValueToShrink($tuple);
+
         if ($this->contains($tuple) && count($tuple) > 0) {
             $attemptsToShrink = 10;
             $numberOfElementsToShrink = rand(1, max(floor($this->size/2), 1));
@@ -75,5 +78,25 @@ class Tuple implements Generator
             },
             $generators
         );
+    }
+
+    private function checkValueToShrink($value)
+    {
+        if (!$this->contains($value)) {
+            throw new DomainException(
+                "Cannot shrink " . var_export($value, true) . " because does not belongs to the domain of the " .
+                "Tuple with domain elements " . $this->domainsTupleAsString()
+            );
+        }
+    }
+
+    private function domainsTupleAsString()
+    {
+        $domainOfElements = '(';
+        foreach ($this->generators as $generator) {
+            $domainOfElements .= get_class($generator);
+            $domainOfElements .= ',';
+        }
+        return substr($domainOfElements, 0, -1) . ')';
     }
 }
