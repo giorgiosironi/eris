@@ -20,4 +20,13 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($generator->shrink($generatedValue));
         }
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
+    {
+        $generator = new Boolean();
+        $generator->shrink(10);
+    }
 }

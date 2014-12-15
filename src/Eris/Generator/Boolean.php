@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use DomainException;
 
 function bool()
 {
@@ -19,6 +20,12 @@ class Boolean implements Generator
 
     public function shrink($element)
     {
+        if (!$this->contains($element)) {
+            throw new DomainException(
+                $element . ' does not belong to the domain of the Booleans'
+            );
+        }
+
         return false;
     }
 
