@@ -44,6 +44,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testFloatTests()
+    {
+        $this->runExample('FloatTest.php');
+        $this->assertTestsAreFailing(1);
+    }
+
     public function testSumTests()
     {
         $this->runExample('SumTest.php');
