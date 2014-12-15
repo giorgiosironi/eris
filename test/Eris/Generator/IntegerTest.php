@@ -80,7 +80,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException DomainException
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {

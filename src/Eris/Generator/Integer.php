@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 use Eris\Generator;
 use InvalidArgumentException;
+use DomainException;
 
 if (!defined('ERIS_PHP_INT_MIN')) {
     define('ERIS_PHP_INT_MIN', ~PHP_INT_MAX);
@@ -73,7 +74,7 @@ class Integer implements Generator
     private function checkValueToShrink($value)
     {
         if (!$this->contains($value)) {
-            throw new InvalidArgumentException(
+            throw new DomainException(
                 "Cannot shrink {$value} because does not belongs to the domain of " .
                 "Integers between {$this->lowerLimit} and {$this->upperLimit}"
             );
