@@ -32,7 +32,7 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
         $elementsAfterShrink = $generator->shrink($elements);
 
         $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
-        $this->assertLessThan($this->sumOf($elements), $this->sumOf($elementsAfterShrink));
+        $this->assertLessThan(array_sum($elements), array_sum($elementsAfterShrink));
     }
 
     public function testShrinkEmptySequence()
@@ -88,17 +88,5 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->singleElementGenerator->contains($aString));
         $generator = new Sequence($this->singleElementGenerator, new Constant(2));
         $generator->shrink([$aString]);
-    }
-
-
-    private function sumOf($elements)
-    {
-        return array_reduce(
-            $elements,
-            function($sum, $number) {
-                return $sum + $number;
-            },
-            0
-        );
     }
 }
