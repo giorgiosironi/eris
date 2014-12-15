@@ -48,9 +48,9 @@ class Natural implements Generator
     {
         if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
             throw new InvalidArgumentException(
-                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
-                "upperLimit (" . var_export($upperLimit, true) . ") should " .
-                "be Integers between 0 " . " and " . PHP_INT_MAX
+                'lowerLimit (' . var_export($lowerLimit, true) . ') and ' .
+                'upperLimit (' . var_export($upperLimit, true) . ') should ' .
+                'be Integers between 0 ' . ' and ' . PHP_INT_MAX
             );
         }
 
@@ -70,8 +70,8 @@ class Natural implements Generator
     {
         if (!$this->contains($value)) {
             throw new DomainException(
-                "Cannot shrink {$value} because does not belongs to the domain of " .
-                "Naturals between {$this->lowerLimit} and {$this->upperLimit}"
+                'Cannot shrink ' . $value . ' because it does not belong to the domain of ' .
+                'Naturals between ' . $this->lowerLimit . ' and ' . $this->upperLimit
             );
         }
     }

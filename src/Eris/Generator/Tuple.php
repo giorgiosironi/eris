@@ -84,8 +84,9 @@ class Tuple implements Generator
     {
         if (!$this->contains($value)) {
             throw new DomainException(
-                "Cannot shrink " . var_export($value, true) . " because does not belongs to the domain of the " .
-                "Tuple with domain elements " . $this->domainsTupleAsString()
+                'Cannot shrink ' . var_export($value, true) . ' because it does not ' .
+                ' belong to the domain of the Tuples with domain elements ' .
+                $this->domainsTupleAsString()
             );
         }
     }

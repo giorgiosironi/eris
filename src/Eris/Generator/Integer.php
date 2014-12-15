@@ -64,9 +64,9 @@ class Integer implements Generator
     {
         if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
             throw new InvalidArgumentException(
-                "lowerLimit (" . var_export($lowerLimit, true) . ") and " .
-                "upperLimit (" . var_export($upperLimit, true) . ") should " .
-                "be Integers between " . ERIS_PHP_INT_MIN . " and " . PHP_INT_MAX
+                'lowerLimit (' . var_export($lowerLimit, true) . ') and ' .
+                'upperLimit (' . var_export($upperLimit, true) . ') should ' .
+                'be Integers between ' . ERIS_PHP_INT_MIN . ' and ' . PHP_INT_MAX
             );
         }
     }
@@ -75,8 +75,8 @@ class Integer implements Generator
     {
         if (!$this->contains($value)) {
             throw new DomainException(
-                "Cannot shrink {$value} because does not belongs to the domain of " .
-                "Integers between {$this->lowerLimit} and {$this->upperLimit}"
+                'Cannot shrink ' . $value . ' because it does not belong to the domain of ' .
+                'Integers between ' . $this->lowerLimit . ' and ' . $this->upperLimit
             );
         }
     }

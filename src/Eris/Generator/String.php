@@ -31,8 +31,8 @@ class String implements Generator
     {
         if (!$this->contains($element)) {
             throw new DomainException(
-                "Cannot shrink {$element} because does not belongs to the domain of the " .
-                "Strings between 0 and {$this->maximumLength} characters"
+                'Cannot shrink ' . $element . ' because it does not belong to the domain of the ' .
+                'Strings between 0 and ' . $this->maximumLength . ' characters'
             );
         }
 
