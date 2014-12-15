@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use DomainException;
 
 function elements(/*$a, $b, ...*/)
 {
@@ -35,6 +36,13 @@ class Elements implements Generator
 
     public function shrink($element)
     {
+        if (!$this->contains($element)) {
+            throw new DomainException(
+                $element . ' does not belong to the domain with elements ' .
+                var_export($this->domain, true)
+            );
+        }
+
         return $element;
     }
 

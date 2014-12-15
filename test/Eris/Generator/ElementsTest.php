@@ -31,4 +31,13 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
         // disregarding types
         $this->assertTrue($generator->contains('2'));
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = Elements::fromArray(['A', 1]);
+        $generator->shrink(2);
+    }
 }
