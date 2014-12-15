@@ -36,6 +36,9 @@ class String implements Generator
             );
         }
 
+        if ($element === '') {
+            return '';
+        }
         return substr($element, 0, -1);
     }
 

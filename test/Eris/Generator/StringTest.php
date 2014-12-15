@@ -31,7 +31,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new String(10);
         $lastValue = $generator();
-        $this->assertEquals('', $generator->shrink(''));
+        $this->assertSame('', $generator->shrink(''));
     }
 
     public function testContainsIsBasedOnLength()
