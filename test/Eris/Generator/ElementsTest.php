@@ -19,7 +19,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testASingleValueCannotShrinkGivenThereIsNoExplicitRelationshipBetweenTheValuesInTheDomain()
     {
         $generator = Elements::fromArray(['A', 2, false]);
-        $this->assertEquals(2, $generator->shrink(2));
+        $this->assertSame(2, $generator->shrink(2));
     }
 
     public function testOnlyContainsTheElementsOfTheGivenDomain()

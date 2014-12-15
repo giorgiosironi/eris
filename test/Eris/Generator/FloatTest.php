@@ -55,7 +55,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($generator->contains(0.0), "0.0 is contained but it should not be");
         $this->assertFalse($generator->contains(9.0), "9.0 is contained but it should not be");
         $this->assertFalse($generator->contains(0), "0 is contained but it should not be");
-        
+
     }
 
     public function testNumbersAreCastedAtCreation()
@@ -63,7 +63,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             new Float(4.0, 8.0),
             new Float(4, 8)
-        ); 
+        );
     }
 
     /**
