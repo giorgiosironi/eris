@@ -26,4 +26,13 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($generator->contains(true));
         $this->assertFalse($generator->contains(42));
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
+    {
+        $generator = new Constant(5);
+        $generator->shrink(10);
+    }
 }
