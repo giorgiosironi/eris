@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
-use InvalidArgumentException;
+use DomainException;
 
 function seq(Generator $singleElementGenerator, $currentSize = 1000)
 {
@@ -35,7 +35,7 @@ class Sequence implements Generator
     public function shrink($sequence)
     {
         if (!$this->contains($sequence)) {
-            throw new InvalidArgumentException(
+            throw new DomainException(
                 'Cannot shrink {' . var_export($sequence, true) . '} because ' .
                 'it does not belong to the domain of this sequence'
             );

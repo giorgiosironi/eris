@@ -80,7 +80,7 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException DomainException
      */
     public function testCannotShrinkSomethingThatIsNotContainedInDomain()
     {
