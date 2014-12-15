@@ -1,6 +1,7 @@
 <?php
 namespace Eris\Generator;
 use Eris\Generator;
+use DomainException;
 
 function string($maximumLength)
 {
@@ -28,11 +29,18 @@ class String implements Generator
 
     public function shrink($element)
     {
+        if (!$this->contains($element)) {
+            throw new DomainException(
+                "Cannot shrink {$element} because does not belongs to the domain of the " .
+                "Strings between 0 and {$this->maximumLength} characters"
+            );
+        }
+
         return substr($element, 0, -1);
     }
 
     public function contains($element)
     {
-        return strlen($element) <= $this->maximumLength;
+        return is_string($element) && strlen($element) <= $this->maximumLength;
     }
 }

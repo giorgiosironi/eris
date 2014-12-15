@@ -63,4 +63,13 @@ class StringTest extends \PHPUnit_Framework_TestCase
         }
         return $usedChars;
     }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new String(10);
+        $generator->shrink(true);
+    }
 }
