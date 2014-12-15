@@ -47,9 +47,13 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
     public function testShrinkEventuallyEndsUpWithAnEmptySequence()
     {
         $initialSize = 10;
+        $numberOfShrinks = 0;
         $generator = new Sequence($this->singleElementGenerator, new Constant($initialSize));
         $elements = $generator();
         while (count($elements) > 0) {
+            if ($numberOfShrinks++ > 10000) {
+                $this->fail('Too many shrinks');
+            }
             $elements = $generator->shrink($elements);
         }
     }
