@@ -56,9 +56,10 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
         $numberOfShrinks = 0;
         $shrinked = 10;
         while ($shrinked !== 1) {
+            if ($numberOfShrinks++ > 10000) {
+                $this->fail('Too many shrinks');
+            }
             $shrinked = $generator->shrink($shrinked);
-            $numberOfShrinks += 1;
-            $this->assertTrue($numberOfShrinks < 100000, 'Too many shrinks');
         }
     }
 
