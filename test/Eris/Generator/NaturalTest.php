@@ -47,14 +47,6 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testExceptionWhenLowerLimitIsGreaterThanUpperLimit()
-    {
-        new Natural(10, 5);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testExceptionWhenLimitsAreNotIntegers()
     {
         new Natural("nine", "twenty");
@@ -67,5 +59,13 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Natural(2, 4);
         $generator->shrink(5);
+    }
+
+    public function testTheOrderOfBoundariesDoesNotMatter()
+    {
+        $this->assertEquals(
+            new Natural(0, 100),
+            new Natural(100, 0)
+        );
     }
 }

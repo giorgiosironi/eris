@@ -11,12 +11,15 @@ function nat($upperLimit = PHP_INT_MAX)
 
 class Natural implements Generator
 {
-    public function __construct($lowerLimit, $upperLimit)
-    {
-        $this->checkLimits($lowerLimit, $upperLimit);
+    private $lowerLimit;
+    private $upperLimit;
 
-        $this->lowerLimit = $lowerLimit;
-        $this->upperLimit = $upperLimit;
+    public function __construct($oneLimit, $otherLimit)
+    {
+        $this->checkLimits($oneLimit, $otherLimit);
+
+        $this->lowerLimit = min($oneLimit, $otherLimit);
+        $this->upperLimit = max($oneLimit, $otherLimit);
     }
 
     public function __invoke()
@@ -44,25 +47,18 @@ class Natural implements Generator
             && ($element <= $this->upperLimit);
     }
 
-    private function checkLimits($lowerLimit, $upperLimit)
+    private function checkLimits($oneLimit, $otherLimit)
     {
-        if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
+        if ((!is_int($oneLimit)) || (!is_int($otherLimit))) {
             throw new InvalidArgumentException(
-                'lowerLimit (' . var_export($lowerLimit, true) . ') and ' .
-                'upperLimit (' . var_export($upperLimit, true) . ') should ' .
+                'oneLimit (' . var_export($oneLimit, true) . ') and ' .
+                'otherLimit (' . var_export($otherLimit, true) . ') should ' .
                 'be Integers between 0 ' . ' and ' . PHP_INT_MAX
             );
         }
 
-        if ($lowerLimit < 0) {
+        if ($oneLimit < 0 || $otherLimit < 0) {
             throw new InvalidArgumentException('Natural generator lower limit must be >= 0');
-        }
-
-        if ($lowerLimit > $upperLimit) {
-            throw new InvalidArgumentException(
-                "lower limit must be lower than the upper limit. " .
-                "in this case {$lowerLimit} is not lower than {$upperLimit}."
-            );
         }
     }
 
