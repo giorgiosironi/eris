@@ -5,26 +5,26 @@ use InvalidArgumentException;
 
 function seq(Generator $singleElementGenerator, $currentSize = 1000)
 {
+    // TODO: Generator::box($singleElementGenerator);
+    if (!($singleElementGenerator instanceof Generator)) {
+        $singleElementGenerator = new Constant($singleElementGenerator);
+    }
+    // TODO: Generator::box($currentSize);
+    if (!($sizeGenerator instanceof Generator)) {
+        $sizeGenerator = new Constant($sizeGenerator);
+    }
     return new Sequence($singleElementGenerator, $currentSize);
 }
 
 class Sequence implements Generator
 {
-    private $sizeGenerator;
     private $singleElementGenerator;
+    private $sizeGenerator;
 
-    public function __construct($singleElementGenerator, $currentSize)
+    public function __construct(Generator $singleElementGenerator, Generator $currentSize)
     {
         $this->singleElementGenerator = $singleElementGenerator;
-        // TODO: Generator::box($singleElementGenerator);
-        if (!($this->singleElementGenerator instanceof Generator)) {
-            $this->singleElementGenerator = new Constant($this->singleElementGenerator);
-        }
         $this->sizeGenerator = $currentSize;
-        // TODO: Generator::box($currentSize);
-        if (!($this->sizeGenerator instanceof Generator)) {
-            $this->sizeGenerator = new Constant($this->sizeGenerator);
-        }
     }
 
     public function __invoke()
