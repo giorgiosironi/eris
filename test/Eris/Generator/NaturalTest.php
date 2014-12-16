@@ -14,7 +14,7 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
             }
             $buckets[$value]++;
         }
-        $this->assertEquals($upperLimit, count($buckets));
+        $this->assertSame($upperLimit, count($buckets));
         foreach ($buckets as $bucketValue) {
             // not a statistically correct bound,
             // but should fail very rarely
@@ -27,13 +27,13 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Natural(1, $upperLimit = 1000);
         $lastValue = $generator();
-        $this->assertEquals($lastValue - 1, $generator->shrink($lastValue));
+        $this->assertSame($lastValue - 1, $generator->shrink($lastValue));
     }
 
     public function testCouldNotShrinkMoreLowerLimit()
     {
         $generator = new Natural(10, 100);
-        $this->assertEquals(10, $generator->shrink(10));
+        $this->assertSame(10, $generator->shrink(10));
     }
 
     /**

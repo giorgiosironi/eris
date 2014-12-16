@@ -20,7 +20,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(in_array(abs($value - $newValue), [0, 1]));
             $value = $newValue;
         }
-        $this->assertEquals(0, $value);
+        $this->assertSame(0, $value);
     }
 
     public function testShrinkStopsAtTheLowerLimitWhenItIsGreaterThanZero()
@@ -30,7 +30,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 11; $i++) {
             $value = $generator->shrink($value);
         }
-        $this->assertEquals(10, $value);
+        $this->assertSame(10, $value);
     }
 
     public function testShrinkStopsAtTheUpperLimitWhenItIsLowerThanZero()
@@ -40,7 +40,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 11; $i++) {
             $value = $generator->shrink($value);
         }
-        $this->assertEquals(-10, $value);
+        $this->assertSame(-10, $value);
     }
 
     public function testUniformity()
@@ -61,7 +61,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Integer($lowerLimit = 0, $upperLimit = 0);
         $lastValue = $generator();
-        $this->assertEquals(0, $generator->shrink($lastValue));
+        $this->assertSame(0, $generator->shrink($lastValue));
     }
 
     /**
@@ -75,8 +75,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function testCanGenerateSingleInteger()
     {
         $generator = new Integer(42, 42);
-        $this->assertEquals(42, $generator());
-        $this->assertEquals(42, $generator->shrink($generator()));
+        $this->assertSame(42, $generator());
+        $this->assertSame(42, $generator->shrink($generator()));
     }
 
     /**

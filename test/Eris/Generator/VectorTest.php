@@ -19,7 +19,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $generator = $this->vectorGenerator;
         $vector = $generator();
 
-        $this->assertEquals($this->vectorSize, count($vector));
+        $this->assertSame($this->vectorSize, count($vector));
         foreach ($vector as $element) {
             $this->assertTrue($this->elementGenerator->contains($element));
         }

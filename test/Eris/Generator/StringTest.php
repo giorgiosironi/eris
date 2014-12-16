@@ -15,16 +15,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
             $lengths = $this->accumulateLengths($lengths, $length);
             $usedChars = $this->accumulateUsedChars($usedChars, $value);
         }
-        $this->assertEquals(11, count($lengths));
+        $this->assertSame(11, count($lengths));
         // only readable characters
-        $this->assertEquals(127 - 32, count($usedChars));
+        $this->assertSame(127 - 32, count($usedChars));
     }
 
     public function testShrinksByChoppingOffChars()
     {
         $generator = new String(10);
         $lastValue = $generator();
-        $this->assertEquals('abcde', $generator->shrink('abcdef'));
+        $this->assertSame('abcde', $generator->shrink('abcdef'));
     }
 
     public function testCannotShrinkTheEmptyString()
