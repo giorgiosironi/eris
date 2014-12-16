@@ -16,7 +16,9 @@ class Vector implements Generator
     public function __construct($size, Generator $generator)
     {
         $this->generator = new Tuple(
-            array_fill(0, $size, $generator)
+            ($size > 0) ?
+                array_fill(0, $size, $generator) :
+                []
         );
         $this->elementsGeneratorClass = get_class($generator);
     }
