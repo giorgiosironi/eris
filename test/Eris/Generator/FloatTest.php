@@ -23,7 +23,6 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Float($lowerLimit = 1, $upperLimit = 1000);
         $this->assertSame(3.5, $generator->shrink(4.5));
-        $this->assertSame(-3.5, $generator->shrink(-4.5));
     }
 
     public function testWhenBothSignsArePossibleCannotShrinkBelowZero()
@@ -80,5 +79,14 @@ class FloatTest extends \PHPUnit_Framework_TestCase
             new Float(0.0, 1.0),
             new Float(1.0, 0.0)
         );
+    }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
+    {
+        $generator = new Float(100.12, 200.12);
+        $generator->shrink(300.12);
     }
 }

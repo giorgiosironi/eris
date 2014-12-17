@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 use Eris\Generator;
 use InvalidArgumentException;
+use DomainException;
 
 /**
  * @param float $lowerLimit
@@ -37,6 +38,13 @@ class Float implements Generator
 
     public function shrink($element)
     {
+        if (!$this->contains($element)) {
+            throw new DomainException(
+                'Cannot shrink ' . $element . ' because it does not belong to the domain of ' .
+                'Floats between ' . $this->lowerLimit . ' and ' . $this->upperLimit
+            );
+        }
+
         if ($element < 0.0) {
             return min($element + 1.0, 0.0, $this->upperLimit);
         }
@@ -50,7 +58,7 @@ class Float implements Generator
     {
         return is_float($element)
             && $element >= $this->lowerLimit
-            && $element <= $this->upperLimit; 
+            && $element <= $this->upperLimit;
     }
 
     private function ensureIsNumeric($value)
