@@ -14,7 +14,7 @@ class Tuple implements Generator
 
     public function __construct(array $generators)
     {
-        $this->generators = $this->ensureAreAllGenerators($generators);
+        $this->generators = ensureAreAllGenerators($generators);
         $this->size = count($generators);
     }
 
@@ -62,18 +62,5 @@ class Tuple implements Generator
             }
         }
         return true;
-    }
-
-    private function ensureAreAllGenerators(array $generators)
-    {
-        return array_map(
-            function($generator) {
-                if ($generator instanceof Generator) {
-                    return $generator;
-                }
-                return new Constant($generator);
-            },
-            $generators
-        );
     }
 }
