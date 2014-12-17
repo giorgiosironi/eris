@@ -44,7 +44,10 @@ class StringTest extends PHPUnit_Framework_TestCase
                     . var_export($second, true) . PHP_EOL
                     . "strlen(): " . strlen($second) . PHP_EOL
                     . var_export($result, true) . PHP_EOL
-                    . "strlen(): " . strlen($result)
+                    . "strlen(): " . strlen($result) . PHP_EOL
+                    . "First hex: " . var_export(bin2hex($first), true) . PHP_EOL
+                    . "Second hex: " . var_export(bin2hex($second), true) . PHP_EOL
+                    . "Result hex: " . var_export(bin2hex($result), true) . PHP_EOL
                 );
             });
     }
