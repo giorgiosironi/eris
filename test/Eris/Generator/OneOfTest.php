@@ -10,7 +10,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithAnArrayOfGenerators()
     {
-        $generator = new OneOf([
+        $generator = oneOf([
             $this->singleElementGenerator,
             $this->singleElementGenerator,
         ]);
@@ -22,7 +22,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithNonGenerators()
     {
-        $generator = new OneOf([42, 42]);
+        $generator = oneOf([42, 42]);
         $element = $generator();
         $this->assertEquals(42, $element);
     }
@@ -32,50 +32,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithNoArguments()
     {
-        $generator = new OneOf([]);
+        $generator = oneOf([]);
         $element = $generator();
-    }
-
-    public function testShrinkElementGeneratedFromLastGenerator()
-    {
-        $generator = new OneOf([21, 42]);
-        $shrinked = $generator->shrink(42);
-        $this->assertTrue($shrinked === 21 || $shrinked === 42);
-    }
-
-    public function testShrinkElementGenerateFromFirstGenerator()
-    {
-        $generator = new OneOf([21, 42]);
-        $shrinked = $generator->shrink(21);
-        $this->assertTrue($shrinked === 21);
-    }
-
-    public function testShrinkEventuallyEndsUpToTheSmallestElementOfTheFirstDomain()
-    {
-        $generator = new OneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        $numberOfShrinks = 0;
-        $shrinked = 10;
-        while ($shrinked !== 1) {
-            if ($numberOfShrinks++ > 10000) {
-                $this->fail('Too many shrinks');
-            }
-            $shrinked = $generator->shrink($shrinked);
-        }
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testShrinkElementsNotInDomain()
-    {
-        $elementNotInDomain = 'a string';
-        $this->assertFalse($this->singleElementGenerator->contains($elementNotInDomain));
-
-        $generator = new OneOf([
-            $this->singleElementGenerator,
-            $this->singleElementGenerator,
-        ]);
-
-        $generator->shrink($elementNotInDomain);
     }
 }
