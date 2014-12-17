@@ -17,7 +17,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertSame(11, count($lengths));
         // only readable characters
-        $this->assertSame(127 - 32, count($usedChars));
+        $this->assertEquals(126 - 32, count($usedChars));
     }
 
     public function testShrinksByChoppingOffChars()

@@ -22,7 +22,7 @@ class String implements Generator
         $length = rand(0, $this->maximumLength);
         $built = '';
         for ($i = 0; $i < $length; $i++) {
-            $built .= chr(rand(33, 127));
+            $built .= chr(rand(33, 126));
         }
         return $built;
     }
