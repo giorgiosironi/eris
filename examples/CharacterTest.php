@@ -2,6 +2,7 @@
 use Eris\Generator;
 // TODO: maybe Eris\Antecedent?
 use Eris\Quantifier\Antecedent as is;
+use Eris\Quantifier\Antecedent as are;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
@@ -25,6 +26,19 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             ->when(is\printableCharacter())
             ->then(function($char) {
                 $this->assertFalse(ord($char) < 32);
+            });
+    }
+
+    public function testMultiplePrintableCharacters()
+    {
+        $this->forAll([
+            Generator\char(['basic-latin']),
+            Generator\char(['basic-latin']),
+        ])
+            ->when(are\printableCharacters())
+            ->then(function($first, $second) {
+                $this->assertFalse(ord($first) < 32);
+                $this->assertFalse(ord($second) < 32);
             });
     }
 

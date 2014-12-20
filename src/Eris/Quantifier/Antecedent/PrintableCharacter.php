@@ -7,6 +7,11 @@ function printableCharacter()
     return new PrintableCharacter();
 }
 
+function printableCharacters()
+{
+    return new PrintableCharacter();
+}
+
 class PrintableCharacter implements Antecedent
 {
     /**
