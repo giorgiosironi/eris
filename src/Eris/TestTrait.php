@@ -56,6 +56,16 @@ trait TestTrait
     }
 
     /**
+     * @beforeClass
+     */
+    public static function loadAllErisAntecedents()
+    {
+        foreach(glob(__DIR__ . '/Quantifier/Antecedent/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    /**
      * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
      * in your tearDown() method.
      * @after

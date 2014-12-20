@@ -1,5 +1,7 @@
 <?php
 use Eris\Generator;
+// TODO: maybe Eris\Antecedent?
+use Eris\Quantifier\Antecedent as is;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
@@ -18,12 +20,15 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testLengthOfPrintableAsciiCharacters()
     {
         $this->forAll([
-            Generator\charPrintableAscii(),
+            Generator\char(['basic-latin']),
         ])
+            ->when(is\printableCharacter())
             ->then(function($char) {
-                $this->assertLenghtIs1($char);
+                $this->assertFalse(ord($char) < 32);
             });
     }
+
+    // TODO: printableCharacter*s*()
 
     private function assertLenghtIs1($char)
     {
