@@ -5,9 +5,11 @@ use Eris\Generator;
 /**
  * Generates character in the ASCII 0-127 range.
  *
+ * @param array $characterSets  Only supported charset: "basic-latin"
+ * @param string $encoding  Only supported encoding: "utf-8"
  * @return Generator\Character
  */
-function charAscii()
+function char(array $characterSets, $encoding = 'utf-8')
 {
     return Character::ascii();
 }
@@ -26,25 +28,27 @@ function charPrintableAscii()
 class Character implements Generator
 {
     private $lowerLimit;
+    private $upperLimit;
 
     public static function ascii()
     {
-        return new self($lowerLimit = 0);
+        return new self($lowerLimit = 0, $upperLimit = 127);
     }
 
     public static function printableAscii()
     {
-        return new self($lowerLimit = 32);
+        return new self($lowerLimit = 32, $upperLimit = 126);
     }
     
-    private function __construct($lowerLimit)
+    private function __construct($lowerLimit, $upperLimit)
     {
         $this->lowerLimit = $lowerLimit;
+        $this->upperLimit = $upperLimit;
     }
 
     public function __invoke()
     {
-        return chr(rand($this->lowerLimit, 127)); 
+        return chr(rand($this->lowerLimit, $this->upperLimit)); 
     }
 
     public function shrink($value)
@@ -57,6 +61,6 @@ class Character implements Generator
         return is_string($value)
             && strlen($value) == 1
             && ord($value) >= $this->lowerLimit
-            && ord($value) <= 127;
+            && ord($value) <= $this->upperLimit;
     }
 }

@@ -8,7 +8,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testLengthOfAsciiCharactersInPhp()
     {
         $this->forAll([
-            Generator\charAscii(),
+            Generator\char(['basic-latin']),
         ])
             ->then(function($char) {
                 $this->assertLenghtIs1($char);
