@@ -1,5 +1,7 @@
 # Eris
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/giorgiosironi/eris?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Eris is a porting of [QuickCheck](https://github.com/giorgiosironi/eris-example) and property-based testing tools to the PHP and PHPUnit ecosystem.
 
 In property-based testing, several properties that the System Under Test must respect are defined, and a large sample of generated inputs is sent to it in an attempt to break the properties.
