@@ -18,6 +18,11 @@ class Random // implements Shrinker
         $this->timeLimit = TimeLimit::realTime(30);
     }
 
+    public function setTimeLimit(TimeLimit $timeLimit)
+    {
+        $this->timeLimit = $timeLimit; 
+    }
+
     /**
      * Precondition: $values should fail $this->assertion
      */

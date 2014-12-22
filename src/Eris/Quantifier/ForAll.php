@@ -9,6 +9,7 @@ class ForAll
 {
     private $generators;
     private $iterations;
+    private $shrinkerFactory;
     private $antecedents = [];
     private $evaluations = 0;
     private $aliases = [
@@ -21,10 +22,11 @@ class ForAll
         'imply' => '__invoke',
     ];
 
-    public function __construct(array $generators, $iterations)
+    public function __construct(array $generators, $iterations, $shrinkerFactory)
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
+        $this->shrinkerFactory = $shrinkerFactory;
     }
 
     /**
@@ -47,7 +49,7 @@ class ForAll
         return $this;
     }
 
-    public function __invoke($assertion)
+    public function __invoke(callable $assertion)
     {
         for ($i = 0; $i < $this->iterations; $i++) {
             $values = [];
@@ -67,7 +69,7 @@ class ForAll
             Evaluation::of($assertion)
                 ->with($values)
                 ->onFailure(function($values, $exception) use ($assertion) {
-                    $shrinking = new Shrinker\Random($this->generators, $assertion);
+                    $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                     $shrinking->from($values, $exception);
                 })
                 ->execute();
