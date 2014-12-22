@@ -3,15 +3,27 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DateTime;
 
-function date($lowerLimit, $upperLimit)
+function date($lowerLimit = null, $upperLimit = null)
 {
     $box = function($date) {
+        if ($date === null) {
+            return $date;
+        }
         if ($date instanceof DateTime) {
             return $date;
         }
         return new DateTime($date);
     };
-    return new Date($box($lowerLimit), $box($upperLimit));
+    $withDefault = function($value, $default) {
+        if ($value !== null) {
+            return $value;
+        }
+        return $default;
+    };
+    return new Date(
+        $withDefault($box($lowerLimit), new DateTime("@0")),
+        $withDefault($box($upperLimit), new DateTime("@" . getrandmax()))
+    );
 }
 
 class Date implements Generator

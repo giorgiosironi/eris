@@ -17,4 +17,21 @@ class DateTest extends PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testDefaultValuesForTheInterval()
+    {
+        $this->forAll([
+            Generator\date(),
+        ])
+            ->then(function(DateTime $date) {
+                $this->assertGreaterThanOrEqual(
+                    "1970",
+                    $date->format('Y')
+                );
+                $this->assertLessThanOrEqual(
+                    "2038",
+                    $date->format('Y')
+                );
+            });
+    }
 }
