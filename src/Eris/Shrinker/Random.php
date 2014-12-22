@@ -15,6 +15,7 @@ class Random // implements Shrinker
         $this->generator = new Tuple($generators);
         $this->assertion = $assertion;
         $this->attempts = new Attempts($giveUpAfter = 100);
+        $this->timeLimit = TimeLimit::realTime(30);
     }
 
     /**
@@ -33,7 +34,10 @@ class Random // implements Shrinker
             $exception = $exceptionAfterShrink;
         };
 
-        while ($elementsAfterShrink = $this->generator->shrink($elements)) {
+        $this->timeLimit->start();
+        while (!$this->timeLimit->hasBeenReached()) {
+            $elementsAfterShrink = $this->generator->shrink($elements);
+
             if ($elementsAfterShrink === $elements) {
                 $onBadShrink();
                 continue;
