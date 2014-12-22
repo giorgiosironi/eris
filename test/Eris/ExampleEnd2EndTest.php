@@ -50,6 +50,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertTestsAreFailing(1);
     }
 
+    public function testDateTest()
+    {
+        $this->runExample('DateTest.php');
+        $this->assertAllTestsArePassing();
+    }
+
     public function testSumTests()
     {
         $this->runExample('SumTest.php');

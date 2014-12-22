@@ -3,6 +3,17 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DateTime;
 
+function date($lowerLimit, $upperLimit)
+{
+    $box = function($date) {
+        if ($date instanceof DateTime) {
+            return $date;
+        }
+        return new DateTime($date);
+    };
+    return new Date($box($lowerLimit), $box($upperLimit));
+}
+
 class Date implements Generator
 {
     private $lowerLimit;
