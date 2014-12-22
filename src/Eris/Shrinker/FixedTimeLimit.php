@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Shrinker;
 
-class FixedTimeLimit
+class FixedTimeLimit implements TimeLimit
 {
     private $maximumIntervalLength;
     private $clock;

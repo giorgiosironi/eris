@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Shrinker;
 
-class NoTimeLimit
+class NoTimeLimit implements TimeLimit
 {
     public function start()
     {
