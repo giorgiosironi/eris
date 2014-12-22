@@ -15,7 +15,7 @@ class Random // implements Shrinker
         $this->generator = new Tuple($generators);
         $this->assertion = $assertion;
         $this->attempts = new Attempts($giveUpAfter = 100);
-        $this->timeLimit = TimeLimit::realTime(30);
+        $this->timeLimit = new NoTimeLimit();
     }
 
     public function setTimeLimit(TimeLimit $timeLimit)

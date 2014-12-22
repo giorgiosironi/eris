@@ -19,7 +19,7 @@ class ShrinkerFactory
     {
         $shrinker = new Random($generators, $assertion);    
         if ($this->options['timeLimit'] !== null) {
-            $shrinker->setTimeLimit(TimeLimit::realTime($this->options['timeLimit']));
+            $shrinker->setTimeLimit(FixedTimeLimit::realTime($this->options['timeLimit']));
         }
         return $shrinker;
     }

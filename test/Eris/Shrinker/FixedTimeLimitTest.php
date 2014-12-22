@@ -1,12 +1,12 @@
 <?php
 namespace Eris\Shrinker;
 
-class TimeLimitTest extends \PHPUnit_Framework_TestCase
+class FixedTimeLimitTest extends \PHPUnit_Framework_TestCase
 {
     public function testDetectsAMaximumTimeHasElapsed()
     {
         $this->time = 1000000000;
-        $limit = new TimeLimit(
+        $limit = new FixedTimeLimit(
             30,
             function() {
                 return $this->time;
