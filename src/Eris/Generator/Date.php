@@ -1,8 +1,9 @@
 <?php
 namespace Eris\Generator;
+use Eris\Generator;
 use DateTime;
 
-class Date
+class Date implements Generator
 {
     private $lowerLimit;
     private $upperLimit;
@@ -20,6 +21,11 @@ class Date
         $chosenTimestamp = $this->lowerLimit->getTimestamp() + $timeOffset;
         $element = new DateTime();
         $element->setTimestamp($chosenTimestamp);
+        return $element;
+    }
+
+    public function shrink($element)
+    {
         return $element;
     }
 
