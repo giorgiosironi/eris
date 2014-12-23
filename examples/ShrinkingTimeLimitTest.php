@@ -1,7 +1,7 @@
 <?php
 use Eris\Generator;
 
-function concatenation($first, $second)
+function very_slow_concatenation($first, $second)
 {
     if (strlen($second) > 5) {
         $second .= 'ERROR';
@@ -26,7 +26,7 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
             Generator\string(1000),
         ])
             ->then(function($first, $second) {
-                $result = concatenation($first, $second);
+                $result = very_slow_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),
                     strlen($result),

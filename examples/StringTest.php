@@ -1,7 +1,7 @@
 <?php
 use Eris\Generator;
 
-function concatenation($first, $second)
+function string_concatenation($first, $second)
 {
     if (strlen($second) > 5) {
         $second .= 'ERROR';
@@ -21,7 +21,7 @@ class StringTest extends PHPUnit_Framework_TestCase
             ->then(function($string) {
                 $this->assertEquals(
                     $string,
-                    concatenation($string, ''),
+                    string_concatenation($string, ''),
                     "Concatenating '$string' to ''"
                 );
             });
@@ -34,7 +34,7 @@ class StringTest extends PHPUnit_Framework_TestCase
             Generator\string(1000),
         ])
             ->then(function($first, $second) {
-                $result = concatenation($first, $second);
+                $result = string_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),
                     strlen($result),
