@@ -15,6 +15,12 @@ class Random // implements Shrinker
         $this->generator = new Tuple($generators);
         $this->assertion = $assertion;
         $this->attempts = new Attempts($giveUpAfter = 100);
+        $this->timeLimit = new NoTimeLimit();
+    }
+
+    public function setTimeLimit(TimeLimit $timeLimit)
+    {
+        $this->timeLimit = $timeLimit; 
     }
 
     /**
@@ -33,7 +39,10 @@ class Random // implements Shrinker
             $exception = $exceptionAfterShrink;
         };
 
-        while ($elementsAfterShrink = $this->generator->shrink($elements)) {
+        $this->timeLimit->start();
+        while (!$this->timeLimit->hasBeenReached()) {
+            $elementsAfterShrink = $this->generator->shrink($elements);
+
             if ($elementsAfterShrink === $elements) {
                 $onBadShrink();
                 continue;
@@ -45,7 +54,13 @@ class Random // implements Shrinker
                 ->onSuccess($onBadShrink)
                 ->execute();
         }
-        throw $exception;
+
+        throw new \RuntimeException(
+            "Eris has reached the time limit for shrinking, here it is presenting the simplest failure case." . PHP_EOL
+            . "If you can afford to spend more time to find a simpler failing input, increase \$this->shrinkingTimeLimit or set it to null to remove it.",
+            -1,
+            $exception
+        );
     }
 }
 

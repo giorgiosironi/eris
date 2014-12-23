@@ -10,6 +10,7 @@ trait TestTrait
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
+    protected $shrinkingTimeLimit = null;
 
     /**
      * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
@@ -71,7 +72,13 @@ trait TestTrait
 
     protected function forAll($generators)
     {
-        $quantifier = new Quantifier\ForAll($generators, $this->iterations, $this);
+        $quantifier = new Quantifier\ForAll(
+            $generators,
+            $this->iterations,
+            new Shrinker\ShrinkerFactory([
+                'timeLimit' => $this->shrinkingTimeLimit,
+            ])
+        );
         $this->quantifiers[] = $quantifier;
         return $quantifier;
     }
