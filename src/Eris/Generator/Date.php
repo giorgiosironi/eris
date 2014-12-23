@@ -41,21 +41,15 @@ class Date implements Generator
 
     public function __invoke()
     {
-        $timeOffset = rand(0, $this->intervalInSeconds);
-        $chosenTimestamp = $this->lowerLimit->getTimestamp() + $timeOffset;
-        $element = new DateTime();
-        $element->setTimestamp($chosenTimestamp);
-        return $element;
+        $generatedOffset = rand(0, $this->intervalInSeconds);
+        return $this->fromOffset($generatedOffset);
     }
 
     public function shrink($element)
     {
         $timeOffset = $element->getTimestamp() - $this->lowerLimit->getTimestamp();
         $halvedOffset = floor($timeOffset / 2);
-        $chosenTimestamp = $this->lowerLimit->getTimestamp() + $halvedOffset;
-        $element = new DateTime();
-        $element->setTimestamp($chosenTimestamp);
-        return $element;
+        return $this->fromOffset($halvedOffset);
     }
 
     public function contains($element)
@@ -63,5 +57,17 @@ class Date implements Generator
         return $element instanceof DateTime
             && $element >= $this->lowerLimit
             && $element <= $this->upperLimit;
+    }
+
+    /**
+     * @param integer $offset  seconds to be added to lower limit
+     * @return DateTime
+     */
+    private function fromOffset($offset)
+    {
+        $chosenTimestamp = $this->lowerLimit->getTimestamp() + $offset;
+        $element = new DateTime();
+        $element->setTimestamp($chosenTimestamp);
+        return $element;
     }
 }
