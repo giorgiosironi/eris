@@ -1,5 +1,6 @@
 # Eris
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/giorgiosironi/eris)
+[![Build Status](https://travis-ci.org/giorgiosironi/eris.svg?branch=master)](https://travis-ci.org/giorgiosironi/eris)
 
 Eris is a porting of [QuickCheck](https://github.com/giorgiosironi/eris-example) and property-based testing tools to the PHP and PHPUnit ecosystem.
 
