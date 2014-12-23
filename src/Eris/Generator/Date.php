@@ -50,6 +50,11 @@ class Date implements Generator
 
     public function shrink($element)
     {
+        $timeOffset = $element->getTimestamp() - $this->lowerLimit->getTimestamp();
+        $halvedOffset = floor($timeOffset / 2);
+        $chosenTimestamp = $this->lowerLimit->getTimestamp() + $halvedOffset;
+        $element = new DateTime();
+        $element->setTimestamp($chosenTimestamp);
         return $element;
     }
 
