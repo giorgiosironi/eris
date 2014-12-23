@@ -137,7 +137,9 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             $number,
             $numberOfErrorsAndFailures,
-            "The test examples/{$this->testFile} was expected to have $number red tests, but instead has {$numberOfErrorsAndFailures}. Run it with `vendor/bin/phpunit examples/{$this->testFile} and find out why"
+            "The test examples/{$this->testFile} was expected to have $number red tests, but instead has {$numberOfErrorsAndFailures}. Run it with `vendor/bin/phpunit examples/{$this->testFile} and find out why." . PHP_EOL
+            . "Also, here is the dump of the test run we just performed:" . PHP_EOL
+            . var_export($this->results, true)
         );
     }
 }
