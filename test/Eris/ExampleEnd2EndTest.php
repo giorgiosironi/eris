@@ -8,27 +8,26 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     private $testsByName;
     private $results;
 
-    public function testConstantGenerator()
+    public static function fullyGreenTestFiles()
     {
-        $this->runExample('ConstantTest.php');
-        $this->assertAllTestsArePassing();
+        return [
+            ["ConstantTest.php"],
+            ["SampleTest.php"],
+            ["VectorTest.php"],
+            ["TupleTest.php"],
+            ["RegexTest.php"],
+            ["ElementsTest.php"],
+            ["BooleanTest.php"],
+            ["IntegerTest.php"],
+        ];
     }
 
-    public function testTheSampleAndSampleShrinkTestShouldBePassing()
+    /**
+     * @dataProvider fullyGreenTestFiles
+     */
+    public function testAllTestClassesWhichAreFullyGreen($testCaseFileName)
     {
-        $this->runExample('SampleTest.php');
-        $this->assertAllTestsArePassing();
-    }
-
-    public function testVectorTests()
-    {
-        $this->runExample('VectorTest.php');
-        $this->assertAllTestsArePassing();
-    }
-
-    public function testTupleTest()
-    {
-        $this->runExample('TupleTest.php');
+        $this->runExample($testCaseFileName);
         $this->assertAllTestsArePassing();
     }
 
@@ -74,24 +73,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             "/Evaluation ratio .* is under the threshold/",
             (string) $this->theTest('testWhenWhichSkipsTooManyValues')->error
         );
-    }
-
-    public function testElementsTests()
-    {
-        $this->runExample('ElementsTest.php');
-        $this->assertAllTestsArePassing();
-    }
-
-    public function testBooleanTests()
-    {
-        $this->runExample('BooleanTest.php');
-        $this->assertAllTestsArePassing();
-    }
-
-    public function testIntegerTests()
-    {
-        $this->runExample('IntegerTest.php');
-        $this->assertAllTestsArePassing();
     }
 
     private function runExample($testFile)
