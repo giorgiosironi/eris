@@ -3,7 +3,7 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function seq(Generator $singleElementGenerator, $currentSize = 1000)
+function seq(Generator $singleElementGenerator, $sizeGenerator = 1000)
 {
     // TODO: Generator::box($singleElementGenerator);
     if (!($singleElementGenerator instanceof Generator)) {
@@ -13,7 +13,7 @@ function seq(Generator $singleElementGenerator, $currentSize = 1000)
     if (!($sizeGenerator instanceof Generator)) {
         $sizeGenerator = new Constant($sizeGenerator);
     }
-    return new Sequence($singleElementGenerator, $currentSize);
+    return new Sequence($singleElementGenerator, $sizeGenerator);
 }
 
 class Sequence implements Generator
