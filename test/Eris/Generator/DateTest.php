@@ -25,4 +25,20 @@ class DateTest extends \PHPUnit_Framework_TestCase
             $generator->shrink(new DateTime("2014-01-02T08:00:00"))
         );
     }
+
+    public function testTheLowerLimitIsTheFixedPointOfShrinking()
+    {
+        $generator = new Date(
+            $lowerLimit = new DateTime("2014-01-01T00:00:00"),
+            new DateTime("2014-01-02T23:59:59")
+        );
+        $value = new DateTime("2014-01-01T00:01:00");
+        for ($i = 0; $i < 10; $i++) {
+            $value = $generator->shrink($value);
+        }
+        $this->assertEquals(
+            $lowerLimit,
+            $value
+        );
+    }
 }
