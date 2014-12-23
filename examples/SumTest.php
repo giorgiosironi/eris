@@ -43,10 +43,10 @@ class SumTest extends PHPUnit_Framework_TestCase
 
     public function testEqualToReferencePhpImplementation()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\nat(1000),
-            Generator\nat(1000),
-        ])
+            Generator\nat(1000)
+        )
             ->then(function($first, $second) {
                 $this->assertEquals(
                     $first + $second,
