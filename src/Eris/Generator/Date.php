@@ -30,6 +30,7 @@ class Date implements Generator
 {
     private $lowerLimit;
     private $upperLimit;
+    private $intervalInSeconds;
     
     public function __construct(DateTime $lowerLimit, DateTime $upperLimit)
     {
