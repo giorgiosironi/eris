@@ -6,6 +6,13 @@ use ReverseRegex\Random\SimpleRandom;
 use ReverseRegex\Parser;
 use ReverseRegex\Generator\Scope;
 
+/**
+ * Note * and + modifiers cause an unbounded number of character to be generated (up to plus infinity) and as such they are not supported.
+ * Please use {1,N} and {0,N} instead of + and *.
+ *
+ * @param string $expression
+ * @return Generator\Regex
+ */
 function regex($expression)
 {
     return new Regex($expression);

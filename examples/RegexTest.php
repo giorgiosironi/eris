@@ -5,6 +5,9 @@ class RegexTest extends \PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
+    /**
+     * Note that * and + modifiers are not supported. @see Generator\regex
+     */
     public function testStringsMatchingAParticularRegex()
     {
         $this->forAll([
