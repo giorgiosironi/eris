@@ -8,6 +8,11 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
+    public function setUp()
+    {
+        $this->minimumEvaluationRatio = 0.2;
+    }
+
     public function testLengthOfAsciiCharactersInPhp()
     {
         $this->forAll([
