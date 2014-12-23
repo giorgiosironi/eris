@@ -54,7 +54,13 @@ class Random // implements Shrinker
                 ->onSuccess($onBadShrink)
                 ->execute();
         }
-        throw $exception;
+
+        throw new \RuntimeException(
+            "Eris has reached the time limit for shrinking, here it is presenting the simplest failure case." . PHP_EOL
+            . "If you can afford to spend more time to find a simpler failing input, increase \$this->shrinkingTimeLimit or set it to null to remove it.",
+            -1,
+            $exception
+        );
     }
 }
 
