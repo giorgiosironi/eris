@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Generator;
+use BadFunctionCallException;
 use Eris\Generator;
 use ReverseRegex\Lexer;
 use ReverseRegex\Random\SimpleRandom;
@@ -21,7 +22,7 @@ function regex($expression)
 class Regex implements Generator
 {
     private $expression;
-    
+
     public function __construct($expression)
     {
         if (!class_exists("ReverseRegex\Parser")) {
