@@ -25,6 +25,17 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         new Frequency([]);
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testFrequenciesMustBeNaturals()
+    {
+        new Frequency([
+            [10, 42],
+            [false, 21],
+        ]);
+    }
+
     public function testShrinkElementsFromAllGenerators()
     {
         $generator = new Frequency([
@@ -52,13 +63,15 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException DomainException
      */
-    public function testFrequenciesMustBeNaturals()
+    public function testShrinkSomethingThatIsNotInDomain()
     {
-        new Frequency([
+        $generator = new Frequency([
             [10, 42],
-            [false, 21],
+            [1, 21],
         ]);
+
+        $generator->shrink('something');
     }
 }

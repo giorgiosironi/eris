@@ -39,7 +39,7 @@ class Frequency implements Generator
     public function shrink($element)
     {
         if (!$this->contains($element)) {
-            return new DomainException(
+            throw new DomainException(
                 var_export($element, true) . ' is not in one of the given domains'
             );
         }
