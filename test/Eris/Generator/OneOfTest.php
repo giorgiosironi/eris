@@ -10,7 +10,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithAnArrayOfGenerators()
     {
-        $generator = oneOf([
+        $generator = new OneOf([
             $this->singleElementGenerator,
             $this->singleElementGenerator,
         ]);
@@ -22,7 +22,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithNonGenerators()
     {
-        $generator = oneOf([42, 42]);
+        $generator = new OneOf([42, 42]);
         $element = $generator();
         $this->assertEquals(42, $element);
     }
@@ -32,7 +32,38 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithNoArguments()
     {
-        $generator = oneOf([]);
+        $generator = new OneOf([]);
         $element = $generator();
+    }
+
+    public function testShrinkDisjointDomains()
+    {
+        $generator = new OneOf([42, 21]);
+        $this->assertEquals(42, $generator->shrink(42));
+        $this->assertEquals(21, $generator->shrink(21));
+    }
+
+    public function testShrinkIntersectingDomains()
+    {
+        $generator = new OneOf([
+            new Natural(1, 100),
+            new Natural(10, 100),
+        ]);
+
+        $element = 42;
+        for ($i=0; $i<100; $i++) {
+            $element = $generator->shrink($element);
+        }
+
+        $this->assertEquals(1, $element);
+    }
+
+    /**
+     * @expectedException DomainException
+     */
+    public function testShrinkSomethingThatIsNotInDomain()
+    {
+        $generator = new OneOf([42, 21]);
+        $generator->shrink('something');
     }
 }
