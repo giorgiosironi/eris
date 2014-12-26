@@ -15,6 +15,11 @@ class Frequency implements Generator
 
     public function __construct(array $generatorsWithFrequency)
     {
+        if (empty($generatorsWithFrequency)) {
+            throw new InvalidArgumentException(
+                'Cannot choose from an empty array of generators'
+            );
+        }
         $this->generators = array_map(
             function($generatorWithFrequency) {
                 return [

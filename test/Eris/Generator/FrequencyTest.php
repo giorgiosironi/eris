@@ -17,6 +17,14 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($countOf[42] > $countOf[21]);
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testConstructWithNoArguments()
+    {
+        new Frequency([]);
+    }
+
     public function testShrinkElementsFromAllGenerators()
     {
         $generator = new Frequency([
