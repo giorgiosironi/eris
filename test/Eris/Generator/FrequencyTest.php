@@ -36,7 +36,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testShrinkElementsFromAllGenerators()
+    public function testShrinkDisjointDomains()
     {
         $generator = new Frequency([
             [10, 42],
@@ -47,7 +47,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(21, $generator->shrink(21));
     }
 
-    public function testShrinkEventuallyEndsUpWithSmallestElementOfCompatibleDomains()
+    public function testShrinkIntersectingDomains()
     {
         $generator = new Frequency([
             [10, new Natural(1, 100)],
