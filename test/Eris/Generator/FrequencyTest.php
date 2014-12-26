@@ -17,6 +17,21 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($countOf[42] > $countOf[21]);
     }
 
+    public function testZeroFrequencyMeansItWillNotBeChosen()
+    {
+        $generator = new Frequency([
+            [0, 42],
+            [1, 21],
+        ]);
+
+        $countOf = [42 => 0, 21 => 0];
+        for ($i=0; $i<1000; $i++) {
+            $countOf[$generator()] += 1;
+        }
+        $this->assertEquals(0, $countOf[42]);
+        $this->assertEquals(1000, $countOf[21]);
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */

@@ -20,14 +20,21 @@ class Frequency implements Generator
                 'Cannot choose from an empty array of generators'
             );
         }
-        $this->generators = array_map(
-            function($generatorWithFrequency) {
-                return [
-                    'generator' =>  ensureIsGenerator($generatorWithFrequency[1]),
-                    'frequency' => $this->ensureIsFrequency($generatorWithFrequency[0]),
-                ];
+        $this->generators = array_reduce(
+            $generatorsWithFrequency,
+            function($generators, $generatorWithFrequency) {
+                list($frequency, $generator) = $generatorWithFrequency;
+                $frequency = $this->ensureIsFrequency($generatorWithFrequency[0]);
+                $generator = ensureIsGenerator($generatorWithFrequency[1]);
+                if ($frequency > 0) {
+                    $generators[] = [
+                        'generator' => $generator,
+                        'frequency' => $frequency,
+                    ];
+                }
+                return $generators;
             },
-            $generatorsWithFrequency
+            []
         );
     }
 
@@ -93,9 +100,9 @@ class Frequency implements Generator
 
     private function ensureIsFrequency($frequency)
     {
-        if (!is_int($frequency) || $frequency <= 0) {
+        if (!is_int($frequency) || $frequency < 0) {
             throw new InvalidArgumentException(
-                'Frequency must be an integer greater than 0, given: ' . var_export($frequency, true)
+                'Frequency must be an integer greater or equal than 0, given: ' . var_export($frequency, true)
             );
         }
         return $frequency;
