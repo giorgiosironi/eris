@@ -78,6 +78,8 @@ trait TestTrait
         $arguments = func_get_args();
         if (count($arguments) > 1) {
             $generators = $arguments;
+        } elseif ($arguments[0] instanceof Generator) {
+            $generators = $arguments;
         } else {
             $generators = $arguments[0];
         }
