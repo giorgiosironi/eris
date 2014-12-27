@@ -11,7 +11,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $countOf = [42 => 0, 21 => 0];
-        for ($i=0; $i<1000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $countOf[$generator()] += 1;
         }
 
@@ -29,7 +29,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $countOf = [42 => 0, 21 => 0];
-        for ($i=0; $i<1000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $countOf[$generator()] += 1;
         }
         $this->assertTrue($countOf[42] > $countOf[21]);
@@ -43,7 +43,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $countOf = [42 => 0, 21 => 0];
-        for ($i=0; $i<1000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $countOf[$generator()] += 1;
         }
         $this->assertEquals(0, $countOf[42]);
@@ -88,7 +88,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $element = 42;
-        for ($i=0; $i<100; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $element = $generator->shrink($element);
         }
 
