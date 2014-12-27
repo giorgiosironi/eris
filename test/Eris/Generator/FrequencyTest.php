@@ -32,7 +32,10 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 1000; $i++) {
             $countOf[$generator()] += 1;
         }
-        $this->assertTrue($countOf[42] > $countOf[21]);
+        $this->assertTrue(
+            $countOf[42] > $countOf[21],
+            '21 got chosen more often then 42 even if it has a much lower frequency'
+        );
     }
 
     public function testZeroFrequencyMeansItWillNotBeChosen()
