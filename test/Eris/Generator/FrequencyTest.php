@@ -3,6 +3,24 @@ namespace Eris\Generator;
 
 class FrequencyTest extends \PHPUnit_Framework_TestCase
 {
+    public function testEqualProbability()
+    {
+        $generator = new Frequency([
+            [1, 42],
+            [1, 21],
+        ]);
+
+        $countOf = [42 => 0, 21 => 0];
+        for ($i=0; $i<1000; $i++) {
+            $countOf[$generator()] += 1;
+        }
+
+        $this->assertTrue(
+            abs($countOf[42] - $countOf[21]) < 100,
+            'Generators have the same frequency but one is chosen more often than the other'
+        );
+    }
+
     public function testMoreFrequentGeneratorIsChosenMoreOften()
     {
         $generator = new Frequency([

@@ -76,7 +76,7 @@ class Frequency implements Generator
     private function pickFrom($generators)
     {
         $acc = 0;
-        $random = rand(0, array_sum($this->frequenciesFrom($generators)));
+        $random = rand(1, array_sum($this->frequenciesFrom($generators)));
         foreach ($generators as $generator) {
             $acc += $generator['frequency'];
             if ($random <= $acc) {
