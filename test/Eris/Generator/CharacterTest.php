@@ -27,9 +27,15 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testCharactersCannotShrink()
+    public function testCharactersShrinkByConventionToTheLowestCodePoint()
     {
         $generator = Character::ascii(); 
+        $this->assertEquals('@', $generator->shrink('A'));
+    }
+
+    public function testTheLowestCodePointCannotBeShrunk()
+    {
+        $generator = new Character(65, 90); 
         $this->assertEquals('A', $generator->shrink('A'));
     }
 

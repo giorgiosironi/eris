@@ -40,7 +40,7 @@ class Character implements Generator
         return new self($lowerLimit = 32, $upperLimit = 126);
     }
     
-    private function __construct($lowerLimit, $upperLimit)
+    public function __construct($lowerLimit, $upperLimit)
     {
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
@@ -53,7 +53,12 @@ class Character implements Generator
 
     public function shrink($value)
     {
-        return $value;
+        $codePoint = ord($value);
+        if ($codePoint > $this->lowerLimit) {
+            $codePoint--;
+        }
+        $shrinkedValue = chr($codePoint);
+        return $shrinkedValue;
     }
 
     public function contains($value)
