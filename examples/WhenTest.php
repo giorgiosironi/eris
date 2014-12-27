@@ -7,9 +7,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWithAnAnonymousFunctionWithGherkinSyntax()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->when(function($n) {
                 return $n > 42;
             })
@@ -23,9 +23,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWithAnAnonymousFunctionWithLogicSyntax()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->theCondition(function($n) {
                 return $n > 42;
             })
@@ -39,10 +39,10 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWithAnAnonymousFunctionForMultipleArguments()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\nat(1000),
-            Generator\nat(1000),
-        ])
+            Generator\nat(1000)
+        )
             ->when(function($first, $second) {
                 return $first > 42 && $second > 23;
             })
@@ -56,9 +56,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWithOnePHPUnitConstraint()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->when($this->greaterThan(42))
             ->then(function($number) {
                 $this->assertTrue(
@@ -70,10 +70,10 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWithMultiplePHPUnitConstraints()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\nat(1000),
-            Generator\nat(1000),
-        ])
+            Generator\nat(1000)
+        )
             ->when($this->greaterThan(42), $this->greaterThan(23))
             ->then(function($first, $second) {
                 $this->assertTrue(
@@ -85,9 +85,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testMultipleWhenClausesWithGherkinSyntax()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->when($this->greaterThan(42))
             ->andAlso($this->lessThan(900))
             ->then(function($number) {
@@ -100,9 +100,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testMultipleWhenClausesWithLogicSyntax()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->theCondition($this->greaterThan(42))
             ->andTheCondition($this->lessThan(900))
             ->imply(function($number) {
@@ -115,9 +115,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenWhichSkipsTooManyValues()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->when($this->greaterThan(800))
             ->then(function($number) {
                 $this->assertTrue(
@@ -133,9 +133,9 @@ class WhenTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhenFailingWillNaturallyHaveALowEvaluationRatioSoWeDontWantThatErrorToObscureTheTrueOne()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->when($this->greaterThan(100))
             ->then(function($number) {
                 $this->assertTrue(

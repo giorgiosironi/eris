@@ -8,9 +8,9 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     public function testArrayReversePreserveLength()
     {
         $this
-            ->forAll([
-                Generator\seq(Generator\nat(), 100),
-            ])
+            ->forAll(
+                Generator\seq(Generator\nat(), 100)
+            )
             ->then(function($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
@@ -19,12 +19,12 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     public function testArrayReverse()
     {
         $this
-            ->forAll([
+            ->forAll(
                 Generator\seq(
                     Generator\nat(),
                     Generator\pos(100)
-                ),
-            ])
+                )
+            )
             ->then(function($array) {
                 $this->assertEquals($array, array_reverse(array_reverse($array)));
             });
