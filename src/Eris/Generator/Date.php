@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 use Eris\Generator;
 use DateTime;
+use DomainException;
 
 function date($lowerLimit = null, $upperLimit = null)
 {
@@ -47,6 +48,8 @@ class Date implements Generator
 
     public function shrink($element)
     {
+        $this->ensureIsInDomain($element);
+
         $timeOffset = $element->getTimestamp() - $this->lowerLimit->getTimestamp();
         $halvedOffset = floor($timeOffset / 2);
         return $this->fromOffset($halvedOffset);
@@ -69,5 +72,12 @@ class Date implements Generator
         $element = new DateTime();
         $element->setTimestamp($chosenTimestamp);
         return $element;
+    }
+
+    private function ensureIsInDomain($element)
+    {
+        if (!$this->contains($element)) {
+            throw new DomainException("The element " . var_export($element, true) . " is not part of this generator's domain");
+        }
     }
 }

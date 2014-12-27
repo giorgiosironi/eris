@@ -14,6 +14,19 @@ class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($generator->contains($value));
     }
 
+    /**
+     * @expectedException DomainException
+     */
+    public function testCannotShrinkValuesOutsideOfItsDomain()
+    {
+        $generator = new Date(
+            new DateTime("2014-01-01T00:00:00"),
+            new DateTime("2014-01-02T23:59:59")
+        );
+        $value = $generator();
+        $generator->shrink(new DateTime("2014-01-10T00:00:00"));
+    }
+
     public function testDateTimeShrinkGeometrically()
     {
         $generator = new Date(
