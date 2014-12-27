@@ -16,7 +16,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
                 ])
             ])
             ->then(function($falsyValue) {
-                $this->assertFalse(!!$falsyValue);
+                $this->assertFalse((bool) $falsyValue);
             });
     }
 
