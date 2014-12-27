@@ -29,6 +29,7 @@ class Character implements Generator
 {
     private $lowerLimit;
     private $upperLimit;
+    private $shrinkingProgression;
 
     public static function ascii()
     {
@@ -44,6 +45,7 @@ class Character implements Generator
     {
         $this->lowerLimit = $lowerLimit;
         $this->upperLimit = $upperLimit;
+        $this->shrinkingProgression = ArithmeticProgression::discrete($this->lowerLimit);
     }
 
     public function __invoke()
@@ -54,10 +56,7 @@ class Character implements Generator
     public function shrink($value)
     {
         $codePoint = ord($value);
-        if ($codePoint > $this->lowerLimit) {
-            $codePoint--;
-        }
-        $shrinkedValue = chr($codePoint);
+        $shrinkedValue = chr($this->shrinkingProgression->next(ord($value)));
         return $shrinkedValue;
     }
 
