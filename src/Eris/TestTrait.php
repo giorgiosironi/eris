@@ -13,8 +13,6 @@ trait TestTrait
     protected $shrinkingTimeLimit = null;
 
     /**
-     * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
-     * in your setUp() method.
      * @before
      */
     public function seedingRandomNumberGeneration()
@@ -44,8 +42,6 @@ trait TestTrait
     }
 
     /**
-     * PHPUnit 4.x-only feature. If you want to use it in 3.x, you must
-     * require the class of the generator you want to use.
      * @beforeClass
      */
     public static function loadAllErisGenerators()
@@ -56,8 +52,16 @@ trait TestTrait
     }
 
     /**
-     * PHPUnit 4.x-only feature. If you want to use it in 3.x, call this
-     * in your tearDown() method.
+     * @beforeClass
+     */
+    public static function loadAllErisAntecedents()
+    {
+        foreach(glob(__DIR__ . '/Quantifier/Antecedent/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    /**
      * @after
      */
     public function checkConstraintsHaveNotSkippedTooManyIterations()
