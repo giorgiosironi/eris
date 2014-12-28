@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+* `frequency` and `oneOf` Generators that combine other Generators. 
+* `sequence` Generator for lists of constant type and variable size.
+* `char` Generators with `printableCharacter` Antecedent.
+* `int`, `pos`, `neg` and `float` Generators.
+* `regex` Generator to build strings satisfying a regular expression.
+* Shrinking respects an optional maximum time limit (`$this->shrinkingtimeLimit`).
+
 ## 0.2.0
 
 * Generators now use the Generator\nat(...) syntax.
