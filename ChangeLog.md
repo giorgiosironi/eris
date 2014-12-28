@@ -1,4 +1,4 @@
-# Changelog
+# ChangeLog
 
 ## 0.3.0
 
