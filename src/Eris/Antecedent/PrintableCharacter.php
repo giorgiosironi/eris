@@ -1,6 +1,6 @@
 <?php
-namespace Eris\Quantifier\Antecedent;
-use Eris\Quantifier\Antecedent;
+namespace Eris\Antecedent;
+use Eris\Antecedent;
 
 function printableCharacter()
 {

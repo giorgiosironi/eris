@@ -1,5 +1,5 @@
 <?php
-namespace Eris\Quantifier;
+namespace Eris;
 
 interface Antecedent
 {

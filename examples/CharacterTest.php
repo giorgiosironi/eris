@@ -1,8 +1,7 @@
 <?php
 use Eris\Generator;
-// TODO: maybe Eris\Antecedent?
-use Eris\Quantifier\Antecedent as is;
-use Eris\Quantifier\Antecedent as are;
+use Eris\Antecedent as is;
+use Eris\Antecedent as are;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {

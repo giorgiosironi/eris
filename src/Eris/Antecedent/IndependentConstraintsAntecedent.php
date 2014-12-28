@@ -1,7 +1,7 @@
 <?php
-namespace Eris\Quantifier\Antecedent;
+namespace Eris\Antecedent;
 use PHPUnit_Framework_ExpectationFailedException;
-use Eris\Quantifier\Antecedent;
+use Eris\Antecedent;
 
 class IndependentConstraintsAntecedent implements Antecedent
 {

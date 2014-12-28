@@ -56,7 +56,7 @@ trait TestTrait
      */
     public static function loadAllErisAntecedents()
     {
-        foreach(glob(__DIR__ . '/Quantifier/Antecedent/*.php') as $filename) {
+        foreach(glob(__DIR__ . '/Antecedent/*.php') as $filename) {
             require_once($filename);
         }
     }

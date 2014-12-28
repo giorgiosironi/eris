@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Quantifier;
+use Eris\Antecedent;
 use Eris\Generator;
 use Eris\Shrinker;
 use BadMethodCallException;
