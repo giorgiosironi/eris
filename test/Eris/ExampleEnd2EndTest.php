@@ -76,6 +76,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertTestsAreFailing(3);
     }
 
+    public function testFrequencyTests()
+    {
+        $this->runExample('FrequencyTest.php');
+        $this->assertTestsAreFailing(1);
+        $this->assertRegexp(
+            '/Failed asserting that 1 matches expected 0./',
+            (string) $this->theTest('testAlwaysFails')->failure
+        );
+    }
+
     public function testWhenTests()
     {
         $this->runExample('WhenTest.php');

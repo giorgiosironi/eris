@@ -15,7 +15,7 @@ class Tuple implements Generator
 
     public function __construct(array $generators)
     {
-        $this->generators = $this->ensureAreAllGenerators($generators);
+        $this->generators = ensureAreAllGenerators($generators);
         $this->size = count($generators);
     }
 

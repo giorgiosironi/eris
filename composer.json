@@ -24,6 +24,9 @@
         "icomefromthenet/reverse-regex": "v0.0.6.2 for the regex() Generator"
     },
     "autoload": {
-        "psr-0": {"" : "src/"}
+        "psr-0": {"" : "src/"},
+        "files": [
+          "src/Eris/Generator/functions.php"
+        ]
     }
 }
