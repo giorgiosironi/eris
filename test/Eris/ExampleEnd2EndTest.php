@@ -64,6 +64,17 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(4.0, $executionTime);
     }
 
+    public function testGenericErrorTest()
+    {
+        $this->runExample('ErrorTest.php');
+        $this->assertTestsAreFailing(1);
+        $errorMessage = (string) $this->theTest('testGenericExceptionsDoNotShrinkButStillShowTheInput')->error;
+        $this->assertRegexp(
+            "/while using the input:/",
+            $errorMessage
+        );
+    }
+
     public function testFloatTests()
     {
         $this->runExample('FloatTest.php');
