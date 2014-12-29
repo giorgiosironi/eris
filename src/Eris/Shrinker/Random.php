@@ -54,11 +54,9 @@ class Random // implements Shrinker
                 continue;
             }
 
-            foreach ($this->goodShrinkConditions as $condition) {
-                if (!$condition($elementsAfterShrink)) {
-                    $onBadShrink();
-                    continue 2;
-                }
+            if (!$this->checkGoodShrinkConditions($elementsAfterShrink)) {
+                $onBadShrink();
+                continue;
             }
 
             Evaluation::of($this->assertion)
@@ -74,6 +72,16 @@ class Random // implements Shrinker
             -1,
             $exception
         );
+    }
+
+    private function checkGoodShrinkConditions(array $values)
+    {
+        foreach ($this->goodShrinkConditions as $condition) {
+            if (!$condition($values)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
