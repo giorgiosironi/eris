@@ -5,6 +5,10 @@ use Eris\Generator;
 use Eris\Shrinker;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
+use PHPUnit_Framework_AssertionFailedError;
+use PHPUnit_Framework_ExpectationFailedException;
+use Exception;
+use RuntimeException;
 
 class ForAll
 {
@@ -54,28 +58,38 @@ class ForAll
 
     public function __invoke(callable $assertion)
     {
-        for ($i = 0; $i < $this->iterations; $i++) {
-            $values = [];
-            foreach ($this->generators as $name => $generator) {
-                $value = $generator();
-                $values[] = $value;
-            }
-            foreach ($this->antecedents as $antecedentToVerify) {
-                if (!call_user_func(
-                    [$antecedentToVerify, 'evaluate'],
-                    $values
-                )) {
-                    continue 2;
+        try {
+            for ($i = 0; $i < $this->iterations; $i++) {
+                $values = [];
+                foreach ($this->generators as $name => $generator) {
+                    $value = $generator();
+                    $values[] = $value;
                 }
+                foreach ($this->antecedents as $antecedentToVerify) {
+                    if (!call_user_func(
+                        [$antecedentToVerify, 'evaluate'],
+                        $values
+                    )) {
+                        continue 2;
+                    }
+                }
+                $this->evaluations++;
+                Evaluation::of($assertion)
+                    ->with($values)
+                    ->onFailure(function($values, $exception) use ($assertion) {
+                        $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
+                        $shrinking->from($values, $exception);
+                    })
+                    ->execute();
             }
-            $this->evaluations++;
-            Evaluation::of($assertion)
-                ->with($values)
-                ->onFailure(function($values, $exception) use ($assertion) {
-                    $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
-                    $shrinking->from($values, $exception);
-                })
-                ->execute();
+        } catch (Exception $e) {
+            if ($e instanceof PHPUnit_Framework_AssertionFailedError) {
+                throw $e;
+            }
+            if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
+                throw $e;
+            }
+            throw new RuntimeException("A non-assertion-related exception happened while using the input: " . var_export($values, true), -1, $e);
         }
     }
 
