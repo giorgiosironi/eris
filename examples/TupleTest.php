@@ -7,12 +7,12 @@ class TupleTest extends PHPUnit_Framework_TestCase
 
     public function testConcatenationMaintainsLength()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\tuple([
                 Generator\elements("A", "B", "C"),
                 Generator\nat(9),
             ])
-        ])
+        )
             ->then(function($tuple) {
                 $letter = $tuple[0];
                 $cipher = $tuple[1];

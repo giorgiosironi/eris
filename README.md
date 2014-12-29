@@ -38,9 +38,9 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
 
     public function testNaturalNumbersMagnitude()
     {
-        $this->forAll([
-            Generator\nat(1000),
-        ])
+        $this->forAll(
+            Generator\nat(1000)
+        )
             ->then(function($number) {
                 $this->assertTrue(
                     $number < 42,

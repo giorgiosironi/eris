@@ -9,10 +9,10 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     public function testUseConstantGeneratorExplicitly()
     {
         $this
-            ->forAll([
+            ->forAll(
                 Generator\nat(),
                 new Generator\Constant(2)
-            ])
+            )
             ->then(function($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
             });
@@ -21,10 +21,10 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     public function testUseConstantGeneratorImplicitly()
     {
         $this
-            ->forAll([
+            ->forAll(
                 Generator\nat(),
                 2
-            ])
+            )
             ->then(function($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
             });

@@ -15,9 +15,9 @@ class StringTest extends PHPUnit_Framework_TestCase
 
     public function testRightIdentityElement()
     {
-        $this->forAll([
-            Generator\string(1000),
-        ])
+        $this->forAll(
+            Generator\string(1000)
+        )
             ->then(function($string) {
                 $this->assertEquals(
                     $string,
@@ -29,10 +29,10 @@ class StringTest extends PHPUnit_Framework_TestCase
 
     public function testLengthPreservation()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\string(1000),
-            Generator\string(1000),
-        ])
+            Generator\string(1000)
+        )
             ->then(function($first, $second) {
                 $result = string_concatenation($first, $second);
                 $this->assertEquals(

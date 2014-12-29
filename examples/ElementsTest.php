@@ -7,9 +7,9 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
 
     public function testElementsOnlyProducesElementsFromTheGivenArguments()
     {
-        $this->forAll([
-            Generator\elements(1, 2, 3),
-        ])
+        $this->forAll(
+            Generator\elements(1, 2, 3)
+        )
             ->then(function($number) {
                 $this->assertContains(
                     $number,
@@ -25,9 +25,9 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
      */
     public function testElementsOnlyProducesElementsFromTheGivenArrayDomain()
     {
-        $this->forAll([
-            Generator\elements([1, 2, 3]),
-        ])
+        $this->forAll(
+            Generator\elements([1, 2, 3])
+        )
             ->then(function($number) {
                 $this->assertContains(
                     $number,
@@ -39,11 +39,11 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
 
     public function testVectorOfElementsGenerators()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\vector(4,
                 Generator\elements([2, 4, 6, 8, 10, 12])
             )
-        ])
+        )
             ->then(function($vector) {
                 $sum = array_sum($vector);
                 $isEven = function($number) { return $number % 2 == 0; };

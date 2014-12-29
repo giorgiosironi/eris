@@ -74,8 +74,20 @@ trait TestTrait
         }
     }
 
-    protected function forAll($generators)
+    /**
+     * forAll($generator1, $generator2, ...)
+     * forAll([$generator1, $generator2, ...])
+     */
+    protected function forAll()
     {
+        $arguments = func_get_args();
+        if (count($arguments) > 1) {
+            $generators = $arguments;
+        } elseif ($arguments[0] instanceof Generator) {
+            $generators = $arguments;
+        } else {
+            $generators = $arguments[0];
+        }
         $quantifier = new Quantifier\ForAll(
             $generators,
             $this->iterations,

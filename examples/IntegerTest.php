@@ -8,10 +8,10 @@ class IntegerTest extends PHPUnit_Framework_TestCase
 
     public function testSumIsCommutative()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\int(-1000, 1000),
-            Generator\int(-1000, 1000),
-        ])
+            Generator\int(-1000, 1000)
+        )
             ->then(function($first, $second) {
                 $x = $first + $second;
                 $y = $second + $first;
@@ -25,11 +25,11 @@ class IntegerTest extends PHPUnit_Framework_TestCase
 
     public function testSumIsAssociative()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\int(-1000, 1000),
             Generator\neg(),
-            Generator\pos(),
-        ])
+            Generator\pos()
+        )
             ->then(function($first, $second, $third) {
                 $x = $first + ($second + $third);
                 $y = ($first + $second) + $third;

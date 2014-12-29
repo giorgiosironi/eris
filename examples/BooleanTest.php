@@ -8,9 +8,9 @@ class BooleanTest extends PHPUnit_Framework_TestCase
 
     public function testBooleanValueIsTrueOrFalse()
     {
-        $this->forAll([
-            Generator\bool(),
-        ])
+        $this->forAll(
+            Generator\bool()
+        )
             ->then(function($boolValue) {
                 $this->assertTrue(
                     ($boolValue === true || $boolValue === false),
