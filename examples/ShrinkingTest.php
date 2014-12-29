@@ -15,7 +15,7 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
                 return $number > 10;
             })
             ->then(function($number) {
-                $this->assertTrue($number % 29 == 0, "The number $number is not multiple of 3");
+                $this->assertTrue($number % 29 == 0, "The number $number is not multiple of 29");
             });
     }
 }
