@@ -83,13 +83,14 @@ class ForAll
                     ->execute();
             }
         } catch (Exception $e) {
-            if ($e instanceof PHPUnit_Framework_AssertionFailedError) {
+            $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
+            if ($wrap) {
+                $message = "Original input: " . var_export($values, true) . PHP_EOL
+                    . "Possibly shrinked input follows." . PHP_EOL;
+                throw new RuntimeException($message, -1, $e);
+            } else {
                 throw $e;
             }
-            if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
-                throw $e;
-            }
-            throw new RuntimeException("A non-assertion-related exception happened while using the input: " . var_export($values, true), -1, $e);
         }
     }
 
