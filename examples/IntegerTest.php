@@ -40,4 +40,17 @@ class IntegerTest extends PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testByteData()
+    {
+        $this->forAll(
+            Generator\byte()
+        )
+            ->then(function($byte) {
+                $this->assertTrue(
+                    $byte >= 0 && $byte <= 255,
+                    "$byte is not a valid value for a byte"
+                );
+            });
+    }
 }

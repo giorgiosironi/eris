@@ -23,6 +23,11 @@ function int($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
     return new Integer($lowerLimit, $upperLimit);
 }
 
+function byte()
+{
+    return new Integer(0, 255);
+}
+
 class Integer implements Generator
 {
     public function __construct($oneLimit = ERIS_PHP_INT_MIN, $otherLimit = PHP_INT_MAX)
