@@ -27,4 +27,11 @@ class NamesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Ed", $generator->shrink("Ed"));
         $this->assertEquals("Di", $generator->shrink("Di"));
     }
+
+    public function testContainsAllTheNamesInTheSpecifiedDataSet()
+    {
+        $generator = Names::defaultDataSet();
+        $this->assertTrue($generator->contains("Bob"));
+        $this->assertFalse($generator->contains("Daitarn"));
+    }
 }

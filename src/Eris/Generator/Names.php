@@ -49,7 +49,7 @@ class Names implements Generator
 
     public function contains($value)
     {
-        return true;
+        return in_array($value, $this->list);
     }
 
     private function slightlyShorterNames($value)
