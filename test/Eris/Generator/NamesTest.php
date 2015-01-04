@@ -24,5 +24,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Ursin", $generator->shrink("Ursine"));
         $this->assertEquals("Gwennan", $generator->shrink("Gwenegan"));
         $this->assertEquals("Eliane", $generator->shrink("Eliabel"));
+        $this->assertEquals("Ed", $generator->shrink("Ed"));
+        $this->assertEquals("Di", $generator->shrink("Di"));
     }
 }

@@ -39,21 +39,42 @@ class Names implements Generator
 
     public function shrink($value)
     {
+        $candidateNames = $this->slightlyShorterNames($value);
+        if (!$candidateNames) {
+            return $value;
+        }
+        $distances = $this->distancesBy($value, $candidateNames);
+        return $this->minimumDistanceName($distances);
+    }
+
+    public function contains($value)
+    {
+        return true;
+    }
+
+    private function slightlyShorterNames($value)
+    {
         $length = strlen($value);
         $lowerLength = $length - 1;
-        $candidateNames = array_filter(
+        return array_filter(
             $this->list,
             function($name) use ($lowerLength) {
                 return strlen($name) == $lowerLength;
             }
         ); 
-        if (!$candidateNames) {
-            return $value;
-        }
+    }
+
+    private function distancesBy($value, array $candidateNames)
+    {
         $distances = [];
         foreach ($candidateNames as $name) {
             $distances[$name] = levenshtein($value, $name);
         }
+        return $distances;
+    }
+
+    private function minimumDistanceName($distances)
+    {
         $minimumDistance = min($distances);
         $candidatesWithEqualDistance = array_filter(
             $distances,
@@ -62,11 +83,5 @@ class Names implements Generator
             }
         );
         return array_keys($candidatesWithEqualDistance)[0];
-    }
-
-    public function contains($value)
-    {
-        return true;
-        
     }
 }
