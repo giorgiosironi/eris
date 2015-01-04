@@ -2,6 +2,11 @@
 namespace Eris\Generator;
 use Eris\Generator;
 
+function names()
+{
+    return Names::defaultDataSet();
+}
+
 class Names implements Generator
 {
     private $list;
