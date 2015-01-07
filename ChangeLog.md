@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 0.3.1
+
+* `forAll()` accepts multiple arguments instead of an array.
+* `byte` Generator.
+
 ## 0.3.0
 
 * `frequency` and `oneOf` Generators that combine other Generators. 
