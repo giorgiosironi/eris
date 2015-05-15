@@ -34,4 +34,32 @@ class DateTest extends PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testFromDayOfYearFactoryMethodRespectsDistanceBetweenDays()
+    {
+        $this->forAll(
+            Generator\int(2000, 2020),
+            Generator\int(0, 364),
+            Generator\int(0, 364)
+        )
+        ->then(function($year, $dayOfYear, $anotherDayOfYear) {
+            $day = fromZeroBasedDayOfYear($year, $dayOfYear);
+            $anotherDay = fromZeroBasedDayOfYear($year, $anotherDayOfYear);
+            $this->assertEquals(
+                abs($dayOfYear - $anotherDayOfYear) * 86400,
+                abs($day->getTimestamp() - $anotherDay->getTimestamp()),
+                "Days of the year $year: $dayOfYear, $anotherDayOfYear" . PHP_EOL
+                . "{$day->format(DateTime::ISO8601)}, {$anotherDay->format(DateTime::ISO8601)}"
+            );
+        });
+    }
+}
+
+function fromZeroBasedDayOfYear($year, $dayOfYear)
+{
+    return DateTime::createFromFormat(
+        'z Y H i s',
+        $dayOfYear . ' '. $year . ' 00 00 00',
+        new DateTimeZone("UTC")
+    ); 
 }
