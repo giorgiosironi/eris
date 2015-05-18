@@ -73,7 +73,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testDateTest()
     {
         $this->runExample('DateTest.php');
-        $this->assertAllTestsArePassing();
+        $this->assertTestsAreFailing(1);
     }
 
     public function testSumTests()
