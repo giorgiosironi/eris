@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Generator;
+
 use Eris\Generator;
 
 function names()

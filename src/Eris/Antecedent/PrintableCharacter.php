@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Antecedent;
+
 use Eris\Antecedent;
 
 function printableCharacter()

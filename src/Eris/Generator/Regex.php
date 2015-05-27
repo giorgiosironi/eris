@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Generator;
+
 use BadFunctionCallException;
 use Eris\Generator;
 use ReverseRegex\Lexer;

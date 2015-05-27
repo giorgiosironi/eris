@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Shrinker;
+
 use Eris\Generator\Tuple;
 use Eris\Quantifier\Evaluation;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;

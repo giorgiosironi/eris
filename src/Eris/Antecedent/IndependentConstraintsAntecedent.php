@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Antecedent;
+
 use PHPUnit_Framework_ExpectationFailedException;
 use Eris\Antecedent;
 
