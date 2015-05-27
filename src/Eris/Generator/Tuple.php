@@ -3,8 +3,21 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function tuple(array $generators)
+/**
+ * One Generator for each member of the Tuple:
+ * tuple(Generator, Generator, Generator...)
+ * Or an array of generators:
+ * tuple(array $generators)
+ * @return Generator\Tuple
+ */
+function tuple()
 {
+    $arguments = func_get_args();
+    if (is_array($arguments[0])) {
+        $generators = $arguments[0];
+    } else {
+        $generators = $arguments;
+    }
     return new Tuple($generators);
 }
 
