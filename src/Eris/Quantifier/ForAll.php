@@ -60,23 +60,36 @@ class ForAll
                 $value = $generator();
                 $values[] = $value;
             }
-            foreach ($this->antecedents as $antecedentToVerify) {
-                if (!call_user_func(
-                    [$antecedentToVerify, 'evaluate'],
-                    $values
-                )) {
-                    continue 2;
-                }
+            if (!$this->antecedentsAreSatisfied($values)) {
+                continue;
             }
+
             $this->evaluations++;
             Evaluation::of($assertion)
                 ->with($values)
                 ->onFailure(function($values, $exception) use ($assertion) {
                     $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
+                    // MAYBE: put into ShrinkerFactory?
+                    $shrinking->addGoodShrinkCondition(function(array $values) {
+                        return $this->antecedentsAreSatisfied($values);
+                    });
                     $shrinking->from($values, $exception);
                 })
                 ->execute();
         }
+    }
+
+    private function antecedentsAreSatisfied(array $values)
+    {
+        foreach ($this->antecedents as $antecedentToVerify) {
+            if (!call_user_func(
+                [$antecedentToVerify, 'evaluate'],
+                $values
+            )) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

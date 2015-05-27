@@ -43,7 +43,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertAllTestsArePassing();
     }
 
-    public function testStringTests()
+    public function testStringShrinkingTests()
     {
         $this->runExample('StringTest.php');
         $this->assertTestsAreFailing(1);
@@ -52,6 +52,18 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             "/Concatenating '' to '.{6}' gives '.{6}ERROR'/",
             $errorMessage,
             "It seems there is a problem with shrinking: we were expecting a minimal error message but instead the one for StringTest::testLengthPreservation() didn't match"
+        );
+    }
+
+    public function testShrinkingAndAntecedentsTests()
+    {
+        $this->runExample('ShrinkingTest.php');
+        $this->assertTestsAreFailing(1);
+        $errorMessage = (string) $this->theTest('testShrinkingRespectsAntecedents')->failure;
+        $this->assertRegexp(
+            "/The number 11 is not multiple of 29/",
+            $errorMessage,
+            "It seems there is a problem with shrinking: we were expecting an error message containing '11' since it's the lowest value in the domain that satisfies the antecedents."
         );
     }
 

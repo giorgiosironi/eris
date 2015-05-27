@@ -9,6 +9,7 @@ class Random // implements Shrinker
     private $generator;
     private $assertion;
     private $attempts;
+    private $goodShrinkConditions = [];
 
     public function __construct(array $generators, callable $assertion)
     {
@@ -21,6 +22,11 @@ class Random // implements Shrinker
     public function setTimeLimit(TimeLimit $timeLimit)
     {
         $this->timeLimit = $timeLimit; 
+    }
+
+    public function addGoodShrinkCondition(callable $condition)
+    {
+        $this->goodShrinkConditions[] = $condition;
     }
 
     /**
@@ -48,6 +54,11 @@ class Random // implements Shrinker
                 continue;
             }
 
+            if (!$this->checkGoodShrinkConditions($elementsAfterShrink)) {
+                $onBadShrink();
+                continue;
+            }
+
             Evaluation::of($this->assertion)
                 ->with($elementsAfterShrink)
                 ->onFailure($onGoodShrink)
@@ -61,6 +72,16 @@ class Random // implements Shrinker
             -1,
             $exception
         );
+    }
+
+    private function checkGoodShrinkConditions(array $values)
+    {
+        foreach ($this->goodShrinkConditions as $condition) {
+            if (!$condition($values)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
