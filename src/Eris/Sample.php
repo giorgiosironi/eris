@@ -24,17 +24,24 @@ class Sample
         return $this;
     }
 
-    public function shrink()
+    public function shrink($nextValue = null)
     {
-        $lastValue = $this->generator->__invoke();
-        $this->collected[] = $lastValue;
-        while ($value = $this->generator->shrink($lastValue)) {
-            if ($value === $lastValue) {
+        if ($nextValue === null) {
+            $nextValue = $this->generator->__invoke();
+        }
+        $this->collected[] = $nextValue;
+        while ($value = $this->generator->shrink($nextValue)) {
+            if ($value === $nextValue) {
                 break;
             }
             $this->collected[] = $value;
-            $lastValue = $value;
+            $nextValue = $value;
         }
         return $this;
+    }
+
+    public function collected()
+    {
+        return $this->collected;
     }
 }

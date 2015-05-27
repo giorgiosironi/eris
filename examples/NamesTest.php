@@ -1,0 +1,22 @@
+<?php
+use Eris\Generator;
+
+class NamesTest extends PHPUnit_Framework_TestCase
+{
+    use Eris\TestTrait;
+
+    public function testGeneratingNames()
+    {
+        $this->forAll(
+            Generator\names()
+        )->then(function($name) {
+            var_dump($name);
+        });
+    }
+
+    public function testSamplingShrinkingOfNames()
+    {
+        $generator = Generator\Names::defaultDataSet();
+        var_dump($this->sampleShrink($generator)->collected());
+    }
+}

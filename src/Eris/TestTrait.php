@@ -104,8 +104,8 @@ trait TestTrait
         return Sample::of($generator)->withSize($size);
     }
 
-    protected function sampleShrink(Generator $generator)
+    protected function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator)->shrink();
+        return Sample::of($generator)->shrink($fromValue);
     }
 }
