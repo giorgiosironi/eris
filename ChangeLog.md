@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.4.0
+
+* Showing generated input with `ERIS_ORIGINAL_INPUT=1`.
+* `names` and `date` (DateTime) new Generator.
+* `tuple` Generator supports variadic arguments.
+* Shrinking respects `when()` clauses.
+* Dates and sorting examples.
+
 ## 0.3.1
 
 * `forAll()` accepts multiple arguments instead of an array.
