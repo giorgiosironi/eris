@@ -7,6 +7,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     private $testFile;
     private $testsByName;
     private $results;
+    private $environment = [];
 
     public static function fullyGreenTestFiles()
     {
@@ -76,6 +77,18 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(4.0, $executionTime);
     }
 
+    public function testGenericErrorTest()
+    {
+        $this->setEnvironmentVariable('ERIS_ORIGINAL_INPUT', 1);
+        $this->runExample('ErrorTest.php');
+        $this->assertTestsAreFailing(1);
+        $errorMessage = (string) $this->theTest('testGenericExceptionsDoNotShrinkButStillShowTheInput')->error;
+        $this->assertRegexp(
+            "/Original input:/",
+            $errorMessage
+        );
+    }
+
     public function testFloatTests()
     {
         $this->runExample('FloatTest.php');
@@ -118,13 +131,22 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    private function setEnvironmentVariable($name, $value)
+    {
+        $this->environment[$name] = $value; 
+    }
+
     private function runExample($testFile)
     {
         $this->testFile = $testFile;
         $examplesDir = realpath(__DIR__ . '/../../examples');
         $samplesTestCase = $examplesDir . '/' . $testFile;
         $logFile = tempnam(sys_get_temp_dir(), 'phpunit_log_');
-        $phpunitCommand = "vendor/bin/phpunit --log-junit $logFile $samplesTestCase";
+        $environmentVariables = [];
+        foreach ($this->environment as $name => $value) {
+            $environmentVariables[] .= "$name=$value";
+        }
+        $phpunitCommand = implode(" ", $environmentVariables) . " vendor/bin/phpunit --log-junit $logFile $samplesTestCase";
         exec($phpunitCommand, $output);
         $contentsOfXmlLog = file_get_contents($logFile);
         if (!$contentsOfXmlLog) {

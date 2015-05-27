@@ -5,6 +5,10 @@ use Eris\Generator;
 use Eris\Shrinker;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
+use PHPUnit_Framework_AssertionFailedError;
+use PHPUnit_Framework_ExpectationFailedException;
+use Exception;
+use RuntimeException;
 
 class ForAll
 {
@@ -54,28 +58,39 @@ class ForAll
 
     public function __invoke(callable $assertion)
     {
-        for ($i = 0; $i < $this->iterations; $i++) {
-            $values = [];
-            foreach ($this->generators as $name => $generator) {
-                $value = $generator();
-                $values[] = $value;
-            }
-            if (!$this->antecedentsAreSatisfied($values)) {
-                continue;
-            }
+        try {
+            for ($i = 0; $i < $this->iterations; $i++) {
+                $values = [];
+                foreach ($this->generators as $name => $generator) {
+                    $value = $generator();
+                    $values[] = $value;
+                }
+                if (!$this->antecedentsAreSatisfied($values)) {
+                    continue;
+                }
 
-            $this->evaluations++;
-            Evaluation::of($assertion)
-                ->with($values)
-                ->onFailure(function($values, $exception) use ($assertion) {
-                    $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
-                    // MAYBE: put into ShrinkerFactory?
-                    $shrinking->addGoodShrinkCondition(function(array $values) {
-                        return $this->antecedentsAreSatisfied($values);
-                    });
-                    $shrinking->from($values, $exception);
-                })
-                ->execute();
+                $this->evaluations++;
+                Evaluation::of($assertion)
+                    ->with($values)
+                    ->onFailure(function($values, $exception) use ($assertion) {
+                        $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
+                        // MAYBE: put into ShrinkerFactory?
+                        $shrinking->addGoodShrinkCondition(function(array $values) {
+                            return $this->antecedentsAreSatisfied($values);
+                        });
+                        $shrinking->from($values, $exception);
+                    })
+                    ->execute();
+            }
+        } catch (Exception $e) {
+            $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
+            if ($wrap) {
+                $message = "Original input: " . var_export($values, true) . PHP_EOL
+                    . "Possibly shrinked input follows." . PHP_EOL;
+                throw new RuntimeException($message, -1, $e);
+            } else {
+                throw $e;
+            }
         }
     }
 
