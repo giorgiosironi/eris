@@ -1,5 +1,6 @@
 <?php
 namespace Eris;
+
 use OutOfBoundsException;
 
 trait TestTrait
