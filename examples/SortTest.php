@@ -18,7 +18,7 @@ class SortTest extends PHPUnit_Framework_TestCase
                 sort($array);
                 for ($i = 0; $i < count($array) - 1; $i++) {
                     $this->assertTrue(
-                        $array[$i] < $array[$i+1],
+                        $array[$i] <= $array[$i+1],
                         "Array is not sorted: " . var_export($array, true)
                     );
                 }
