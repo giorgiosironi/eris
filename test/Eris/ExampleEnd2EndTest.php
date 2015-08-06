@@ -21,6 +21,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["BooleanTest.php"],
             ["IntegerTest.php"],
             ["NamesTest.php"],
+            ["ChooseTest.php"],
         ];
     }
 
