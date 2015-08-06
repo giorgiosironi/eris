@@ -60,7 +60,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkingAndAntecedentsTests()
     {
-        $this->markTestSkipped('the example has no tests in this moment');
         $this->runExample('ShrinkingTest.php');
         $this->assertTestsAreFailing(1);
         $errorMessage = (string) $this->theTest('testShrinkingRespectsAntecedents')->failure;
@@ -101,8 +100,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testDateTest()
     {
         $this->runExample('DateTest.php');
-        // TODO: this should be 1, but there is a skipped test which needs Generator\choose
-        $this->assertTestsAreFailing(0);
+        $this->assertTestsAreFailing(1);
     }
 
     public function testSumTests()
