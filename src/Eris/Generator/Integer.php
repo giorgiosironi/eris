@@ -5,54 +5,79 @@ use Eris\Generator;
 use InvalidArgumentException;
 use DomainException;
 
-if (!defined('ERIS_PHP_INT_MIN')) {
-    define('ERIS_PHP_INT_MIN', ~PHP_INT_MAX);
+/**
+ * Generates a positive or negative integer (with absolute value bounded by
+ * the generation size).
+ */
+function int()
+{
+    return new Integer();
 }
 
-function pos($upperLimit = PHP_INT_MAX)
+/**
+ * Generates a positive integer (bounded by the generation size).
+ */
+function pos()
 {
-    return new Integer(0, $upperLimit);
+    $mustBePositive = function($n) {
+        return abs($n);
+    };
+    return new Integer($mustBePositive);
 }
 
-function neg($lowerLimit = ERIS_PHP_INT_MIN)
+/**
+ * Generates a negative integer (bounded by the generation size).
+ */
+function neg()
 {
-    return new Integer($lowerLimit, 0);
+    $mustBeNegative = function($n) {
+        if ($n > 0) {
+            return $n * (-1);
+        }
+        return $n;
+    };
+    return new Integer($mustBeNegative);
 }
 
-function int($lowerLimit = ERIS_PHP_INT_MIN, $upperLimit = PHP_INT_MAX)
-{
-    return new Integer($lowerLimit, $upperLimit);
-}
-
-function byte()
-{
-    return new Integer(0, 255);
-}
+// We need the Generator\choose to make this generator.
+//function byte()
+//{
+//    return new Integer(0, 255);
+//}
 
 class Integer implements Generator
 {
-    public function __construct($oneLimit = ERIS_PHP_INT_MIN, $otherLimit = PHP_INT_MAX)
-    {
-        $this->checkLimits($oneLimit, $otherLimit);
+    private $mapFn;
 
-        $this->lowerLimit = min($oneLimit, $otherLimit);
-        $this->upperLimit = max($oneLimit, $otherLimit);
+    public function __construct(callable $mapFn = null)
+    {
+        if (is_null($mapFn)) {
+            $this->mapFn = $this->identity();
+        } else {
+            $this->mapFn = $mapFn;
+        }
     }
 
     public function __invoke()
     {
-        $valueWithoutOffset = rand(0, $this->upperLimit - ($this->lowerLimit + 1));
-        return $this->lowerLimit + $valueWithoutOffset;
+        // TODO: Generator interface must receive the size in the __invoke
+        $size = func_get_arg(0);
+        $value = rand(0, $size);
+        $mapFn = $this->mapFn;
+
+        return rand(0, 1) === 0
+                          ? $mapFn($value)
+                          : $mapFn($value * (-1));
     }
 
     public function shrink($element)
     {
         $this->checkValueToShrink($element);
 
-        if ($element > 0 && $element > $this->lowerLimit) {
+        if ($element > 0) {
             return $element - 1;
         }
-        if ($element < 0 && $element < $this->upperLimit) {
+        if ($element < 0) {
             return $element + 1;
         }
 
@@ -61,29 +86,23 @@ class Integer implements Generator
 
     public function contains($element)
     {
-        return is_int($element)
-            && $element >= $this->lowerLimit
-            && $element <= $this->upperLimit;
-    }
-
-    private function checkLimits($lowerLimit, $upperLimit)
-    {
-        if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {
-            throw new InvalidArgumentException(
-                'lowerLimit (' . var_export($lowerLimit, true) . ') and ' .
-                'upperLimit (' . var_export($upperLimit, true) . ') should ' .
-                'be Integers between ' . ERIS_PHP_INT_MIN . ' and ' . PHP_INT_MAX
-            );
-        }
+        return is_int($element);
     }
 
     private function checkValueToShrink($value)
     {
         if (!$this->contains($value)) {
             throw new DomainException(
-                'Cannot shrink ' . $value . ' because it does not belong to the domain of ' .
-                'Integers between ' . $this->lowerLimit . ' and ' . $this->upperLimit
+                'Cannot shrink ' . $value . ' because it does not belong to ' .
+                'the domain of Integers'
             );
         }
+    }
+
+    private function identity()
+    {
+        return function($n) {
+            return $n;
+        };
     }
 }

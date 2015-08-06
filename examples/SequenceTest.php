@@ -20,10 +20,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(
-                    Generator\nat(),
-                    Generator\pos(100)
-                )
+                Generator\seq(Generator\nat(), 100)
             )
             ->then(function($array) {
                 $this->assertEquals($array, array_reverse(array_reverse($array)));

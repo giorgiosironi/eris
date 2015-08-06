@@ -37,6 +37,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testFromDayOfYearFactoryMethodRespectsDistanceBetweenDays()
     {
+        $this->markTestSkipped('For this test we need Generator\choose');
         $this->forAll(
             Generator\int(2000, 2020),
             Generator\int(0, 364),
@@ -61,5 +62,5 @@ function fromZeroBasedDayOfYear($year, $dayOfYear)
         'z Y H i s',
         $dayOfYear . ' '. $year . ' 00 00 00',
         new DateTimeZone("UTC")
-    ); 
+    );
 }
