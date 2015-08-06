@@ -91,8 +91,8 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
     public function testShrinkIntersectingDomains()
     {
         $generator = new Frequency([
-            [10, new Natural(1, 100)],
-            [1, new Natural(10, 100)],
+            [10, new Choose(1, 100)],
+            [1, new Choose(10, 100)],
         ]);
 
         $element = 42;

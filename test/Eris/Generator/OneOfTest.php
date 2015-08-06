@@ -47,8 +47,8 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
     public function testShrinkIntersectingDomains()
     {
         $generator = new OneOf([
-            new Natural(1, 100),
-            new Natural(10, 100),
+            new Choose(1, 100),
+            new Choose(10, 100),
         ]);
 
         $element = 42;

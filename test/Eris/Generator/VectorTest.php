@@ -7,7 +7,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     {
         $this->vectorSize = rand(5, 10);
         $this->size = 10;
-        $this->elementGenerator = new Natural(1, 10);
+        $this->elementGenerator = new Choose(1, 10);
         $this->vectorGenerator = new Vector($this->vectorSize, $this->elementGenerator);
         $this->sum = function($acc, $item) {
             $acc = $acc + $item;

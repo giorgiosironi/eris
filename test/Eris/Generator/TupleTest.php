@@ -5,7 +5,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->generatorForSingleElement = new Natural(0, 100);
+        $this->generatorForSingleElement = new Choose(0, 100);
         $this->size = 10;
     }
 

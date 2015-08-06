@@ -25,6 +25,11 @@ function pos()
     return new Integer($mustBePositive);
 }
 
+function nat()
+{
+    return pos();
+}
+
 /**
  * Generates a negative integer (bounded by the generation size).
  */
