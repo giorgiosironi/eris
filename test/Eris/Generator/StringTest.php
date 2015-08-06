@@ -3,34 +3,51 @@ namespace Eris\Generator;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->size = 10;
+    }
+
     public function testPicksStringsOfAMaximumLength()
     {
+        $size = 0;
         $generator = new String(10);
         $lengths = [];
         $usedChars = [];
         for ($i = 0; $i < 1000; $i++) {
-            $value = $generator();
+            $value = $generator($size);
             $length = strlen($value);
             $this->assertLessThanOrEqual(10, $length);
             $lengths = $this->accumulateLengths($lengths, $length);
             $usedChars = $this->accumulateUsedChars($usedChars, $value);
+            $size++;
         }
         $this->assertSame(11, count($lengths));
         // only readable characters
         $this->assertEquals(126 - 32, count($usedChars));
     }
 
+    public function testPicksChoosesTheSmallestSizeAmongGenerationSizeAndStringSize()
+    {
+        $generationSize = 1;
+        $stringSize = 10;
+        $generator = new String($stringSize);
+        $value = $generator($generationSize);
+
+        $this->assertEquals($generationSize, strlen($value));
+    }
+
     public function testShrinksByChoppingOffChars()
     {
         $generator = new String(10);
-        $lastValue = $generator();
+        $lastValue = $generator($this->size);
         $this->assertSame('abcde', $generator->shrink('abcdef'));
     }
 
     public function testCannotShrinkTheEmptyString()
     {
         $generator = new String(10);
-        $lastValue = $generator();
+        $lastValue = $generator($this->size);
         $this->assertSame('', $generator->shrink(''));
     }
 

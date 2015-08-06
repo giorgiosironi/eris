@@ -7,7 +7,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
     {
         $generator = Names::defaultDataSet();
         for ($i = 0; $i < 50; $i++) {
-            $value = $generator();
+            $value = $generator($_size = 10);
             $this->assertTrue($generator->contains($value), "Generator does not contain the value `$value` which has generated");
         }
     }

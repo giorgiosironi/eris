@@ -18,9 +18,9 @@ class String implements Generator
         $this->maximumLength = $maximumLength;
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        $length = rand(0, $this->maximumLength);
+        $length = min($size, $this->maximumLength);
         $built = '';
         for ($i = 0; $i < $length; $i++) {
             $built .= chr(rand(33, 126));

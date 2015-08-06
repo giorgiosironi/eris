@@ -4,13 +4,18 @@ use DateTime;
 
 class DateTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->size = 10;
+    }
+
     public function testGenerateDateTimeObjectsInTheGivenInterval()
     {
         $generator = new Date(
             new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
-        $value = $generator();
+        $value = $generator($this->size);
         $this->assertTrue($generator->contains($value));
     }
 
@@ -23,7 +28,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
             new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
-        $value = $generator();
+        $value = $generator($this->size);
         $generator->shrink(new DateTime("2014-01-10T00:00:00"));
     }
 

@@ -7,9 +7,10 @@ namespace Eris;
 interface Generator
 {
     /**
+     * @params int The generation size
      * @return T
      */
-    public function __invoke();
+    public function __invoke($size);
 
     /**
      * @param T

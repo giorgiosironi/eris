@@ -5,30 +5,21 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->singleElementGenerator = new Natural(1, 100);
+        $this->size = 100;
+        $this->singleElementGenerator = new Choose(10, 100);
     }
 
     public function testConstructWithSize()
     {
-        $initialSize = 10;
-        $generator = new Sequence($this->singleElementGenerator, new Constant($initialSize));
-        $elements = $generator();
-        $this->assertEquals($initialSize, count($elements));
-    }
-
-    public function testConstructWithSizeGenerator()
-    {
-        $sizeGenerator = new Natural(1, 10);
-        $generator = new Sequence($this->singleElementGenerator, $sizeGenerator);
-        $elements = $generator();
-        $this->assertTrue($sizeGenerator->contains(count($elements)));
+        $generator = new Sequence($this->singleElementGenerator);
+        $elements = $generator($this->size);
+        $this->assertEquals($this->size, count($elements));
     }
 
     public function testShrink()
     {
-        $initialSize = 10;
-        $generator = new Sequence($this->singleElementGenerator, new Constant($initialSize));
-        $elements = $generator();
+        $generator = new Sequence($this->singleElementGenerator);
+        $elements = $generator($this->size);
         $elementsAfterShrink = $generator->shrink($elements);
 
         $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
@@ -37,19 +28,17 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkEmptySequence()
     {
-        $initialSize = 0;
-        $generator = new Sequence($this->singleElementGenerator, new Constant($initialSize));
-        $elements = $generator();
+        $generator = new Sequence($this->singleElementGenerator);
+        $elements = $generator($size = 0);
         $this->assertEquals(0, count($elements));
         $this->assertEquals(0, count($generator->shrink($elements)));
     }
 
     public function testShrinkEventuallyEndsUpWithAnEmptySequence()
     {
-        $initialSize = 10;
         $numberOfShrinks = 0;
-        $generator = new Sequence($this->singleElementGenerator, new Constant($initialSize));
-        $elements = $generator();
+        $generator = new Sequence($this->singleElementGenerator);
+        $elements = $generator($this->size);
         while (count($elements) > 0) {
             if ($numberOfShrinks++ > 10000) {
                 $this->fail('Too many shrinks');
@@ -60,10 +49,10 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsElementsWhenElementsAreContainedInGivenGenerator()
     {
-        $generator = new Sequence($this->singleElementGenerator, new Constant(2));
+        $generator = new Sequence($this->singleElementGenerator);
         $elements = [
-            $this->singleElementGenerator->__invoke(),
-            $this->singleElementGenerator->__invoke(),
+            $this->singleElementGenerator->__invoke($this->size),
+            $this->singleElementGenerator->__invoke($this->size),
         ];
         $this->assertTrue($generator->contains($elements));
     }
@@ -72,14 +61,14 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
     {
         $aString = 'a string';
         $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new Sequence($this->singleElementGenerator, new Constant(2));
+        $generator = new Sequence($this->singleElementGenerator);
         $elements = [$aString, $aString];
         $this->assertFalse($generator->contains($elements));
     }
 
     public function testContainsAnEmptySequence()
     {
-        $generator = new Sequence($this->singleElementGenerator, new Constant(2));
+        $generator = new Sequence($this->singleElementGenerator);
         $this->assertTrue($generator->contains([]));
     }
 
@@ -90,7 +79,7 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
     {
         $aString = 'a string';
         $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new Sequence($this->singleElementGenerator, new Constant(2));
+        $generator = new Sequence($this->singleElementGenerator);
         $generator->shrink([$aString]);
     }
 }

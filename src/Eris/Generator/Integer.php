@@ -57,10 +57,8 @@ class Integer implements Generator
         }
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        // TODO: Generator interface must receive the size in the __invoke
-        $size = func_get_arg(0);
         $value = rand(0, $size);
         $mapFn = $this->mapFn;
 

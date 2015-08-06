@@ -15,6 +15,7 @@ class ForAll
 {
     private $generators;
     private $iterations;
+    private $size;
     private $shrinkerFactory;
     private $antecedents = [];
     private $evaluations = 0;
@@ -32,6 +33,7 @@ class ForAll
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
+        $this->size = 0;
         $this->shrinkerFactory = $shrinkerFactory;
     }
 
@@ -60,11 +62,10 @@ class ForAll
     public function __invoke(callable $assertion)
     {
         try {
-            $size = 0;
             for ($i = 0; $i < $this->iterations; $i++) {
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
-                    $value = $generator($size);
+                    $value = $generator($this->size);
                     $values[] = $value;
                 }
                 if (!$this->antecedentsAreSatisfied($values)) {
@@ -83,7 +84,7 @@ class ForAll
                         $shrinking->from($values, $exception);
                     })
                     ->execute();
-                $size++;
+                $this->size++;
             }
         } catch (Exception $e) {
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');

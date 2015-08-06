@@ -4,33 +4,27 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function seq(Generator $singleElementGenerator, $sizeGenerator = 1000)
+function seq(Generator $singleElementGenerator)
 {
     // TODO: Generator::box($singleElementGenerator);
     if (!($singleElementGenerator instanceof Generator)) {
         $singleElementGenerator = new Constant($singleElementGenerator);
     }
-    // TODO: Generator::box($currentSize);
-    if (!($sizeGenerator instanceof Generator)) {
-        $sizeGenerator = new Constant($sizeGenerator);
-    }
-    return new Sequence($singleElementGenerator, $sizeGenerator);
+    return new Sequence($singleElementGenerator);
 }
 
 class Sequence implements Generator
 {
     private $singleElementGenerator;
-    private $sizeGenerator;
 
-    public function __construct(Generator $singleElementGenerator, Generator $currentSize)
+    public function __construct(Generator $singleElementGenerator)
     {
         $this->singleElementGenerator = $singleElementGenerator;
-        $this->sizeGenerator = $currentSize;
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        return $this->vector($this->sizeGenerator->__invoke())->__invoke();
+        return $this->vector($size)->__invoke($size);
     }
 
     public function shrink($sequence)
@@ -42,7 +36,7 @@ class Sequence implements Generator
             );
         }
 
-        $willShrinkInSize = (new Boolean())->__invoke();
+        $willShrinkInSize = (new Boolean())->__invoke(1);
         if ($willShrinkInSize) {
             $sequence = $this->shrinkInSize($sequence);
         }

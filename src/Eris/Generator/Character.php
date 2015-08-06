@@ -41,7 +41,7 @@ class Character implements Generator
     {
         return new self($lowerLimit = 32, $upperLimit = 126);
     }
-    
+
     public function __construct($lowerLimit, $upperLimit)
     {
         $this->lowerLimit = $lowerLimit;
@@ -49,9 +49,9 @@ class Character implements Generator
         $this->shrinkingProgression = ArithmeticProgression::discrete($this->lowerLimit);
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
-        return chr(rand($this->lowerLimit, $this->upperLimit)); 
+        return chr(rand($this->lowerLimit, $this->upperLimit));
     }
 
     public function shrink($value)

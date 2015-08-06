@@ -29,7 +29,7 @@ class Elements implements Generator
         $this->domain = $domain;
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
         $index = rand(0, count($this->domain) - 1);
         return $this->domain[$index];

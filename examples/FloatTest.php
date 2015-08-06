@@ -5,6 +5,11 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
+    public function setUp()
+    {
+        $this->markTestSkipped('Float is not based on a range anymore...');
+    }
+
     public function testAPropertyHoldingForAllNumbers()
     {
         $this->forAll(

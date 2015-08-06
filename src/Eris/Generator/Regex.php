@@ -9,7 +9,8 @@ use ReverseRegex\Parser;
 use ReverseRegex\Generator\Scope;
 
 /**
- * Note * and + modifiers cause an unbounded number of character to be generated (up to plus infinity) and as such they are not supported.
+ * Note * and + modifiers cause an unbounded number of character to be generated
+ * (up to plus infinity) and as such they are not supported.
  * Please use {1,N} and {0,N} instead of + and *.
  *
  * @param string $expression
@@ -32,7 +33,7 @@ class Regex implements Generator
         $this->expression = $expression;
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
         $lexer = new Lexer($this->expression);
         $gen   = new SimpleRandom(rand());

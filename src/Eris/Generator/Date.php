@@ -33,7 +33,7 @@ class Date implements Generator
     private $lowerLimit;
     private $upperLimit;
     private $intervalInSeconds;
-    
+
     public function __construct(DateTime $lowerLimit, DateTime $upperLimit)
     {
         $this->lowerLimit = $lowerLimit;
@@ -41,7 +41,7 @@ class Date implements Generator
         $this->intervalInSeconds = $upperLimit->getTimestamp() - $lowerLimit->getTimestamp();
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
         $generatedOffset = rand(0, $this->intervalInSeconds);
         return $this->fromOffset($generatedOffset);

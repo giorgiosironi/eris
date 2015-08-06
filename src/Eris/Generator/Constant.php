@@ -13,7 +13,7 @@ class Constant implements Generator
         $this->value = $value;
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
         return $this->value;
     }

@@ -11,7 +11,7 @@ function names()
 class Names implements Generator
 {
     private $list;
-    
+
     /**
      * @link http://data.bfontaine.net/names/firstnames.txt
      */
@@ -26,14 +26,15 @@ class Names implements Generator
             )
         );
     }
-       
+
     public function __construct(array $list)
     {
         $this->list = $list;
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
+        // TODO: size is not used but it should
         $index = rand(0, count($this->list) - 1);
         return $this->list[$index];
     }
@@ -62,7 +63,7 @@ class Names implements Generator
             function($name) use ($lowerLength) {
                 return strlen($name) == $lowerLength;
             }
-        ); 
+        );
     }
 
     private function distancesBy($value, array $candidateNames)

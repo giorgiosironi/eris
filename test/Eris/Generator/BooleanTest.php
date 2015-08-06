@@ -7,7 +7,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Boolean();
         for ($i = 0; $i < 10; $i++) {
-            $generatedValue = $generator();
+            $generatedValue = $generator($_size = 0);
             $this->assertTrue($generator->contains($generatedValue));
         }
     }
@@ -16,7 +16,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Boolean();
         for ($i = 0; $i < 10; $i++) {
-            $generatedValue = $generator();
+            $generatedValue = $generator($_size = 10);
             $this->assertFalse($generator->shrink($generatedValue));
         }
     }

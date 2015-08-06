@@ -7,9 +7,10 @@ use DomainException;
 
 function nat($upperLimit = PHP_INT_MAX)
 {
-    return new Natural(0, $upperLimit);
+    return new Choose(0, $upperLimit);
 }
 
+// TODO: remove this class, it is useless and the Choose generator fits perfectly
 class Natural implements Generator
 {
     private $lowerLimit;
@@ -23,7 +24,7 @@ class Natural implements Generator
         $this->upperLimit = max($oneLimit, $otherLimit);
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
         return rand($this->lowerLimit, $this->upperLimit);
     }

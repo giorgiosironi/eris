@@ -11,7 +11,7 @@ function bool()
 
 class Boolean implements Generator
 {
-    public function __invoke()
+    public function __invoke($_size)
     {
         $booleanValues = [true, false];
         $randomIndex = rand(0, count($booleanValues) - 1);

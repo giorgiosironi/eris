@@ -47,7 +47,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
         $generator = new Choose(-10, 10000);
         $values = [];
         for ($i = 0; $i < 50; $i++) {
-            $values[] = $generator();
+            $values[] = $generator($this->size);
         }
         $this->assertGreaterThan(
             40,
@@ -75,7 +75,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Choose(42, 42);
         $this->assertSame(42, $generator($this->size));
-        $this->assertSame(42, $generator->shrink($generator()));
+        $this->assertSame(42, $generator->shrink($generator($this->size)));
     }
 
     /**

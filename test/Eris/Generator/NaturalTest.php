@@ -8,7 +8,7 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
         $generator = new Natural(1, $upperLimit = 10);
         $buckets = [];
         for ($i = 0; $i < 10000; $i++) {
-            $value = $generator();
+            $value = $generator(10);
             if (!isset($buckets[$value])) {
                 $buckets[$value] = 0;
             }
@@ -26,7 +26,7 @@ class NaturalTest extends \PHPUnit_Framework_TestCase
     public function testShrinksLinearly()
     {
         $generator = new Natural(1, $upperLimit = 1000);
-        $lastValue = $generator();
+        $lastValue = $generator(10);
         $this->assertSame($lastValue - 1, $generator->shrink($lastValue));
     }
 

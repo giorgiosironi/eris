@@ -6,6 +6,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->vectorSize = rand(5, 10);
+        $this->size = 10;
         $this->elementGenerator = new Natural(1, 10);
         $this->vectorGenerator = new Vector($this->vectorSize, $this->elementGenerator);
         $this->sum = function($acc, $item) {
@@ -17,7 +18,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     public function testGeneratesVectorWithGivenSizeAndElementsFromGivenGenerator()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator();
+        $vector = $generator($this->size);
 
         $this->assertSame($this->vectorSize, count($vector));
         foreach ($vector as $element) {
@@ -28,7 +29,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksElementsOfTheVector()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator();
+        $vector = $generator($this->size);
 
         $previousSum = array_reduce($vector, $this->sum);
         for ($i = 0; $i < 15; $i++) {
@@ -42,7 +43,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     public function testEachGeneratedVectorShouldBeContainedIntoTheDomain()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator();
+        $vector = $generator($this->size);
 
         $this->assertTrue($this->vectorGenerator->contains($vector));
     }

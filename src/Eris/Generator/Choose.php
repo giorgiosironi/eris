@@ -41,10 +41,8 @@ class Choose implements Generator
         );
     }
 
-    public function __invoke()
+    public function __invoke($_size)
     {
-        // TODO: Generator interface must receive the size in the __invoke
-        // but in this case it will be ignored
         $value = rand($this->lowerLimit, $this->upperLimit);
 
         return $value;
