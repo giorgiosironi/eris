@@ -39,11 +39,10 @@ function neg()
     return new Integer($mustBeNegative);
 }
 
-// We need the Generator\choose to make this generator.
-//function byte()
-//{
-//    return new Integer(0, 255);
-//}
+function byte()
+{
+    return new Choose(0, 255);
+}
 
 class Integer implements Generator
 {

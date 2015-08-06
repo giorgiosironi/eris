@@ -43,7 +43,6 @@ class IntegerTest extends PHPUnit_Framework_TestCase
 
     public function testByteData()
     {
-        $this->markTestSkipped('Generator\choose with arity 2 is needed to have Generator\byte.');
         $this->forAll(
             Generator\byte()
         )
