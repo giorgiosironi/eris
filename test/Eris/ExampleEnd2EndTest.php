@@ -72,12 +72,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkingTimeLimitTest()
     {
-        $this->markTestSkipped('this test is failing but it is related to the new generation policy of the forAll, we have to adjust our expectations');
         $this->runExample('ShrinkingTimeLimitTest.php');
         $this->assertTestsAreFailing(1);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
-        $this->assertGreaterThanOrEqual(3.0, $executionTime);
-        $this->assertLessThanOrEqual(4.0, $executionTime);
+        $this->assertGreaterThanOrEqual(6.0, $executionTime);
+        $this->assertLessThanOrEqual(7.0, $executionTime);
     }
 
     public function testGenericErrorTest()
