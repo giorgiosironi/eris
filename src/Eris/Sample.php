@@ -18,9 +18,9 @@ class Sample
         $this->generator = $generator;
     }
 
-    public function numberOfSamples($nOfSamples)
+    public function repeat($times)
     {
-        for ($i = 0; $i < $nOfSamples; $i++) {
+        for ($i = 0; $i < $times; $i++) {
             $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE);
         }
         return $this;
