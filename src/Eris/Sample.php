@@ -3,6 +3,8 @@ namespace Eris;
 
 class Sample
 {
+    const DEAFULT_SIZE_FOR_SHRINK = 10;
+
     private $generator;
     private $collected = [];
 
@@ -27,8 +29,7 @@ class Sample
     public function shrink($nextValue = null)
     {
         if ($nextValue === null) {
-            // TODO: size = 10 is good?
-            $nextValue = $this->generator->__invoke(10);
+            $nextValue = $this->generator->__invoke(self::DEAFULT_SIZE_FOR_SHRINK);
         }
         $this->collected[] = $nextValue;
         while ($value = $this->generator->shrink($nextValue)) {
