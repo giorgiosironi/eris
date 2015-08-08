@@ -3,7 +3,7 @@ namespace Eris;
 
 class Sample
 {
-    const DEAFULT_SIZE_FOR_SHRINK = 10;
+    const DEFAULT_SIZE = 10;
 
     private $generator;
     private $collected = [];
@@ -18,10 +18,10 @@ class Sample
         $this->generator = $generator;
     }
 
-    public function withSize($size)
+    public function numberOfSamples($nOfSamples)
     {
-        for ($i = 0; $i < $size; $i++) {
-            $this->collected[] = $this->generator->__invoke($size);
+        for ($i = 0; $i < $nOfSamples; $i++) {
+            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE);
         }
         return $this;
     }
@@ -29,7 +29,7 @@ class Sample
     public function shrink($nextValue = null)
     {
         if ($nextValue === null) {
-            $nextValue = $this->generator->__invoke(self::DEAFULT_SIZE_FOR_SHRINK);
+            $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE);
         }
         $this->collected[] = $nextValue;
         while ($value = $this->generator->shrink($nextValue)) {
