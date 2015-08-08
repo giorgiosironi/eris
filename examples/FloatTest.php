@@ -5,29 +5,20 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function setUp()
-    {
-        $this->markTestSkipped('Float is not based on a range anymore...');
-    }
-
     public function testAPropertyHoldingForAllNumbers()
     {
-        $this->forAll(
-            Generator\float(-100.0, 100.0)
-        )
+        $this->forAll(Generator\float())
             ->then(function($number) {
                 $this->assertEquals(
                     0.0,
-                    $number - $number
+                    abs($number) - abs($number)
                 );
             });
     }
 
     public function testAPropertyHoldingOnlyForPositiveNumbers()
     {
-        $this->forAll(
-            Generator\float(-10.0, 100.0)
-        )
+        $this->forAll(Generator\float())
             ->then(function($number) {
                 $this->assertTrue(
                     $number >= 0,

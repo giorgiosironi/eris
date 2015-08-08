@@ -18,8 +18,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
             $this->assertInternalType('float', $value);
             $sum += $value;
         }
-        $this->assertGreaterThanOrEqual(2, $sum / $trials);
-        $this->assertLessThan(8, $sum / $trials);
+        $this->assertGreaterThanOrEqual(0, abs($sum / $trials));
+        $this->assertLessThan(2, abs($sum / $trials));
     }
 
     public function testShrinksLinearly()

@@ -94,7 +94,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     public function testFloatTests()
     {
-        $this->markTestSkipped('Float is not a generator based on a range anymore.. Do we need a choose generator for floats?');
         $this->runExample('FloatTest.php');
         $this->assertTestsAreFailing(1);
     }

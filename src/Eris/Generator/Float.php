@@ -17,7 +17,11 @@ class Float implements Generator
 
     public function __invoke($size)
     {
-        return (float) rand(0, $size) / (float) rand(1, $size);
+        $value = (float) rand(0, $size) / (float) rand(1, $size);
+
+        return rand(0, 1) === 0
+                          ? $value
+                          : $value * (-1);
     }
 
     public function shrink($element)
