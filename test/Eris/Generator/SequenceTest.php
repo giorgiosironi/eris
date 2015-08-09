@@ -9,11 +9,30 @@ class SequenceTest extends \PHPUnit_Framework_TestCase
         $this->singleElementGenerator = new Choose(10, 100);
     }
 
-    public function testConstructWithSize()
+    public function testRespectsGenerationSize()
     {
         $generator = new Sequence($this->singleElementGenerator);
-        $elements = $generator($this->size);
-        $this->assertEquals($this->size, count($elements));
+        $countLessThanSize = 0;
+        $countEqualToSize = 0;
+        for ($size = 0; $size < 400; $size++) {
+            $sequenceSize = count($generator($size));
+
+            if ($sequenceSize < $size) {
+                $countLessThanSize++;
+            }
+            if ($sequenceSize === $size) {
+                $countEqualToSize++;
+            }
+        }
+
+        $this->assertTrue(
+            $countLessThanSize > 0,
+            "Sequence generator does not generate sequences less than the size."
+        );
+        $this->assertTrue(
+            ($countLessThanSize + $countEqualToSize) === 400,
+            "Sequence generator has generated sequences greater than the size."
+        );
     }
 
     public function testShrink()

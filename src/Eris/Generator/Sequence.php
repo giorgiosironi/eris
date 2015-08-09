@@ -24,7 +24,8 @@ class Sequence implements Generator
 
     public function __invoke($size)
     {
-        return $this->vector($size)->__invoke($size);
+        $sequenceLength = rand(0, $size);
+        return $this->vector($sequenceLength)->__invoke($size);
     }
 
     public function shrink($sequence)
