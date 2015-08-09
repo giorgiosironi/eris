@@ -4,23 +4,21 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function string($maximumLength)
+function string()
 {
-    return new String($maximumLength);
+    return new String();
 }
 
 class String implements Generator
 {
-    private $maximumLength;
-
-    public function __construct($maximumLength)
+    public function __construct()
     {
-        $this->maximumLength = $maximumLength;
     }
 
     public function __invoke($size)
     {
-        $length = min($size, $this->maximumLength);
+        $length = rand(0, $size);
+
         $built = '';
         for ($i = 0; $i < $length; $i++) {
             $built .= chr(rand(33, 126));
@@ -32,8 +30,8 @@ class String implements Generator
     {
         if (!$this->contains($element)) {
             throw new DomainException(
-                'Cannot shrink ' . $element . ' because it does not belong to the domain of the ' .
-                'Strings between 0 and ' . $this->maximumLength . ' characters'
+                'Cannot shrink ' . $element . ' because it does not belong ' .
+                'to the domain of the Strings.'
             );
         }
 
@@ -45,6 +43,6 @@ class String implements Generator
 
     public function contains($element)
     {
-        return is_string($element) && strlen($element) <= $this->maximumLength;
+        return is_string($element);
     }
 }

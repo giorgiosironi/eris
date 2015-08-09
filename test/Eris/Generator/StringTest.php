@@ -3,15 +3,10 @@ namespace Eris\Generator;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    public function testRandomlyPicksLengthAndCharacters()
     {
-        $this->size = 10;
-    }
-
-    public function testPicksStringsOfAMaximumLength()
-    {
-        $size = 0;
-        $generator = new String(10);
+        $size = 10;
+        $generator = new String();
         $lengths = [];
         $usedChars = [];
         for ($i = 0; $i < 1000; $i++) {
@@ -20,44 +15,33 @@ class StringTest extends \PHPUnit_Framework_TestCase
             $this->assertLessThanOrEqual(10, $length);
             $lengths = $this->accumulateLengths($lengths, $length);
             $usedChars = $this->accumulateUsedChars($usedChars, $value);
-            $size++;
         }
         $this->assertSame(11, count($lengths));
         // only readable characters
         $this->assertEquals(126 - 32, count($usedChars));
     }
 
-    public function testPicksChoosesTheSmallestSizeAmongGenerationSizeAndStringSize()
+    public function testRespectsTheGenerationSize()
     {
-        $generationSize = 1;
-        $stringSize = 10;
-        $generator = new String($stringSize);
+        $generationSize = 100;
+        $generator = new String();
         $value = $generator($generationSize);
 
-        $this->assertEquals($generationSize, strlen($value));
+        $this->assertLessThanOrEqual($generationSize, strlen($value));
     }
 
     public function testShrinksByChoppingOffChars()
     {
-        $generator = new String(10);
-        $lastValue = $generator($this->size);
+        $generator = new String();
+        $lastValue = $generator($size = 10);
         $this->assertSame('abcde', $generator->shrink('abcdef'));
     }
 
     public function testCannotShrinkTheEmptyString()
     {
-        $generator = new String(10);
-        $lastValue = $generator($this->size);
+        $generator = new String();
+        $lastValue = $generator($size = 10);
         $this->assertSame('', $generator->shrink(''));
-    }
-
-    public function testContainsIsBasedOnLength()
-    {
-        // TODO: what exactly contains() is used for?
-        // is this implementation precise enough?
-        $generator = new String(10);
-        $this->assertTrue($generator->contains('abcdefghij'), 'The generator should contain 10-char strings');
-        $this->assertFalse($generator->contains('abcdefghijl'), 'The generator should not contain 11-char strings');
     }
 
     private function accumulateLengths(array $lengths, $length)
@@ -86,7 +70,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
-        $generator = new String(10);
+        $generator = new String();
         $generator->shrink(true);
     }
 }
