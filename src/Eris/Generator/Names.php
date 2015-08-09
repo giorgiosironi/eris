@@ -32,16 +32,24 @@ class Names implements Generator
         $this->list = $list;
     }
 
-    public function __invoke($_size)
+    public function __invoke($size)
     {
-        // TODO: size is not used but it should
-        $index = rand(0, count($this->list) - 1);
-        return $this->list[$index];
+        $candidateNames = $this->filterDataSet(
+            $this->lengthLessThanOrEqualTo($size)
+        );
+        if (!$candidateNames) {
+            return '';
+        }
+        $index = rand(0, count($candidateNames) - 1);
+        return $candidateNames[$index];
     }
 
     public function shrink($value)
     {
-        $candidateNames = $this->slightlyShorterNames($value);
+        $candidateNames = $this->filterDataSet(
+            $this->lengthSlightlyLessThan(strlen($value))
+        );
+
         if (!$candidateNames) {
             return $value;
         }
@@ -54,16 +62,27 @@ class Names implements Generator
         return in_array($value, $this->list);
     }
 
-    private function slightlyShorterNames($value)
+    private function filterDataSet(callable $predicate)
     {
-        $length = strlen($value);
-        $lowerLength = $length - 1;
-        return array_filter(
+        return array_values(array_filter(
             $this->list,
-            function($name) use ($lowerLength) {
-                return strlen($name) == $lowerLength;
-            }
-        );
+            $predicate
+        ));
+    }
+
+    private function lengthLessThanOrEqualTo($size)
+    {
+        return function($name) use ($size) {
+            return strlen($name) <= $size;
+        };
+    }
+
+    private function lengthSlightlyLessThan($size)
+    {
+        $lowerLength = $size - 1;
+        return function($name) use ($lowerLength) {
+            return strlen($name) === $lowerLength;
+        };
     }
 
     private function distancesBy($value, array $candidateNames)
