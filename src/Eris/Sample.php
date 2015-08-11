@@ -3,31 +3,33 @@ namespace Eris;
 
 class Sample
 {
+    const DEFAULT_SIZE = 10;
+
     private $generator;
     private $collected = [];
-    
+
     public static function of($generator)
     {
         return new self($generator);
     }
-    
+
     private function __construct($generator)
     {
         $this->generator = $generator;
     }
 
-    public function withSize($size)
+    public function repeat($times)
     {
-        for ($i = 0; $i < $size; $i++) {
-            $this->collected[] = $this->generator->__invoke();
-        }        
+        for ($i = 0; $i < $times; $i++) {
+            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE);
+        }
         return $this;
     }
 
     public function shrink($nextValue = null)
     {
         if ($nextValue === null) {
-            $nextValue = $this->generator->__invoke();
+            $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE);
         }
         $this->collected[] = $nextValue;
         while ($value = $this->generator->shrink($nextValue)) {

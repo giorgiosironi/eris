@@ -3,6 +3,11 @@ namespace Eris\Generator;
 
 class FrequencyTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->size = 10;
+    }
+
     public function testEqualProbability()
     {
         $generator = new Frequency([
@@ -12,7 +17,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
         $countOf = [42 => 0, 21 => 0];
         for ($i = 0; $i < 1000; $i++) {
-            $countOf[$generator()] += 1;
+            $countOf[$generator($this->size)] += 1;
         }
 
         $this->assertTrue(
@@ -30,7 +35,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
         $countOf = [42 => 0, 21 => 0];
         for ($i = 0; $i < 1000; $i++) {
-            $countOf[$generator()] += 1;
+            $countOf[$generator($this->size)] += 1;
         }
         $this->assertTrue(
             $countOf[42] > $countOf[21],
@@ -47,7 +52,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
         $countOf = [42 => 0, 21 => 0];
         for ($i = 0; $i < 1000; $i++) {
-            $countOf[$generator()] += 1;
+            $countOf[$generator($this->size)] += 1;
         }
         $this->assertEquals(0, $countOf[42]);
         $this->assertEquals(1000, $countOf[21]);
@@ -86,8 +91,8 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
     public function testShrinkIntersectingDomains()
     {
         $generator = new Frequency([
-            [10, new Natural(1, 100)],
-            [1, new Natural(10, 100)],
+            [10, new Choose(1, 100)],
+            [1, new Choose(10, 100)],
         ]);
 
         $element = 42;

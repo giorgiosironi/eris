@@ -13,8 +13,12 @@ use RuntimeException;
 
 class ForAll
 {
+    const DEFAULT_MAX_SIZE = 200;
+
     private $generators;
     private $iterations;
+    private $sizes;
+    private $maxSize;
     private $shrinkerFactory;
     private $antecedents = [];
     private $evaluations = 0;
@@ -33,6 +37,7 @@ class ForAll
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
         $this->shrinkerFactory = $shrinkerFactory;
+        $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
 
     /**
@@ -57,13 +62,21 @@ class ForAll
         return $this;
     }
 
+    public function withMaxSize($maxSize)
+    {
+        $this->maxSize = $maxSize;
+        return $this;
+    }
+
     public function __invoke(callable $assertion)
     {
+        $sizes = $this->sizes($this->maxSize);
         try {
             for ($i = 0; $i < $this->iterations; $i++) {
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
-                    $value = $generator();
+                    $currentSizeIndex = $this->evaluations % count($sizes);
+                    $value = $generator($sizes[$currentSizeIndex]);
                     $values[] = $value;
                 }
                 if (!$this->antecedentsAreSatisfied($values)) {
@@ -141,5 +154,58 @@ class ForAll
             }
         }
         return $generators;
+    }
+
+    private function sizes($maxSize)
+    {
+        if (!is_null($this->sizes)) {
+            return $this->sizes;
+        }
+
+        $sizeGrowth = $this->triangleNumber();
+        //$sizeGrowth = $this->linearGrowth();
+
+        $sizes = [];
+        for ($x = 0; $x <= $maxSize; $x++) {
+            $candidateSize = $sizeGrowth($x);
+            if ($candidateSize <= $maxSize) {
+                $sizes[] = $candidateSize;
+            } else {
+                break;
+            }
+        }
+        $this->sizes = $sizes;
+
+        return $this->sizes;
+    }
+
+    /**
+     * Returns the identity function.
+     */
+    private function linearGrowth()
+    {
+        return function($n) {
+            return $n;
+        };
+    }
+
+    /**
+     * Returns a function with a growth which approximates (n^2)/2.
+     * The function returns the number of dots needed to compose a
+     * triangle with n dots on a side.
+     *
+     * E.G.: when n=3 the function evaluates to 6
+     *   .
+     *  . .
+     * . . .
+     */
+    private function triangleNumber()
+    {
+        return function($n) {
+            if ($n === 0) {
+                return 0;
+            }
+            return ($n * ($n + 1)) / 2;
+        };
     }
 }

@@ -5,7 +5,8 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->singleElementGenerator = new Natural(0, 100);
+        $this->singleElementGenerator = new Choose(0, 100);
+        $this->size = 10;
     }
 
     public function testConstructWithAnArrayOfGenerators()
@@ -15,7 +16,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
             $this->singleElementGenerator,
         ]);
 
-        $element = $generator();
+        $element = $generator($this->size);
 
         $this->assertTrue($this->singleElementGenerator->contains($element));
     }
@@ -23,7 +24,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithNonGenerators()
     {
         $generator = new OneOf([42, 42]);
-        $element = $generator();
+        $element = $generator($this->size);
         $this->assertEquals(42, $element);
     }
 
@@ -33,7 +34,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithNoArguments()
     {
         $generator = new OneOf([]);
-        $element = $generator();
+        $element = $generator($this->size);
     }
 
     public function testShrinkDisjointDomains()
@@ -46,8 +47,8 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
     public function testShrinkIntersectingDomains()
     {
         $generator = new OneOf([
-            new Natural(1, 100),
-            new Natural(10, 100),
+            new Choose(1, 100),
+            new Choose(10, 100),
         ]);
 
         $element = 42;

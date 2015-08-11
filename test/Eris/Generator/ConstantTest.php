@@ -3,18 +3,23 @@ namespace Eris\Generator;
 
 class ConstantTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->size = 0;
+    }
+
     public function testPicksAlwaysTheValue()
     {
         $generator = new Constant(true);
         for ($i = 0; $i < 50; $i++) {
-            $this->assertTrue($generator());
+            $this->assertTrue($generator($this->size));
         }
     }
 
     public function testShrinkAlwaysToTheValue()
     {
         $generator = new Constant(true);
-        $element = $generator();
+        $element = $generator($this->size);
         for ($i = 0; $i < 50; $i++) {
             $this->assertTrue($generator->shrink($element));
         }

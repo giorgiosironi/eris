@@ -24,9 +24,9 @@ class Vector implements Generator
         $this->elementsGeneratorClass = get_class($generator);
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        return $this->generator->__invoke();
+        return $this->generator->__invoke($size);
     }
 
     public function shrink($vector)

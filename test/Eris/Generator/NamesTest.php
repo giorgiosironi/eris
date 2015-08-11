@@ -3,11 +3,23 @@ namespace Eris\Generator;
 
 class NamesTest extends \PHPUnit_Framework_TestCase
 {
+    public function testItRespectsTheGenerationSize()
+    {
+        $generator = Names::defaultDataSet();
+        for ($i = 5; $i < 50; $i++) {
+            $value = $generator($maxLength = $i);
+            $this->assertTrue(
+                $maxLength >= strlen($value),
+                "Names generator is not respecting the generation size. Asked a name with max size {$maxLength} and returned {$value}"
+            );
+        }
+    }
+
     public function testGeneratesANameFromAFixedDataset()
     {
         $generator = Names::defaultDataSet();
         for ($i = 0; $i < 50; $i++) {
-            $value = $generator();
+            $value = $generator($_size = 10);
             $this->assertTrue($generator->contains($value), "Generator does not contain the value `$value` which has generated");
         }
     }

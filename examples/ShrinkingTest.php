@@ -4,12 +4,12 @@ use Eris\TestTrait;
 
 class ShrinkingTest extends \PHPUnit_Framework_TestCase
 {
-    use TestTrait;   
+    use TestTrait;
 
     public function testShrinkingRespectsAntecedents()
     {
         $this->forAll([
-                Generator\int(0, 20),
+                Generator\choose(0, 20),
             ])
             ->when(function($number) {
                 return $number > 10;

@@ -3,18 +3,27 @@ namespace Eris\Generator;
 
 class IntegerTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->size = 10;
+    }
+
     public function testPicksRandomlyAnInteger()
     {
         $generator = new Integer();
         for ($i = 0; $i < 100; $i++) {
-            $this->assertTrue($generator->contains($generator()));
+            $this->assertTrue($generator->contains($generator($this->size)));
         }
     }
 
     public function testShrinksLinearlyTowardsZero()
     {
-        $generator = new Integer(-10, 10);
-        $value = $generator();
+        /* Not a good shrinking policy, it should start to shrink from 0 and move
+         * towards the upper size limit.
+         * To be fixed in the next weeks.
+         */
+        $generator = new Integer();
+        $value = $generator($this->size);
         for ($i = 0; $i < 20; $i++) {
             $newValue = $generator->shrink($value);
             $this->assertTrue(in_array(abs($value - $newValue), [0, 1]));
@@ -23,35 +32,15 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $value);
     }
 
-    public function testShrinkStopsAtTheLowerLimitWhenItIsGreaterThanZero()
-    {
-        $generator = new Integer(10, 20);
-        $value = $generator();
-        for ($i = 0; $i < 11; $i++) {
-            $value = $generator->shrink($value);
-        }
-        $this->assertSame(10, $value);
-    }
-
-    public function testShrinkStopsAtTheUpperLimitWhenItIsLowerThanZero()
-    {
-        $generator = new Integer(-20, -10);
-        $value = $generator();
-        for ($i = 0; $i < 11; $i++) {
-            $value = $generator->shrink($value);
-        }
-        $this->assertSame(-10, $value);
-    }
-
     public function testUniformity()
     {
-        $generator = new Integer(-10, 10000);
+        $generator = new Integer();
         $values = [];
-        for ($i = 0; $i < 50; $i++) {
-            $values[] = $generator();
+        for ($i = 0; $i < 1000; $i++) {
+            $values[] = $generator($this->size);
         }
         $this->assertGreaterThan(
-            40,
+            400,
             count(array_filter($values, function($n) { return $n > 0; })),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
@@ -59,40 +48,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotShrinkStopsToZero()
     {
-        $generator = new Integer($lowerLimit = 0, $upperLimit = 0);
-        $lastValue = $generator();
+        $generator = new Integer();
+        $lastValue = $generator($size = 0);
         $this->assertSame(0, $generator->shrink($lastValue));
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testExceptionWhenDomainBoundariesAreNotIntegers()
-    {
-        $generator = new Integer("zero", "twenty");
-    }
-
-    public function testCanGenerateSingleInteger()
-    {
-        $generator = new Integer(42, 42);
-        $this->assertSame(42, $generator());
-        $this->assertSame(42, $generator->shrink($generator()));
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = new Integer(100, 200);
-        $generator->shrink(300);
-    }
-
-    public function testTheOrderOfBoundariesDoesNotMatter()
-    {
-        $this->assertEquals(
-            new Integer(100, -100),
-            new Integer(-100, 100)
-        );
     }
 }

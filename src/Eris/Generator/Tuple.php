@@ -33,11 +33,11 @@ class Tuple implements Generator
         $this->size = count($generators);
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
         return array_map(
-            function($generator) {
-                return $generator();
+            function($generator) use ($size) {
+                return $generator($size);
             },
             $this->generators
         );

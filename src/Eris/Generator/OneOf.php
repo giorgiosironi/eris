@@ -16,9 +16,9 @@ class OneOf implements Generator
         $this->generator = new Frequency($this->allWithSameFrequency($generators));
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        return $this->generator->__invoke();
+        return $this->generator->__invoke($size);
     }
 
     public function shrink($element)

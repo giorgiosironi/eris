@@ -10,7 +10,7 @@ class TupleTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\tuple(
                 Generator\elements("A", "B", "C"),
-                Generator\nat(9)
+                Generator\choose(0, 9)
             )
         )
             ->then(function($tuple) {

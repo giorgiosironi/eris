@@ -21,6 +21,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["BooleanTest.php"],
             ["IntegerTest.php"],
             ["NamesTest.php"],
+            ["ChooseTest.php"],
         ];
     }
 
@@ -74,8 +75,8 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('ShrinkingTimeLimitTest.php');
         $this->assertTestsAreFailing(1);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
-        $this->assertGreaterThanOrEqual(3.0, $executionTime);
-        $this->assertLessThanOrEqual(4.0, $executionTime);
+        $this->assertGreaterThanOrEqual(4.0, $executionTime);
+        $this->assertLessThanOrEqual(13.0, $executionTime);
     }
 
     public function testGenericErrorTest()
@@ -134,7 +135,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     private function setEnvironmentVariable($name, $value)
     {
-        $this->environment[$name] = $value; 
+        $this->environment[$name] = $value;
     }
 
     private function runExample($testFile)

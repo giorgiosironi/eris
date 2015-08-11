@@ -5,7 +5,8 @@ class TupleTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->generatorForSingleElement = new Natural(0, 100);
+        $this->generatorForSingleElement = new Choose(0, 100);
+        $this->size = 10;
     }
 
     public function testConstructWithAnArrayOfGenerators()
@@ -15,7 +16,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
             $this->generatorForSingleElement,
         ]);
 
-        $generated = $generator();
+        $generated = $generator($this->size);
 
         $this->assertSame(2, count($generated));
         foreach ($generated as $element) {
@@ -30,7 +31,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
         $aNonGenerator = 42;
         $generator = new Tuple([$aNonGenerator]);
 
-        $generated = $generator();
+        $generated = $generator($this->size);
 
         foreach ($generated as $element) {
             $this->assertTrue(
@@ -43,7 +44,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new Tuple([]);
 
-        $this->assertSame([], $generator());
+        $this->assertSame([], $generator($this->size));
     }
 
     public function testContainsGeneratedElements()
@@ -54,8 +55,8 @@ class TupleTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $tupleThatCanBeGenerated = [
-            $this->generatorForSingleElement->__invoke(),
-            $this->generatorForSingleElement->__invoke(),
+            $this->generatorForSingleElement->__invoke($this->size),
+            $this->generatorForSingleElement->__invoke($this->size),
         ];
 
         $this->assertTrue($generator->contains($tupleThatCanBeGenerated));
@@ -84,7 +85,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
     {
         $constants = [42, 42];
         $generator = new Tuple($constants);
-        $elements = $generator();
+        $elements = $generator($this->size);
         $this->assertSame($constants, $elements);
         $elementsAfterShrink = $generator->shrink($elements);
         $this->assertSame($constants, $elementsAfterShrink);
@@ -93,7 +94,7 @@ class TupleTest extends \PHPUnit_Framework_TestCase
     public function testShrinkNothing()
     {
         $generator = new Tuple([]);
-        $elements = $generator();
+        $elements = $generator($this->size);
         $this->assertSame([], $elements);
         $elementsAfterShrink = $generator->shrink($elements);
         $this->assertSame([], $elementsAfterShrink);

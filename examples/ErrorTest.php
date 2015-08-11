@@ -8,7 +8,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     public function testGenericExceptionsDoNotShrinkButStillShowTheInput()
     {
         $this->forAll(
-            Generator\string(10)
+            Generator\string()
         )
             ->then(function($string) {
                 throw new RuntimeException("Something like a missing array index happened.");

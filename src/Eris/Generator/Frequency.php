@@ -39,9 +39,9 @@ class Frequency implements Generator
         );
     }
 
-    public function __invoke()
+    public function __invoke($size)
     {
-        return $this->pickFrom($this->generators)->__invoke();
+        return $this->pickFrom($this->generators)->__invoke($size);
     }
 
     public function shrink($element)

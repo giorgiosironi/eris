@@ -100,9 +100,9 @@ trait TestTrait
         return $quantifier;
     }
 
-    protected function sample(Generator $generator, $size = 10)
+    protected function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator)->withSize($size);
+        return Sample::of($generator)->repeat($times);
     }
 
     protected function sampleShrink(Generator $generator, $fromValue = null)
