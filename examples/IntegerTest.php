@@ -41,6 +41,16 @@ class IntegerTest extends PHPUnit_Framework_TestCase
             });
     }
 
+    public function testGeneratedDataCollection()
+    {
+        $this
+            ->forAll(Generator\neg())
+            ->collect(function($x) { return $x; })
+            ->then(function($x) {
+                $this->assertTrue($x < $x + 1);
+            });
+    }
+
     public function testByteData()
     {
         $this->forAll(

@@ -16,6 +16,21 @@ class SequenceTest extends PHPUnit_Framework_TestCase
             });
     }
 
+    public function testGeneratedDataCollection()
+    {
+        $this
+            ->forAll(
+                Generator\seq(Generator\nat())
+            )
+            ->withMaxSize(10)
+            ->collect(function($array) {
+                return '[' . implode(',', $array) . ']';
+            })
+            ->then(function($array) {
+                $this->assertEquals(count($array), count(array_reverse($array)));
+            });
+    }
+
     public function testArrayReverse()
     {
         $this

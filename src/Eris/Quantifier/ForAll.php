@@ -31,6 +31,8 @@ class ForAll
         'implies' => '__invoke',
         'imply' => '__invoke',
     ];
+    private $collectFn;
+    private $collectedValues;
 
     public function __construct(array $generators, $iterations, $shrinkerFactory)
     {
@@ -68,6 +70,13 @@ class ForAll
         return $this;
     }
 
+    public function collect(callable $collectFn)
+    {
+        $this->collectFn = $collectFn;
+        $this->collectedValues = [];
+        return $this;
+    }
+
     public function __invoke(callable $assertion)
     {
         $sizes = $this->sizes($this->maxSize);
@@ -84,6 +93,9 @@ class ForAll
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
+
+                $this->updateDataDistribution($values);
+
                 if (!$this->antecedentsAreSatisfied($values)) {
                     continue;
                 }
@@ -106,6 +118,7 @@ class ForAll
                     })
                     ->execute();
             }
+            $this->printDataDistribution();
         } catch (Exception $e) {
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
             if ($wrap) {
@@ -218,4 +231,29 @@ class ForAll
             return ($n * ($n + 1)) / 2;
         };
     }
+
+    private function updateDataDistribution(array $values)
+    {
+        if (!is_null($this->collectFn)) {
+            $key = call_user_func_array($this->collectFn, $values);
+            if (array_key_exists($key, $this->collectedValues)) {
+                $this->collectedValues[$key]++;
+            } else {
+                $this->collectedValues[$key] = 1;
+            }
+        }
+    }
+
+    private function printDataDistribution()
+    {
+        if (!is_null($this->collectFn)) {
+            arsort($this->collectedValues, SORT_NUMERIC);
+            echo PHP_EOL;
+            foreach ($this->collectedValues as $key => $value) {
+                $probability = round(($value / $this->evaluations) * 100, 2);
+                echo  "{$probability}%  $key" . PHP_EOL;
+            }
+        }
+    }
+
 }
