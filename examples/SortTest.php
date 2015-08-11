@@ -9,9 +9,7 @@ class SortTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(
-                    Generator\nat()
-                )
+                Generator\seq(Generator\nat())
             )
             ->then(function($array) {
                 sort($array);
