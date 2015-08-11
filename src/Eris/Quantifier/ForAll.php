@@ -163,7 +163,7 @@ class ForAll
         }
 
         $sizeGrowth = $this->triangleNumber();
-        //$sizeGrowth = $this->lineraGrowth();
+        //$sizeGrowth = $this->linearGrowth();
 
         $sizes = [];
         for ($x = 0; $x <= $maxSize; $x++) {
@@ -182,7 +182,7 @@ class ForAll
     /**
      * Returns the identity function.
      */
-    private function lineraGrowth()
+    private function linearGrowth()
     {
         return function($n) {
             return $n;
