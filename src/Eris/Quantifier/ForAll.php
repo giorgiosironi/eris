@@ -250,8 +250,8 @@ class ForAll
             arsort($this->collectedValues, SORT_NUMERIC);
             echo PHP_EOL;
             foreach ($this->collectedValues as $key => $value) {
-                $probability = round(($value / $this->evaluations) * 100, 2);
-                echo  "{$probability}%  $key" . PHP_EOL;
+                $frequency = round(($value / $this->evaluations) * 100, 2);
+                echo "{$frequency}%  $key" . PHP_EOL;
             }
         }
     }
