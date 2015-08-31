@@ -19,18 +19,18 @@ function int()
  */
 function pos()
 {
-    $mustBePositive = function($n) {
+    $mustBeStrictlyPositive = function($n) {
         return abs($n) + 1;
     };
-    return new Integer($mustBePositive);
+    return new Integer($mustBeStrictlyPositive);
 }
 
 function nat()
 {
-    $mustBePositive = function($n) {
+    $mustBeNatural = function($n) {
         return abs($n);
     };
-    return new Integer($mustBePositive);
+    return new Integer($mustBeNatural);
 }
 
 /**
@@ -38,10 +38,10 @@ function nat()
  */
 function neg()
 {
-    $mustBeNegative = function($n) {
+    $mustBeStrictlyNegative = function($n) {
         return (-1) * (abs($n) + 1);
     };
-    return new Integer($mustBeNegative);
+    return new Integer($mustBeStrictlyNegative);
 }
 
 function strictlyPos()
