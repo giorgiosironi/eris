@@ -20,14 +20,17 @@ function int()
 function pos()
 {
     $mustBePositive = function($n) {
-        return abs($n);
+        return abs($n) + 1;
     };
     return new Integer($mustBePositive);
 }
 
 function nat()
 {
-    return pos();
+    $mustBePositive = function($n) {
+        return abs($n);
+    };
+    return new Integer($mustBePositive);
 }
 
 /**
@@ -36,10 +39,7 @@ function nat()
 function neg()
 {
     $mustBeNegative = function($n) {
-        if ($n > 0) {
-            return $n * (-1);
-        }
-        return $n;
+        return (-1) * (abs($n) + 1);
     };
     return new Integer($mustBeNegative);
 }

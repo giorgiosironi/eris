@@ -52,4 +52,22 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $lastValue = $generator($size = 0);
         $this->assertSame(0, $generator->shrink($lastValue));
     }
+
+    public function testPosAlreadyStartsFromStrictlyPositiveValues()
+    {
+        $generator = pos();
+        $this->assertGreaterThan(0, $generator->__invoke(0));
+    }
+
+    public function testNegAlreadyStartsFromStrictlyNegativeValues()
+    {
+        $generator = neg();
+        $this->assertLessThan(0, $generator->__invoke(0));
+    }
+
+    public function testNatStartsFromZero()
+    {
+        $generator = nat();
+        $this->assertEquals(0, $generator->__invoke(0));
+    }
 }
