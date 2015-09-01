@@ -26,7 +26,6 @@ class ForAll
         'andAlso' => 'when',
         'theCondition' => 'when',
         'andTheCondition' => 'when',
-        'andAlso' => 'when',
         'then' => '__invoke',
         'implies' => '__invoke',
         'imply' => '__invoke',
