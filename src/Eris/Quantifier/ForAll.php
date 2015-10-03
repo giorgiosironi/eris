@@ -71,10 +71,10 @@ class ForAll
     {
         $sizes = $this->sizes($this->maxSize);
         try {
-            for ($i = 0; $i < $this->iterations; $i++) {
+            for ($iteration = 0; $iteration < $this->iterations; $iteration++) {
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
-                    $currentSizeIndex = $this->evaluations % count($sizes);
+                    $currentSizeIndex = $iteration % count($sizes);
                     $value = $generator($sizes[$currentSizeIndex]);
                     $values[] = $value;
                 }

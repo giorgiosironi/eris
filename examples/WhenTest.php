@@ -144,4 +144,17 @@ class WhenTest extends \PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testSizeIncreasesEvenIfEvaluationsAreSkippedDueToAntecedentsNotBeingSatisfied()
+    {
+        $this->forAll(
+            Generator\seq(Generator\elements(1, 2, 3))
+        )
+            ->when(function($seq) {
+                return count($seq) > 0;
+            })
+            ->then(function($seq) {
+                $this->assertGreaterThan(0, count($seq));
+            });
+    }
 }
