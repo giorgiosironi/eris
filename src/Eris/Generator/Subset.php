@@ -7,14 +7,10 @@ use DomainException;
 // TODO: accept also a list? OneOf?
 function subset(Generator $singleElementGenerator)
 {
-    // TODO: Generator::box($singleElementGenerator);
-    if (!($singleElementGenerator instanceof Generator)) {
-        $singleElementGenerator = new Constant($singleElementGenerator);
-    }
-    return new Sequence($singleElementGenerator);
+    return new Subset($singleElementGenerator);
 }
 
-class Subset// implements Generator
+class Subset implements Generator
 {
     private $singleElementGenerator;
 
@@ -40,4 +36,32 @@ class Subset// implements Generator
         return $set;
     }
 
+    public function shrink($set)
+    {
+        // TODO: extract duplication with Generator\Sequence
+        if (!$this->contains($set)) {
+            throw new DomainException(
+                'Cannot shrink {' . var_export($set, true) . '} because ' .
+                'it does not belong to the domain of this set'
+            );
+        }
+
+        if (count($set) === 0) {
+            return $set;
+        }
+
+        $indexOfElementToRemove = array_rand($set);
+        unset($set[$indexOfElementToRemove]);
+        return array_values($set);
+    }
+
+    public function contains($set)
+    {
+        foreach ($set as $element) {
+            if (!$this->singleElementGenerator->contains($element)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
