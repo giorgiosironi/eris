@@ -7,7 +7,7 @@ trait TestTrait
 {
     // TODO: make this private as much as possible
     private $quantifiers = [];
-    protected $iterations = 100;
+    private $iterations = 100;
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
@@ -73,6 +73,16 @@ trait TestTrait
                 throw new OutOfBoundsException("Evaluation ratio {$evaluationRatio} is under the threshold {$this->minimumEvaluationRatio}");
             }
         }
+    }
+
+    /**
+     * @param integer
+     * @return $this
+     */
+    protected function setIterations($iterations)
+    {
+        $this->iterations = $iterations;
+        return $this;
     }
 
     /**

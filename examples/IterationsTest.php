@@ -8,10 +8,10 @@ class IterationsTest extends PHPUnit_Framework_TestCase
 
     public function testNumberOfIterationsCanBeConfigured()
     {
-        $this->iterations = 5;
-        $this->forAll(
-            Generator\int()
-        )
+        $this->setIterations(5)
+             ->forAll(
+                Generator\int()
+            )
             ->then(function($value) {
                 $this->assertInternalType('integer', $value);
             });
