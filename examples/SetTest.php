@@ -2,14 +2,14 @@
 use Eris\Generator;
 use Eris\TestTrait;
 
-class SubsetTest extends PHPUnit_Framework_TestCase
+class SetTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
-    public function testSubsetsOfAnotherGeneratorsDomain()
+    public function testSetsOfAnotherGeneratorsDomain()
     {
         $this->forAll(
-            Generator\subset(Generator\nat())
+            Generator\set(Generator\nat())
         )
             ->then(function($set) {
                 $this->assertInternalType('array', $set);

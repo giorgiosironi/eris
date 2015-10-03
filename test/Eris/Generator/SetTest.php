@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class SubsetTest extends \PHPUnit_Framework_TestCase
+class SetTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -11,7 +11,7 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
 
     public function testRespectsGenerationSize()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $countLessThanSize = 0;
         $countEqualToSize = 0;
         for ($size = 0; $size < 400; $size++) {
@@ -27,17 +27,17 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             $countLessThanSize > 0,
-            "Subset generator does not generate subsets less than the size."
+            "Set generator does not generate subsets less than the size."
         );
         $this->assertTrue(
             ($countLessThanSize + $countEqualToSize) === 400,
-            "Subset generator has generated subsets greater than the size."
+            "Set generator has generated subsets greater than the size."
         );
     }
 
     public function testNoRepeatedElementsAreInTheSet()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         for ($size = 0; $size < 2; $size++) {
             $generated = $generator($size);
             $this->assertNoRepeatedElements($generated);
@@ -46,7 +46,7 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $elements = $generator($this->size);
         $elementsAfterShrink = $generator->shrink($elements);
 
@@ -56,7 +56,7 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkEmptySet()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $elements = $generator($size = 0);
         $this->assertEquals(0, count($elements));
         $this->assertEquals(0, count($generator->shrink($elements)));
@@ -64,7 +64,7 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsElementsWhenElementsAreContainedInGivenGenerator()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $elements = [
             $this->singleElementGenerator->__invoke($this->size),
             $this->singleElementGenerator->__invoke($this->size),
@@ -76,14 +76,14 @@ class SubsetTest extends \PHPUnit_Framework_TestCase
     {
         $aString = 'a string';
         $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $elements = [$aString, $aString];
         $this->assertFalse($generator->contains($elements));
     }
 
-    public function testContainsAnEmptySubset()
+    public function testContainsAnEmptySet()
     {
-        $generator = new Subset($this->singleElementGenerator);
+        $generator = new Set($this->singleElementGenerator);
         $this->assertTrue($generator->contains([]));
     }
 

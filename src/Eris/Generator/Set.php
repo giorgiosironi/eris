@@ -5,12 +5,12 @@ use Eris\Generator;
 use DomainException;
 
 // TODO: accept also a list? OneOf?
-function subset(Generator $singleElementGenerator)
+function set(Generator $singleElementGenerator)
 {
-    return new Subset($singleElementGenerator);
+    return new Set($singleElementGenerator);
 }
 
-class Subset implements Generator
+class Set implements Generator
 {
     private $singleElementGenerator;
 
