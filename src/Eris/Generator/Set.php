@@ -5,8 +5,20 @@ use Eris\Generator;
 use DomainException;
 
 // TODO: accept also a list? OneOf?
-function set(Generator $singleElementGenerator)
+/**
+ * @param Generator|array $singleElementGenerator
+ * @return Set
+ */
+function set($input)
 {
+    if (is_array($input)) {
+        $singleElementGenerator = new Generator\OneOf(array_map(
+            'Eris\Generator\Constant::box',
+            $input
+        ));
+    } else {
+        $singleElementGenerator = $input;
+    }
     return new Set($singleElementGenerator);
 }
 

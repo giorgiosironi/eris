@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
+// TODO: variadic args
 function oneOf(array $generators)
 {
     return new OneOf($generators);
