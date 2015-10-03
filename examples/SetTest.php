@@ -26,9 +26,9 @@ class SetTest extends PHPUnit_Framework_TestCase
                 2, 4, 6, 8, 10
             ])
         )
-            // TODO: problem, saturates to the full set of 5 elements very quickly
+            // the sizes generated are 0, 1, 3, 6
+            ->withMaxSize(6)
             ->then(function($set) {
-                var_dump(count($set));
                 $this->assertInternalType('array', $set);
                 foreach ($set as $element) {
                     $this->assertTrue($this->isEven($element), "Element $element is not even, where did it come from?");
