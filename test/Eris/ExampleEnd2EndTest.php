@@ -79,6 +79,17 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(13.0, $executionTime);
     }
 
+    public function testIterationsNumberTest()
+    {
+        $this->runExample('IterationsTest.php');
+        $this->assertTestsAreFailing(0);
+        $this->assertEquals(
+            5,
+            (string) $this->theTest('testNumberOfIterationsCanBeConfigured')->attributes()['assertions'],
+            "We configured a small number of iterations for this test, but a different number of evaluations were performed"
+        );
+    }
+
     public function testGenericErrorTest()
     {
         $this->setEnvironmentVariable('ERIS_ORIGINAL_INPUT', 1);
