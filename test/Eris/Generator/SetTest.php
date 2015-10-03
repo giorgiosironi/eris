@@ -44,6 +44,15 @@ class SetTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testStopsBeforeInfiniteLoopsInTryingToExtractNewElementsToPutInTheSt()
+    {
+        $generator = new Set(new Constant(42));
+        for ($size = 0; $size < 5; $size++) {
+            $generated = $generator($size);
+            $this->assertLessThanOrEqual(1, count($generated));
+        }
+    }
+
     public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions()
     {
         $generator = new Set($this->singleElementGenerator);

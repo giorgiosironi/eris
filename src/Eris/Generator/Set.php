@@ -35,10 +35,9 @@ class Set implements Generator
         $setSize = rand(0, $size);
         $set = [];
         $trials = 0;
-        while (count($set) < $setSize && $trials < 1000) {
+        while (count($set) < $setSize && $trials < 2 * $setSize) {
             $trials++;
             $candidateNewElement = $this->singleElementGenerator->__invoke($size);
-            // TODO: avoid infinite loops
             if (in_array($candidateNewElement, $set, $strict = true)) {
                 continue;
             }
