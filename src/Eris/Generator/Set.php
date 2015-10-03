@@ -4,7 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-// TODO: accept also a list? OneOf?
 /**
  * @param Generator|array $singleElementGenerator
  * @return Set
