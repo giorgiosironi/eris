@@ -50,6 +50,10 @@ class Set implements Generator
     public function shrink($set)
     {
         // TODO: extract duplication with Generator\Sequence
+        // to do so, implement __toString for every Generator (put it
+        // in the interface) and then Extract Class
+        // ContainmentCheck::of($this)->on($set);
+        // which will use $generator->__toString() in the error message
         if (!$this->contains($set)) {
             throw new DomainException(
                 'Cannot shrink {' . var_export($set, true) . '} because ' .
