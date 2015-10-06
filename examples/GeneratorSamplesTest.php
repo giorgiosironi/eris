@@ -22,7 +22,7 @@ class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
             "Gen\\list(gen\\string())" => Generator\seq(Generator\string()),
             "Gen\\vector(12, gen\\neg())" => Generator\vector(12, Generator\neg()),
             "Gen\\elements(10, 'hello-world', [1, 2])" => Generator\elements(10, 'hello-world', [1, 2]),
-            "Gen\\oneOf([gen\\pos, gen\\neg, gen\\float])" => Generator\oneOf([Generator\pos(), Generator\neg(), Generator\float()]),
+            "Gen\\oneOf(gen\\pos, gen\\neg, gen\\float])" => Generator\oneOf([Generator\pos(), Generator\neg(), Generator\float()),
             "Gen\\frequency([[3, gen\\pos()], [7, gen\\string()]])" => Generator\frequency([[1, Generator\pos()], [10, Generator\string()]]),
             */
         ];

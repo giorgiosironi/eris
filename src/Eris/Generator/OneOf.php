@@ -3,9 +3,9 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-function oneOf(array $generators)
+function oneOf(/*$a, $b, ...*/)
 {
-    return new OneOf($generators);
+    return new OneOf(func_get_args());
 }
 
 class OneOf implements Generator
