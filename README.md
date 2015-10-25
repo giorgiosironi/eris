@@ -51,7 +51,7 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-Eris generates a sample of elements from the required domain (here the integers from 0 to plus infinity) and verifies a property on each of them, stopping at the first failure.
+Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure.
 
 ```bash
 [10:34:32][giorgio@Bipbip:~/code/eris]$ vendor/bin/phpunit examples/ReadmeTest.php
