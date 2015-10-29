@@ -18,7 +18,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4",
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": ">4,<6"
     },
     "require-dev": {
         "icomefromthenet/reverse-regex": "v0.0.6.2"
