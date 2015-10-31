@@ -81,7 +81,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationsNumberTest()
     {
-        $this->runExample('IterationsTest.php');
+        $this->runExample('LimitToTest.php');
         $this->assertTestsAreFailing(0);
         $this->assertEquals(
             5,

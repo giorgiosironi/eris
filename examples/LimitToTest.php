@@ -2,13 +2,13 @@
 use Eris\Generator;
 use Eris\TestTrait;
 
-class IterationsTest extends PHPUnit_Framework_TestCase
+class LimitToTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
     public function testNumberOfIterationsCanBeConfigured()
     {
-        $this->setIterations(5)
+        $this->limitTo(5)
              ->forAll(
                 Generator\int()
             )

@@ -79,7 +79,7 @@ trait TestTrait
      * @param integer
      * @return $this
      */
-    protected function setIterations($iterations)
+    protected function limitTo($iterations)
     {
         $this->iterations = $iterations;
         return $this;
