@@ -26,7 +26,7 @@ Please note the project is in alpha stage and the API may change at any time.
 
 ## Example usage within PHPUnit
 
-This test tries to verify that all natural numbers are greater than 42. It's a failing test designed to show you an example of error message.
+This test tries to verify that natural numbers from 0 to 1000 are all greater than 42. It's a failing test designed to show you an example of error message.
 
 ```php
 <?php
@@ -39,7 +39,7 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
     public function testNaturalNumbersMagnitude()
     {
         $this->forAll(
-            Generator\nat(1000)
+            Generator\choose(0, 1000)
         )
             ->then(function($number) {
                 $this->assertTrue(
@@ -51,7 +51,7 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-Eris generates a sample of elements from the required domain (here the integers from 0 to plus infinity) and verifies a property on each of them, stopping at the first failure.
+Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure.
 
 ```bash
 [10:34:32][giorgio@Bipbip:~/code/eris]$ vendor/bin/phpunit examples/ReadmeTest.php
