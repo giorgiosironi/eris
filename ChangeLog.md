@@ -1,9 +1,18 @@
 # ChangeLog
 
+## 0.5.0
+
+* Generators are now based on size, an increasing random parameter.
+* `choose()` new Generator to get integers inside a fixed range.
+* PHPUnit 5.x is supported.
+* `set` new Generator.
+* Differentiating `pos`, `nat`, `neg` Generators.
+* GeneratorSampleTest to get sample output from Generators.
+
 ## 0.4.0
 
 * Showing generated input with `ERIS_ORIGINAL_INPUT=1`.
-* `names` and `date` (DateTime) new Generator.
+* `names` and `date` (DateTime) new Generators.
 * `tuple` Generator supports variadic arguments.
 * Shrinking respects `when()` clauses.
 * Dates and sorting examples.
