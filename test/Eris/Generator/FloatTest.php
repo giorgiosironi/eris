@@ -8,7 +8,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
         $this->size = 300;
     }
 
-    public function testUniformelyPicksFloatNumbersInAnInterval()
+    public function testPicksUniformelyPositiveAndNegativeFloatNumbers()
     {
         $generator = new Float();
         $sum = 0;
@@ -18,8 +18,9 @@ class FloatTest extends \PHPUnit_Framework_TestCase
             $this->assertInternalType('float', $value);
             $sum += $value;
         }
-        $this->assertGreaterThanOrEqual(0, abs($sum / $trials));
-        $this->assertLessThan(2, abs($sum / $trials));
+        $mean = $sum / $trials;
+        // over a 300 size
+        $this->assertLessThan(10, abs($mean));
     }
 
     public function testShrinksLinearly()
