@@ -1,12 +1,12 @@
 <?php
 namespace Eris\Generator;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+class StringGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testRandomlyPicksLengthAndCharacters()
     {
         $size = 10;
-        $generator = new String();
+        $generator = new StringGenerator();
         $lengths = [];
         $usedChars = [];
         for ($i = 0; $i < 1000; $i++) {
@@ -24,7 +24,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testRespectsTheGenerationSize()
     {
         $generationSize = 100;
-        $generator = new String();
+        $generator = new StringGenerator();
         $value = $generator($generationSize);
 
         $this->assertLessThanOrEqual($generationSize, strlen($value));
@@ -32,14 +32,14 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksByChoppingOffChars()
     {
-        $generator = new String();
+        $generator = new StringGenerator();
         $lastValue = $generator($size = 10);
         $this->assertSame('abcde', $generator->shrink('abcdef'));
     }
 
     public function testCannotShrinkTheEmptyString()
     {
-        $generator = new String();
+        $generator = new StringGenerator();
         $lastValue = $generator($size = 10);
         $this->assertSame('', $generator->shrink(''));
     }
@@ -70,7 +70,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
-        $generator = new String();
+        $generator = new StringGenerator();
         $generator->shrink(true);
     }
 }

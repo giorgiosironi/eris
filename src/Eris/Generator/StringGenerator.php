@@ -6,10 +6,10 @@ use DomainException;
 
 function string()
 {
-    return new String();
+    return new StringGenerator();
 }
 
-class String implements Generator
+class StringGenerator implements Generator
 {
     public function __construct()
     {
