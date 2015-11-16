@@ -6,10 +6,10 @@ use DomainException;
 
 function float()
 {
-    return new Float();
+    return new FloatGenerator();
 }
 
-class Float implements Generator
+class FloatGenerator implements Generator
 {
     public function __construct()
     {

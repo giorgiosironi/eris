@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class FloatTest extends \PHPUnit_Framework_TestCase
+class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -10,7 +10,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 
     public function testPicksUniformelyPositiveAndNegativeFloatNumbers()
     {
-        $generator = new Float();
+        $generator = new FloatGenerator();
         $sum = 0;
         $trials = 500;
         for ($i = 0; $i < $trials; $i++) {
@@ -25,14 +25,14 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksLinearly()
     {
-        $generator = new Float();
+        $generator = new FloatGenerator();
         $this->assertSame(3.5, $generator->shrink(4.5));
         $this->assertSame(-2.5, $generator->shrink(-3.5));
     }
 
     public function testWhenBothSignsArePossibleCannotShrinkBelowZero()
     {
-        $generator = new Float();
+        $generator = new FloatGenerator();
         $this->assertSame(0.0, $generator->shrink(0.0));
         $this->assertSame(0.0, $generator->shrink(0.5));
         $this->assertSame(0.0, $generator->shrink(-0.5));
@@ -43,7 +43,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
-        $generator = new Float(100.12, 200.12);
+        $generator = new FloatGenerator(100.12, 200.12);
         $generator->shrink(300);
     }
 }
