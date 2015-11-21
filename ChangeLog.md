@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.6.0
+
+* PHP 7 compatibility
+
 ## 0.5.0
 
 * Generators are now based on size, an increasing random parameter.
