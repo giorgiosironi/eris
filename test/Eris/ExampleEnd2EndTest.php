@@ -12,16 +12,21 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public static function fullyGreenTestFiles()
     {
         return [
-            ["ConstantTest.php"],
-            ["SampleTest.php"],
-            ["VectorTest.php"],
-            ["TupleTest.php"],
-            ["RegexTest.php"],
-            ["ElementsTest.php"],
             ["BooleanTest.php"],
+            ["CharacterTest.php"],
+            ["ChooseTest.php"],
+            ["ConstantTest.php"],
+            ["ElementsTest.php"],
+            ["GeneratorSamplesTest.php"],
             ["IntegerTest.php"],
             ["NamesTest.php"],
-            ["ChooseTest.php"],
+            ["RegexTest.php"],
+            ["SampleTest.php"],
+            ["SequenceTest.php"],
+            ["SetTest.php"],
+            ["SortTest.php"],
+            ["TupleTest.php"],
+            ["VectorTest.php"],
         ];
     }
 
