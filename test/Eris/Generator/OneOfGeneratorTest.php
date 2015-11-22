@@ -1,17 +1,17 @@
 <?php
 namespace Eris\Generator;
 
-class OneOfTest extends \PHPUnit_Framework_TestCase
+class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->singleElementGenerator = new Choose(0, 100);
+        $this->singleElementGenerator = new ChooseGenerator(0, 100);
         $this->size = 10;
     }
 
     public function testConstructWithAnArrayOfGenerators()
     {
-        $generator = new OneOf([
+        $generator = new OneOfGenerator([
             $this->singleElementGenerator,
             $this->singleElementGenerator,
         ]);
@@ -23,7 +23,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithNonGenerators()
     {
-        $generator = new OneOf([42, 42]);
+        $generator = new OneOfGenerator([42, 42]);
         $element = $generator($this->size);
         $this->assertEquals(42, $element);
     }
@@ -33,22 +33,22 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithNoArguments()
     {
-        $generator = new OneOf([]);
+        $generator = new OneOfGenerator([]);
         $element = $generator($this->size);
     }
 
     public function testShrinkDisjointDomains()
     {
-        $generator = new OneOf([42, 21]);
+        $generator = new OneOfGenerator([42, 21]);
         $this->assertEquals(42, $generator->shrink(42));
         $this->assertEquals(21, $generator->shrink(21));
     }
 
     public function testShrinkIntersectingDomains()
     {
-        $generator = new OneOf([
-            new Choose(1, 100),
-            new Choose(10, 100),
+        $generator = new OneOfGenerator([
+            new ChooseGenerator(1, 100),
+            new ChooseGenerator(10, 100),
         ]);
 
         $element = 42;
@@ -64,7 +64,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
      */
     public function testShrinkSomethingThatIsNotInDomain()
     {
-        $generator = new OneOf([42, 21]);
+        $generator = new OneOfGenerator([42, 21]);
         $generator->shrink('something');
     }
 }

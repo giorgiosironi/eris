@@ -16,7 +16,7 @@ class NamesTest extends PHPUnit_Framework_TestCase
 
     public function testSamplingShrinkingOfNames()
     {
-        $generator = Generator\Names::defaultDataSet();
+        $generator = Generator\NamesGenerator::defaultDataSet();
         var_dump($this->sampleShrink($generator)->collected());
     }
 }

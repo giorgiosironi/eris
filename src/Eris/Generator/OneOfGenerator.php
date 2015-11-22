@@ -5,15 +5,15 @@ use Eris\Generator;
 
 function oneOf(/*$a, $b, ...*/)
 {
-    return new OneOf(func_get_args());
+    return new OneOfGenerator(func_get_args());
 }
 
-class OneOf implements Generator
+class OneOfGenerator implements Generator
 {
     private $generator;
 
     public function __construct($generators) {
-        $this->generator = new Frequency($this->allWithSameFrequency($generators));
+        $this->generator = new FrequencyGenerator($this->allWithSameFrequency($generators));
     }
 
     public function __invoke($size)

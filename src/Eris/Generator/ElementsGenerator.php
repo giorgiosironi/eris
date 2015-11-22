@@ -8,14 +8,14 @@ function elements(/*$a, $b, ...*/)
 {
     $arguments = func_get_args();
     if (count($arguments) == 1) {
-        return Generator\Elements::fromArray($arguments[0]);
+        return Generator\ElementsGenerator::fromArray($arguments[0]);
     } else {
-        return Generator\Elements::fromArray($arguments);
+        return Generator\ElementsGenerator::fromArray($arguments);
     }
 }
 
 
-class Elements implements Generator
+class ElementsGenerator implements Generator
 {
     private $domain;
 

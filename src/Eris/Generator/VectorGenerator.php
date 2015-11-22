@@ -6,17 +6,17 @@ use DomainException;
 
 function vector($size, Generator $elementsGenerator)
 {
-    return new Vector($size, $elementsGenerator);
+    return new VectorGenerator($size, $elementsGenerator);
 }
 
-class Vector implements Generator
+class VectorGenerator implements Generator
 {
     private $generator;
     private $elementsGeneratorClass;
 
     public function __construct($size, Generator $generator)
     {
-        $this->generator = new Tuple(
+        $this->generator = new TupleGenerator(
             ($size > 0) ?
                 array_fill(0, $size, $generator) :
                 []

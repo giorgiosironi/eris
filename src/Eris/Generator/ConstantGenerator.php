@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-class Constant implements Generator
+class ConstantGenerator implements Generator
 {
     private $value;
 

@@ -147,7 +147,7 @@ class ForAll
         $generators = [];
         foreach($supposedToBeGenerators as $supposedToBeGenerator) {
             if (!$supposedToBeGenerator instanceof Generator) {
-                $generators[] = new Generator\Constant($supposedToBeGenerator);
+                $generators[] = new Generator\ConstantGenerator($supposedToBeGenerator);
             } else {
                 $generators[] = $supposedToBeGenerator;
             }

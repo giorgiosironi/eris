@@ -17,13 +17,13 @@ if (!defined('ERIS_PHP_INT_MIN')) {
  *
  * @param $x int One of the 2 boundaries of the range
  * @param $y int The other boundary of the range
- * @return Generator\Choose
+ * @return Generator\ChooseGenerator
  */
 function choose($lowerLimit, $upperLimit) {
-    return new Choose($lowerLimit, $upperLimit);
+    return new ChooseGenerator($lowerLimit, $upperLimit);
 }
 
-class Choose implements Generator
+class ChooseGenerator implements Generator
 {
     private $lowerLimit;
     private $upperLimit;

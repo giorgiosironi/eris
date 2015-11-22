@@ -1,11 +1,11 @@
 <?php
 namespace Eris\Generator;
 
-class BooleanTest extends \PHPUnit_Framework_TestCase
+class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testRandomlyPicksTrueOrFalse()
     {
-        $generator = new Boolean();
+        $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 0);
             $this->assertTrue($generator->contains($generatedValue));
@@ -14,7 +14,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksToFalse()
     {
-        $generator = new Boolean();
+        $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 10);
             $this->assertFalse($generator->shrink($generatedValue));
@@ -26,7 +26,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
      */
     public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
     {
-        $generator = new Boolean();
+        $generator = new BooleanGenerator();
         $generator->shrink(10);
     }
 }

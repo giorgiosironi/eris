@@ -14,14 +14,14 @@ use ReverseRegex\Generator\Scope;
  * Please use {1,N} and {0,N} instead of + and *.
  *
  * @param string $expression
- * @return Generator\Regex
+ * @return Generator\RegexGenerator
  */
 function regex($expression)
 {
-    return new Regex($expression);
+    return new RegexGenerator($expression);
 }
 
-class Regex implements Generator
+class RegexGenerator implements Generator
 {
     private $expression;
 

@@ -5,10 +5,10 @@ use Eris\Generator;
 
 function names()
 {
-    return Names::defaultDataSet();
+    return NamesGenerator::defaultDataSet();
 }
 
-class Names implements Generator
+class NamesGenerator implements Generator
 {
     private $list;
 

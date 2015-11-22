@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class FrequencyTest extends \PHPUnit_Framework_TestCase
+class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -10,7 +10,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
     public function testEqualProbability()
     {
-        $generator = new Frequency([
+        $generator = new FrequencyGenerator([
             [1, 42],
             [1, 21],
         ]);
@@ -28,7 +28,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
     public function testMoreFrequentGeneratorIsChosenMoreOften()
     {
-        $generator = new Frequency([
+        $generator = new FrequencyGenerator([
             [10, 42],
             [1, 21],
         ]);
@@ -45,7 +45,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
     public function testZeroFrequencyMeansItWillNotBeChosen()
     {
-        $generator = new Frequency([
+        $generator = new FrequencyGenerator([
             [0, 42],
             [1, 21],
         ]);
@@ -63,7 +63,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithNoArguments()
     {
-        new Frequency([]);
+        new FrequencyGenerator([]);
     }
 
     /**
@@ -71,7 +71,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
      */
     public function testFrequenciesMustBeNaturals()
     {
-        new Frequency([
+        new FrequencyGenerator([
             [10, 42],
             [false, 21],
         ]);
@@ -79,7 +79,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkDisjointDomains()
     {
-        $generator = new Frequency([
+        $generator = new FrequencyGenerator([
             [10, 42],
             [1, 21],
         ]);
@@ -90,9 +90,9 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkIntersectingDomains()
     {
-        $generator = new Frequency([
-            [10, new Choose(1, 100)],
-            [1, new Choose(10, 100)],
+        $generator = new FrequencyGenerator([
+            [10, new ChooseGenerator(1, 100)],
+            [1, new ChooseGenerator(10, 100)],
         ]);
 
         $element = 42;
@@ -108,7 +108,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
      */
     public function testShrinkSomethingThatIsNotInDomain()
     {
-        $generator = new Frequency([
+        $generator = new FrequencyGenerator([
             [10, 42],
             [1, 21],
         ]);

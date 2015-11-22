@@ -10,10 +10,10 @@ function seq(Generator $singleElementGenerator)
     if (!($singleElementGenerator instanceof Generator)) {
         $singleElementGenerator = new Constant($singleElementGenerator);
     }
-    return new Sequence($singleElementGenerator);
+    return new SequenceGenerator($singleElementGenerator);
 }
 
-class Sequence implements Generator
+class SequenceGenerator implements Generator
 {
     private $singleElementGenerator;
 
@@ -37,7 +37,7 @@ class Sequence implements Generator
             );
         }
 
-        $willShrinkInSize = (new Boolean())->__invoke(1);
+        $willShrinkInSize = (new BooleanGenerator())->__invoke(1);
         if ($willShrinkInSize) {
             $sequence = $this->shrinkInSize($sequence);
         }
@@ -70,6 +70,6 @@ class Sequence implements Generator
 
     private function vector($size)
     {
-        return new Vector($size, $this->singleElementGenerator);
+        return new VectorGenerator($size, $this->singleElementGenerator);
     }
 }

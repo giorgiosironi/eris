@@ -6,22 +6,22 @@ use DomainException;
 
 /**
  * @param Generator|array $singleElementGenerator
- * @return Set
+ * @return SetGenerator
  */
 function set($input)
 {
     if (is_array($input)) {
-        $singleElementGenerator = new Generator\OneOf(array_map(
-            'Eris\Generator\Constant::box',
+        $singleElementGenerator = new Generator\OneOfGenerator(array_map(
+            'Eris\Generator\ConstantGenerator::box',
             $input
         ));
     } else {
         $singleElementGenerator = $input;
     }
-    return new Set($singleElementGenerator);
+    return new SetGenerator($singleElementGenerator);
 }
 
-class Set implements Generator
+class SetGenerator implements Generator
 {
     private $singleElementGenerator;
 
@@ -48,7 +48,7 @@ class Set implements Generator
 
     public function shrink($set)
     {
-        // TODO: extract duplication with Generator\Sequence
+        // TODO: extract duplication with Generator\SequenceGenerator
         // to do so, implement __toString for every Generator (put it
         // in the interface) and then Extract Class
         // ContainmentCheck::of($this)->on($set);

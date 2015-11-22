@@ -1,14 +1,14 @@
 <?php
 namespace Eris\Generator;
 
-class VectorTest extends \PHPUnit_Framework_TestCase
+class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->vectorSize = rand(5, 10);
         $this->size = 10;
-        $this->elementGenerator = new Choose(1, 10);
-        $this->vectorGenerator = new Vector($this->vectorSize, $this->elementGenerator);
+        $this->elementGenerator = new ChooseGenerator(1, 10);
+        $this->vectorGenerator = new VectorGenerator($this->vectorSize, $this->elementGenerator);
         $this->sum = function($acc, $item) {
             $acc = $acc + $item;
             return $acc;

@@ -2,7 +2,7 @@
 namespace Eris\Generator;
 use DateTime;
 
-class DateTest extends \PHPUnit_Framework_TestCase
+class DateGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -11,7 +11,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateDateTimeObjectsInTheGivenInterval()
     {
-        $generator = new Date(
+        $generator = new DateGenerator(
             new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
@@ -24,7 +24,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testCannotShrinkValuesOutsideOfItsDomain()
     {
-        $generator = new Date(
+        $generator = new DateGenerator(
             new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
@@ -34,7 +34,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function testDateTimeShrinkGeometrically()
     {
-        $generator = new Date(
+        $generator = new DateGenerator(
             new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
@@ -46,7 +46,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function testTheLowerLimitIsTheFixedPointOfShrinking()
     {
-        $generator = new Date(
+        $generator = new DateGenerator(
             $lowerLimit = new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );

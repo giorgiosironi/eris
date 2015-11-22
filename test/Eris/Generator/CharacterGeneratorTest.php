@@ -1,16 +1,16 @@
 <?php
 namespace Eris\Generator;
 
-class CharacterTest extends \PHPUnit_Framework_TestCase
+class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->size = 0;
     }
 
-    public function testBasicAsciiCharacters()
+    public function testBasicAsciiCharacterGenerators()
     {
-        $generator = Character::ascii();
+        $generator = CharacterGenerator::ascii();
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size);
             $this->assertEquals(1, strlen($value));
@@ -20,9 +20,9 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testPrintableAsciiCharacters()
+    public function testPrintableAsciiCharacterGenerators()
     {
-        $generator = Character::printableAscii();
+        $generator = CharacterGenerator::printableAscii();
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size);
             $this->assertEquals(1, strlen($value));
@@ -32,21 +32,21 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testCharactersShrinkByConventionToTheLowestCodePoint()
+    public function testCharacterGeneratorsShrinkByConventionToTheLowestCodePoint()
     {
-        $generator = Character::ascii();
+        $generator = CharacterGenerator::ascii();
         $this->assertEquals('@', $generator->shrink('A'));
     }
 
     public function testTheLowestCodePointCannotBeShrunk()
     {
-        $generator = new Character(65, 90);
+        $generator = new CharacterGenerator(65, 90);
         $this->assertEquals('A', $generator->shrink('A'));
     }
 
     public function testContainsOnlyTheSpecifiedRange()
     {
-        $generator = Character::ascii();
+        $generator = CharacterGenerator::ascii();
         $this->assertTrue($generator->contains("\0"));
         $this->assertTrue($generator->contains("A"));
         $this->assertTrue($generator->contains("b"));

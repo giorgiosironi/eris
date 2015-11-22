@@ -1,17 +1,17 @@
 <?php
 namespace Eris\Generator;
 
-class SetTest extends \PHPUnit_Framework_TestCase
+class SetGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->size = 100;
-        $this->singleElementGenerator = new Choose(10, 100);
+        $this->singleElementGenerator = new ChooseGenerator(10, 100);
     }
 
     public function testRespectsGenerationSize()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $countLessThanSize = 0;
         $countEqualToSize = 0;
         for ($size = 0; $size < 400; $size++) {
@@ -37,7 +37,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
     public function testNoRepeatedElementsAreInTheSet()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         for ($size = 0; $size < 2; $size++) {
             $generated = $generator($size);
             $this->assertNoRepeatedElements($generated);
@@ -46,7 +46,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
     public function testStopsBeforeInfiniteLoopsInTryingToExtractNewElementsToPutInTheSt()
     {
-        $generator = new Set(new Constant(42));
+        $generator = new SetGenerator(new ConstantGenerator(42));
         for ($size = 0; $size < 5; $size++) {
             $generated = $generator($size);
             $this->assertLessThanOrEqual(1, count($generated));
@@ -55,7 +55,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $elements = $generator($this->size);
         $elementsAfterShrink = $generator->shrink($elements);
 
@@ -65,7 +65,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkEmptySet()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0);
         $this->assertEquals(0, count($elements));
         $this->assertEquals(0, count($generator->shrink($elements)));
@@ -73,7 +73,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsElementsWhenElementsAreContainedInGivenGenerator()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $elements = [
             $this->singleElementGenerator->__invoke($this->size),
             $this->singleElementGenerator->__invoke($this->size),
@@ -85,14 +85,14 @@ class SetTest extends \PHPUnit_Framework_TestCase
     {
         $aString = 'a string';
         $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $elements = [$aString, $aString];
         $this->assertFalse($generator->contains($elements));
     }
 
     public function testContainsAnEmptySet()
     {
-        $generator = new Set($this->singleElementGenerator);
+        $generator = new SetGenerator($this->singleElementGenerator);
         $this->assertTrue($generator->contains([]));
     }
 

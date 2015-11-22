@@ -8,25 +8,25 @@ use Eris\Generator;
  *
  * @param array $characterSets  Only supported charset: "basic-latin"
  * @param string $encoding  Only supported encoding: "utf-8"
- * @return Generator\Character
+ * @return Generator\CharacterGenerator
  */
 function char(array $characterSets, $encoding = 'utf-8')
 {
-    return Character::ascii();
+    return CharacterGenerator::ascii();
 }
 
 /**
  * Generates character in the ASCII 32-127 range, excluding non-printable ones
  * or modifiers such as CR, LF and Tab.
  *
- * @return Generator\Character
+ * @return Generator\CharacterGenerator
  */
 function charPrintableAscii()
 {
-    return Character::printableAscii();
+    return CharacterGenerator::printableAscii();
 }
 
-class Character implements Generator
+class CharacterGenerator implements Generator
 {
     private $lowerLimit;
     private $upperLimit;

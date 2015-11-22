@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class ElementsTest extends \PHPUnit_Framework_TestCase
+class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -11,7 +11,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testGeneratesOnlyArgumentsInsideTheGivenArray()
     {
         $array = [1, 4, 5, 9];
-        $generator = Elements::fromArray($array);
+        $generator = ElementsGenerator::fromArray($array);
         $generated = $generator($this->size);
         for ($i = 0; $i < 1000; $i++) {
             $this->assertContains(
@@ -23,13 +23,13 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
 
     public function testASingleValueCannotShrinkGivenThereIsNoExplicitRelationshipBetweenTheValuesInTheDomain()
     {
-        $generator = Elements::fromArray(['A', 2, false]);
+        $generator = ElementsGenerator::fromArray(['A', 2, false]);
         $this->assertSame(2, $generator->shrink(2));
     }
 
-    public function testOnlyContainsTheElementsOfTheGivenDomain()
+    public function testOnlyContainsTheElementsGeneratorOfTheGivenDomain()
     {
-        $generator = Elements::fromArray(['A', 2]);
+        $generator = ElementsGenerator::fromArray(['A', 2]);
         $this->assertFalse($generator->contains(1));
         $this->assertTrue($generator->contains('A'));
         $this->assertTrue($generator->contains(2));
@@ -42,7 +42,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
-        $generator = Elements::fromArray(['A', 1]);
+        $generator = ElementsGenerator::fromArray(['A', 1]);
         $generator->shrink(2);
     }
 }

@@ -7,10 +7,10 @@ use InvalidArgumentException;
 
 function frequency(array $generatorsWithFrequency)
 {
-    return new Frequency($generatorsWithFrequency);
+    return new FrequencyGenerator($generatorsWithFrequency);
 }
 
-class Frequency implements Generator
+class FrequencyGenerator implements Generator
 {
     private $generators;
 

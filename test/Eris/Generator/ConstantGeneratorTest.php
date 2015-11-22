@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class ConstantTest extends \PHPUnit_Framework_TestCase
+class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -10,7 +10,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
 
     public function testPicksAlwaysTheValue()
     {
-        $generator = new Constant(true);
+        $generator = new ConstantGenerator(true);
         for ($i = 0; $i < 50; $i++) {
             $this->assertTrue($generator($this->size));
         }
@@ -18,7 +18,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkAlwaysToTheValue()
     {
-        $generator = new Constant(true);
+        $generator = new ConstantGenerator(true);
         $element = $generator($this->size);
         for ($i = 0; $i < 50; $i++) {
             $this->assertTrue($generator->shrink($element));
@@ -27,7 +27,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsOnlyTheValue()
     {
-        $generator = new Constant(true);
+        $generator = new ConstantGenerator(true);
         $this->assertTrue($generator->contains(true));
         $this->assertFalse($generator->contains(42));
     }
@@ -37,7 +37,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
      */
     public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
     {
-        $generator = new Constant(5);
+        $generator = new ConstantGenerator(5);
         $generator->shrink(10);
     }
 }

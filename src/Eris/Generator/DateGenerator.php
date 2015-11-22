@@ -22,13 +22,13 @@ function date($lowerLimit = null, $upperLimit = null)
         }
         return $default;
     };
-    return new Date(
+    return new DateGenerator(
         $withDefault($box($lowerLimit), new DateTime("@0")),
         $withDefault($box($upperLimit), new DateTime("@" . getrandmax()))
     );
 }
 
-class Date implements Generator
+class DateGenerator implements Generator
 {
     private $lowerLimit;
     private $upperLimit;

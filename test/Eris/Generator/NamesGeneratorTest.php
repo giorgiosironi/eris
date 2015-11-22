@@ -1,11 +1,11 @@
 <?php
 namespace Eris\Generator;
 
-class NamesTest extends \PHPUnit_Framework_TestCase
+class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testItRespectsTheGenerationSize()
     {
-        $generator = Names::defaultDataSet();
+        $generator = NamesGenerator::defaultDataSet();
         for ($i = 5; $i < 50; $i++) {
             $value = $generator($maxLength = $i);
             $this->assertTrue(
@@ -17,7 +17,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneratesANameFromAFixedDataset()
     {
-        $generator = Names::defaultDataSet();
+        $generator = NamesGenerator::defaultDataSet();
         for ($i = 0; $i < 50; $i++) {
             $value = $generator($_size = 10);
             $this->assertTrue($generator->contains($value), "Generator does not contain the value `$value` which has generated");
@@ -26,7 +26,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance()
     {
-        $generator = Names::defaultDataSet();
+        $generator = NamesGenerator::defaultDataSet();
         $this->assertEquals("Malene", $generator->shrink("Maxence"));
         $this->assertEquals("Columban", $generator->shrink("Columbano"));
         $this->assertEquals("Carol-Anne", $generator->shrink("Carole-Anne"));
@@ -42,7 +42,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsAllTheNamesInTheSpecifiedDataSet()
     {
-        $generator = Names::defaultDataSet();
+        $generator = NamesGenerator::defaultDataSet();
         $this->assertTrue($generator->contains("Bob"));
         $this->assertFalse($generator->contains("Daitarn"));
     }

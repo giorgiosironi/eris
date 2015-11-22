@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Shrinker;
 
-use Eris\Generator\Tuple;
+use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
@@ -14,7 +14,7 @@ class Random // implements Shrinker
 
     public function __construct(array $generators, callable $assertion)
     {
-        $this->generator = new Tuple($generators);
+        $this->generator = new TupleGenerator($generators);
         $this->assertion = $assertion;
         $this->attempts = new Attempts($giveUpAfter = 100);
         $this->timeLimit = new NoTimeLimit();

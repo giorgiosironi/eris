@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class RegexTest extends \PHPUnit_Framework_TestCase
+class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public static function supportedRegexes()
     {
@@ -25,7 +25,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneratesOnlyValuesThatMatchTheRegex($expression)
     {
-        $generator = new Regex($expression);
+        $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size);
             $this->assertTrue($generator->contains($value), "Failed asserting that " . var_export($value, true) . " matches the regexp $expression");
@@ -34,7 +34,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkingIsNotImplementedYet()
     {
-        $generator = new Regex(".*");
+        $generator = new RegexGenerator(".*");
         $this->assertEquals("something", $generator->shrink("something"));
     }
 }

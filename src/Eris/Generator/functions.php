@@ -15,5 +15,5 @@ function ensureIsGenerator($generator)
     if ($generator instanceof Generator) {
         return $generator;
     }
-    return new Constant($generator);
+    return new ConstantGenerator($generator);
 }

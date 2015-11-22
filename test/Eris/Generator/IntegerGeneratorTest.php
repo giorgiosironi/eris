@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class IntegerTest extends \PHPUnit_Framework_TestCase
+class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -10,7 +10,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     public function testPicksRandomlyAnInteger()
     {
-        $generator = new Integer();
+        $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
             $this->assertTrue($generator->contains($generator($this->size)));
         }
@@ -22,7 +22,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
          * towards the upper size limit.
          * To be fixed in the next weeks.
          */
-        $generator = new Integer();
+        $generator = new IntegerGenerator();
         $value = $generator($this->size);
         for ($i = 0; $i < 20; $i++) {
             $newValue = $generator->shrink($value);
@@ -34,7 +34,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     public function testUniformity()
     {
-        $generator = new Integer();
+        $generator = new IntegerGenerator();
         $values = [];
         for ($i = 0; $i < 1000; $i++) {
             $values[] = $generator($this->size);
@@ -48,7 +48,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotShrinkStopsToZero()
     {
-        $generator = new Integer();
+        $generator = new IntegerGenerator();
         $lastValue = $generator($size = 0);
         $this->assertSame(0, $generator->shrink($lastValue));
     }

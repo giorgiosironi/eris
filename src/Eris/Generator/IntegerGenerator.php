@@ -11,7 +11,7 @@ use DomainException;
  */
 function int()
 {
-    return new Integer();
+    return new IntegerGenerator();
 }
 
 /**
@@ -22,7 +22,7 @@ function pos()
     $mustBeStrictlyPositive = function($n) {
         return abs($n) + 1;
     };
-    return new Integer($mustBeStrictlyPositive);
+    return new IntegerGenerator($mustBeStrictlyPositive);
 }
 
 function nat()
@@ -30,7 +30,7 @@ function nat()
     $mustBeNatural = function($n) {
         return abs($n);
     };
-    return new Integer($mustBeNatural);
+    return new IntegerGenerator($mustBeNatural);
 }
 
 /**
@@ -41,7 +41,7 @@ function neg()
     $mustBeStrictlyNegative = function($n) {
         return (-1) * (abs($n) + 1);
     };
-    return new Integer($mustBeStrictlyNegative);
+    return new IntegerGenerator($mustBeStrictlyNegative);
 }
 
 function strictlyPos()
@@ -51,7 +51,7 @@ function strictlyPos()
                   ? 1
                   : abs($n);
     };
-    return new Integer($mustBeStrictlyPositive);
+    return new IntegerGenerator($mustBeStrictlyPositive);
 }
 
 function strictlyNeg()
@@ -64,15 +64,15 @@ function strictlyNeg()
                   ? -1
                   : $n;
     };
-    return new Integer($mustBeStrictlyNegative);
+    return new IntegerGenerator($mustBeStrictlyNegative);
 }
 
 function byte()
 {
-    return new Choose(0, 255);
+    return new ChooseGenerator(0, 255);
 }
 
-class Integer implements Generator
+class IntegerGenerator implements Generator
 {
     private $mapFn;
 

@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Generator;
 
-class ChooseTest extends \PHPUnit_Framework_TestCase
+class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -10,7 +10,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
 
     public function testPicksRandomlyAnIntegerAmongBoundaries()
     {
-        $generator = new Choose(-10, 10);
+        $generator = new ChooseGenerator(-10, 10);
         for ($i = 0; $i < 100; $i++) {
             $this->assertTrue(
                 $generator->contains($value = $generator($this->size)),
@@ -25,7 +25,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
          * towards the smaller absolute value.
          * To be refactored next.
          */
-        $generator = new Choose(-10, 200);
+        $generator = new ChooseGenerator(-10, 200);
         $value = $generator($this->size);
         $target = 10;
         $distance = abs($target - $value);
@@ -44,7 +44,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
 
     public function testUniformity()
     {
-        $generator = new Choose(-10, 10000);
+        $generator = new ChooseGenerator(-10, 10000);
         $values = [];
         for ($i = 0; $i < 50; $i++) {
             $values[] = $generator($this->size);
@@ -58,7 +58,7 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotShrinkStopsToZero()
     {
-        $generator = new Choose($lowerLimit = 0, $upperLimit = 0);
+        $generator = new ChooseGenerator($lowerLimit = 0, $upperLimit = 0);
         $lastValue = $generator($this->size);
         $this->assertSame(0, $generator->shrink($lastValue));
     }
@@ -68,12 +68,12 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenDomainBoundariesAreNotIntegers()
     {
-        $generator = new Choose("zero", "twenty");
+        $generator = new ChooseGenerator("zero", "twenty");
     }
 
     public function testCanGenerateSingleInteger()
     {
-        $generator = new Choose(42, 42);
+        $generator = new ChooseGenerator(42, 42);
         $this->assertSame(42, $generator($this->size));
         $this->assertSame(42, $generator->shrink($generator($this->size)));
     }
@@ -83,15 +83,15 @@ class ChooseTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
-        $generator = new Choose(100, 200);
+        $generator = new ChooseGenerator(100, 200);
         $generator->shrink(300);
     }
 
     public function testTheOrderOfBoundariesDoesNotMatter()
     {
         $this->assertEquals(
-            new Choose(100, -100),
-            new Choose(-100, 100)
+            new ChooseGenerator(100, -100),
+            new ChooseGenerator(-100, 100)
         );
     }
 }

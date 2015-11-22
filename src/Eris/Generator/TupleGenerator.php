@@ -9,7 +9,7 @@ use DomainException;
  * tuple(Generator, Generator, Generator...)
  * Or an array of generators:
  * tuple(array $generators)
- * @return Generator\Tuple
+ * @return Generator\TupleGenerator
  */
 function tuple()
 {
@@ -19,10 +19,10 @@ function tuple()
     } else {
         $generators = $arguments;
     }
-    return new Tuple($generators);
+    return new TupleGenerator($generators);
 }
 
-class Tuple implements Generator
+class TupleGenerator implements Generator
 {
     private $generators;
     private $size;

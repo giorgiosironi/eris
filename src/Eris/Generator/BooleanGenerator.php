@@ -6,10 +6,10 @@ use DomainException;
 
 function bool()
 {
-    return new Boolean();
+    return new BooleanGenerator();
 }
 
-class Boolean implements Generator
+class BooleanGenerator implements Generator
 {
     public function __invoke($_size)
     {
