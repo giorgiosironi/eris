@@ -38,7 +38,7 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testNoRepeatedElementsAreInTheSet()
     {
         $generator = new SetGenerator($this->singleElementGenerator);
-        for ($size = 0; $size < 2; $size++) {
+        for ($size = 0; $size < 10; $size++) {
             $generated = $generator($size);
             $this->assertNoRepeatedElements($generated);
         }
@@ -81,7 +81,7 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($generator->contains($elements));
     }
 
-    public function testDoNotContainsElementsWhenElementAreNotContainedInGivenGenerator()
+    public function testDoesNotContainElementsWhenElementsAreNotContainedInGivenGenerator()
     {
         $aString = 'a string';
         $this->assertFalse($this->singleElementGenerator->contains($aString));

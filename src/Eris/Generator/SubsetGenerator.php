@@ -4,8 +4,9 @@ namespace Eris\Generator;
 // TODO: dependency on ForAll is bad,
 // maybe inject the relative size?
 use Eris\Quantifier\ForAll;
+use Eris\Generator;
 
-class SubsetGenerator
+class SubsetGenerator implements Generator
 {
     private $universe;
     
@@ -29,5 +30,34 @@ class SubsetGenerator
         }
 
         return $subset;
+    }
+
+    public function shrink($set)
+    {
+        // TODO: see SetGenerator::shrink()
+        if (!$this->contains($set)) {
+            throw new DomainException(
+                'Cannot shrink {' . var_export($set, true) . '} because ' .
+                'it does not belong to the domain of this set'
+            );
+        }
+
+        if (count($set) === 0) {
+            return $set;
+        }
+
+        $indexOfElementToRemove = array_rand($set);
+        unset($set[$indexOfElementToRemove]);
+        return array_values($set);
+    }
+
+    public function contains($set)
+    {
+        foreach ($set as $element) {
+            if (!in_array($element, $this->universe)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
