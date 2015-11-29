@@ -5,19 +5,11 @@ use Eris\Generator;
 use DomainException;
 
 /**
- * @param Generator|array $singleElementGenerator
+ * @param Generator $singleElementGenerator
  * @return SetGenerator
  */
-function set($input)
+function set($singleElementGenerator)
 {
-    if (is_array($input)) {
-        $singleElementGenerator = new Generator\OneOfGenerator(array_map(
-            'Eris\Generator\ConstantGenerator::box',
-            $input
-        ));
-    } else {
-        $singleElementGenerator = $input;
-    }
     return new SetGenerator($singleElementGenerator);
 }
 

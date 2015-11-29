@@ -24,6 +24,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["SampleTest.php"],
             ["SequenceTest.php"],
             ["SetTest.php"],
+            ["SubsetTest.php"],
             ["SortTest.php"],
             ["TupleTest.php"],
             ["VectorTest.php"],
