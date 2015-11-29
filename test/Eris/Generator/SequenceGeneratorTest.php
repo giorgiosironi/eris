@@ -42,7 +42,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $elementsAfterShrink = $generator->shrink($elements);
 
         $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
-        $this->assertLessThan(array_sum($elements), array_sum($elementsAfterShrink));
+        $this->assertLessThanOrEqual(array_sum($elements), array_sum($elementsAfterShrink));
     }
 
     public function testShrinkEmptySequence()
