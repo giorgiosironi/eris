@@ -2,7 +2,8 @@
 
 ## 0.6.0
 
-* PHP 7 compatibility
+* PHP 7 compatibility.
+* Renaming all Generator classes to *Generator.
 
 ## 0.5.0
 
