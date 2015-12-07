@@ -20,7 +20,7 @@ class ConstantGenerator implements Generator
 
     public function __invoke($_size)
     {
-        return $this->value;
+        return GeneratedValue::fromJustValue($this->value);
     }
 
     public function shrink($element)
@@ -32,11 +32,11 @@ class ConstantGenerator implements Generator
             );
         }
 
-        return $this->value;
+        return GeneratedValue::fromJustValue($this->value, 'constant');
     }
 
     public function contains($element)
     {
-        return $this->value === $element;
+        return $this->value === $element->input();
     }
 }
