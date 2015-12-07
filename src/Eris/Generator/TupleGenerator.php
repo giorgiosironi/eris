@@ -48,15 +48,23 @@ class TupleGenerator implements Generator
                 },
                 $input
             ),
-            $input
+            $input,
+            // TODO: sometimes this should be 'vector'
+            // due to delegation?
+            'tuple'
         );
     }
 
     public function shrink($tuple)
     {
+        // TODO: GeneratedValue in signature of shrink() and contains()
+        if (!($tuple instanceof GeneratedValue)) {
+            throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($tuple, true));
+        }
         $this->checkValueToShrink($tuple);
+        $input = $tuple->input();
 
-        if ($this->contains($tuple) && count($tuple) > 0) {
+        if (count($input) > 0) {
             $attemptsToShrink = 10;
             $numberOfElementsToShrink = rand(1, max(floor($this->size/2), 1));
 
@@ -64,26 +72,40 @@ class TupleGenerator implements Generator
                 $indexOfElementToShrink = rand(0, $this->size - 1);
 
                 $shrinkedValue = $this->generators[$indexOfElementToShrink]
-                    ->shrink($tuple[$indexOfElementToShrink]);
+                    ->shrink($input[$indexOfElementToShrink]);
 
-                if ($shrinkedValue === $tuple[$indexOfElementToShrink]) {
+                if ($shrinkedValue === $input[$indexOfElementToShrink]) {
                     $attemptsToShrink--;
                     continue;
                 }
                 $numberOfElementsToShrink--;
-                $tuple[$indexOfElementToShrink] = $shrinkedValue;
+                $input[$indexOfElementToShrink] = $shrinkedValue;
             }
         }
-        return $tuple;
+        return GeneratedValue::fromValueAndInput(
+            array_map(
+                function($element) { return $element->unbox(); },
+                $input
+            ),
+            $input, 
+            'tuple'
+        );
     }
 
     public function contains($tuple)
     {
-        if (count($tuple) !== $this->size) {
+        if (!($tuple instanceof GeneratedValue)) {
+            throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($tuple, true));
+        }
+        $input = $tuple->input();
+        if (!is_array($input)) {
+            throw new \Exception("Input must be an array, not " . var_export($input, true));
+        }
+        if (count($input) !== $this->size) {
             return false;
         }
         for ($i = 0; $i < $this->size; $i++) {
-            if (!$this->generators[$i]->contains($tuple[$i])) {
+            if (!$this->generators[$i]->contains($input[$i])) {
                 return false;
             }
         }
