@@ -90,28 +90,31 @@ class IntegerGenerator implements Generator
         $value = rand(0, $size);
         $mapFn = $this->mapFn;
 
-        return rand(0, 1) === 0
+        $result = rand(0, 1) === 0
                           ? $mapFn($value)
                           : $mapFn($value * (-1));
+        return GeneratedValue::fromValueAndInput($result, $result);
     }
 
     public function shrink($element)
     {
         $this->checkValueToShrink($element);
+        $element = $element->input();
 
+        // TODO: GeneratedValue::apply(function($input) {}) : GeneratedValue
         if ($element > 0) {
-            return $element - 1;
+            return GeneratedValue::fromJustValue($element - 1);
         }
         if ($element < 0) {
-            return $element + 1;
+            return GeneratedValue::fromJustValue($element + 1);
         }
 
-        return $element;
+        return GeneratedValue::fromJustValue($element, $element);
     }
 
     public function contains($element)
     {
-        return is_int($element);
+        return is_int($element->input());
     }
 
     private function checkValueToShrink($value)

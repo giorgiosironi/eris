@@ -26,10 +26,10 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $value = $generator($this->size);
         for ($i = 0; $i < 20; $i++) {
             $newValue = $generator->shrink($value);
-            $this->assertTrue(in_array(abs($value - $newValue), [0, 1]));
+            $this->assertTrue(in_array(abs($value->unbox() - $newValue->unbox()), [0, 1]));
             $value = $newValue;
         }
-        $this->assertSame(0, $value);
+        $this->assertSame(0, $value->unbox());
     }
 
     public function testUniformity()
@@ -41,7 +41,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertGreaterThan(
             400,
-            count(array_filter($values, function($n) { return $n > 0; })),
+            count(array_filter($values, function($n) { return $n->unbox() > 0; })),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
     }
@@ -50,24 +50,24 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new IntegerGenerator();
         $lastValue = $generator($size = 0);
-        $this->assertSame(0, $generator->shrink($lastValue));
+        $this->assertSame(0, $generator->shrink($lastValue)->unbox());
     }
 
     public function testPosAlreadyStartsFromStrictlyPositiveValues()
     {
         $generator = pos();
-        $this->assertGreaterThan(0, $generator->__invoke(0));
+        $this->assertGreaterThan(0, $generator->__invoke(0)->unbox());
     }
 
     public function testNegAlreadyStartsFromStrictlyNegativeValues()
     {
         $generator = neg();
-        $this->assertLessThan(0, $generator->__invoke(0));
+        $this->assertLessThan(0, $generator->__invoke(0)->unbox());
     }
 
     public function testNatStartsFromZero()
     {
         $generator = nat();
-        $this->assertEquals(0, $generator->__invoke(0));
+        $this->assertEquals(0, $generator->__invoke(0)->unbox());
     }
 }
