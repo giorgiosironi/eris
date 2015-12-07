@@ -35,11 +35,20 @@ class TupleGenerator implements Generator
 
     public function __invoke($size)
     {
-        return array_map(
+        $input = array_map(
             function($generator) use ($size) {
                 return $generator($size);
             },
             $this->generators
+        );
+        return GeneratedValue::fromValueAndInput(
+            array_map(
+                function($value) {
+                    return $value->unbox();
+                },
+                $input
+            ),
+            $input
         );
     }
 

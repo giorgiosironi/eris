@@ -16,4 +16,9 @@ class GeneratedValue
         $this->value = $value;
         $this->input = $input;
     }
+
+    public function unbox()
+    {
+        return $this->value;
+    }
 }

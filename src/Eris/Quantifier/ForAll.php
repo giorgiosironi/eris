@@ -3,6 +3,7 @@ namespace Eris\Quantifier;
 
 use Eris\Antecedent;
 use Eris\Generator;
+use Eris\Generator\GeneratedValue;
 use Eris\Shrinker;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
@@ -76,6 +77,9 @@ class ForAll
                 foreach ($this->generators as $name => $generator) {
                     $currentSizeIndex = $iteration % count($sizes);
                     $value = $generator($sizes[$currentSizeIndex]);
+                    if ($value instanceof GeneratedValue) {
+                        $value = $value->unbox();
+                    }
                     $values[] = $value;
                 }
                 if (!$this->antecedentsAreSatisfied($values)) {
