@@ -1,6 +1,8 @@
 <?php
 namespace Eris\Quantifier;
 
+use Eris\Generator\GeneratedValue;
+
 /**
  * TODO: change namespace. To what?
  */
@@ -22,7 +24,7 @@ final class Evaluation
         $this->onSuccess = function() {};
     }
 
-    public function with($values)
+    public function with(GeneratedValue $values)
     {
         $this->values = $values;
         return $this;
@@ -43,11 +45,14 @@ final class Evaluation
     public function execute()
     {
         try {
-            call_user_func_array($this->assertion, $this->values);
+            call_user_func_array(
+                $this->assertion,
+                $this->values->unbox()
+            );
         } catch (\PHPUnit_Framework_AssertionFailedError $e) {
             call_user_func($this->onFailure, $this->values, $e);
             return;
         }
-        call_user_func_array($this->onSuccess, $this->values);
+        call_user_func($this->onSuccess, $this->values);
     }
 }

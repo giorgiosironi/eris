@@ -73,14 +73,13 @@ class ForAll
         $sizes = $this->sizes($this->maxSize);
         try {
             for ($iteration = 0; $iteration < $this->iterations; $iteration++) {
+                $generatedValues = [];
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
                     $currentSizeIndex = $iteration % count($sizes);
                     $value = $generator($sizes[$currentSizeIndex]);
-                    if ($value instanceof GeneratedValue) {
-                        $value = $value->unbox();
-                    }
-                    $values[] = $value;
+                    $generatedValues[] = $value;
+                    $values[] = $value->unbox();
                 }
                 if (!$this->antecedentsAreSatisfied($values)) {
                     continue;
@@ -88,14 +87,19 @@ class ForAll
 
                 $this->evaluations++;
                 Evaluation::of($assertion)
-                    ->with($values)
-                    ->onFailure(function($values, $exception) use ($assertion) {
+                    // TODO: coupling between here and the TupleGenerator used inside?
+                    ->with(GeneratedValue::fromValueAndInput(
+                        $values,
+                        $generatedValues, 
+                        'tuple'
+                    ))
+                    ->onFailure(function($generatedValues, $exception) use ($assertion) {
                         $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
-                        $shrinking->addGoodShrinkCondition(function(array $values) {
-                            return $this->antecedentsAreSatisfied($values);
+                        $shrinking->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
+                            return $this->antecedentsAreSatisfied($generatedValues->unbox());
                         });
-                        $shrinking->from($values, $exception);
+                        $shrinking->from($generatedValues, $exception);
                     })
                     ->execute();
             }
