@@ -24,20 +24,36 @@ class MapGenerator implements Generator
     public function __invoke($_size)
     {
         $input = $this->generator->__invoke($_size);
-        $value = call_user_func($this->map, $input);
+        $value = $this->apply($input);
         return GeneratedValue::fromValueAndInput(
             $value,
-            $input
+            $input,
+            'map'
         );
     }
 
-    public function shrink($value)
+    public function shrink(/*GeneratedValue*/ $value)
     {
-        throw new \BadMethodCallException("Not implemented yet");
+        if (!($value instanceof GeneratedValue)) {
+            throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($value, true));
+        }
+        $input = $value->input();
+        $shrunkInput = $this->generator->shrink($input);
+        return GeneratedValue::fromValueAndInput(
+            $this->apply($shrunkInput),
+            $shrunkInput,
+            'map'
+        );
+    }
+
+    private function apply(GeneratedValue $input)
+    {
+        return call_user_func($this->map, $input->unbox());
     }
 
     public function contains($value)
     {
-        throw new \BadMethodCallException("Not implemented yet");
+        $input = $value->input();
+        return $this->generator->contains($input);
     }
 }
