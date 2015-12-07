@@ -150,6 +150,20 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMapTest()
+    {
+        $this->runExample('MapTest.php');
+        $this->assertTestsAreFailing(2);
+        $this->assertRegexp(
+            "/number is not less than 100/",
+            (string) $this->theTest('testShrinkingJustMappedValues')->failure
+        );
+        $this->assertRegexp(
+            "/triple sum array/",
+            (string) $this->theTest('testShrinkingMappedValuesInsideOtherGenerators')->failure
+        );
+    }
+
     private function setEnvironmentVariable($name, $value)
     {
         $this->environment[$name] = $value;
