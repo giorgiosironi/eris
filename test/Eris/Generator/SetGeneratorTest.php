@@ -15,7 +15,7 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         $countLessThanSize = 0;
         $countEqualToSize = 0;
         for ($size = 0; $size < 400; $size++) {
-            $subsetSize = count($generator($size));
+            $subsetSize = count($generator($size)->unbox());
 
             if ($subsetSize < $size) {
                 $countLessThanSize++;
@@ -39,7 +39,7 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         for ($size = 0; $size < 10; $size++) {
-            $generated = $generator($size);
+            $generated = $generator($size)->unbox();
             $this->assertNoRepeatedElements($generated);
         }
     }
@@ -49,7 +49,7 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new SetGenerator(new ConstantGenerator(42));
         for ($size = 0; $size < 5; $size++) {
             $generated = $generator($size);
-            $this->assertLessThanOrEqual(1, count($generated));
+            $this->assertLessThanOrEqual(1, count($generated->unbox()));
         }
     }
 
@@ -59,44 +59,25 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         $elements = $generator($this->size);
         $elementsAfterShrink = $generator->shrink($elements);
 
-        $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
-        $this->assertNoRepeatedElements($elementsAfterShrink);
+        $this->assertLessThanOrEqual(count($elements->unbox()), count($elementsAfterShrink->unbox()));
+        $this->assertNoRepeatedElements($elementsAfterShrink->unbox());
     }
 
     public function testShrinkEmptySet()
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0);
-        $this->assertEquals(0, count($elements));
-        $this->assertEquals(0, count($generator->shrink($elements)));
-    }
-
-    public function testContainsElementsWhenElementsAreContainedInGivenGenerator()
-    {
-        $generator = new SetGenerator($this->singleElementGenerator);
-        $elements = [
-            $this->singleElementGenerator->__invoke($this->size),
-            $this->singleElementGenerator->__invoke($this->size),
-        ];
-        $this->assertTrue($generator->contains($elements));
-    }
-
-    public function testDoesNotContainElementsWhenElementsAreNotContainedInGivenGenerator()
-    {
-        $aString = 'a string';
-        $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new SetGenerator($this->singleElementGenerator);
-        $elements = [$aString, $aString];
-        $this->assertFalse($generator->contains($elements));
+        $this->assertEquals(0, count($elements->unbox()));
+        $this->assertEquals(0, count($generator->shrink($elements)->unbox()));
     }
 
     public function testContainsAnEmptySet()
     {
         $generator = new SetGenerator($this->singleElementGenerator);
-        $this->assertTrue($generator->contains([]));
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue([])));
     }
 
-    private function assertNoRepeatedElements($generated)
+    private function assertNoRepeatedElements(array $generated)
     {
         sort($generated);
         $this->assertTrue(

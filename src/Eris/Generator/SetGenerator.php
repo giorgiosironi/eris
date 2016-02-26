@@ -26,19 +26,21 @@ class SetGenerator implements Generator
     {
         $setSize = rand(0, $size);
         $set = [];
+        $input = [];
         $trials = 0;
         while (count($set) < $setSize && $trials < 2 * $setSize) {
             $trials++;
             $candidateNewElement = $this->singleElementGenerator->__invoke($size);
-            if (in_array($candidateNewElement, $set, $strict = true)) {
+            if (in_array($candidateNewElement->unbox(), $set, $strict = true)) {
                 continue;
             }
-            $set[] = $candidateNewElement;
+            $set[] = $candidateNewElement->unbox();
+            $input[] = $candidateNewElement;
         }
-        return $set;
+        return GeneratedValue::fromValueAndInput($set, $input, 'set');
     }
 
-    public function shrink($set)
+    public function shrink(GeneratedValue $set)
     {
         // TODO: extract duplication with Generator\SequenceGenerator
         // to do so, implement __toString for every Generator (put it
@@ -52,18 +54,26 @@ class SetGenerator implements Generator
             );
         }
 
-        if (count($set) === 0) {
+        if (count($set->input()) === 0) {
             return $set;
         }
 
-        $indexOfElementToRemove = array_rand($set);
-        unset($set[$indexOfElementToRemove]);
-        return array_values($set);
+        $input = $set->input();
+        $indexOfElementToRemove = array_rand($input);
+        unset($input[$indexOfElementToRemove]);
+        $input = array_values($input);
+        return GeneratedValue::fromValueAndInput(
+            array_map(function($element) {
+                return $element->unbox();
+            }, $input),
+            array_values($input),
+            'set'
+        );
     }
 
     public function contains($set)
     {
-        foreach ($set as $element) {
+        foreach ($set->input() as $element) {
             if (!$this->singleElementGenerator->contains($element)) {
                 return false;
             }
