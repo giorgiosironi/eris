@@ -32,7 +32,7 @@ class ElementsGenerator implements Generator
     public function __invoke($_size)
     {
         $index = rand(0, count($this->domain) - 1);
-        return $this->domain[$index];
+        return GeneratedValue::fromJustValue($this->domain[$index], 'elements');
     }
 
     public function shrink(GeneratedValue $element)

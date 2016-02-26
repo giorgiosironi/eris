@@ -78,6 +78,9 @@ class ForAll
                 foreach ($this->generators as $name => $generator) {
                     $currentSizeIndex = $iteration % count($sizes);
                     $value = $generator($sizes[$currentSizeIndex]);
+                    if (!($value instanceof GeneratedValue)) {
+                        throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValue, but it is " . var_export($value, true));
+                    }
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }

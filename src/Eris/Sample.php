@@ -21,7 +21,7 @@ class Sample
     public function repeat($times)
     {
         for ($i = 0; $i < $times; $i++) {
-            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE);
+            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE)->unbox();
         }
         return $this;
     }
@@ -31,12 +31,12 @@ class Sample
         if ($nextValue === null) {
             $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE);
         }
-        $this->collected[] = $nextValue;
+        $this->collected[] = $nextValue->unbox();
         while ($value = $this->generator->shrink($nextValue)) {
-            if ($value === $nextValue) {
+            if ($value->unbox() === $nextValue->unbox()) {
                 break;
             }
-            $this->collected[] = $value;
+            $this->collected[] = $value->unbox();
             $nextValue = $value;
         }
         return $this;

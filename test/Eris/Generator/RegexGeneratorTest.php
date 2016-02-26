@@ -27,8 +27,11 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size);
-            $this->assertTrue($generator->contains($value), "Failed asserting that " . var_export($value, true) . " matches the regexp $expression");
+            $value = $generator($this->size)->unbox();
+            $this->assertTrue(
+                $generator->contains($value), 
+                "Failed asserting that " . var_export($value, true) . " matches the regexp $expression"
+            );
         }
     }
 

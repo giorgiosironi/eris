@@ -38,7 +38,7 @@ class NamesGenerator implements Generator
             $this->lengthLessThanOrEqualTo($size)
         );
         if (!$candidateNames) {
-            return '';
+            return GeneratedValue::fromJustValue('', 'names');
         }
         $index = rand(0, count($candidateNames) - 1);
         return GeneratedValue::fromJustValue($candidateNames[$index], 'names');

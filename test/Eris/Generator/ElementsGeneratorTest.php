@@ -15,7 +15,7 @@ class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
         $generated = $generator($this->size);
         for ($i = 0; $i < 1000; $i++) {
             $this->assertContains(
-                $generated,
+                $generated->unbox(),
                 $array
             );
         }

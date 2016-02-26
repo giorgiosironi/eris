@@ -42,7 +42,7 @@ class RegexGenerator implements Generator
         $parser = new Parser($lexer,new Scope(),new Scope());
         $parser->parse()->getResult()->generate($result,$gen);
 
-        return $result;
+        return GeneratedValue::fromJustValue($result, 'regex');
     }
 
     public function shrink(GeneratedValue $value)
