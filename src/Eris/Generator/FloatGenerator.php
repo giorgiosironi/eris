@@ -19,31 +19,33 @@ class FloatGenerator implements Generator
     {
         $value = (float) rand(0, $size) / (float) rand(1, $size);
 
-        return rand(0, 1) === 0
-                          ? $value
-                          : $value * (-1);
+        $signedValue = rand(0, 1) === 0
+            ? $value
+            : $value * (-1);
+        return GeneratedValue::fromJustValue($signedValue, 'float');
     }
 
     public function shrink(GeneratedValue $element)
     {
+        $value = $element->unbox();
         if (!$this->contains($element)) {
             throw new DomainException(
-                'Cannot shrink ' . $element . ' because it does not belong ' .
+                'Cannot shrink ' . $value . ' because it does not belong ' .
                 'to the domain of Floats'
             );
         }
 
-        if ($element < 0.0) {
-            return min($element + 1.0, 0.0);
+        if ($value < 0.0) {
+            return GeneratedValue::fromJustValue(min($value + 1.0, 0.0), 'float');
         }
-        if ($element > 0.0) {
-            return max($element - 1.0, 0.0);
+        if ($value > 0.0) {
+            return GeneratedValue::fromJustValue(max($value - 1.0, 0.0), 'float');
         }
-        return 0.0;
+        return GeneratedValue::fromJustValue(0.0, 'float');
     }
 
     public function contains($element)
     {
-        return is_float($element);
+        return is_float($element->unbox());
     }
 }
