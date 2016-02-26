@@ -19,9 +19,9 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $generated = $generator($this->size);
 
         $this->assertSame(2, count($generated->unbox()));
-        foreach ($generated as $element) {
+        foreach ($generated->unbox() as $element) {
             $this->assertTrue(
-                $this->generatorForSingleElement->contains($element)
+                $this->generatorForSingleElement->contains(GeneratedValue::fromJustValue($element))
             );
         }
     }
@@ -33,9 +33,11 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generated = $generator($this->size);
 
-        foreach ($generated as $element) {
+        foreach ($generated->unbox() as $element) {
             $this->assertTrue(
-                (new ConstantGenerator($aNonGenerator))->contains($element)
+                (new ConstantGenerator($aNonGenerator))->contains(
+                    GeneratedValue::fromJustValue($element)
+                )
             );
         }
     }
