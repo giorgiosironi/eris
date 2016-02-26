@@ -12,7 +12,7 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = CharacterGenerator::ascii();
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size);
+            $value = $generator($this->size)->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(0, ord($value));
             $this->assertLessThanOrEqual(127, ord($value));
@@ -24,7 +24,7 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = CharacterGenerator::printableAscii();
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size);
+            $value = $generator($this->size)->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(32, ord($value));
             $this->assertLessThanOrEqual(127, ord($value));
@@ -35,13 +35,14 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCharacterGeneratorsShrinkByConventionToTheLowestCodePoint()
     {
         $generator = CharacterGenerator::ascii();
-        $this->assertEquals('@', $generator->shrink('A'));
+        $this->assertEquals('@', $generator->shrink(GeneratedValue::fromJustValue('A', 'character'))->unbox());
     }
 
     public function testTheLowestCodePointCannotBeShrunk()
     {
         $generator = new CharacterGenerator(65, 90);
-        $this->assertEquals('A', $generator->shrink('A'));
+        $lowest = GeneratedValue::fromJustValue('A', 'character');
+        $this->assertEquals($lowest, $generator->shrink($lowest));
     }
 
     public function testContainsOnlyTheSpecifiedRange()

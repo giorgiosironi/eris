@@ -51,14 +51,14 @@ class CharacterGenerator implements Generator
 
     public function __invoke($_size)
     {
-        return chr(rand($this->lowerLimit, $this->upperLimit));
+        return GeneratedValue::fromJustValue(chr(rand($this->lowerLimit, $this->upperLimit)), 'character');
     }
 
-    public function shrink($value)
+    public function shrink(GeneratedValue $element)
     {
-        $codePoint = ord($value);
-        $shrinkedValue = chr($this->shrinkingProgression->next(ord($value)));
-        return $shrinkedValue;
+        $codePoint = ord($element->unbox());
+        $shrinkedValue = chr($this->shrinkingProgression->next(ord($element->unbox())));
+        return GeneratedValue::fromJustValue($shrinkedValue, 'character');
     }
 
     public function contains($value)

@@ -44,7 +44,7 @@ class NamesGenerator implements Generator
         return $candidateNames[$index];
     }
 
-    public function shrink($value)
+    public function shrink(GeneratedValue $value)
     {
         $candidateNames = $this->filterDataSet(
             $this->lengthSlightlyLessThan(strlen($value))

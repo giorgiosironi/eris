@@ -45,7 +45,7 @@ class RegexGenerator implements Generator
         return $result;
     }
 
-    public function shrink($value)
+    public function shrink(GeneratedValue $value)
     {
         return $value;
     }
