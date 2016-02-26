@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use DomainException;
+use InvalidArgumentException;
 
 class ConstantGenerator implements Generator
 {
@@ -37,6 +38,10 @@ class ConstantGenerator implements Generator
 
     public function contains($element)
     {
+        // TODO: substitute with type hint
+        if (!($element instanceof GeneratedValue)) {
+            throw new InvalidArgumentException();
+        }
         return $this->value === $element->input();
     }
 }

@@ -23,7 +23,7 @@ class OneOfGenerator implements Generator
 
     public function shrink(GeneratedValue $element)
     {
-        return $this->generator->shrink(GeneratedValue $element);
+        return $this->generator->shrink($element);
     }
 
     public function contains($element)

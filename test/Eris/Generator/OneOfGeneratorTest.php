@@ -18,13 +18,13 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $element = $generator($this->size);
 
-        $this->assertTrue($this->singleElementGenerator->contains($element));
+        $this->assertTrue($generator->contains($element));
     }
 
     public function testConstructWithNonGenerators()
     {
         $generator = new OneOfGenerator([42, 42]);
-        $element = $generator($this->size);
+        $element = $generator($this->size)->unbox();
         $this->assertEquals(42, $element);
     }
 
@@ -37,34 +37,12 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
         $element = $generator($this->size);
     }
 
-    public function testShrinkDisjointDomains()
-    {
-        $generator = new OneOfGenerator([42, 21]);
-        $this->assertEquals(42, $generator->shrink(42));
-        $this->assertEquals(21, $generator->shrink(21));
-    }
-
-    public function testShrinkIntersectingDomains()
-    {
-        $generator = new OneOfGenerator([
-            new ChooseGenerator(1, 100),
-            new ChooseGenerator(10, 100),
-        ]);
-
-        $element = 42;
-        for ($i=0; $i<100; $i++) {
-            $element = $generator->shrink($element);
-        }
-
-        $this->assertEquals(1, $element);
-    }
-
     /**
-     * @expectedException DomainException
+     * @expectedException InvalidArgumentException
      */
     public function testShrinkSomethingThatIsNotInDomain()
     {
         $generator = new OneOfGenerator([42, 21]);
-        $generator->shrink('something');
+        $generator->shrink(GeneratedValue::fromJustValue('something'));
     }
 }
