@@ -20,9 +20,11 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = $this->vectorGenerator;
         $vector = $generator($this->size);
 
-        $this->assertSame($this->vectorSize, count($vector));
-        foreach ($vector as $element) {
-            $this->assertTrue($this->elementGenerator->contains($element));
+        $this->assertSame($this->vectorSize, count($vector->unbox()));
+        foreach ($vector->unbox() as $element) {
+            $this->assertTrue($this->elementGenerator->contains(
+                GeneratedValue::fromJustValue($element)
+            ));
         }
     }
 
@@ -31,10 +33,10 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = $this->vectorGenerator;
         $vector = $generator($this->size);
 
-        $previousSum = array_reduce($vector, $this->sum);
+        $previousSum = array_reduce($vector->unbox(), $this->sum);
         for ($i = 0; $i < 15; $i++) {
             $vector = $generator->shrink($vector);
-            $currentSum = array_reduce($vector, $this->sum);
+            $currentSum = array_reduce($vector->unbox(), $this->sum);
             $this->assertLessThanOrEqual($previousSum, $currentSum);
             $previousSum = $currentSum;
         }
@@ -46,13 +48,5 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
         $vector = $generator($this->size);
 
         $this->assertTrue($this->vectorGenerator->contains($vector));
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $this->vectorGenerator->shrink("twenty");
     }
 }
