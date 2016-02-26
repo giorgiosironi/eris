@@ -32,11 +32,8 @@ class MapGenerator implements Generator
         );
     }
 
-    public function shrink(/*GeneratedValue*/ $value)
+    public function shrink(GeneratedValue $value)
     {
-        if (!($value instanceof GeneratedValue)) {
-            throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($value, true));
-        }
         $input = $value->input();
         $shrunkInput = $this->generator->shrink($input);
         return GeneratedValue::fromValueAndInput(
