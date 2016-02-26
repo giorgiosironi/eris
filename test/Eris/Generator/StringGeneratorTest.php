@@ -10,7 +10,7 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
         $lengths = [];
         $usedChars = [];
         for ($i = 0; $i < 1000; $i++) {
-            $value = $generator($size);
+            $value = $generator($size)->unbox();
             $length = strlen($value);
             $this->assertLessThanOrEqual(10, $length);
             $lengths = $this->accumulateLengths($lengths, $length);
@@ -25,7 +25,7 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generationSize = 100;
         $generator = new StringGenerator();
-        $value = $generator($generationSize);
+        $value = $generator($generationSize)->unbox();
 
         $this->assertLessThanOrEqual($generationSize, strlen($value));
     }
@@ -34,14 +34,14 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new StringGenerator();
         $lastValue = $generator($size = 10);
-        $this->assertSame('abcde', $generator->shrink('abcdef'));
+        $this->assertSame('abcde', $generator->shrink(GeneratedValue::fromJustValue('abcdef'))->unbox());
     }
 
     public function testCannotShrinkTheEmptyString()
     {
         $generator = new StringGenerator();
-        $lastValue = $generator($size = 10);
-        $this->assertSame('', $generator->shrink(''));
+        $minimumValue = GeneratedValue::fromJustValue('');
+        $this->assertEquals($minimumValue, $generator->shrink($minimumValue));
     }
 
     private function accumulateLengths(array $lengths, $length)
@@ -63,14 +63,5 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
             $usedChars[$char]++;
         }
         return $usedChars;
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = new StringGenerator();
-        $generator->shrink(true);
     }
 }

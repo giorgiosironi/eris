@@ -11,10 +11,6 @@ function string()
 
 class StringGenerator implements Generator
 {
-    public function __construct()
-    {
-    }
-
     public function __invoke($size)
     {
         $length = rand(0, $size);
@@ -23,7 +19,7 @@ class StringGenerator implements Generator
         for ($i = 0; $i < $length; $i++) {
             $built .= chr(rand(33, 126));
         }
-        return $built;
+        return GeneratedValue::fromJustValue($built, 'string');
     }
 
     public function shrink(GeneratedValue $element)
@@ -35,14 +31,17 @@ class StringGenerator implements Generator
             );
         }
 
-        if ($element === '') {
-            return '';
+        if ($element->unbox() === '') {
+            return $element;
         }
-        return substr($element, 0, -1);
+        return GeneratedValue::fromJustValue(
+            substr($element->unbox(), 0, -1),
+            'string'
+        );
     }
 
     public function contains($element)
     {
-        return is_string($element);
+        return is_string($element->unbox());
     }
 }
