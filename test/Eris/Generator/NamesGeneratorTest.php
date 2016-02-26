@@ -7,7 +7,7 @@ class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = NamesGenerator::defaultDataSet();
         for ($i = 5; $i < 50; $i++) {
-            $value = $generator($maxLength = $i);
+            $value = $generator($maxLength = $i)->unbox();
             $this->assertTrue(
                 $maxLength >= strlen($value),
                 "Names generator is not respecting the generation size. Asked a name with max size {$maxLength} and returned {$value}"
@@ -24,26 +24,40 @@ class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance()
+    public static function namesToShrink()
+    {
+        return [
+            ["Malene", "Maxence"],
+            ["Columban", "Columbano"],
+            ["Carol-Anne", "Carole-Anne"],
+            ["Annie", "Zinnia"],
+            ["Aletta", "Lucetta"],
+            ["Tekla", "Thekla"],
+            ["Ursin", "Ursine"],
+            ["Gwennan", "Gwenegan"],
+            ["Eliane", "Eliabel"],
+            ["Ed", "Ed"],
+            ["Di", "Di"],
+        ];
+    }
+
+    /**
+     * @dataProvider namesToShrink
+     */
+    public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance($shrunk, $original)
     {
         $generator = NamesGenerator::defaultDataSet();
-        $this->assertEquals("Malene", $generator->shrink("Maxence"));
-        $this->assertEquals("Columban", $generator->shrink("Columbano"));
-        $this->assertEquals("Carol-Anne", $generator->shrink("Carole-Anne"));
-        $this->assertEquals("Annie", $generator->shrink("Zinnia"));
-        $this->assertEquals("Aletta", $generator->shrink("Lucetta"));
-        $this->assertEquals("Tekla", $generator->shrink("Thekla"));
-        $this->assertEquals("Ursin", $generator->shrink("Ursine"));
-        $this->assertEquals("Gwennan", $generator->shrink("Gwenegan"));
-        $this->assertEquals("Eliane", $generator->shrink("Eliabel"));
-        $this->assertEquals("Ed", $generator->shrink("Ed"));
-        $this->assertEquals("Di", $generator->shrink("Di"));
+        $this->assertEquals(
+            $shrunk,
+            $generator->shrink(GeneratedValue::fromJustValue($original))
+                ->unbox()
+        );
     }
 
     public function testContainsAllTheNamesInTheSpecifiedDataSet()
     {
         $generator = NamesGenerator::defaultDataSet();
-        $this->assertTrue($generator->contains("Bob"));
-        $this->assertFalse($generator->contains("Daitarn"));
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("Bob")));
+        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue("Daitarn")));
     }
 }

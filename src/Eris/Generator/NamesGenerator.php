@@ -41,25 +41,25 @@ class NamesGenerator implements Generator
             return '';
         }
         $index = rand(0, count($candidateNames) - 1);
-        return $candidateNames[$index];
+        return GeneratedValue::fromJustValue($candidateNames[$index], 'names');
     }
 
     public function shrink(GeneratedValue $value)
     {
         $candidateNames = $this->filterDataSet(
-            $this->lengthSlightlyLessThan(strlen($value))
+            $this->lengthSlightlyLessThan(strlen($value->unbox()))
         );
 
         if (!$candidateNames) {
             return $value;
         }
-        $distances = $this->distancesBy($value, $candidateNames);
-        return $this->minimumDistanceName($distances);
+        $distances = $this->distancesBy($value->unbox(), $candidateNames);
+        return GeneratedValue::fromJustValue($this->minimumDistanceName($distances), 'names');
     }
 
     public function contains($value)
     {
-        return in_array($value, $this->list);
+        return in_array($value->unbox(), $this->list);
     }
 
     private function filterDataSet(callable $predicate)
