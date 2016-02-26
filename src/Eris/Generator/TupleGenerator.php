@@ -55,7 +55,7 @@ class TupleGenerator implements Generator
         );
     }
 
-    public function shrink($tuple)
+    public function shrink(GeneratedValue $tuple)
     {
         // TODO: GeneratedValue in signature of shrink() and contains()
         if (!($tuple instanceof GeneratedValue)) {

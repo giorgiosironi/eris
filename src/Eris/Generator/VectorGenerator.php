@@ -29,7 +29,7 @@ class VectorGenerator implements Generator
         return $this->generator->__invoke($size);
     }
 
-    public function shrink($vector)
+    public function shrink(GeneratedValue $vector)
     {
         if (!$this->contains($vector)) {
             throw new DomainException(

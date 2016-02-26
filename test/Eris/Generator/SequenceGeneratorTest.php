@@ -15,7 +15,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $countLessThanSize = 0;
         $countEqualToSize = 0;
         for ($size = 0; $size < 400; $size++) {
-            $sequenceSize = count($generator($size));
+            $sequenceSize = count($generator($size)->unbox());
 
             if ($sequenceSize < $size) {
                 $countLessThanSize++;
@@ -41,16 +41,16 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $elements = $generator($this->size);
         $elementsAfterShrink = $generator->shrink($elements);
 
-        $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
-        $this->assertLessThanOrEqual(array_sum($elements), array_sum($elementsAfterShrink));
+        $this->assertLessThanOrEqual(count($elements->unbox()), count($elementsAfterShrink->unbox()));
+        $this->assertLessThanOrEqual(array_sum($elements->unbox()), array_sum($elementsAfterShrink->unbox()));
     }
 
     public function testShrinkEmptySequence()
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0);
-        $this->assertEquals(0, count($elements));
-        $this->assertEquals(0, count($generator->shrink($elements)));
+        $this->assertEquals(0, count($elements->unbox()));
+        $this->assertEquals(0, count($generator->shrink($elements)->unbox()));
     }
 
     public function testShrinkEventuallyEndsUpWithAnEmptySequence()
@@ -58,7 +58,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $numberOfShrinks = 0;
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($this->size);
-        while (count($elements) > 0) {
+        while (count($elements->unbox()) > 0) {
             if ($numberOfShrinks++ > 10000) {
                 $this->fail('Too many shrinks');
             }
@@ -66,39 +66,9 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testContainsElementsWhenElementsAreContainedInGivenGenerator()
-    {
-        $generator = new SequenceGenerator($this->singleElementGenerator);
-        $elements = [
-            $this->singleElementGenerator->__invoke($this->size),
-            $this->singleElementGenerator->__invoke($this->size),
-        ];
-        $this->assertTrue($generator->contains($elements));
-    }
-
-    public function testDoNotContainsElementsWhenElementAreNotContainedInGivenGenerator()
-    {
-        $aString = 'a string';
-        $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new SequenceGenerator($this->singleElementGenerator);
-        $elements = [$aString, $aString];
-        $this->assertFalse($generator->contains($elements));
-    }
-
     public function testContainsAnEmptySequence()
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
-        $this->assertTrue($generator->contains([]));
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testCannotShrinkSomethingThatIsNotContainedInDomain()
-    {
-        $aString = 'a string';
-        $this->assertFalse($this->singleElementGenerator->contains($aString));
-        $generator = new SequenceGenerator($this->singleElementGenerator);
-        $generator->shrink([$aString]);
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue([])));
     }
 }

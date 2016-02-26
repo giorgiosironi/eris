@@ -28,7 +28,7 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size);
     }
 
-    public function shrink($sequence)
+    public function shrink(GeneratedValue $sequence)
     {
         if (!$this->contains($sequence)) {
             throw new DomainException(
@@ -39,28 +39,36 @@ class SequenceGenerator implements Generator
 
         $willShrinkInSize = (new BooleanGenerator())->__invoke(1);
         if ($willShrinkInSize) {
-            $sequence = $this->shrinkInSize($sequence);
+            return $this->shrinkInSize($sequence);
         }
         if (!$willShrinkInSize) {
-            $sequence = $this->shrinkTheElements($sequence);
+            return $this->shrinkTheElements($sequence);
         }
-        return $sequence;
     }
 
     public function contains($sequence)
     {
-        return $this->vector(count($sequence))->contains($sequence);
+        return $this->vector(count($sequence->unbox()))->contains($sequence);
     }
 
     private function shrinkInSize($sequence)
     {
-        if (count($sequence) === 0) {
+        if (count($sequence->unbox()) === 0) {
             return $sequence;
         }
 
-        $indexOfElementToRemove = array_rand($sequence);
-        unset($sequence[$indexOfElementToRemove]);
-        return array_values($sequence);
+        $input = $sequence->input();
+        $indexOfElementToRemove = array_rand($input);
+        unset($input[$indexOfElementToRemove]);
+        $input = array_values($input);
+        return GeneratedValue::fromValueAndInput(
+            array_map(
+                function($element) { return $element->unbox(); },
+                $input
+            ),
+            $input,
+            'sequence'
+        );
     }
 
     private function shrinkTheElements($sequence)

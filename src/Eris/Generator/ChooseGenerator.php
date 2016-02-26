@@ -45,7 +45,7 @@ class ChooseGenerator implements Generator
     {
         $value = rand($this->lowerLimit, $this->upperLimit);
 
-        return GeneratedValue::fromJustValue($value);
+        return GeneratedValue::fromJustValue($value, 'choose');
     }
 
     public function shrink(GeneratedValue $element)
@@ -64,6 +64,10 @@ class ChooseGenerator implements Generator
 
     public function contains($element)
     {
+        // TODO: type hint
+        if (!($element instanceof GeneratedValue)) {
+            throw new \InvalidArgumentException();
+        }
         return is_int($element->input())
             && $element->input() >= $this->lowerLimit
             && $element->input() <= $this->upperLimit;
