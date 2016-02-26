@@ -20,7 +20,7 @@ class ConstantGenerator implements Generator
 
     public function __invoke($_size)
     {
-        return GeneratedValue::fromJustValue($this->value);
+        return GeneratedValue::fromJustValue($this->value, 'constant');
     }
 
     public function shrink($element)

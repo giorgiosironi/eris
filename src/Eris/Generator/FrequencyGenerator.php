@@ -41,7 +41,14 @@ class FrequencyGenerator implements Generator
 
     public function __invoke($size)
     {
-        return $this->pickFrom($this->generators)->__invoke($size);
+        list ($index, $generator) = $this->pickFrom($this->generators);
+        $originalValue = $generator->__invoke($size);
+        return GeneratedValue::fromValueAndInput(
+            // TODO: extract this operation as GeneratedValue::annotate
+            $originalValue->unbox(),
+            $originalValue,
+            'frequency'
+        )->annotate('original_generator', $index);
     }
 
     public function shrink($element)
@@ -51,13 +58,19 @@ class FrequencyGenerator implements Generator
                 var_export($element, true) . ' is not in one of the given domains'
             );
         }
-        return $this->pickFrom($this->allGeneratorsAbleToShrink($element))->shrink($element);
+        $originalGeneratorIndex = $element->annotation('original_generator');
+        $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($element->input());
+        return GeneratedValue::fromValueAndInput(
+            $shrinkedValue->unbox(),
+            $shrinkedValue,
+            'frequency'
+        )->annotate('original_generator', $originalGeneratorIndex);
     }
 
     public function contains($element)
     {
         foreach ($this->generators as $generator) {
-            if ($generator['generator']->contains($element)) {
+            if ($generator['generator']->contains($element->input())) {
                 return true;
             }
         }
@@ -74,14 +87,17 @@ class FrequencyGenerator implements Generator
         );
     }
 
+    /**
+     * @return array  two elements: index and Generator object
+     */
     private function pickFrom($generators)
     {
         $acc = 0;
         $random = rand(1, array_sum($this->frequenciesFrom($generators)));
-        foreach ($generators as $generator) {
+        foreach ($generators as $index => $generator) {
             $acc += $generator['frequency'];
             if ($random <= $acc) {
-                return $generator['generator'];
+                return [$index, $generator['generator']];
             }
         }
         throw new Exception(
