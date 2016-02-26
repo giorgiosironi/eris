@@ -35,6 +35,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingIsNotImplementedYet()
     {
         $generator = new RegexGenerator(".*");
-        $this->assertEquals("something", $generator->shrink("something"));
+        $word = GeneratedValue::fromJustValue("something");
+        $this->assertEquals($word, $generator->shrink($word));
     }
 }
