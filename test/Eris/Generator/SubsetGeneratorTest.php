@@ -17,7 +17,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
         $maxSize = ForAll::DEFAULT_MAX_SIZE;
         $subsetSizes = [];
         for ($size = 0; $size < $maxSize; $size++) {
-            $subsetSizes[] = count($this->generator->__invoke($size));
+            $subsetSizes[] = count($this->generator->__invoke($size)->unbox());
         }
 
         $subsetSizeFrequencies = array_count_values($subsetSizes);
@@ -35,7 +35,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testNoRepeatedElementsAreInTheSet()
     {
         for ($size = 0; $size < ForAll::DEFAULT_MAX_SIZE; $size++) {
-            $generated = $this->generator->__invoke($size);
+            $generated = $this->generator->__invoke($size)->unbox();
             $this->assertNoRepeatedElements($generated);
         }
     }
@@ -45,40 +45,38 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
         $elements = $this->generator->__invoke($this->size);
         $elementsAfterShrink = $this->generator->shrink($elements);
 
-        $this->assertLessThanOrEqual(count($elements), count($elementsAfterShrink));
-        $this->assertNoRepeatedElements($elementsAfterShrink);
+        $this->assertLessThanOrEqual(
+            count($elements->unbox()),
+            count($elementsAfterShrink->unbox())
+        );
+        $this->assertNoRepeatedElements($elementsAfterShrink->unbox());
     }
 
     public function testShrinkEmptySet()
     {
         $elements = $this->generator->__invoke($size = 0);
-        $this->assertEquals(0, count($elements));
-        $this->assertEquals(0, count($this->generator->shrink($elements)));
+        $this->assertEquals(0, count($elements->unbox()));
+        $this->assertEquals(0, count($this->generator->shrink($elements)->unbox()));
     }
 
     public function testContainsElementsWhenElementsAreContainedInTheUniverse()
     {
-        $elements = [
+        $elements = GeneratedValue::fromJustValue([
             $this->universe[0],
             $this->universe[1],
-        ];
+        ]);
         $this->assertTrue($this->generator->contains($elements));
     }
 
     public function testDoesNotContainElementsWhenElementsAreNotContainedInTheUniverse()
     {
         $aString = 'a string';
-        $elements = [$aString, $aString];
-        $this->assertFalse($this->generator->contains(['not in universe']));
-        $this->assertFalse($this->generator->contains([
-            $this->universe[0],
-            'not in universe'
-        ]));
+        $this->assertFalse($this->generator->contains(GeneratedValue::fromJustValue([$aString, $aString])));
     }
 
     public function testContainsAnEmptySet()
     {
-        $this->assertTrue($this->generator->contains([]));
+        $this->assertTrue($this->generator->contains(GeneratedValue::fromJustValue([])));
     }
 
     private function assertNoRepeatedElements($generated)

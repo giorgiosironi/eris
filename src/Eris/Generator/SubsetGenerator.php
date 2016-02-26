@@ -38,10 +38,10 @@ class SubsetGenerator implements Generator
             } 
         }
 
-        return $subset;
+        return GeneratedValue::fromJustValue($subset, 'subset');
     }
 
-    public function shrink($set)
+    public function shrink(GeneratedValue $set)
     {
         // TODO: see SetGenerator::shrink()
         if (!$this->contains($set)) {
@@ -51,18 +51,22 @@ class SubsetGenerator implements Generator
             );
         }
 
-        if (count($set) === 0) {
+        if (count($set->unbox()) === 0) {
             return $set;
         }
 
-        $indexOfElementToRemove = array_rand($set);
-        unset($set[$indexOfElementToRemove]);
-        return array_values($set);
+        $input = $set->input();
+        $indexOfElementToRemove = array_rand($input);
+        unset($input[$indexOfElementToRemove]);
+        return GeneratedValue::fromJustValue(
+            array_values($input),
+            'subset'
+        );
     }
 
     public function contains($set)
     {
-        foreach ($set as $element) {
+        foreach ($set->input() as $element) {
             if (!in_array($element, $this->universe)) {
                 return false;
             }
