@@ -35,7 +35,7 @@ class ElementsGenerator implements Generator
         return $this->domain[$index];
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(

@@ -96,7 +96,7 @@ class IntegerGenerator implements Generator
         return GeneratedValue::fromValueAndInput($result, $result);
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         $this->checkValueToShrink($element);
         $element = $element->input();

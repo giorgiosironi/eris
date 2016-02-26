@@ -23,7 +23,7 @@ class ConstantGenerator implements Generator
         return GeneratedValue::fromJustValue($this->value, 'constant');
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(

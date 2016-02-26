@@ -47,7 +47,7 @@ class DateGenerator implements Generator
         return $this->fromOffset($generatedOffset);
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         $this->ensureIsInDomain($element);
 

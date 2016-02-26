@@ -27,6 +27,6 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
     {
         $generator = new BooleanGenerator();
-        $generator->shrink(10);
+        $generator->shrink(GeneratedValue::fromJustValue(10));
     }
 }

@@ -24,7 +24,7 @@ class FloatGenerator implements Generator
                           : $value * (-1);
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(

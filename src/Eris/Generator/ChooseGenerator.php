@@ -48,7 +48,7 @@ class ChooseGenerator implements Generator
         return GeneratedValue::fromJustValue($value);
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         $this->checkValueToShrink($element);
 

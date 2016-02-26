@@ -51,7 +51,7 @@ class FrequencyGenerator implements Generator
         )->annotate('original_generator', $index);
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(

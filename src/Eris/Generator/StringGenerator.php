@@ -26,7 +26,7 @@ class StringGenerator implements Generator
         return $built;
     }
 
-    public function shrink($element)
+    public function shrink(GeneratedValue $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
