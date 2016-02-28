@@ -43,12 +43,9 @@ class FrequencyGenerator implements Generator
     {
         list ($index, $generator) = $this->pickFrom($this->generators);
         $originalValue = $generator->__invoke($size);
-        return GeneratedValue::fromValueAndInput(
-            // TODO: extract this operation as GeneratedValue::annotate
-            $originalValue->unbox(),
-            $originalValue,
-            'frequency'
-        )->annotate('original_generator', $index);
+        return $originalValue
+            ->derivedIn('frequency')
+            ->annotate('original_generator', $index);
     }
 
     public function shrink(GeneratedValue $element)
@@ -60,11 +57,10 @@ class FrequencyGenerator implements Generator
         }
         $originalGeneratorIndex = $element->annotation('original_generator');
         $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($element->input());
-        return GeneratedValue::fromValueAndInput(
-            $shrinkedValue->unbox(),
-            $shrinkedValue,
-            'frequency'
-        )->annotate('original_generator', $originalGeneratorIndex);
+
+        return $shrinkedValue
+            ->derivedIn('frequency')
+            ->annotate('original_generator', $originalGeneratorIndex);
     }
 
     public function contains(GeneratedValue $element)

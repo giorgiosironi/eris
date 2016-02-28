@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class GeneratedValueTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCanBeMappedOver()
+    public function testCanBeMappedToDeriveValues()
     {
         $initialValue = GeneratedValue::fromJustValue(
             3,
@@ -21,6 +21,22 @@ class GeneratedValueTest extends \PHPUnit_Framework_TestCase
                 },
                 'derived-generator'
             )
+        );
+    }
+
+    public function testDerivedValueCanBeAnnotatedWithNewGeneratorNameWithoutBeingChanged()
+    {
+        $initialValue = GeneratedValue::fromJustValue(
+            3,
+            'my-generator'
+        );
+        $this->assertEquals(
+            GeneratedValue::fromValueAndInput(
+                3,
+                $initialValue,
+                'derived-generator'
+            ),
+            $initialValue->derivedIn('derived-generator')
         );
     }
 

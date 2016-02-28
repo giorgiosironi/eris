@@ -55,6 +55,14 @@ final class GeneratedValue
         );
     }
 
+    public function derivedIn($generatorName)
+    {
+        return $this->map(
+            function($value) { return $value; },
+            $generatorName
+        );
+    }
+
     public function annotate($key, $value)
     {
         $annotations = $this->annotations;
