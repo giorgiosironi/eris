@@ -12,9 +12,6 @@ final class GeneratedValue
     
     public static function fromValueAndInput($value, $input, $generatorName = null)
     {
-        if ($value instanceof self) {
-            throw new InvalidArgumentException("It looks like you are trying to build a GeneratedValue whose value is another GeneratedValue. This is almost always an error as values will be passed as-is to properties and GeneratedValue should be hidden from them.");
-        }
         return new self($value, $input, $generatorName);
     }
 

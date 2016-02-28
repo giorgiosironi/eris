@@ -64,10 +64,6 @@ class ChooseGenerator implements Generator
 
     public function contains(GeneratedValue $element)
     {
-        // TODO: type hint
-        if (!($element instanceof GeneratedValue)) {
-            throw new \InvalidArgumentException();
-        }
         return is_int($element->input())
             && $element->input() >= $this->lowerLimit
             && $element->input() <= $this->upperLimit;
