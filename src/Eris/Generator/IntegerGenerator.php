@@ -93,7 +93,10 @@ class IntegerGenerator implements Generator
         $result = rand(0, 1) === 0
                           ? $mapFn($value)
                           : $mapFn($value * (-1));
-        return GeneratedValue::fromValueAndInput($result, $result);
+        return GeneratedValue::fromJustValue(
+            $result,
+            'integer'
+        );
     }
 
     public function shrink(GeneratedValue $element)
@@ -101,15 +104,14 @@ class IntegerGenerator implements Generator
         $this->checkValueToShrink($element);
         $element = $element->input();
 
-        // TODO: GeneratedValue::apply(function($input) {}) : GeneratedValue
         if ($element > 0) {
-            return GeneratedValue::fromJustValue($element - 1);
+            return GeneratedValue::fromJustValue($element - 1, 'integer');
         }
         if ($element < 0) {
-            return GeneratedValue::fromJustValue($element + 1);
+            return GeneratedValue::fromJustValue($element + 1, 'integer');
         }
 
-        return GeneratedValue::fromJustValue($element, $element);
+        return GeneratedValue::fromJustValue($element, 'integer');
     }
 
     public function contains(GeneratedValue $element)

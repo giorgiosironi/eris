@@ -49,6 +49,15 @@ final class GeneratedValue
         return var_export($this, true);
     }
 
+    public function map(callable $applyToValue, $generatorName)
+    {
+        return new self(
+            $applyToValue($this->value),
+            $this,
+            $generatorName
+        );
+    }
+
     public function annotate($key, $value)
     {
         $annotations = $this->annotations;

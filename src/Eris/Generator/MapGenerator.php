@@ -15,7 +15,7 @@ class MapGenerator implements Generator
     private $map;
     private $generator;
     
-    public function __construct($map, $generator)
+    public function __construct(callable $map, $generator)
     {
         $this->map = $map;
         $this->generator = $generator;
@@ -24,10 +24,8 @@ class MapGenerator implements Generator
     public function __invoke($_size)
     {
         $input = $this->generator->__invoke($_size);
-        $value = $this->apply($input);
-        return GeneratedValue::fromValueAndInput(
-            $value,
-            $input,
+        return $input->map(
+            $this->map,
             'map'
         );
     }
@@ -36,21 +34,14 @@ class MapGenerator implements Generator
     {
         $input = $value->input();
         $shrunkInput = $this->generator->shrink($input);
-        return GeneratedValue::fromValueAndInput(
-            $this->apply($shrunkInput),
-            $shrunkInput,
+        return $shrunkInput->map(
+            $this->map,
             'map'
         );
     }
 
-    private function apply(GeneratedValue $input)
-    {
-        return call_user_func($this->map, $input->unbox());
-    }
-
     public function contains(GeneratedValue $value)
     {
-        $input = $value->input();
-        return $this->generator->contains($input);
+        return $this->generator->contains($value->input());
     }
 }
