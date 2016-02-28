@@ -65,22 +65,8 @@ class FrequencyGenerator implements Generator
 
     public function contains(GeneratedValue $element)
     {
-        foreach ($this->generators as $generator) {
-            if ($generator['generator']->contains($element->input())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function allGeneratorsAbleToShrink($element)
-    {
-        return array_filter(
-            $this->generators,
-            function($generator) use ($element) {
-                return $generator['generator']->contains($element);
-            }
-        );
+        $originalGeneratorIndex = $element->annotation('original_generator');
+        return $this->generators[$originalGeneratorIndex]['generator']->contains($element->input());
     }
 
     /**
