@@ -4,17 +4,37 @@ namespace Eris\Generator;
 use Eris\Generator\GeneratedValue;
 use InvalidArgumentException;
 
+/**
+ * Parametric with respect to the type <T> of its value.
+ * Immutable object, modifiers return a new GeneratedValue instance.
+ */
 final class GeneratedValue
 {
     private $value;
     private $input;
     private $generatorName;
     
+    /**
+     * A value and the input that was used to derive it.
+     * The input usually comes from another Generator.
+     *
+     * @param T $value
+     * @param GeneratedValue|mixed $input
+     * @param string $generatorName  'tuple'
+     * @return GeneratedValue
+     */
     public static function fromValueAndInput($value, $input, $generatorName = null)
     {
         return new self($value, $input, $generatorName);
     }
 
+    /**
+     * Input will be copied from value.
+     *
+     * @param T $value
+     * @param string $generatorName  'tuple'
+     * @return GeneratedValue
+     */
     public static function fromJustValue($value, $generatorName = null)
     {
         return new self($value, $value, $generatorName);
@@ -31,11 +51,17 @@ final class GeneratedValue
         $this->annotations = $annotations;
     }
 
+    /**
+     * @return GeneratedValue|mixed
+     */
     public function input()
     {
         return $this->input;
     }
 
+    /**
+     * @return T
+     */
     public function unbox()
     {
         return $this->value;
@@ -46,6 +72,9 @@ final class GeneratedValue
         return var_export($this, true);
     }
 
+    /**
+     * @return GeneratedValue
+     */
     public function map(callable $applyToValue, $generatorName)
     {
         return new self(
@@ -55,6 +84,10 @@ final class GeneratedValue
         );
     }
 
+    /**
+     * @param string $generatorName  'tuple', 'vector'
+     * @return GeneratedValue
+     */
     public function derivedIn($generatorName)
     {
         return $this->map(
@@ -63,6 +96,11 @@ final class GeneratedValue
         );
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return GeneratedValue
+     */
     public function annotate($key, $value)
     {
         $annotations = $this->annotations;
@@ -76,7 +114,8 @@ final class GeneratedValue
     }
 
     /**
-     * TODO: docblock, validation
+     * @param string $key
+     * @return mixed
      */
     public function annotation($key)
     {
