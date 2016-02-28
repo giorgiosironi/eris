@@ -62,7 +62,7 @@ class ChooseGenerator implements Generator
         return $element;
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         // TODO: type hint
         if (!($element instanceof GeneratedValue)) {

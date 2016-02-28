@@ -47,7 +47,7 @@ class ElementsGenerator implements Generator
         return $element;
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return in_array($element->unbox(), $this->domain);
     }

@@ -44,7 +44,7 @@ class FloatGenerator implements Generator
         return GeneratedValue::fromJustValue(0.0, 'float');
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return is_float($element->unbox());
     }

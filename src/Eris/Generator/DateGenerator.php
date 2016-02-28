@@ -62,7 +62,7 @@ class DateGenerator implements Generator
         );
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         $value = $element->unbox();
         return $value instanceof DateTime

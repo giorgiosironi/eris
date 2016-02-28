@@ -61,8 +61,9 @@ class CharacterGenerator implements Generator
         return GeneratedValue::fromJustValue($shrinkedValue, 'character');
     }
 
-    public function contains($value)
+    public function contains(GeneratedValue $generatedValue)
     {
+        $value = $generatedValue->unbox();
         return is_string($value)
             && strlen($value) == 1
             && ord($value) >= $this->lowerLimit

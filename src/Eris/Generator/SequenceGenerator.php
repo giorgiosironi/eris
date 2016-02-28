@@ -46,7 +46,7 @@ class SequenceGenerator implements Generator
         }
     }
 
-    public function contains($sequence)
+    public function contains(GeneratedValue $sequence)
     {
         return $this->vector(count($sequence->unbox()))->contains($sequence);
     }

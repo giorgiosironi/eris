@@ -36,12 +36,8 @@ class ConstantGenerator implements Generator
         return GeneratedValue::fromJustValue($this->value, 'constant');
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
-        // TODO: substitute with type hint
-        if (!($element instanceof GeneratedValue)) {
-            throw new InvalidArgumentException();
-        }
         return $this->value === $element->input();
     }
 }

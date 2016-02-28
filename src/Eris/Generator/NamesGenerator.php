@@ -57,7 +57,7 @@ class NamesGenerator implements Generator
         return GeneratedValue::fromJustValue($this->minimumDistanceName($distances), 'names');
     }
 
-    public function contains($value)
+    public function contains(GeneratedValue $value)
     {
         return in_array($value->unbox(), $this->list);
     }

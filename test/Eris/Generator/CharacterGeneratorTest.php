@@ -12,11 +12,12 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = CharacterGenerator::ascii();
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size)->unbox();
+            $generatedValue = $generator($this->size);
+            $value = $generatedValue->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(0, ord($value));
             $this->assertLessThanOrEqual(127, ord($value));
-            $this->assertTrue($generator->contains($value));
+            $this->assertTrue($generator->contains($generatedValue));
         }
     }
 
@@ -24,11 +25,12 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = CharacterGenerator::printableAscii();
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size)->unbox();
+            $generatedValue = $generator($this->size);
+            $value = $generatedValue->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(32, ord($value));
             $this->assertLessThanOrEqual(127, ord($value));
-            $this->assertTrue($generator->contains($value));
+            $this->assertTrue($generator->contains($generatedValue));
         }
     }
 
@@ -48,9 +50,9 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testContainsOnlyTheSpecifiedRange()
     {
         $generator = CharacterGenerator::ascii();
-        $this->assertTrue($generator->contains("\0"));
-        $this->assertTrue($generator->contains("A"));
-        $this->assertTrue($generator->contains("b"));
-        $this->assertFalse($generator->contains("é"));
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("\0")));
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("A")));
+        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("b")));
+        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue("é")));
     }
 }

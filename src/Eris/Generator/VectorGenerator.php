@@ -41,7 +41,7 @@ class VectorGenerator implements Generator
         return $this->generator->shrink($vector);
     }
 
-    public function contains($vector)
+    public function contains(GeneratedValue $vector)
     {
         return $this->generator->contains($vector);
     }

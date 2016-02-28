@@ -40,7 +40,7 @@ class StringGenerator implements Generator
         );
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return is_string($element->unbox());
     }

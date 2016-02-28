@@ -64,7 +64,7 @@ class SubsetGenerator implements Generator
         );
     }
 
-    public function contains($set)
+    public function contains(GeneratedValue $set)
     {
         foreach ($set->input() as $element) {
             if (!in_array($element, $this->universe)) {

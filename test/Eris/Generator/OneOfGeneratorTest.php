@@ -36,13 +36,4 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new OneOfGenerator([]);
         $element = $generator($this->size);
     }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testShrinkSomethingThatIsNotInDomain()
-    {
-        $generator = new OneOfGenerator([42, 21]);
-        $generator->shrink(GeneratedValue::fromJustValue('something'));
-    }
 }

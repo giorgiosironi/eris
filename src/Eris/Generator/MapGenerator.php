@@ -48,7 +48,7 @@ class MapGenerator implements Generator
         return call_user_func($this->map, $input->unbox());
     }
 
-    public function contains($value)
+    public function contains(GeneratedValue $value)
     {
         $input = $value->input();
         return $this->generator->contains($input);

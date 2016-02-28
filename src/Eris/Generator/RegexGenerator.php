@@ -50,9 +50,9 @@ class RegexGenerator implements Generator
         return $value;
     }
 
-    public function contains($value)
+    public function contains(GeneratedValue $value)
     {
-        return is_string($value)
-            && (bool) preg_match("/{$this->expression}/", $value);
+        return is_string($value->unbox())
+            && (bool) preg_match("/{$this->expression}/", $value->unbox());
     }
 }

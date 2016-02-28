@@ -30,7 +30,7 @@ class BooleanGenerator implements Generator
         return false;
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return is_bool($element->unbox());
     }

@@ -71,7 +71,7 @@ class SetGenerator implements Generator
         );
     }
 
-    public function contains($set)
+    public function contains(GeneratedValue $set)
     {
         foreach ($set->input() as $element) {
             if (!$this->singleElementGenerator->contains($element)) {

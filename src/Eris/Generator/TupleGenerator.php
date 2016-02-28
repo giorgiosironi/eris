@@ -57,7 +57,7 @@ class TupleGenerator implements Generator
 
     public function shrink(GeneratedValue $tuple)
     {
-        // TODO: GeneratedValue in signature of shrink() and contains()
+        // TODO: GeneratedValue in signature of shrink() and contains(GeneratedValue )
         if (!($tuple instanceof GeneratedValue)) {
             throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($tuple, true));
         }
@@ -92,7 +92,7 @@ class TupleGenerator implements Generator
         );
     }
 
-    public function contains($tuple)
+    public function contains(GeneratedValue $tuple)
     {
         if (!($tuple instanceof GeneratedValue)) {
             throw new \Exception("Value to be shrunk must be a GeneratedValue, not " . var_export($tuple, true));

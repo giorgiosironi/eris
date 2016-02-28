@@ -67,7 +67,7 @@ class FrequencyGenerator implements Generator
         )->annotate('original_generator', $originalGeneratorIndex);
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         foreach ($this->generators as $generator) {
             if ($generator['generator']->contains($element->input())) {

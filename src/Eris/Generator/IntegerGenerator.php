@@ -112,7 +112,7 @@ class IntegerGenerator implements Generator
         return GeneratedValue::fromJustValue($element, $element);
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return is_int($element->input());
     }

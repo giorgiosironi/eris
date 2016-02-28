@@ -24,5 +24,5 @@ interface Generator
      * @param GeneratedValue
      * @return boolean
      */
-    public function contains($element);
+    public function contains(GeneratedValue $element);
 }

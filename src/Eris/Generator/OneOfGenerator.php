@@ -26,7 +26,7 @@ class OneOfGenerator implements Generator
         return $this->generator->shrink($element);
     }
 
-    public function contains($element)
+    public function contains(GeneratedValue $element)
     {
         return $this->generator->contains($element);
     }
