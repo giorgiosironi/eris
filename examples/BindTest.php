@@ -12,6 +12,7 @@ class BindTest extends PHPUnit_Framework_TestCase
             Generator\bind(
                 $sequenceGenerator,
                 function($sequence) {
+                    $sequence = array_merge($sequence, [0]);
                     return Generator\tuple(
                         Generator\elements($sequence),
                         Generator\constant($sequence)
