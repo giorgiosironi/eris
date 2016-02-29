@@ -25,17 +25,17 @@ class SuchThatGenerator implements Generator
     // TODO: termination conditions for while in __invoke() and shrink()
     public function __invoke($size)
     {
-        $input = $this->generator->__invoke($size);
-        while (!call_user_func($this->filter, $input->unbox())) {
-            $input = $this->generator->__invoke($size);
+        $value = $this->generator->__invoke($size);
+        while (!$this->predicate($value)) {
+            $value = $this->generator->__invoke($size);
         }
-        return $input;
+        return $value;
     }
 
     public function shrink(GeneratedValue $value)
     {
         $shrunk = $this->generator->shrink($value);
-        while (!call_user_func($this->filter, $shrunk->unbox())) {
+        while (!$this->predicate($shrunk)) {
             $shrunk = $this->generator->shrink($shrunk);
         }
         return $shrunk;
@@ -43,8 +43,12 @@ class SuchThatGenerator implements Generator
 
     public function contains(GeneratedValue $value)
     {
-        // TODO: duplication of call_user_func
         return $this->generator->contains($value)
-            && call_user_func($this->filter, $value->unbox());
+            && $this->predicate($value);
+    }
+
+    private function predicate(GeneratedValue $value)
+    {
+        return call_user_func($this->filter, $value->unbox());
     }
 }
