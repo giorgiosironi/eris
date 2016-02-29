@@ -53,5 +53,10 @@ class BindGenerator implements Generator
         );
     }
 
-    public function contains(GeneratedValue $element){}
+    public function contains(GeneratedValue $element)
+    {
+        list ($newGeneratorValue, $originalGeneratorValue) = $element->input();
+        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
+        return $newGenerator->contains($newGeneratorValue);
+    }
 }

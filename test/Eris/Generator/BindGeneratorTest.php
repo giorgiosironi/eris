@@ -23,7 +23,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testShrinksTheValue()
+    public function testShrinksTheOuterGenerator()
     {
         $generator = new BindGenerator(
             new ChooseGenerator(0, 5),
@@ -37,8 +37,9 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
                 'integer',
                 $value->unbox()
             );
+            $this->assertTrue($generator->contains($value), "Element $value should be contained in the Generator");
             $value = $generator->shrink($value);
         }
-        $this->assertEquals(0, $value->unbox());
+        $this->assertLessThanOrEqual(5, $value->unbox());
     }
 }
