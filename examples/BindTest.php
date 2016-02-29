@@ -5,24 +5,22 @@ class BindTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function testApplyingAFunctionToGeneratedValues()
+    public function testCreatingAnOuterGeneratorFromAGeneratedValue()
     {
-        $sequenceGenerator = Generator\seq(Generator\nat());
         $this->forAll(
             Generator\bind(
-                $sequenceGenerator,
-                function($sequence) {
-                    $sequence = array_merge($sequence, [0]);
+                Generator\vector(4, Generator\nat()),
+                function($vector) {
                     return Generator\tuple(
-                        Generator\elements($sequence),
-                        Generator\constant($sequence)
+                        Generator\elements($vector),
+                        Generator\constant($vector)
                     );
                 }
             )
         )
             ->then(function($tuple) {
-                list ($element, $sequence) = $tuple;
-                $this->assertContains($element, $sequence);
+                list ($element, $vector) = $tuple;
+                $this->assertContains($element, $vector);
             });
     }
 }

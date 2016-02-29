@@ -5,7 +5,7 @@ class MapTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function _testApplyingAFunctionToGeneratedValues()
+    public function testApplyingAFunctionToGeneratedValues()
     {
         $this->forAll(
             Generator\vector(
