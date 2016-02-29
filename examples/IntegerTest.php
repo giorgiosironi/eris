@@ -45,7 +45,8 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(Generator\neg())
-            ->collect(function($x) { return $x; })
+            // TODO: better syntax
+            ->addListener(new \Eris\Listener\CollectFrequencies())
             ->then(function($x) {
                 $this->assertTrue($x < $x + 1);
             });

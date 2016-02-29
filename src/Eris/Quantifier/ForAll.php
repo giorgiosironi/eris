@@ -11,6 +11,7 @@ use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_ExpectationFailedException;
 use Exception;
 use RuntimeException;
+use Eris\Listener;
 
 class ForAll
 {
@@ -31,8 +32,7 @@ class ForAll
         'implies' => '__invoke',
         'imply' => '__invoke',
     ];
-    private $collectFn;
-    private $collectedValues;
+    private $listeners = [];
 
     public function __construct(array $generators, $iterations, $shrinkerFactory)
     {
@@ -70,10 +70,9 @@ class ForAll
         return $this;
     }
 
-    public function collect(callable $collectFn)
+    public function addListener(Listener $listener)
     {
-        $this->collectFn = $collectFn;
-        $this->collectedValues = [];
+        $this->listeners[] = $listener;
         return $this;
     }
 
@@ -81,6 +80,7 @@ class ForAll
     {
         $sizes = $this->sizes($this->maxSize);
         try {
+            $this->notifyListeners('startPropertyVerification');
             for ($iteration = 0; $iteration < $this->iterations; $iteration++) {
                 $generatedValues = [];
                 $values = [];
@@ -93,8 +93,7 @@ class ForAll
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
-
-                $this->updateDataDistribution($values);
+                $this->notifyListeners('newGeneration', $generatedValues);
 
                 if (!$this->antecedentsAreSatisfied($values)) {
                     continue;
@@ -118,7 +117,8 @@ class ForAll
                     })
                     ->execute();
             }
-            $this->printDataDistribution();
+            // TODO: finally
+            $this->notifyListeners('endPropertyVerification', $this->evaluations);
         } catch (Exception $e) {
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
             if ($wrap) {
@@ -232,28 +232,15 @@ class ForAll
         };
     }
 
-    private function updateDataDistribution(array $values)
+    private function notifyListeners(/*$event, [$parameterA[, $parameterB[, ...]]]*/)
     {
-        if (!is_null($this->collectFn)) {
-            $key = call_user_func_array($this->collectFn, $values);
-            if (array_key_exists($key, $this->collectedValues)) {
-                $this->collectedValues[$key]++;
-            } else {
-                $this->collectedValues[$key] = 1;
-            }
+        $arguments = func_get_args();
+        $event = array_shift($arguments);
+        foreach ($this->listeners as $listener) {
+            call_user_func_array(
+                [$listener, $event],
+                $arguments
+            );
         }
     }
-
-    private function printDataDistribution()
-    {
-        if (!is_null($this->collectFn)) {
-            arsort($this->collectedValues, SORT_NUMERIC);
-            echo PHP_EOL;
-            foreach ($this->collectedValues as $key => $value) {
-                $frequency = round(($value / $this->evaluations) * 100, 2);
-                echo "{$frequency}%  $key" . PHP_EOL;
-            }
-        }
-    }
-
 }

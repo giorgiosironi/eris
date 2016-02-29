@@ -23,9 +23,9 @@ class SequenceTest extends PHPUnit_Framework_TestCase
                 Generator\seq(Generator\nat())
             )
             ->withMaxSize(10)
-            ->collect(function($array) {
+            ->addListener(new \Eris\Listener\CollectFrequencies(function($array) {
                 return '[' . implode(',', $array) . ']';
-            })
+            }))
             ->then(function($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
