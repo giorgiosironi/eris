@@ -43,9 +43,14 @@ class FrequencyGenerator implements Generator
     {
         list ($index, $generator) = $this->pickFrom($this->generators);
         $originalValue = $generator->__invoke($size);
-        return $originalValue
-            ->derivedIn('frequency')
-            ->annotate('original_generator', $index);
+        return GeneratedValue::fromValueAndInput(
+            $originalValue->unbox(),
+            [
+                'value' => $originalValue,
+                'generator' => $index,
+            ],
+            'frequency'
+        );
     }
 
     public function shrink(GeneratedValue $element)
@@ -55,18 +60,25 @@ class FrequencyGenerator implements Generator
                 var_export($element, true) . ' is not in one of the given domains'
             );
         }
-        $originalGeneratorIndex = $element->annotation('original_generator');
-        $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($element->input());
+        $input = $element->input();
+        $originalGeneratorIndex = $input['generator'];
+        $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($input['value']);
 
-        return $shrinkedValue
-            ->derivedIn('frequency')
-            ->annotate('original_generator', $originalGeneratorIndex);
+        return GeneratedValue::fromValueAndInput(
+            $shrinkedValue->unbox(),
+            [
+                'value' => $shrinkedValue,
+                'generator' => $originalGeneratorIndex,
+            ],
+            'frequency'
+        );
     }
 
     public function contains(GeneratedValue $element)
     {
-        $originalGeneratorIndex = $element->annotation('original_generator');
-        return $this->generators[$originalGeneratorIndex]['generator']->contains($element->input());
+        $input = $element->input();
+        $originalGeneratorIndex = $input['generator'];
+        return $this->generators[$originalGeneratorIndex]['generator']->contains($input['value']);
     }
 
     /**

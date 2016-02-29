@@ -19,7 +19,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             abs($countOf[42] - $countOf[21]) < 100,
-            'Generators have the same frequency but one is chosen more often than the other'
+            'Generators have the same frequency but one is chosen more often than the other: ' . var_export($countOf, true)
         );
     }
 
@@ -68,33 +68,24 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testShrinkDisjointDomains()
+    public function testShrinking()
     {
         $generator = new FrequencyGenerator([
             [10, 42],
             [1, 21],
         ]);
 
-
-        $valueGeneratedFromFirstGenerator = GeneratedValue::fromValueAndInput(
-            42,
-            GeneratedValue::fromJustValue(42, 'constant'),
-            'frequency'
-        )->annotate('original_generator', 0);
-        $this->assertEquals(
-            $valueGeneratedFromFirstGenerator,
-            $generator->shrink($valueGeneratedFromFirstGenerator)
-        );
-
-        $valueGeneratedFromSecondGenerator = GeneratedValue::fromValueAndInput(
-            21,
-            GeneratedValue::fromJustValue(21, 'constant'),
-            'frequency'
-        )->annotate('original_generator', 1);
-        $this->assertEquals(
-            $valueGeneratedFromSecondGenerator,
-            $generator->shrink($valueGeneratedFromSecondGenerator)
-        );
+        for ($i = 0; $i < $this->size; $i++) {
+            $element = $generator($this->size);
+            $shrinked = $generator->shrink($element);
+            $this->assertThat(
+                $shrinked->unbox(),
+                $this->logicalOr(
+                    $this->equalTo(42),
+                    $this->equalTo(21)
+                )
+            );
+        }
     }
 
     public function testShrinkIntersectingDomainsOnlyShrinkInTheDomainThatOriginallyProducedTheValue()
@@ -104,16 +95,15 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
             [3, new ChooseGenerator(10, 100)],
         ]);
 
-        $valueGeneratedFromFirstGenerator = GeneratedValue::fromValueAndInput(
-            42,
-            GeneratedValue::fromJustValue(42, 'constant'),
-            'frequency'
-        )->annotate('original_generator', 0);
+        $shrinkedTable = [];
         for ($i = 0; $i < 100; $i++) {
-            $valueGeneratedFromFirstGenerator = $generator->shrink($valueGeneratedFromFirstGenerator);
+            $element = $generator($this->size);
+            for ($j = 0; $j < 100; $j++) {
+                $element = $generator->shrink($element);
+            }
+            $shrinkedTable[$element->unbox()] = true;
         }
-
-        $this->assertEquals(1, $valueGeneratedFromFirstGenerator->unbox());
+        $this->assertEquals([1 => true, 10 => true], $shrinkedTable);
     }
 
     private function distribute($generator)

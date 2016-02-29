@@ -95,30 +95,4 @@ final class GeneratedValue
             $generatorName
         );
     }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return GeneratedValue
-     */
-    public function annotate($key, $value)
-    {
-        $annotations = $this->annotations;
-        $annotations[$key] = $value;
-        return new self(
-            $this->value,
-            $this->input,
-            $this->generatorName,
-            $annotations
-        );
-    }
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function annotation($key)
-    {
-        return $this->annotations[$key];
-    }
 }
