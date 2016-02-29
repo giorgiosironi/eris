@@ -117,8 +117,6 @@ class ForAll
                     })
                     ->execute();
             }
-            // TODO: finally
-            $this->notifyListeners('endPropertyVerification', $this->evaluations);
         } catch (Exception $e) {
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
             if ($wrap) {
@@ -128,6 +126,8 @@ class ForAll
             } else {
                 throw $e;
             }
+        } finally {
+            $this->notifyListeners('endPropertyVerification', $this->evaluations);
         }
     }
 

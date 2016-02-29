@@ -13,7 +13,6 @@ interface Listener
     /**
      * @param integer
      * @return void
-     * TODO: evaluation vs generation
      */
     public function endPropertyVerification($evaluations);
 
