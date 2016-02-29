@@ -1,5 +1,6 @@
 <?php
 use Eris\Generator;
+use Eris\Listener;
 
 class SequenceTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +24,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
                 Generator\seq(Generator\nat())
             )
             ->withMaxSize(10)
-            ->addListener(new \Eris\Listener\CollectFrequencies(function($array) {
+            ->hook(Listener\collectFrequencies(function($array) {
                 return '[' . implode(',', $array) . ']';
             }))
             ->then(function($array) {

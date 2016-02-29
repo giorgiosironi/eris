@@ -1,6 +1,7 @@
 <?php
 use Eris\Generator;
 use Eris\TestTrait;
+use Eris\Listener;
 
 class IntegerTest extends PHPUnit_Framework_TestCase
 {
@@ -45,8 +46,7 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(Generator\neg())
-            // TODO: better syntax
-            ->addListener(new \Eris\Listener\CollectFrequencies())
+            ->hook(Listener\collectFrequencies())
             ->then(function($x) {
                 $this->assertTrue($x < $x + 1);
             });

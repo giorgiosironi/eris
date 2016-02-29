@@ -70,7 +70,7 @@ class ForAll
         return $this;
     }
 
-    public function addListener(Listener $listener)
+    public function hook(Listener $listener)
     {
         $this->listeners[] = $listener;
         return $this;

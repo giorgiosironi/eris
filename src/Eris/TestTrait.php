@@ -63,6 +63,16 @@ trait TestTrait
     }
 
     /**
+     * @beforeClass
+     */
+    public static function loadAllErisListeners()
+    {
+        foreach(glob(__DIR__ . '/Listener/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    /**
      * @after
      */
     public function checkConstraintsHaveNotSkippedTooManyIterations()
