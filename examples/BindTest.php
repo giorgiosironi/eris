@@ -5,7 +5,7 @@ class BindTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function testCreatingAnOuterGeneratorFromAGeneratedValue()
+    public function testCreatingABrandNewGeneratorFromAGeneratedValue()
     {
         $this->forAll(
             Generator\bind(

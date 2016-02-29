@@ -3,60 +3,64 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-function bind(Generator $originalGenerator, callable $generatorFactory)
+function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
 {
     return new BindGenerator(
-        $originalGenerator,
-        $generatorFactory
+        $innerGenerator,
+        $outerGeneratorFactory
     );
 }
 
 class BindGenerator implements Generator
 {
-    private $originalGenerator;
-    private $generatorFactory;
+    private $innerGenerator;
+    private $outerGeneratorFactory;
     
-    public function __construct($originalGenerator, $generatorFactory)
+    public function __construct($innerGenerator, $outerGeneratorFactory)
     {
-        $this->originalGenerator = $originalGenerator;
-        $this->generatorFactory = $generatorFactory;
+        $this->innerGenerator = $innerGenerator;
+        $this->outerGeneratorFactory = $outerGeneratorFactory;
     }
 
     public function __invoke($size)
     {
-        $originalGeneratorValue = $this->originalGenerator->__invoke($size);
-        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
-        $newGeneratorValue = $newGenerator->__invoke($size);
-        return GeneratedValue::fromValueAndInput(
-            $newGeneratorValue->unbox(),
-            [
-                $newGeneratorValue,
-                $originalGeneratorValue,
-            ],
-            'bind'
+        $innerGeneratorValue = $this->innerGenerator->__invoke($size);
+        $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
+        $outerGeneratorValue = $outerGenerator->__invoke($size);
+        return $this->packageGeneratedValue(
+            $outerGeneratorValue,
+            $innerGeneratorValue
         );
     }
 
     public function shrink(GeneratedValue $element)
     {
-        list ($newGeneratorValue, $originalGeneratorValue) = $element->input();
+        list ($outerGeneratorValue, $innerGeneratorValue) = $element->input();
         // TODO: shrink also the second generator
-        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
-        $shrinkedNewGeneratorValue = $newGenerator->shrink($newGeneratorValue);
-        return GeneratedValue::fromValueAndInput(
-            $shrinkedNewGeneratorValue->unbox(),
-            [
-                $shrinkedNewGeneratorValue,
-                $originalGeneratorValue,
-            ],
-            'bind'
+        $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
+        $shrinkedOuterGeneratorValue = $outerGenerator->shrink($outerGeneratorValue);
+        return $this->packageGeneratedValue(
+            $shrinkedOuterGeneratorValue,
+            $innerGeneratorValue
         );
     }
 
     public function contains(GeneratedValue $element)
     {
-        list ($newGeneratorValue, $originalGeneratorValue) = $element->input();
-        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
-        return $newGenerator->contains($newGeneratorValue);
+        list ($outerGeneratorValue, $innerGeneratorValue) = $element->input();
+        $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
+        return $outerGenerator->contains($outerGeneratorValue);
+    }
+
+    private function packageGeneratedValue($outerGeneratorValue, $innerGeneratorValue)
+    {
+        return GeneratedValue::fromValueAndInput(
+            $outerGeneratorValue->unbox(),
+            [
+                $outerGeneratorValue,
+                $innerGeneratorValue,
+            ],
+            'bind'
+        );
     }
 }
