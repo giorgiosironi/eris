@@ -107,6 +107,7 @@ trait TestTrait
         } elseif ($arguments[0] instanceof Generator) {
             $generators = $arguments;
         } else {
+            // TODO: drop the 1-argument array support
             $generators = $arguments[0];
         }
         $quantifier = new Quantifier\ForAll(

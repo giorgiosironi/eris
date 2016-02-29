@@ -5,6 +5,10 @@ use Eris\Generator;
 use DomainException;
 use InvalidArgumentException;
 
+function constant($value) {
+    return ConstantGenerator::box($value);
+}
+
 class ConstantGenerator implements Generator
 {
     private $value;
