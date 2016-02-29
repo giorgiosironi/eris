@@ -9,7 +9,9 @@ function collectFrequencies(callable $collectFunction = null)
     return new CollectFrequencies($collectFunction);
 }
 
-class CollectFrequencies implements Listener
+class CollectFrequencies
+    extends EmptyListener
+    implements Listener
 {
     private $collectFunction;
     private $collectedValues = [];
@@ -20,11 +22,6 @@ class CollectFrequencies implements Listener
             $collectFunction = function($value) { return $value; };
         }
         $this->collectFunction = $collectFunction;
-    }
-
-    // TODO: EmptyListener
-    public function startPropertyVerification()
-    {
     }
 
     public function endPropertyVerification($evaluations)
