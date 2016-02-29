@@ -52,4 +52,16 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator->__invoke($this->size);
     }
 
+    public function testGivesUpShrinkingIfTheFilterIsNotSatisfiedTooManyTimes()
+    {
+        $generator = new SuchThatGenerator(
+            function($n) { return $n % 25 == 0; },
+            new ChooseGenerator(0, 100)
+        );
+        $unshrinkable = GeneratedValue::fromJustValue(47);
+        $this->assertEquals(
+            $unshrinkable,
+            $generator->shrink($unshrinkable)
+        );
+    }
 }

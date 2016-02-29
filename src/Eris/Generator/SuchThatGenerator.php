@@ -39,12 +39,16 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    // TODO: termination conditions for while in shrink()
     public function shrink(GeneratedValue $value)
     {
         $shrunk = $this->generator->shrink($value);
+        $attempts = 0;
         while (!$this->predicate($shrunk)) {
+            if ($attempts >= $this->maximumAttempts) {
+                return $value;
+            }
             $shrunk = $this->generator->shrink($shrunk);
+            $attempts++;
         }
         return $shrunk;
     }
