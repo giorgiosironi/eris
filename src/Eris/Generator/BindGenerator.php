@@ -24,12 +24,34 @@ class BindGenerator implements Generator
 
     public function __invoke($size)
     {
-        $value = $this->originalGenerator->__invoke($size);
-        $newGenerator = call_user_func($this->generatorFactory, $value->unbox());
-        return $newGenerator->__invoke($size);
+        $originalGeneratorValue = $this->originalGenerator->__invoke($size);
+        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
+        $newGeneratorValue = $newGenerator->__invoke($size);
+        return GeneratedValue::fromValueAndInput(
+            $newGeneratorValue->unbox(),
+            [
+                $newGeneratorValue,
+                $originalGeneratorValue,
+            ],
+            'bind'
+        );
     }
 
-    public function shrink(GeneratedValue $element){}
+    public function shrink(GeneratedValue $element)
+    {
+        list ($newGeneratorValue, $originalGeneratorValue) = $element->input();
+        // TODO: shrink also the second generator
+        $newGenerator = call_user_func($this->generatorFactory, $originalGeneratorValue->unbox());
+        $shrinkedNewGeneratorValue = $newGenerator->shrink($newGeneratorValue);
+        return GeneratedValue::fromValueAndInput(
+            $shrinkedNewGeneratorValue->unbox(),
+            [
+                $shrinkedNewGeneratorValue,
+                $originalGeneratorValue,
+            ],
+            'bind'
+        );
+    }
 
     public function contains(GeneratedValue $element){}
 }
