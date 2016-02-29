@@ -23,4 +23,7 @@ class BindTest extends PHPUnit_Framework_TestCase
                 $this->assertContains($element, $vector);
             });
     }
+
+    // TODO: multiple generators means multiple values passed to the
+    // outer Generator factory
 }

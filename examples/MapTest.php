@@ -63,4 +63,6 @@ class MapTest extends PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    // TODO: multiple generators means multiple values passed to map
 }
