@@ -3,6 +3,9 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
+/**
+ * TODO: maybe filter?
+ */
 function suchThat(callable $filter, Generator $generator)
 {
     return new SuchThatGenerator($filter, $generator);
