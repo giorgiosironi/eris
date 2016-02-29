@@ -40,4 +40,16 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @expectedException LogicException
+     */
+    public function testGivesUpGenerationIfTheFilterIsNotSatisfiedTooManyTimes()
+    {
+        $generator = new SuchThatGenerator(
+            function($n) { return $n % 2 == 0; },
+            ConstantGenerator::box(11)
+        );
+        $generator->__invoke($this->size);
+    }
+
 }
