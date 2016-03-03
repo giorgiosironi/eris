@@ -30,7 +30,7 @@ class TupleGenerator implements Generator
     public function __construct(array $generators)
     {
         $this->generators = ensureAreAllGenerators($generators);
-        $this->size = count($generators);
+        $this->numberOfGenerators = count($generators);
     }
 
     public function __invoke($size)
@@ -62,10 +62,10 @@ class TupleGenerator implements Generator
 
         if (count($input) > 0) {
             $attemptsToShrink = 10;
-            $numberOfElementsToShrink = rand(1, max(floor($this->size/2), 1));
+            $numberOfElementsToShrink = rand(1, max(floor($this->numberOfGenerators/2), 1));
 
             while ($numberOfElementsToShrink > 0 && $attemptsToShrink > 0) {
-                $indexOfElementToShrink = rand(0, $this->size - 1);
+                $indexOfElementToShrink = rand(0, $this->numberOfGenerators - 1);
 
                 $shrinkedValue = $this->generators[$indexOfElementToShrink]
                     ->shrink($input[$indexOfElementToShrink]);
@@ -94,10 +94,10 @@ class TupleGenerator implements Generator
         if (!is_array($input)) {
             throw new \Exception("Input must be an array, not " . var_export($input, true));
         }
-        if (count($input) !== $this->size) {
+        if (count($input) !== $this->numberOfGenerators) {
             return false;
         }
-        for ($i = 0; $i < $this->size; $i++) {
+        for ($i = 0; $i < $this->numberOfGenerators; $i++) {
             if (!$this->generators[$i]->contains($input[$i])) {
                 return false;
             }
