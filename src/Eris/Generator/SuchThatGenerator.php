@@ -4,9 +4,11 @@ namespace Eris\Generator;
 use Eris\Generator;
 use LogicException;
 
-/**
- * TODO: maybe filter?
- */
+function filter(callable $filter, Generator $generator)
+{
+    return suchThat($filter, $generator);
+}
+
 function suchThat(callable $filter, Generator $generator)
 {
     return new SuchThatGenerator($filter, $generator);
