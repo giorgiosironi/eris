@@ -8,9 +8,9 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinkingRespectsAntecedents()
     {
-        $this->forAll([
-                Generator\choose(0, 20),
-            ])
+        $this->forAll(
+                Generator\choose(0, 20)
+            )
             ->when(function($number) {
                 return $number > 10;
             })

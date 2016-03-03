@@ -14,9 +14,9 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 
     public function testLengthOfAsciiCharactersInPhp()
     {
-        $this->forAll([
-            Generator\char(['basic-latin']),
-        ])
+        $this->forAll(
+            Generator\char(['basic-latin'])
+        )
             ->then(function($char) {
                 $this->assertLenghtIs1($char);
             });
@@ -24,9 +24,9 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 
     public function testLengthOfPrintableAsciiCharacters()
     {
-        $this->forAll([
-            Generator\char(['basic-latin']),
-        ])
+        $this->forAll(
+            Generator\char(['basic-latin'])
+        )
             ->when(is\printableCharacter())
             ->then(function($char) {
                 $this->assertFalse(ord($char) < 32);
@@ -35,10 +35,10 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 
     public function testMultiplePrintableCharacters()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\char(['basic-latin']),
-            Generator\char(['basic-latin']),
-        ])
+            Generator\char(['basic-latin'])
+        )
             ->when(are\printableCharacters())
             ->then(function($first, $second) {
                 $this->assertFalse(ord($first) < 32);

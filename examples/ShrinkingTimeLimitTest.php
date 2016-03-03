@@ -21,10 +21,10 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
 
     public function testLengthPreservation()
     {
-        $this->forAll([
+        $this->forAll(
             Generator\string(),
-            Generator\string(),
-        ])
+            Generator\string()
+        )
             ->then(function($first, $second) {
                 $result = very_slow_concatenation($first, $second);
                 $this->assertEquals(
