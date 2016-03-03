@@ -12,6 +12,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public static function fullyGreenTestFiles()
     {
         return [
+            ["AssociativeArrayTest.php"],
             ["BooleanTest.php"],
             ["CharacterTest.php"],
             ["ChooseTest.php"],
