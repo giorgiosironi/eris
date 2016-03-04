@@ -1,5 +1,15 @@
 # ChangeLog
 
+## 0.7.0
+
+* `associative`, `map`, `subSet`, `suchThat`
+* Optionally limiting the number of generations with `limitTo()`.
+* Optionally collecting generated data with `hook(Listener\collectFrequencies())`.
+* Support for listeners with `startPRopertyVerification`, `newGeneration` and `endPropertyVerification` events.
+* BC: changed Generators API to use `GeneratedValue` objects.
+* BC: requiring PHP 5.5 or newer.
+* BC: dropped array single parameter in `forAll()`.
+
 ## 0.6.0
 
 * PHP 7 compatibility.
