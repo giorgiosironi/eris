@@ -90,6 +90,10 @@ Eris also tries to shrink the input after a failure, giving you the simplest inp
 
 Consult [the ChangeLog file](https://github.com/giorgiosironi/eris/blob/master/ChangeLog.md) to know the latest new features.
 
+## Documentation
+
+On ReadTheDocs you can find [the reference documentation for the Eris project](http://eris.readthedocs.org/en/latest/).
+
 ## Support
 
 Feel free to open issues on the [GitHub project](https://github.com/giorgiosironi/eris/issues) for support.
