@@ -52,7 +52,7 @@ Characters
 .. php:namespace:: Eris\Generator
 .. php:function:: char()
 
-`Generator\char()` generates a character from the chosen charset, by default with a ``utf-8`` encoding. The only supported charset at the time of this writing is ``basic-latin``.
+``Generator\char()`` generates a character from the chosen charset, by default with a ``utf-8`` encoding. The only supported charset at the time of this writing is ``basic-latin``.
 
 .. literalinclude:: ../../examples/CharacterTest.php
    :language: php
