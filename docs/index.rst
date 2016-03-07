@@ -12,6 +12,7 @@ In property-based testing, several properties that the System Under Test must re
 
    installation
    getting_started
+   generators/scalar
 
 
 .. * :ref:`genindex`

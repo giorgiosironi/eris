@@ -44,29 +44,6 @@ function neg()
     return new IntegerGenerator($mustBeStrictlyNegative);
 }
 
-function strictlyPos()
-{
-    $mustBeStrictlyPositive = function($n) {
-        return $n === 0
-                  ? 1
-                  : abs($n);
-    };
-    return new IntegerGenerator($mustBeStrictlyPositive);
-}
-
-function strictlyNeg()
-{
-    $mustBeStrictlyNegative = function($n) {
-        if ($n > 0) {
-            return $n * (-1);
-        }
-        return $n === 0
-                  ? -1
-                  : $n;
-    };
-    return new IntegerGenerator($mustBeStrictlyNegative);
-}
-
 function byte()
 {
     return new ChooseGenerator(0, 255);

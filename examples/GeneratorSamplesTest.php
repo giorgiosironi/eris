@@ -9,8 +9,6 @@ class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
     public function testGenerators()
     {
         $generators = [
-            "Gen\\strictlyPos" => Generator\strictlyPos(),
-            "Gen\\strictlyNeg" => Generator\strictlyNeg(),
             //"Gen\\int" => Generator\int(),
             "Gen\\neg" => Generator\neg(),
             //"Gen\\nat" => Generator\nat(),
