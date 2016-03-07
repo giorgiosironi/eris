@@ -1,6 +1,7 @@
 # Eris
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/giorgiosironi/eris)
 [![Build Status](https://travis-ci.org/giorgiosironi/eris.svg?branch=master)](https://travis-ci.org/giorgiosironi/eris)
+[![Documentation Status](https://readthedocs.org/projects/eris/badge/?version=latest)](http://eris.readthedocs.org/en/latest/?badge=latest)
 
 Eris is a porting of [QuickCheck](https://hackage.haskell.org/package/QuickCheck) and property-based testing tools to the PHP and PHPUnit ecosystem.
 
