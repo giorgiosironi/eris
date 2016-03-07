@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; Eris 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Eris 0.7.0 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This test tries to verify that natural numbers from 0 to 1000 are all greater than 42. It&#8217;s a failing test designed to show you an example of error message.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Eris\Generator</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ReadmeTest</span> <span class="k">extends</span> <span class="nx">\PHPUnit_Framework_TestCase</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Eris\TestTrait</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">testNaturalNumbersMagnitude</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forAll</span><span class="p">(</span>
+            <span class="nx">Generator\choose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">then</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$number</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span>
+                    <span class="nv">$number</span> <span class="o">&lt;</span> <span class="mi">42</span><span class="p">,</span>
+                    <span class="s2">&quot;</span><span class="si">$number</span><span class="s2"> is not less than 42 apparently&quot;</span>
+                <span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>10:34:32<span class="o">][</span>giorgio@Bipbip:~/code/eris<span class="o">]</span>$ vendor/bin/phpunit examples/ReadmeTest.php
+PHPUnit 4.3.5 by Sebastian Bergmann.
+
+Configuration <span class="nb">read</span> from /home/giorgio/code/eris/phpunit.xml
+
+F
+
+Time: <span class="m">234</span> ms, Memory: 3.25Mb
+
+There was <span class="m">1</span> failure:
+
+1<span class="o">)</span> ReadmeTest::testNaturalNumbersMagnitude
+<span class="m">42</span> is not less than <span class="m">42</span> apparently
+Failed asserting that <span class="nb">false</span> is true.
+
+/home/giorgio/code/eris/examples/ReadmeTest.php:15
+/home/giorgio/code/eris/src/Eris/Quantifier/Evaluation.php:48
+/home/giorgio/code/eris/src/Eris/Quantifier/RoundRobinShrinking.php:45
+/home/giorgio/code/eris/src/Eris/Quantifier/ForAll.php:69
+/home/giorgio/code/eris/src/Eris/Quantifier/Evaluation.php:50
+/home/giorgio/code/eris/src/Eris/Quantifier/ForAll.php:71
+/home/giorgio/code/eris/src/Eris/Quantifier/ForAll.php:87
+/home/giorgio/code/eris/examples/ReadmeTest.php:16
+/home/giorgio/code/eris/examples/ReadmeTest.php:16
+
+FAILURES!
+Tests: 1, Assertions: 826, Failures: 1.
+</pre></div>
+</div>
+<p>Eris also tries to shrink the input after a failure, giving you the simplest input that still fails the test. In this example, the original input was probably something like <code class="docutils literal"><span class="pre">562</span></code>, but Eris tries to make it smaller until the test became green again. The smallest value that still fails the test is the one presented to you.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/getting_started.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Giorgio Sironi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/getting_started.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

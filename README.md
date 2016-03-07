@@ -16,7 +16,7 @@ You can install Eris through [Composer](https://getcomposer.org/) by adding:
     }
 ```
 
-to your composer.json, and run `composer install`.
+to your composer.json, and run `composer update`.
 
 You can run some of Eris example tests with `vendor/bin/phpunit vendor/giorgiosironi/eris/examples`.
 
