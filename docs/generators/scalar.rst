@@ -44,10 +44,13 @@ Strings
 .. literalinclude:: ../../examples/StringTest.php
    :language: php
 
-For more complex use cases, try using a collection generator in conjunction with ``Generator\char()``.
+For more complex use cases, try using a collection generator in conjunction with ``Generator\char()``. :php:func:`Eris\\Generator\\char`
 
 Characters
 ----------
+
+.. php:namespace:: Eris\Generator
+.. php:function:: char()
 
 `Generator\char()` generates a character from the chosen charset, by default with a ``utf-8`` encoding. The only supported charset at the time of this writing is ``basic-latin``.
 
