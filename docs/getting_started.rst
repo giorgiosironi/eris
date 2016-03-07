@@ -3,28 +3,8 @@ Getting started
 
 This test tries to verify that natural numbers from 0 to 1000 are all greater than 42. It's a failing test designed to show you an example of error message.
 
-.. code-block:: php
-
-    <?php
-    use Eris\Generator;
-
-    class ReadmeTest extends \PHPUnit_Framework_TestCase
-    {
-        use Eris\TestTrait;
-
-        public function testNaturalNumbersMagnitude()
-        {
-            $this->forAll(
-                Generator\choose(0, 1000)
-            )
-                ->then(function($number) {
-                    $this->assertTrue(
-                        $number < 42,
-                        "$number is not less than 42 apparently"
-                    );
-                });
-        }
-    }
+.. literalinclude:: ../examples/ReadmeTest.php
+   :language: php
 
 Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure.
 
