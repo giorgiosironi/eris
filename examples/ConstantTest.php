@@ -11,7 +11,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
         $this
             ->forAll(
                 Generator\nat(),
-                new Generator\ConstantGenerator(2)
+                Generator\constant(2)
             )
             ->then(function($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
