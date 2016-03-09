@@ -43,6 +43,8 @@ class CollectFrequencies
             $generatedValues
         );
         $key = call_user_func_array($this->collectFunction, $values);
+        // TODO: check key is a correct key, identity may lead this to be a non-string and non-integer value
+        // have a default for arrays and other scalars
         if (array_key_exists($key, $this->collectedValues)) {
             $this->collectedValues[$key]++;
         } else {
