@@ -1,7 +1,6 @@
 <?php
 use Eris\Generator;
 use Eris\TestTrait;
-use Eris\Listener;
 
 class IntegerTest extends PHPUnit_Framework_TestCase
 {
@@ -39,16 +38,6 @@ class IntegerTest extends PHPUnit_Framework_TestCase
                     $y,
                     "Sum between {$first} and {$second} should be associative"
                 );
-            });
-    }
-
-    public function testGeneratedDataCollection()
-    {
-        $this
-            ->forAll(Generator\neg())
-            ->hook(Listener\collectFrequencies())
-            ->then(function($x) {
-                $this->assertTrue($x < $x + 1);
             });
     }
 
