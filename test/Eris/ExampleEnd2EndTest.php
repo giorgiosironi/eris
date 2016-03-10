@@ -89,7 +89,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(13.0, $executionTime);
     }
 
-    public function testIterationsNumberTest()
+    public function testLimitToTest()
     {
         $this->runExample('LimitToTest.php');
         $this->assertTestsAreFailing(0);
@@ -97,6 +97,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             5,
             (string) $this->theTest('testNumberOfIterationsCanBeConfigured')->attributes()['assertions'],
             "We configured a small number of iterations for this test, but a different number of evaluations were performed"
+        );
+        $this->assertLessThan(
+            100,
+            (string) $this->theTest('testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored')->attributes()['assertions'],
+            "We configured a small time limit for this test, but still all evaluations were performed"
         );
     }
 
