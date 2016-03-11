@@ -32,6 +32,7 @@ class ForAll
         'implies' => '__invoke',
         'imply' => '__invoke',
     ];
+    private $terminationConditions = [];
     private $listeners = [];
 
     public function __construct(array $generators, $iterations, $shrinkerFactory)
@@ -40,6 +41,24 @@ class ForAll
         $this->iterations = $iterations;
         $this->shrinkerFactory = $shrinkerFactory;
         $this->maxSize = self::DEFAULT_MAX_SIZE;
+    }
+
+    public function withMaxSize($maxSize)
+    {
+        $this->maxSize = $maxSize;
+        return $this;
+    }
+
+    public function hook(Listener $listener)
+    {
+        $this->listeners[] = $listener;
+        return $this;
+    }
+
+    public function stopOn($terminationCondition)
+    {
+        $this->terminationConditions[] = $terminationCondition;
+        return $this;
     }
 
     /**
@@ -64,24 +83,17 @@ class ForAll
         return $this;
     }
 
-    public function withMaxSize($maxSize)
-    {
-        $this->maxSize = $maxSize;
-        return $this;
-    }
-
-    public function hook(Listener $listener)
-    {
-        $this->listeners[] = $listener;
-        return $this;
-    }
-
     public function __invoke(callable $assertion)
     {
         $sizes = $this->sizes($this->maxSize);
         try {
             $this->notifyListeners('startPropertyVerification');
-            for ($iteration = 0; $iteration < $this->iterations; $iteration++) {
+            for (
+                $iteration = 0;
+                $iteration < $this->iterations
+                && !$this->terminationConditionsAreSatisfied();
+                $iteration++
+            ) {
                 $generatedValues = [];
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
@@ -129,19 +141,6 @@ class ForAll
         } finally {
             $this->notifyListeners('endPropertyVerification', $this->evaluations);
         }
-    }
-
-    private function antecedentsAreSatisfied(array $values)
-    {
-        foreach ($this->antecedents as $antecedentToVerify) {
-            if (!call_user_func(
-                [$antecedentToVerify, 'evaluate'],
-                $values
-            )) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -242,5 +241,28 @@ class ForAll
                 $arguments
             );
         }
+    }
+
+    private function antecedentsAreSatisfied(array $values)
+    {
+        foreach ($this->antecedents as $antecedentToVerify) {
+            if (!call_user_func(
+                [$antecedentToVerify, 'evaluate'],
+                $values
+            )) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function terminationConditionsAreSatisfied()
+    {
+        foreach ($this->terminationConditions as $terminationCondition) {
+            if ($terminationCondition->shouldTerminate()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

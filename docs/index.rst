@@ -15,12 +15,12 @@ In property-based testing, several properties that the System Under Test must re
    generators/scalar
    generators/collections
    generators/composite
+   limits
 .. generators/transformations map, bind
 .. generators/domainbased names,date,regex
 .. filtering: suchthat vs when
 .. shrinking, time limits, assertions, error management that bubble ups
 .. listeners, collect values
-
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`

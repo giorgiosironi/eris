@@ -2,12 +2,16 @@
 namespace Eris;
 
 use OutOfBoundsException;
+use DateInterval;
+use InvalidArgumentException;
 
 trait TestTrait
 {
     // TODO: make this private as much as possible
     private $quantifiers = [];
     private $iterations = 100;
+    private $listeners = [];
+    private $terminationConditions = [];
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
@@ -86,12 +90,31 @@ trait TestTrait
     }
 
     /**
-     * @param integer
-     * @return $this
+     * @param float  from 0.0 to 1.0
+     * @return self
      */
-    protected function limitTo($iterations)
+    protected function minimumEvaluationRatio($ratio)
     {
-        $this->iterations = $iterations;
+        $this->minimumEvaluationRatio = $ratio;
+        return $this;
+    }
+
+    /**
+     * @param integer|DateInterval
+     * @return self
+     */
+    protected function limitTo($limit)
+    {
+        if ($limit instanceof DateInterval) {
+            $interval = $limit;
+            $terminationCondition = new Quantifier\TimeBasedTerminationCondition('time', $interval);
+            $this->listeners[] = $terminationCondition;
+            $this->terminationConditions[] = $terminationCondition;
+        } else if (is_integer($limit)) {
+            $this->iterations = $limit;
+        } else {
+            throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
+        }
         return $this;
     }
 
@@ -108,6 +131,12 @@ trait TestTrait
                 'timeLimit' => $this->shrinkingTimeLimit,
             ])
         );
+        foreach ($this->listeners as $listener) {
+            $quantifier->hook($listener);
+        }
+        foreach ($this->terminationConditions as $terminationCondition) {
+            $quantifier->stopOn($terminationCondition);
+        }
         $this->quantifiers[] = $quantifier;
         return $quantifier;
     }
