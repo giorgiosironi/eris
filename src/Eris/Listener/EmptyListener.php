@@ -11,7 +11,7 @@ class EmptyListener
     {
     }
 
-    public function newGeneration(array $generatedValues)
+    public function newGeneration(array $generatedValues, $iteration)
     {
     }
 }

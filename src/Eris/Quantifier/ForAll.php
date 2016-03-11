@@ -105,7 +105,7 @@ class ForAll
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
-                $this->notifyListeners('newGeneration', $generatedValues);
+                $this->notifyListeners('newGeneration', $generatedValues, $iteration);
 
                 if (!$this->antecedentsAreSatisfied($values)) {
                     continue;
