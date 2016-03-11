@@ -41,7 +41,7 @@ class CollectFrequencies
         }
     }
 
-    public function newGeneration(array $generatedValues)
+    public function newGeneration(array $generatedValues, $iteration)
     {
         $values = array_map(
             function($generatedValue) {

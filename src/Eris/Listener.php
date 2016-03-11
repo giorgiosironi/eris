@@ -18,7 +18,8 @@ interface Listener
 
     /**
      * @param array  of GeneratedValue
+     * @param integer  index of current iteration
      * @return void
      */
-    public function newGeneration(array $generatedValues);
+    public function newGeneration(array $generatedValues, $iteration);
 }
