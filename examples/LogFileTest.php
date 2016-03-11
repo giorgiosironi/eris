@@ -7,7 +7,7 @@ class LogFileTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
-    public function testSumIsCommutative()
+    public function testWritingIterationsOnALogFile()
     {
         $this->forAll(
             Generator\int()
