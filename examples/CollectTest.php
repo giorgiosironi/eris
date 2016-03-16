@@ -20,7 +20,10 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     public function testGeneratedDataCollectionOnMoreComplexDataStructures()
     {
         $this
-            ->forAll(Generator\vector(2, Generator\int()))
+            ->forAll(
+                Generator\vector(2, Generator\int()),
+                Generator\char()
+            )
             ->hook(Listener\collectFrequencies())
             ->then(function($vector) {
                 $this->assertEquals(2, count($vector));

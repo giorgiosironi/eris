@@ -20,7 +20,14 @@ class CollectFrequencies
     public function __construct($collectFunction = null)
     {
         if ($collectFunction === null) {
-            $collectFunction = function($value) { 
+            $collectFunction = function(/*...*/) { 
+                $generatedValues = func_get_args();
+                if (count($generatedValues) === 1) {
+                    $value = $generatedValues[0];
+                } else {
+                    $value = $generatedValues;
+                }
+
                 if (is_string($value) || is_integer($value)) {
                     return $value; 
                 } else {
