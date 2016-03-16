@@ -10,7 +10,7 @@ use Eris\Generator;
  * @param string $encoding  Only supported encoding: "utf-8"
  * @return Generator\CharacterGenerator
  */
-function char(array $characterSets, $encoding = 'utf-8')
+function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
 {
     return CharacterGenerator::ascii();
 }
