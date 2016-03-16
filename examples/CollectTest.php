@@ -3,7 +3,7 @@ use Eris\Generator;
 use Eris\TestTrait;
 use Eris\Listener;
 
-class IntegerTest extends PHPUnit_Framework_TestCase
+class CollectTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
