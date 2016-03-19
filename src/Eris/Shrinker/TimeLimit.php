@@ -14,4 +14,9 @@ interface TimeLimit
      * @return bool
      */
     public function hasBeenReached();
+
+    /**
+     * @return string
+     */
+    public function __toString();
 }

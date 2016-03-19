@@ -71,11 +71,14 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingAndAntecedentsTests()
     {
         $this->runExample('ShrinkingTest.php');
-        $this->assertTestsAreFailing(1);
-        $errorMessage = (string) $this->theTest('testShrinkingRespectsAntecedents')->failure;
+        $this->assertTestsAreFailing(2);
+        $this->assertRegexp(
+            "/Failed asserting that .* does not contain \"B\"/",
+            (string) $this->theTest('testShrinkingAString')->failure
+        );
         $this->assertRegexp(
             "/The number 11 is not multiple of 29/",
-            $errorMessage,
+            (string) $this->theTest('testShrinkingRespectsAntecedents')->failure,
             "It seems there is a problem with shrinking: we were expecting an error message containing '11' since it's the lowest value in the domain that satisfies the antecedents."
         );
     }

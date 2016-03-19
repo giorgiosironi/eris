@@ -31,4 +31,10 @@ class FixedTimeLimit implements TimeLimit
         $actualIntervalLength = call_user_func($this->clock) - $this->startOfTheInterval;
         return $actualIntervalLength >= $this->maximumIntervalLength;
     }
+
+    public function __toString()
+    {
+        $actualIntervalLength = call_user_func($this->clock) - $this->startOfTheInterval;
+        return "{$actualIntervalLength}s elapsed of {$this->maximumIntervalLength}s";
+    }
 }

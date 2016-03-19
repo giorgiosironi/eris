@@ -6,6 +6,17 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
+    public function testShrinkingAString()
+    {
+        $this->forAll(
+                Generator\string()
+            )
+            ->then(function($string) {
+                var_dump($string);
+                $this->assertNotContains('B', $string);
+            });
+    }
+
     public function testShrinkingRespectsAntecedents()
     {
         $this->forAll(

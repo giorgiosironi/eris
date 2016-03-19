@@ -12,4 +12,9 @@ class NoTimeLimit implements TimeLimit
     {
         return false;
     }
+
+    public function __toString()
+    {
+        return 'no time limit';
+    }
 }

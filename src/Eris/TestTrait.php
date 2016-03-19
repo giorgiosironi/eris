@@ -15,7 +15,7 @@ trait TestTrait
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
-    protected $shrinkingTimeLimit = null;
+    protected $shrinkingTimeLimit;
 
     /**
      * @before
@@ -115,6 +115,19 @@ trait TestTrait
         } else {
             throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
         }
+        return $this;
+    }
+
+    /**
+     * The maximum time to spend trying to shrink the input after a failed test.
+     * The default is no limit.
+     *
+     * @param integer  in seconds
+     * @return self
+     */
+    protected function shrinkingTimeLimit($shrinkingTimeLimit)
+    {
+        $this->shrinkingTimeLimit = $shrinkingTimeLimit;
         return $this;
     }
 
