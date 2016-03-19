@@ -38,6 +38,6 @@ Eris generates a sample of elements from the required domain (here the integers 
     FAILURES!
     Tests: 1, Assertions: 826, Failures: 1.
 
-Eris also tries to shrink the input after a failure, giving you the simplest input that still fails the test. In this example, the original input was probably something like ``562``, but Eris tries to make it smaller until the test became green again. The smallest value that still fails the test is the one presented to you.
+Eris also tries to :doc:`shrink<shrinking>` the input after a failure, giving you the simplest input that still fails the test. In this example, the original input was probably something like ``562``, but Eris tries to make it smaller until the test became green again. The smallest value that still fails the test is the one presented to you.
 
 .. explain more of the actual process: stops at the first failure of the 100-element sample
