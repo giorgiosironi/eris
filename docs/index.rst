@@ -18,17 +18,14 @@ In property-based testing, several properties that the System Under Test must re
    generators/composite
    limits
    listeners
-.. generators/domainbased names,date,regex
-.. filtering: when and cross reference such that
-.. constant should go into generators/scalar
-.. elements generator, where?
 .. oneof, frequency, cross reference with elements
-.. check from e to z in examples
-.. sample and sample shrinking
-.. worked out examples: sort is the first
+.. filtering: when and cross reference such that
+.. generators/domainbased names,date,regex
 .. reproducibility: seed
-.. some words on exported functionality with functions
-.. minimum evaluation ratio
+
+.. worked out examples: sort is the first
+.. listener: minimum evaluation ratio
+.. sample and sample shrinking
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`

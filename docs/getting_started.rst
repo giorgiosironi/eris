@@ -6,7 +6,7 @@ This test tries to verify that natural numbers from 0 to 1000 are all greater th
 .. literalinclude:: ../examples/ReadmeTest.php
    :language: php
 
-Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure.
+Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure. Its functionalities are exported trough a ``TestTrait`` you can insert into your PHPUnit tests and through a series of functions in the ``Eris\Generator`` and ``Eris\Listener`` namespaces.
 
 .. code-block:: bash
 

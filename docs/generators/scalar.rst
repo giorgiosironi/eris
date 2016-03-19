@@ -64,7 +64,17 @@ Constants
 
 ``Generator\constant()`` produces always the same value, which is the value used to initialize it. This Generator is useful for debugging and simplifying composite Generators in these occasions.
 
-Normally, as shown in ``testUseConstantGeneratorImplicitly``, constant are automatically boxed in this Generator if used where a ``Generator`` instance would be required.
+Often, as shown in ``testUseConstantGeneratorImplicitly``, constant are automatically boxed in this Generator if used where a ``Generator`` instance would be required:
 
 .. literalinclude:: ../../examples/ConstantTest.php
    :language: php
+
+Elements
+--------
+
+``Generator\elements()`` produces a value randomly extracted from the specified array. Values can be specified as arguments or with a single, numeric array.
+
+.. literalinclude:: ../../examples/ElementsTest.php
+   :language: php
+
+``testVectorOfElementsGenerators`` shows how to compose the Elements Generator into a ``Generator\\vector()`` to build a vector of selected, sometimes repeated, elements.
