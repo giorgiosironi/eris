@@ -3,6 +3,42 @@ Composite generators
 
 These Generators implement the Composite pattern to wire together existing Generators and `callables`_. 
 
+.. _frequency:
+
+Frequency
+---------
+
+``Generator\frequency`` randomly chooses a Generator to use from the specified list, weighting the probability of each Generator with the provided value.
+
+.. literalinclude:: ../../examples/MapTest.php
+   :language: php
+
+``testFalsyValues`` chooses the ``false`` value half of the times.
+
+``testAlwaysFails`` chooses the Generator from 1 to 100 half of the times. However, in case of failure it will try to shrink the value only with the original Generator that created it. Therefore, each of the possible outputs will be possible:
+
+.. code-block:: bash
+
+    Failed asserting that 1 matches expected 0.
+    Failed asserting that 100 matches expected 0.
+    Failed asserting that 200 matches expected 0.
+
+.. _oneof:
+
+One Of
+------
+
+``Generator\oneOf`` is a special case of ``Generator\frequency`` which selects each of the specified Generators with the same probability.
+
+.. literalinclude:: ../../examples/OneOfTest.php
+   :language: php
+
+.. seealso::
+
+    :ref:`elements()<elements>` does the same with values instead of Generators.
+
+.. _map:
+
 Map
 ---
 
@@ -57,6 +93,8 @@ Map allows a Generator's output to be modified by applying the callable to the g
     FAILURES!
     Tests: 1, Assertions: 216, Failures: 1.
 
+.. _suchthat:
+
 Such That
 ---------
 
@@ -105,6 +143,7 @@ Such That allows a Generator's output to be filtered, excluding values that to d
     /home/giorgio/code/eris/examples/SuchThatTest.php:47
     /home/giorgio/code/eris/examples/SuchThatTest.php:47
 
+.. _bind:
 
 Bind
 ----

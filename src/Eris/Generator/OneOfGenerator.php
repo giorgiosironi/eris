@@ -3,6 +3,9 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
+/**
+ * @return OneOfGenerator
+ */
 function oneOf(/*$a, $b, ...*/)
 {
     return new OneOfGenerator(func_get_args());

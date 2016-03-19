@@ -24,6 +24,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["LimitToTest.php"],
             ["LogFileTest.php"],
             ["NamesTest.php"],
+            ["OneOfTest.php"],
             ["RegexTest.php"],
             ["SampleTest.php"],
             ["SequenceTest.php"],
@@ -143,7 +144,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('FrequencyTest.php');
         $this->assertTestsAreFailing(1);
         $this->assertRegexp(
-            '/Failed asserting that 1 matches expected 0./',
+            '/Failed asserting that (1|100|200) matches expected 0./',
             (string) $this->theTest('testAlwaysFails')->failure
         );
     }

@@ -1,6 +1,11 @@
 Scalar generators
 =================
 
+.. _nat:
+.. _pos:
+.. _neg:
+.. _byte:
+
 Integers
 --------
 
@@ -20,6 +25,8 @@ For more precise and custom ranges, the ``Generator\choose()`` accepts a lower a
 .. literalinclude:: ../../examples/ChooseTest.php
    :language: php
 
+.. _float:
+
 Floats
 ------
 
@@ -27,6 +34,8 @@ Floats
 
 .. literalinclude:: ../../examples/FloatTest.php
    :language: php
+
+.. _bool:
 
 Booleans
 --------
@@ -36,6 +45,8 @@ Booleans
 .. literalinclude:: ../../examples/BooleanTest.php
    :language: php
 
+.. _string:
+
 Strings
 -------
 
@@ -44,13 +55,14 @@ Strings
 .. literalinclude:: ../../examples/StringTest.php
    :language: php
 
-For more complex use cases, try using a collection generator in conjunction with ``Generator\char()``. :php:func:`Eris\\Generator\\char`
+.. seealso::
+
+    For more complex use cases, try using a collection generator in conjunction with :ref:`char()<char>`. 
+
+.. _char:
 
 Characters
 ----------
-
-.. php:namespace:: Eris\Generator
-.. php:function:: char()
 
 ``Generator\char()`` generates a character from the chosen charset, by default with a ``utf-8`` encoding. The only supported charset at the time of this writing is ``basic-latin``.
 
@@ -58,6 +70,8 @@ Characters
    :language: php
 
 ``Generator\charPrintableAscii()`` can also be used to limit the range of the character to the set of printable characters, from ``0x32`` to ``0x76``.
+
+.. _constant:
 
 Constants
 ---------
@@ -69,6 +83,8 @@ Often, as shown in ``testUseConstantGeneratorImplicitly``, constant are automati
 .. literalinclude:: ../../examples/ConstantTest.php
    :language: php
 
+.. _elements:
+
 Elements
 --------
 
@@ -77,4 +93,8 @@ Elements
 .. literalinclude:: ../../examples/ElementsTest.php
    :language: php
 
-``testVectorOfElementsGenerators`` shows how to compose the Elements Generator into a ``Generator\\vector()`` to build a vector of selected, sometimes repeated, elements.
+``testVectorOfElementsGenerators`` shows how to compose the Elements Generator into a :ref:`vector()<vector>` to build a vector of selected, sometimes repeated, elements.
+
+.. seealso::
+
+    :ref:`oneOf()<oneof>` does the same with values instead of Generators.

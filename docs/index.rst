@@ -18,14 +18,13 @@ In property-based testing, several properties that the System Under Test must re
    generators/composite
    limits
    listeners
-.. oneof, frequency, cross reference with elements
-.. filtering: when and cross reference such that
 .. generators/domainbased names,date,regex
 .. reproducibility: seed
 
 .. worked out examples: sort is the first
 .. listener: minimum evaluation ratio
 .. sample and sample shrinking
+.. filtering: when and cross reference such that
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`
