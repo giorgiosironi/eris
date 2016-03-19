@@ -46,8 +46,6 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             });
     }
 
-    // TODO: printableCharacter*s*()
-
     private function assertLenghtIs1($char)
     {
         $length = strlen($char);

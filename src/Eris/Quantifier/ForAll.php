@@ -25,12 +25,8 @@ class ForAll
     private $antecedents = [];
     private $ordinaryEvaluations = 0;
     private $aliases = [
-        'andAlso' => 'when',
-        'theCondition' => 'when',
-        'andTheCondition' => 'when',
+        'and' => 'when',
         'then' => '__invoke',
-        'implies' => '__invoke',
-        'imply' => '__invoke',
     ];
     private $terminationConditions = [];
     private $listeners = [];
@@ -65,6 +61,7 @@ class ForAll
      * Examples of calls:
      * when($constraint1, $constraint2, ..., $constraintN)
      * when(callable $takesNArguments)
+     * when(Antecedent $antecedent)
      * @return self
      */
     public function when(/* see docblock */)

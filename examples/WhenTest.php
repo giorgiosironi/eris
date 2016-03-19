@@ -21,22 +21,6 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             });
     }
 
-    public function testWhenWithAnAnonymousFunctionWithLogicSyntax()
-    {
-        $this->forAll(
-            Generator\choose(0, 1000)
-        )
-            ->theCondition(function($n) {
-                return $n > 42;
-            })
-            ->implies(function($number) {
-                $this->assertTrue(
-                    $number > 42,
-                    "\$number was filtered to be more than 42, but it's $number"
-                );
-            });
-    }
-
     public function testWhenWithAnAnonymousFunctionForMultipleArguments()
     {
         $this->forAll(
@@ -89,23 +73,8 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000)
         )
             ->when($this->greaterThan(42))
-            ->andAlso($this->lessThan(900))
+            ->and($this->lessThan(900))
             ->then(function($number) {
-                $this->assertTrue(
-                    $number > 42 && $number < 900,
-                    "\$number was filtered to be between 42 and 900, but it is $number"
-                );
-            });
-    }
-
-    public function testMultipleWhenClausesWithLogicSyntax()
-    {
-        $this->forAll(
-            Generator\choose(0, 1000)
-        )
-            ->theCondition($this->greaterThan(42))
-            ->andTheCondition($this->lessThan(900))
-            ->imply(function($number) {
                 $this->assertTrue(
                     $number > 42 && $number < 900,
                     "\$number was filtered to be between 42 and 900, but it is $number"
