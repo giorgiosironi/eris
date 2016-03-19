@@ -14,7 +14,7 @@ interface Listener
      * @param integer
      * @return void
      */
-    public function endPropertyVerification($evaluations);
+    public function endPropertyVerification($ordinaryEvaluations);
 
     /**
      * @param array  of GeneratedValue

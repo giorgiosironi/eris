@@ -23,7 +23,7 @@ class ForAll
     private $maxSize;
     private $shrinkerFactory;
     private $antecedents = [];
-    private $evaluations = 0;
+    private $ordinaryEvaluations = 0;
     private $aliases = [
         'andAlso' => 'when',
         'theCondition' => 'when',
@@ -111,7 +111,7 @@ class ForAll
                     continue;
                 }
 
-                $this->evaluations++;
+                $this->ordinaryEvaluations++;
                 Evaluation::of($assertion)
                     // TODO: coupling between here and the TupleGenerator used inside?
                     ->with(GeneratedValue::fromValueAndInput(
@@ -139,7 +139,7 @@ class ForAll
                 throw $e;
             }
         } finally {
-            $this->notifyListeners('endPropertyVerification', $this->evaluations);
+            $this->notifyListeners('endPropertyVerification', $this->ordinaryEvaluations);
         }
     }
 
@@ -162,7 +162,7 @@ class ForAll
 
     public function evaluationRatio()
     {
-        return $this->evaluations / $this->iterations;
+        return $this->ordinaryEvaluations / $this->iterations;
     }
 
     private function generatorsFrom($supposedToBeGenerators)

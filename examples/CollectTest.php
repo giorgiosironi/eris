@@ -38,11 +38,10 @@ class CollectTest extends PHPUnit_Framework_TestCase
             )
             ->withMaxSize(10)
             ->hook(Listener\collectFrequencies(function($array) {
-                return '[' . implode(',', $array) . ']';
+                return count($array);
             }))
             ->then(function($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
     }
-
 }

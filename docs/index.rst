@@ -17,10 +17,9 @@ In property-based testing, several properties that the System Under Test must re
    generators/collections
    generators/composite
    limits
+   listeners
 .. generators/domainbased names,date,regex
 .. filtering: when and cross reference such that
-.. time limits, assertions, error management that bubble ups
-.. listeners, collect values, log files as documentations
 .. constant should go into generators/scalar
 .. elements generator, where?
 .. oneof, frequency, cross reference with elements

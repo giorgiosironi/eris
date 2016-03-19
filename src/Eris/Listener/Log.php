@@ -30,7 +30,7 @@ class Log
         $this->log("iteration $iteration");
     }
 
-    public function endPropertyVerification($evaluations)
+    public function endPropertyVerification($ordinaryEvaluations)
     {
         fclose($this->fp);
     }

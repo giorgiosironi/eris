@@ -11,6 +11,9 @@ Eris, like all QuickCheck implementations, performs a process called shrinking w
 
 Shrinking repeats this process until the test does not fail anymore, or the value cannot be simplified further. The last input in the shrinking sequence that still makes the test fail is the one reported to the user, while all other values are regarded as more complex and thrown away.
 
+Simplest example
+----------------
+
 .. literalinclude:: ../examples/ShrinkingTest.php
    :language: php
 
@@ -61,6 +64,8 @@ From there, the value is shrunk by chopping away a single character at the end o
     FAILURES!
     Tests: 1, Assertions: 119, Failures: 1.
 
+Shriking and preconditions
+--------------------------
 
 ``testShrinkingRespectsAntecedents`` generates a random number from 0 to 20 and tries to check that it is multiple of 29. All generated numbers will fail this test, but shrinking will try to present the lowest possible number; still, the ``when()`` antecedent has to be satisfied and so the number cannot decrease down to 0 but has to stop at 11:
 
@@ -86,8 +91,8 @@ From there, the value is shrunk by chopping away a single character at the end o
 Shrinking is only performed when assertions fail: generic exceptions bubbling up out of the ``then()`` will just interrupt the test.
 
 
-Time limit
-----------
+Shrinking time limit
+--------------------
 
 You can set a time limit for shrinking if you prefer to be presented with more complex examples with respect to spending test suite running time:
 

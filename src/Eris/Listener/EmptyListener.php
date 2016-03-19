@@ -1,13 +1,15 @@
 <?php
 namespace Eris\Listener;
 
-class EmptyListener
+use Eris\Listener;
+
+abstract class EmptyListener implements Listener
 {
     public function startPropertyVerification()
     {
     }
 
-    public function endPropertyVerification($evaluations)
+    public function endPropertyVerification($ordinaryEvaluations)
     {
     }
 

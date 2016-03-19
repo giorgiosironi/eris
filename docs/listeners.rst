@@ -1,0 +1,84 @@
+Listeners
+=========
+
+Eris provide the possibility to pass in Listeners to be notified of events happening during a test run.
+
+Listeners implement the ``Eris\Listener`` interface and are advised to extend the ``Eris\EmptyListener`` abstract base class to get an empty implementation for all the methods corresponding to events they don't need to listen to.
+
+Consider that Eris performs (by default) 100 iterations for each ``forAll()`` instance, each corresponding to a different set of generated values. The following methods can be overridden to receive an event:
+
+* ``startPropertyVerification()`` is called before the first iteration starts.
+* ``endPropertyVerification($ordinaryEvaluations)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of iterations due to failures or ``when()`` filters not being satisfied.
+* ``newGeneration(array $generatedValues, $iteration)`` is called after generating a new iteration, and is passed the tuple of generated values which corresponds to the argument of ``then()`` along with the 0-based index of the iteration.
+
+Collect Frequencies
+-------------------
+
+The ``collectFrequencies()`` Listener allows to gather all generated values in order to display their statistical distribution.
+
+.. literalinclude:: ../examples/CollectTest.php
+   :language: php
+
+``testGeneratedDataCollectionOnScalars`` collects integers:
+
+.. code-block:: bash
+
+    12%  -1
+    6%  -2
+    4%  -5
+    4%  -18
+    4%  -11
+    3%  -4
+    ...
+
+``testGeneratedDataCollectionOnMoreComplexDataStructures`` shows how by default more complex structures are encoded into a JSON value, to be used as the bin key in the map of values to counters:
+
+.. code-block:: bash
+
+    1%  [[-19,-16],"m"]
+    1%  [[-3,-30],";"]
+    1%  [[-9,1],"\f"]
+    1%  [[-7,-1],"P"]
+    1%  [[-1,-9],"^"]
+    1%  [[1,18],"8"]
+    1%  [[-53,-1],"."]
+    ...
+
+``testGeneratedDataCollectionWithCustomMapper`` shows how to provide a custom callable to map the generated values into a bin key. Arguments are passed to the callable in the same way as ``then()``. In this example, we are discovering that 10% of the generated arrays have length 3.
+
+.. code-block:: bash
+
+    39%  0
+    26%  1
+    10%  3
+    5%  4
+    5%  2
+    4%  5
+    3%  7
+    3%  6
+    3%  8
+    1%  10
+    1%  9
+
+Log
+---
+
+The ``log()`` Listener allows to write a log file while particularly long tests are executing, showing the partial progress of the test.
+
+.. literalinclude:: ../examples/LogFileTest.php
+   :language: php
+
+A file will be written during the test run with the following contents:
+
+.. code-block:: bash
+
+    [2016-03-19T14:50:11+00:00][7822] iteration 0
+    [2016-03-19T14:50:11+00:00][7822] iteration 1
+    [2016-03-19T14:50:11+00:00][7822] iteration 2
+    [2016-03-19T14:50:11+00:00][7822] iteration 3
+    [2016-03-19T14:50:11+00:00][7822] iteration 4
+    [2016-03-19T14:50:11+00:00][7822] iteration 5
+    [2016-03-19T14:50:11+00:00][7822] iteration 6
+    ...
+
+It is not advised to rely on this format for parsing, being it only oriented to human readability.
