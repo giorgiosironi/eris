@@ -29,7 +29,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["SequenceTest.php"],
             ["SetTest.php"],
             ["SubsetTest.php"],
-            ["SuchThatTest.php"],
             ["SortTest.php"],
             ["TupleTest.php"],
             ["VectorTest.php"],
@@ -143,6 +142,20 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp(
             '/Failed asserting that 1 matches expected 0./',
             (string) $this->theTest('testAlwaysFails')->failure
+        );
+    }
+
+    public function testSuchThatTest()
+    {
+        $this->runExample('SuchThatTest.php');
+        $this->assertTestsAreFailing(2);
+        $this->assertRegexp(
+            '/number was asserted to be more than 100, but it\'s 43/',
+            (string) $this->theTest('testSuchThatShrinkingRespectsTheCondition')->failure
+        );
+        $this->assertRegexp(
+            '/number was asserted to be more than 100, but it\'s 0/',
+            (string) $this->theTest('testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet')->failure
         );
     }
 

@@ -55,7 +55,6 @@ class MapTest extends PHPUnit_Framework_TestCase
             )
         )
             ->then(function($tripleOfEvenNumbers) {
-                var_dump($tripleOfEvenNumbers);
                 $this->assertLessThanOrEqual(
                     100,
                     array_sum($tripleOfEvenNumbers),
