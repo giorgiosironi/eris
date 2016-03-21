@@ -13,7 +13,8 @@ trait TestTrait
     private $iterations = 100;
     private $listeners = [];
     private $terminationConditions = [];
-    private $rand = 'rand';
+    private $randFunction = 'rand';
+    private $seedFunction = 'srand';
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
@@ -29,7 +30,6 @@ trait TestTrait
         } else {
             $this->seed = (int) (microtime(true)*1000000);
         }
-        srand($this->seed);
     }
 
     /**
@@ -136,22 +136,22 @@ trait TestTrait
     /**
      * @return self
      */
-    protected function withRand(callable $rand, callable $seed = null)
+    protected function withRand(callable $randFunction, callable $seedFunction = null)
     {
-        $this->rand = $rand;
-        if ($seed === null) {
-            switch ($rand) {
+        $this->randFunction = $randFunction;
+        if ($seedFunction === null) {
+            switch ($randFunction) {
                 case 'rand':
-                    $seed = 'srand';
+                    $seedFunction = 'srand';
                     break;
                 case 'mt_rand':
-                    $seed = 'mt_srand';
+                    $seedFunction = 'mt_srand';
                     break;
                 default:
-                    throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seed callable that will be called to seed it.");
+                    throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
             }
         }
-        $this->seed = $seed;
+        $this->seedFunction = $seedFunction;
         return $this;
     }
 
@@ -160,6 +160,7 @@ trait TestTrait
      */
     protected function forAll()
     {
+        call_user_func($this->seedFunction, $this->seed);
         $generators = func_get_args();
         $quantifier = new Quantifier\ForAll(
             $generators,
@@ -167,7 +168,7 @@ trait TestTrait
             new Shrinker\ShrinkerFactory([
                 'timeLimit' => $this->shrinkingTimeLimit,
             ]),
-            $this->rand
+            $this->randFunction
         );
         foreach ($this->listeners as $listener) {
             $quantifier->hook($listener);
@@ -181,11 +182,11 @@ trait TestTrait
 
     protected function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator, $this->rand)->repeat($times);
+        return Sample::of($generator, $this->randFunction)->repeat($times);
     }
 
     protected function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator, $this->rand)->shrink($fromValue);
+        return Sample::of($generator, $this->randFunction)->shrink($fromValue);
     }
 }
