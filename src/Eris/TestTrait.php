@@ -136,9 +136,22 @@ trait TestTrait
     /**
      * @return self
      */
-    protected function withRand(callable $rand)
+    protected function withRand(callable $rand, callable $seed = null)
     {
         $this->rand = $rand;
+        if ($seed === null) {
+            switch ($rand) {
+                case 'rand':
+                    $seed = 'srand';
+                    break;
+                case 'mt_rand':
+                    $seed = 'mt_srand';
+                    break;
+                default:
+                    throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seed callable that will be called to seed it.");
+            }
+        }
+        $this->seed = $seed;
         return $this;
     }
 
