@@ -22,7 +22,7 @@ class SetGenerator implements Generator
         $this->singleElementGenerator = $singleElementGenerator;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
         $setSize = rand(0, $size);
         $set = [];
@@ -30,7 +30,7 @@ class SetGenerator implements Generator
         $trials = 0;
         while (count($set) < $setSize && $trials < 2 * $setSize) {
             $trials++;
-            $candidateNewElement = $this->singleElementGenerator->__invoke($size);
+            $candidateNewElement = $this->singleElementGenerator->__invoke($size, $rand);
             if (in_array($candidateNewElement->unbox(), $set, $strict = true)) {
                 continue;
             }
@@ -59,6 +59,7 @@ class SetGenerator implements Generator
         }
 
         $input = $set->input();
+        // TODO: make deterministic
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);

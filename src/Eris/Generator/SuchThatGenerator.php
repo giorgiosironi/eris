@@ -33,15 +33,15 @@ class SuchThatGenerator implements Generator
         $this->maximumAttempts = 10;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $value = $this->generator->__invoke($size);
+        $value = $this->generator->__invoke($size, $rand);
         $attempts = 0;
         while (!$this->predicate($value)) {
             if ($attempts >= $this->maximumAttempts) {
                 throw new LogicException("Tried to satisfy predicate $attempts times, but could not generate a good value. You should try to improve your generator to make it more likely to output good values, or to use a less restrictive condition. Last generated value was: " . $value);
             }
-            $value = $this->generator->__invoke($size);
+            $value = $this->generator->__invoke($size, $rand);
             $attempts++;
         }
         return $value;

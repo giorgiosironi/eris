@@ -64,10 +64,10 @@ class IntegerGenerator implements Generator
 
     public function __invoke($size, $rand)
     {
-        $value = rand(0, $size);
+        $value = $rand(0, $size);
         $mapFn = $this->mapFn;
 
-        $result = rand(0, 1) === 0
+        $result = $rand(0, 1) === 0
                           ? $mapFn($value)
                           : $mapFn($value * (-1));
         return GeneratedValue::fromJustValue(

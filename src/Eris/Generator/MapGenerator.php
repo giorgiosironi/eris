@@ -20,9 +20,9 @@ class MapGenerator implements Generator
         $this->generator = $generator;
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
-        $input = $this->generator->__invoke($_size);
+        $input = $this->generator->__invoke($_size, $rand);
         return $input->map(
             $this->map,
             'map'

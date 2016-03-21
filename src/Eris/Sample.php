@@ -6,22 +6,24 @@ class Sample
     const DEFAULT_SIZE = 10;
 
     private $generator;
+    private $rand;
     private $collected = [];
 
-    public static function of($generator)
+    public static function of($generator, $rand)
     {
-        return new self($generator);
+        return new self($generator, $rand);
     }
 
-    private function __construct($generator)
+    private function __construct($generator, $rand)
     {
         $this->generator = $generator;
+        $this->rand = $rand;
     }
 
     public function repeat($times)
     {
         for ($i = 0; $i < $times; $i++) {
-            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE)->unbox();
+            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE, $this->rand)->unbox();
         }
         return $this;
     }
@@ -29,7 +31,7 @@ class Sample
     public function shrink($nextValue = null)
     {
         if ($nextValue === null) {
-            $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE);
+            $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE, $this->rand);
         }
         $this->collected[] = $nextValue->unbox();
         while ($value = $this->generator->shrink($nextValue)) {

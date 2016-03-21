@@ -28,7 +28,7 @@ class ConstantGenerator implements Generator
         $this->value = $value;
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
         return GeneratedValue::fromJustValue($this->value, 'constant');
     }

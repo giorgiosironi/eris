@@ -7,6 +7,7 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->singleElementGenerator = new ChooseGenerator(0, 100);
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testConstructWithAnArrayOfGenerators()
@@ -16,7 +17,7 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->singleElementGenerator,
         ]);
 
-        $element = $generator($this->size);
+        $element = $generator($this->size, $this->rand);
 
         $this->assertTrue($generator->contains($element));
     }
@@ -24,7 +25,7 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithNonGenerators()
     {
         $generator = new OneOfGenerator([42, 42]);
-        $element = $generator($this->size)->unbox();
+        $element = $generator($this->size, $this->rand)->unbox();
         $this->assertEquals(42, $element);
     }
 
@@ -34,6 +35,6 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithNoArguments()
     {
         $generator = new OneOfGenerator([]);
-        $element = $generator($this->size);
+        $element = $generator($this->size, $this->rand);
     }
 }

@@ -6,6 +6,7 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->size = 300;
+        $this->rand = 'rand';
     }
 
     public function testPicksUniformelyPositiveAndNegativeFloatNumbers()
@@ -14,7 +15,7 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
         $sum = 0;
         $trials = 500;
         for ($i = 0; $i < $trials; $i++) {
-            $value = $generator($this->size);
+            $value = $generator($this->size, $this->rand);
             $this->assertInternalType('float', $value->unbox());
             $sum += $value->unbox();
         }

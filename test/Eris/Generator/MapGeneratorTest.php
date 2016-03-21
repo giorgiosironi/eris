@@ -6,6 +6,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
     
     public function testGeneratesAGeneratedValueObject()
@@ -16,7 +17,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             2,
-            $generator->__invoke($this->size)->unbox()
+            $generator->__invoke($this->size, $this->rand)->unbox()
         );
     }
 
@@ -26,7 +27,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
             function($n) { return $n * 2; },
             new ChooseGenerator(1, 100)
         );
-        $element = $generator->__invoke($this->size);
+        $element = $generator->__invoke($this->size, $this->rand);
         $elementAfterShrink = $generator->shrink($element);
         $this->assertTrue(
             $elementAfterShrink->unbox() <= $element->unbox(),
@@ -40,7 +41,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
             function($n) { return $n * 2; },
             new ChooseGenerator(1, 100)
         );
-        $element = $generator->__invoke($this->size);
+        $element = $generator->__invoke($this->size, $this->rand);
         $this->assertTrue(
             $generator->contains($element),
             "Generator does not contain the element $element, which has previously generated"

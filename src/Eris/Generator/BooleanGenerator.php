@@ -11,10 +11,10 @@ function bool()
 
 class BooleanGenerator implements Generator
 {
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
         $booleanValues = [true, false];
-        $randomIndex = rand(0, count($booleanValues) - 1);
+        $randomIndex = $rand(0, count($booleanValues) - 1);
 
         return GeneratedValue::fromJustValue($booleanValues[$randomIndex], 'boolean');
     }

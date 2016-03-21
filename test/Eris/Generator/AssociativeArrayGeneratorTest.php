@@ -9,6 +9,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->cipherGenerator = ElementsGenerator::fromArray([0, 1, 2]);
         $this->smallIntegerGenerator = new ChooseGenerator(0, 100);
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testConstructWithAnAssociativeArrayOfGenerators()
@@ -18,7 +19,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
             'cipher' => $this->cipherGenerator,
         ]);
 
-        $generated = $generator($this->size);
+        $generated = $generator($this->size, $this->rand);
 
         $this->assertTrue($generator->contains($generated));
         $array = $generated->unbox();
@@ -40,7 +41,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
             'latter' => $this->smallIntegerGenerator,
         ]);
 
-        $value = $generator($this->size);
+        $value = $generator($this->size, $this->rand);
 
         for ($i = 0; $i < 100; $i++) {
             $value = $generator->shrink($value);

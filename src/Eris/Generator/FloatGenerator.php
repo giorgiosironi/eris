@@ -15,11 +15,11 @@ class FloatGenerator implements Generator
     {
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $value = (float) rand(0, $size) / (float) rand(1, $size);
+        $value = (float) $rand(0, $size) / (float) $rand(1, $size);
 
-        $signedValue = rand(0, 1) === 0
+        $signedValue = $rand(0, 1) === 0
             ? $value
             : $value * (-1);
         return GeneratedValue::fromJustValue($signedValue, 'float');

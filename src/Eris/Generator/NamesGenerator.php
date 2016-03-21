@@ -32,7 +32,7 @@ class NamesGenerator implements Generator
         $this->list = $list;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
         $candidateNames = $this->filterDataSet(
             $this->lengthLessThanOrEqualTo($size)
@@ -40,7 +40,7 @@ class NamesGenerator implements Generator
         if (!$candidateNames) {
             return GeneratedValue::fromJustValue('', 'names');
         }
-        $index = rand(0, count($candidateNames) - 1);
+        $index = $rand(0, count($candidateNames) - 1);
         return GeneratedValue::fromJustValue($candidateNames[$index], 'names');
     }
 

@@ -156,11 +156,11 @@ trait TestTrait
 
     protected function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator)->repeat($times);
+        return Sample::of($generator, 'rand')->repeat($times);
     }
 
     protected function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator)->shrink($fromValue);
+        return Sample::of($generator, 'rand')->shrink($fromValue);
     }
 }

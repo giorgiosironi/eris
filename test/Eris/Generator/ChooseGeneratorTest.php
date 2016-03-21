@@ -6,6 +6,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->size = 0; // ignored by this kind of generator
+        $this->rand = 'rand';
     }
 
     public function testPicksRandomlyAnIntegerAmongBoundaries()
@@ -13,7 +14,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new ChooseGenerator(-10, 10);
         for ($i = 0; $i < 100; $i++) {
             $this->assertTrue(
-                $generator->contains($value = $generator($this->size)),
+                $generator->contains($value = $generator($this->size, $this->rand)),
                 "Failed to assert that the value {$value} is between -10 and 10"
             );
         }
@@ -26,7 +27,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
          * To be refactored next.
          */
         $generator = new ChooseGenerator(-10, 200);
-        $value = $generator($this->size);
+        $value = $generator($this->size, $this->rand);
         $target = 10;
         $distance = abs($target - $value->unbox());
         for ($i = 0; $i < 190; $i++) {
@@ -47,7 +48,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new ChooseGenerator(-10, 10000);
         $values = [];
         for ($i = 0; $i < 50; $i++) {
-            $values[] = $generator($this->size);
+            $values[] = $generator($this->size, $this->rand);
         }
         $this->assertGreaterThan(
             40,
@@ -59,7 +60,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingStopsToZero()
     {
         $generator = new ChooseGenerator($lowerLimit = 0, $upperLimit = 0);
-        $lastValue = $generator($this->size);
+        $lastValue = $generator($this->size, $this->rand);
         $this->assertSame(0, $generator->shrink($lastValue)->unbox());
     }
 
@@ -74,8 +75,8 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCanGenerateSingleInteger()
     {
         $generator = new ChooseGenerator(42, 42);
-        $this->assertSame(42, $generator($this->size)->unbox());
-        $this->assertSame(42, $generator->shrink($generator($this->size))->unbox());
+        $this->assertSame(42, $generator($this->size, $this->rand)->unbox());
+        $this->assertSame(42, $generator->shrink($generator($this->size, $this->rand))->unbox());
     }
 
     /**

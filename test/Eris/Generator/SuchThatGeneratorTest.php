@@ -6,6 +6,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
     
     public function testGeneratesAGeneratedValueObject()
@@ -16,7 +17,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             10,
-            $generator->__invoke($this->size)->unbox()
+            $generator->__invoke($this->size, $this->rand)->unbox()
         );
     }
 
@@ -26,7 +27,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function($n) { return $n % 2 == 0; },
             new ChooseGenerator(0, 100)
         );
-        $element = $generator->__invoke($this->size);
+        $element = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 100; $i++) {
             $element = $generator->shrink($element);
             $this->assertTrue(
@@ -49,7 +50,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function($n) { return $n % 2 == 0; },
             ConstantGenerator::box(11)
         );
-        $generator->__invoke($this->size);
+        $generator->__invoke($this->size, $this->rand);
     }
 
     public function testGivesUpShrinkingIfTheFilterIsNotSatisfiedTooManyTimes()

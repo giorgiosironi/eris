@@ -24,9 +24,9 @@ class VectorGenerator implements Generator
         $this->elementsGeneratorClass = get_class($generator);
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        return $this->generator->__invoke($size);
+        return $this->generator->__invoke($size, $rand);
     }
 
     public function shrink(GeneratedValue $vector)

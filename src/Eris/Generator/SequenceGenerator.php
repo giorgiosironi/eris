@@ -22,10 +22,10 @@ class SequenceGenerator implements Generator
         $this->singleElementGenerator = $singleElementGenerator;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $sequenceLength = rand(0, $size);
-        return $this->vector($sequenceLength)->__invoke($size);
+        $sequenceLength = $rand(0, $size);
+        return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
     public function shrink(GeneratedValue $sequence)
@@ -37,7 +37,8 @@ class SequenceGenerator implements Generator
             );
         }
 
-        $willShrinkInSize = (new BooleanGenerator())->__invoke(1);
+        // TODO: make deterministic, try first one then the other?
+        $willShrinkInSize = (new BooleanGenerator())->__invoke(1, 'rand');
         if ($willShrinkInSize) {
             return $this->shrinkInSize($sequence);
         }
