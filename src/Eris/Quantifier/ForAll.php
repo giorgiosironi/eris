@@ -30,6 +30,7 @@ class ForAll
     ];
     private $terminationConditions = [];
     private $listeners = [];
+    private $rand = 'rand';
 
     public function __construct(array $generators, $iterations, $shrinkerFactory)
     {
@@ -95,7 +96,7 @@ class ForAll
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
                     $currentSizeIndex = $iteration % count($sizes);
-                    $value = $generator($sizes[$currentSizeIndex]);
+                    $value = $generator($sizes[$currentSizeIndex], $this->rand);
                     if (!($value instanceof GeneratedValue)) {
                         throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValue, but it is " . var_export($value, true));
                     }

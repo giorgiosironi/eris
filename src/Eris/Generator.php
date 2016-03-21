@@ -9,10 +9,11 @@ use Eris\Generator\GeneratedValue;
 interface Generator
 {
     /**
-     * @params int The generation size
+     * @param int The generation size
+     * @param callable  a rand() function
      * @return GeneratedValue<T>
      */
-    public function __invoke($size);
+    public function __invoke($size, $rand);
 
     /**
      * @param GeneratedValue<T>

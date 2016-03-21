@@ -62,7 +62,7 @@ class IntegerGenerator implements Generator
         }
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
         $value = rand(0, $size);
         $mapFn = $this->mapFn;
