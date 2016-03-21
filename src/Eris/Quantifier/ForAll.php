@@ -30,13 +30,14 @@ class ForAll
     ];
     private $terminationConditions = [];
     private $listeners = [];
-    private $rand = 'rand';
+    private $rand;
 
-    public function __construct(array $generators, $iterations, $shrinkerFactory)
+    public function __construct(array $generators, $iterations, $shrinkerFactory, $rand)
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
         $this->shrinkerFactory = $shrinkerFactory;
+        $this->rand = $rand;
         $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
 

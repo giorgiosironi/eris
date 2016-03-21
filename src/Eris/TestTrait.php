@@ -8,10 +8,12 @@ use InvalidArgumentException;
 trait TestTrait
 {
     // TODO: make this private as much as possible
+    // TODO: it's time, extract an object?
     private $quantifiers = [];
     private $iterations = 100;
     private $listeners = [];
     private $terminationConditions = [];
+    private $rand = 'rand';
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
@@ -132,6 +134,15 @@ trait TestTrait
     }
 
     /**
+     * @return self
+     */
+    protected function withRand(callable $rand)
+    {
+        $this->rand = $rand;
+        return $this;
+    }
+
+    /**
      * forAll($generator1, $generator2, ...)
      */
     protected function forAll()
@@ -142,7 +153,8 @@ trait TestTrait
             $this->iterations,
             new Shrinker\ShrinkerFactory([
                 'timeLimit' => $this->shrinkingTimeLimit,
-            ])
+            ]),
+            $this->rand
         );
         foreach ($this->listeners as $listener) {
             $quantifier->hook($listener);
@@ -156,11 +168,11 @@ trait TestTrait
 
     protected function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator, 'rand')->repeat($times);
+        return Sample::of($generator, $this->rand)->repeat($times);
     }
 
     protected function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator, 'rand')->shrink($fromValue);
+        return Sample::of($generator, $this->rand)->shrink($fromValue);
     }
 }
