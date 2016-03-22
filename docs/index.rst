@@ -22,6 +22,7 @@ In property-based testing, several properties that the System Under Test must re
 .. generators/domainbased names,date,regex
 .. reproducibility: seed
 
+.. random configurability: rand, mt_rand, else?
 .. worked out examples: sort is the first
 .. listener: minimum evaluation ratio
 .. sample and sample shrinking
