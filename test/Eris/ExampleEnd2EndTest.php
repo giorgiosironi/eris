@@ -93,6 +93,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(13.0, $executionTime);
     }
 
+    public function testDisableShrinkingTest()
+    {
+        $this->runExample('DisableShrinkingTest.php');
+        $this->assertTestsAreFailing(1);
+        $this->assertRegexp(
+            '/Total calls: 1\n/',
+            (string) $this->theTest('testThenIsNotCalledMultipleTime')->failure
+        );
+    }
+
     public function testLimitToTest()
     {
         $this->runExample('LimitToTest.php');
