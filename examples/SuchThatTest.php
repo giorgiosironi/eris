@@ -37,6 +37,24 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             ->then($this->allNumbersAreBiggerThan(42));
     }
 
+    public function testSuchThatAcceptsPHPUnitConstraints()
+    {
+        $this->forAll(
+            Generator\vector(
+                5,
+                Generator\suchThat(
+                    $this->isType('integer'),
+                    Generator\oneOf(
+                        Generator\choose(0, 1000),
+                        Generator\string()
+                    )
+                )
+            )
+        )
+            ->then($this->allNumbersAreBiggerThan(42));
+    }
+
+
     public function testSuchThatShrinkingRespectsTheCondition()
     {
         $this->forAll(

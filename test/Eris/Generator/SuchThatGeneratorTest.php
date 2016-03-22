@@ -20,6 +20,18 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAcceptsPHPUnitConstraints()
+    {
+        $generator = new SuchThatGenerator(
+            $this->callback(function($n) { return $n % 2 == 0; }),
+            ConstantGenerator::box(10)
+        );
+        $this->assertEquals(
+            10,
+            $generator->__invoke($this->size)->unbox()
+        );
+    }
+
     public function testShrinksTheOriginalInput()
     {
         $generator = new SuchThatGenerator(
