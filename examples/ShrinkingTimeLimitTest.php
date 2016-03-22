@@ -4,9 +4,9 @@ use Eris\Generator;
 function very_slow_concatenation($first, $second)
 {
     if (strlen($second) > 5) {
+        sleep(1);
         $second .= 'ERROR';
     }
-    sleep(1);
     return $first . $second;
 }
 

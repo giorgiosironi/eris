@@ -90,8 +90,9 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('ShrinkingTimeLimitTest.php');
         $this->assertTestsAreFailing(1);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
-        $this->assertGreaterThanOrEqual(4.0, $executionTime);
-        $this->assertLessThanOrEqual(13.0, $executionTime);
+        // one failure, two shrinking attempts
+        $this->assertGreaterThanOrEqual(3.0, $executionTime);
+        $this->assertLessThanOrEqual(5.0, $executionTime);
     }
 
     public function testLimitToTest()
