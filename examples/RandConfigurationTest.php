@@ -13,6 +13,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
             ->forAll(
                 Generator\int()
             )
+            ->withMaxSize(1000 * 1000* 1000)
             ->then($this->isInteger());
     }
 
@@ -25,8 +26,6 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
             )
             ->then($this->isInteger());
     }
-
-    // TODO: test seeding
 
     private function isInteger()
     {

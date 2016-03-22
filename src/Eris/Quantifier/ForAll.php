@@ -19,7 +19,6 @@ class ForAll
 
     private $generators;
     private $iterations;
-    private $sizes;
     private $maxSize;
     private $shrinkerFactory;
     private $antecedents = [];
@@ -84,7 +83,7 @@ class ForAll
 
     public function __invoke(callable $assertion)
     {
-        $sizes = $this->sizes($this->maxSize);
+        $sizes = Size::withTriangleGrowth($this->maxSize);
         try {
             $this->notifyListeners('startPropertyVerification');
             for (
@@ -96,8 +95,7 @@ class ForAll
                 $generatedValues = [];
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
-                    $currentSizeIndex = $iteration % count($sizes);
-                    $value = $generator($sizes[$currentSizeIndex], $this->rand);
+                    $value = $generator($sizes->at($iteration), $this->rand);
                     if (!($value instanceof GeneratedValue)) {
                         throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValue, but it is " . var_export($value, true));
                     }
@@ -175,59 +173,6 @@ class ForAll
             }
         }
         return $generators;
-    }
-
-    private function sizes($maxSize)
-    {
-        if (!is_null($this->sizes)) {
-            return $this->sizes;
-        }
-
-        $sizeGrowth = $this->triangleNumber();
-        //$sizeGrowth = $this->linearGrowth();
-
-        $sizes = [];
-        for ($x = 0; $x <= $maxSize; $x++) {
-            $candidateSize = $sizeGrowth($x);
-            if ($candidateSize <= $maxSize) {
-                $sizes[] = $candidateSize;
-            } else {
-                break;
-            }
-        }
-        $this->sizes = $sizes;
-
-        return $this->sizes;
-    }
-
-    /**
-     * Returns the identity function.
-     */
-    private function linearGrowth()
-    {
-        return function($n) {
-            return $n;
-        };
-    }
-
-    /**
-     * Returns a function with a growth which approximates (n^2)/2.
-     * The function returns the number of dots needed to compose a
-     * triangle with n dots on a side.
-     *
-     * E.G.: when n=3 the function evaluates to 6
-     *   .
-     *  . .
-     * . . .
-     */
-    private function triangleNumber()
-    {
-        return function($n) {
-            if ($n === 0) {
-                return 0;
-            }
-            return ($n * ($n + 1)) / 2;
-        };
     }
 
     private function notifyListeners(/*$event, [$parameterA[, $parameterB[, ...]]]*/)
