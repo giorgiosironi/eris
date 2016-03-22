@@ -25,6 +25,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["LogFileTest.php"],
             ["NamesTest.php"],
             ["OneOfTest.php"],
+            ["RandConfigurationTest.php"],
             ["RegexTest.php"],
             ["SampleTest.php"],
             ["SequenceTest.php"],
@@ -206,6 +207,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $result->failure,
             $secondRunResult->failure
+        );
+    }
+
+    public function testSizeCustomization()
+    {
+        $this->runExample('SizeTest.php');
+        $this->assertTestsAreFailing(1);
+        $this->assertRegexp(
+            "/Failed asserting that 100000 is less than 100000/",
+            (string) $this->theTest('testMaxSizeCanBeIncreased')->failure
         );
     }
 
