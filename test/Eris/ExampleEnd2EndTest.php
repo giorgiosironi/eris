@@ -111,6 +111,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
 
     public function testGenericErrorTest()
     {
+        // TODO: turn on this by default? Or remove it?
         $this->setEnvironmentVariable('ERIS_ORIGINAL_INPUT', 1);
         $this->runExample('ErrorTest.php');
         $this->assertTestsAreFailing(1);
@@ -188,6 +189,23 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp(
             "/triple sum array/",
             (string) $this->theTest('testShrinkingMappedValuesInsideOtherGenerators')->failure
+        );
+    }
+
+    public function testReproducibilityWithSeed()
+    {
+        $this->runExample('AlwaysFailsTest.php');
+        $result = $this->results->testsuite->testcase;
+        $output = (string) $result->{"system-out"};
+        if (!preg_match('/ERIS_SEED=([0-9]+)/', $output, $matches)) {
+            $this->fail("Cannot find ERIS_SEED in output to rerun the test deterministically: " . var_export($output, true));
+        } 
+        $this->setEnvironmentVariable('ERIS_SEED', $matches[1]);
+        $this->runExample('AlwaysFailsTest.php');
+        $secondRunResult = $this->results->testsuite->testcase;
+        $this->assertEquals(
+            $result->failure,
+            $secondRunResult->failure
         );
     }
 

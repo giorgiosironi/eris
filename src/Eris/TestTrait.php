@@ -41,7 +41,7 @@ trait TestTrait
     {
         if ($this->hasFailed()) {
             global $argv;
-            $command = "ERIS_SEED={$this->seed} " . implode(" ", $argv);
+            $command = "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter {$this->toString()}";
             echo PHP_EOL;
             echo "Reproduce with:", PHP_EOL;
             echo $command, PHP_EOL;
