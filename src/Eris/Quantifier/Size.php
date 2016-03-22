@@ -1,7 +1,9 @@
 <?php
 namespace Eris\Quantifier;
 
-class Size
+use Countable;
+
+class Size implements Countable
 {
     private $list;
     
@@ -63,4 +65,24 @@ class Size
         return $this->list[$index];   
     }
 
+    public function max()
+    {
+        return max($this->list);
+    }
+
+    public function limit($maximumNumber)
+    {
+        $uniformSample = [];
+        $factor = count($this->list) / ($maximumNumber - 1);
+        for ($i = 0; $i < $maximumNumber; $i++) {
+            $position = min(floor($i * $factor), count($this->list) - 1);
+            $uniformSample[] = $this->at($position);
+        }
+        return new self($uniformSample);
+    }
+
+    public function count()
+    {
+        return count($this->list);
+    }
 }

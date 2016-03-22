@@ -83,7 +83,8 @@ class ForAll
 
     public function __invoke(callable $assertion)
     {
-        $sizes = Size::withTriangleGrowth($this->maxSize);
+        $sizes = Size::withTriangleGrowth($this->maxSize)
+            ->limit($this->iterations);
         try {
             $this->notifyListeners('startPropertyVerification');
             for (

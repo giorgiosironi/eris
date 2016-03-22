@@ -28,4 +28,29 @@ class SizeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $size->at(3));
         $this->assertEquals(4, $size->at(4));
     }
+
+    public static function limits()
+    {
+        return [
+            [2],
+            [5],
+            [10],
+            [20],
+            [100],
+            [10000],
+        ];
+    }
+
+    /**
+     * @dataProvider limits
+     */
+    public function testCoversAUniformSubsetWhenLimitedToTheNumberOfIterations($limit)
+    {
+        $size = Size::withTriangleGrowth(1000)
+            ->limit($limit);
+        $this->assertEquals($limit, count($size));
+        $this->assertEquals(0, $size->at(0));
+        $this->assertEquals(990, $size->at($limit - 1));
+        $this->assertEquals(0, $size->at($limit));
+    }
 }
