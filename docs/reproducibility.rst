@@ -36,7 +36,7 @@ When you run this test, you may obtain an output very similar to:
     FAILURES!
     Tests: 1, Assertions: 0, Failures: 1.
 
-If you take the suggested command line and execute it, you will see the same error message, selecting `d` as the random input:
+If you take the suggested command line and execute it, you will see the same error message, selecting ``d`` as the random input:
 
 .. code-block:: bash
 
@@ -65,4 +65,4 @@ If you take the suggested command line and execute it, you will see the same err
     FAILURES!
     Tests: 1, Assertions: 0, Failures: 1.
 
-Running the test without a `ERIS_SEED` environment variable will restore the previous behavior, exploring the Generator space in search of brand new values.
+Running the test without a ``ERIS_SEED`` environment variable will restore the previous behavior, exploring the Generator space in search of brand new values.
