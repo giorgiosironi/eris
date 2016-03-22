@@ -17,10 +17,10 @@ In property-based testing, several properties that the System Under Test must re
    generators/collections
    generators/composite
    limits
+   reproducibility
    listeners
 .. filtering
 .. generators/domainbased names,date,regex
-.. reproducibility: seed
 
 .. random configurability: rand, mt_rand, else?
 .. worked out examples: sort is the first
