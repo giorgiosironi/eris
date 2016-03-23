@@ -25,43 +25,9 @@ class MersenneTwister implements Source
     private $c = 0xefc60000;
     private $l = 18;
     
-    public function __construct($seed)
+    public function seed($seed)
     {
         $this->seed = $seed;
-        $this->index = $this->n;
-        $this->seedMT($seed);
-        assert('count($this->mt) === 624');
-        $this->extractNumber = function() {
-            assert('$this->index <= $this->n');
-            if ($this->index >= $this->n) {
-                $this->twist();
-            }
-            $y = $this->mt[$this->index];
-            $y = $y ^ (($y >> $this->u) & $this->d);
-            assert('$y <= 0xffffffff');
-            $y = $y ^ (($y << $this->s) & $this->b);
-            assert('$y <= 0xffffffff');
-            $y = $y ^ (($y << $this->t) & $this->c);
-            assert('$y <= 0xffffffff');
-            $y = $y ^ ($y >> $this->l);
-            assert('$y <= 0xffffffff');
-            $this->index = $this->index + 1;
-            return $y & $this->wMask;
-        };
-    }
-
-    public function extractNumber()
-    {
-        return call_user_func($this->extractNumber);
-    }
-
-    public function max()
-    {
-        return 0xffffffff;
-    }
-
-    private function seedMt($seed)
-    {
         $this->index = $this->n;
         $this->mt[0] = $seed & $this->wMask;
         for ($i = 1; $i <= $this->n - 1; $i++) {
@@ -70,6 +36,32 @@ class MersenneTwister implements Source
             ) + $i) & $this->wMask;
             assert('$this->mt[$i] <= $this->wMask');
         }
+        assert('count($this->mt) === 624');
+        return $this;
+    }
+
+    public function extractNumber()
+    {
+        assert('$this->index <= $this->n');
+        if ($this->index >= $this->n) {
+            $this->twist();
+        }
+        $y = $this->mt[$this->index];
+        $y = $y ^ (($y >> $this->u) & $this->d);
+        assert('$y <= 0xffffffff');
+        $y = $y ^ (($y << $this->s) & $this->b);
+        assert('$y <= 0xffffffff');
+        $y = $y ^ (($y << $this->t) & $this->c);
+        assert('$y <= 0xffffffff');
+        $y = $y ^ ($y >> $this->l);
+        assert('$y <= 0xffffffff');
+        $this->index = $this->index + 1;
+        return $y & $this->wMask;
+    }
+
+    public function max()
+    {
+        return 0xffffffff;
     }
 
     private function twist()

@@ -5,8 +5,8 @@ class RandomRangeTest extends \PHPUnit_Framework_TestCase
 {
     public function testTheRange()
     {
-        $source = new MersenneTwister(424242);
-        $range = new RandomRange($source);
+        $range = new RandomRange(new MersenneTwister());
+        $range->seed(424242);
         $bins = [];
         $lower = 10;
         $upper = 20;
