@@ -1,5 +1,6 @@
 <?php
 use Eris\Generator;
+use Eris\Random;
 use Eris\TestTrait;
 
 class RandConfigurationTest extends PHPUnit_Framework_TestCase
@@ -21,6 +22,16 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->withRand('mt_rand')
+            ->forAll(
+                Generator\int()
+            )
+            ->then($this->isInteger());
+    }
+
+    public function testUsingThePurePhpMtRandFunction()
+    {
+        $this
+            ->withRand(Random\purePhpMtRand())
             ->forAll(
                 Generator\int()
             )

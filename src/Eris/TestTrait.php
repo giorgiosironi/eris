@@ -79,6 +79,16 @@ trait TestTrait
     }
 
     /**
+     * @beforeClass
+     */
+    public static function loadAllErisRandom()
+    {
+        foreach(glob(__DIR__ . '/Random/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    /**
      * @after
      */
     public function checkConstraintsHaveNotSkippedTooManyIterations()
@@ -136,10 +146,18 @@ trait TestTrait
     /**
      * @return self
      */
-    protected function withRand(callable $randFunction, callable $seedFunction = null)
+    protected function withRand($randFunction)
     {
-        $this->randFunction = $randFunction;
-        if ($seedFunction === null) {
+        // TODO: invert and wrap rand, srand into objects?
+        if ($randFunction instanceof \Eris\Random\RandomRange) {
+            $this->randFunction = function($lower = null, $upper = null) use ($randFunction) {
+                return $randFunction->rand($lower, $upper);
+            };
+            $this->seedFunction = function($seed) use ($randFunction) {
+                return $randFunction->seed($seed);
+            };
+        }
+        if (is_callable($randFunction)) {
             switch ($randFunction) {
                 case 'rand':
                     $seedFunction = 'srand';
@@ -150,8 +168,9 @@ trait TestTrait
                 default:
                     throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
             }
+            $this->randFunction = $randFunction;
+            $this->seedFunction = $seedFunction;
         }
-        $this->seedFunction = $seedFunction;
         return $this;
     }
 
