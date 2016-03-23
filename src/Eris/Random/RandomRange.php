@@ -2,7 +2,7 @@
 namespace Eris\Random;
 
 /**
- * @return TODO
+ * @return RandomRange
  */
 function purePhpMtRand()
 {
@@ -31,6 +31,10 @@ class RandomRange
      * Return a random number.
      * If $lower and $upper are specified, the number will fall into their
      * inclusive range.
+     * Otherwise the number from the source will be directly returned.
+     *
+     * @param integer|null $lower
+     * @param integer|null $upper
      * @return integer
      */
     public function rand($lower = null, $upper = null)
@@ -40,7 +44,7 @@ class RandomRange
         }
 
         $delta = $upper - $lower;
-        $divisor = $this->source->max() / ($delta + 1);
+        $divisor = ($this->source->max()) / ($delta + 1);
 
         do { 
             $retval = (int) floor($this->source->extractNumber() / $divisor);
