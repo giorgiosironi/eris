@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Random;
 
-class MersenneTwister
+class MersenneTwister implements Source
 {
     private $seed;
     private $index;
