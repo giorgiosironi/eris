@@ -133,3 +133,14 @@ The shrinking for this test will not run for more than 2 seconds (although the t
     FAILURES!
     Tests: 1, Assertions: 8, Errors: 1.
 
+Disabling shrinking
+-------------------
+
+In some cases the ``then()`` method is non-deterministic as it spawns other processes or talks to other services. Moreover, ``then()`` can be very slow to execute when targeting APIs for end-to-end tests. Finally, if it performs any cleanup executing it for shrinking may clean lods or databases traces from the actual test failure, preventing effective debugging.
+
+Therefore, it is possible to configure Eris to disable the shrinking process. As a result, the first assertion failure will stop the test and let the exception bubble up:
+
+.. literalinclude:: ../examples/DisableShrinkingTest.php
+   :language: php
+
+This test will show a failure message containing ``Total calls: 1``.

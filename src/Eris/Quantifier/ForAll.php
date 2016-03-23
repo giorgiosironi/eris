@@ -30,6 +30,7 @@ class ForAll
     private $terminationConditions = [];
     private $listeners = [];
     private $rand;
+    private $shrinkingEnabled = true;
 
     public function __construct(array $generators, $iterations, $shrinkerFactory, $rand)
     {
@@ -40,21 +41,40 @@ class ForAll
         $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
 
+    /**
+     * @param integer $maxSize
+     * @return self
+     */
     public function withMaxSize($maxSize)
     {
         $this->maxSize = $maxSize;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     public function hook(Listener $listener)
     {
         $this->listeners[] = $listener;
         return $this;
     }
 
-    public function stopOn($terminationCondition)
+    /**
+     * @return self
+     */
+    public function stopOn(TerminationCondition $terminationCondition)
     {
         $this->terminationConditions[] = $terminationCondition;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function disableShrinking()
+    {
+        $this->shrinkingEnabled = false;
         return $this;
     }
 
@@ -118,6 +138,9 @@ class ForAll
                         'tuple'
                     ))
                     ->onFailure(function($generatedValues, $exception) use ($assertion) {
+                        if (!$this->shrinkingEnabled) {
+                            throw $exception;
+                        }
                         $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
