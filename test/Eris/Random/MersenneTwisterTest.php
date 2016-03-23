@@ -19,7 +19,7 @@ class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
             [424242, 100],
             [0, 100],
             [0xffffffff, 100],
-        //    [0xfffffffffffffff, 100],
+            [0xfffffffffffffff, 100],
         ];
     }
     

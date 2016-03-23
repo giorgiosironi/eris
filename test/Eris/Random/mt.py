@@ -12,7 +12,7 @@ class MT19937:
         # Initialize the index to 0
         self.index = 624
         self.mt = [0] * 624
-        self.mt[0] = seed  # Initialize the initial state to the seed
+        self.mt[0] = _int32(seed)  # Initialize the initial state to the seed
         for i in range(1, 624):
             self.mt[i] = _int32(
                 1812433253 * (self.mt[i - 1] ^ self.mt[i - 1] >> 30) + i)
