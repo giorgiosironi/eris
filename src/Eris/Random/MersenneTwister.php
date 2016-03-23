@@ -55,6 +55,11 @@ class MersenneTwister
         return call_user_func($this->extractNumber);
     }
 
+    public function max()
+    {
+        return 0xffffffff;
+    }
+
     private function seedMt($seed)
     {
         $this->index = $this->n;
