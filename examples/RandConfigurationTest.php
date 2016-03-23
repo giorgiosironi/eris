@@ -18,7 +18,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
             ->then($this->isInteger());
     }
 
-    public function testUsingTheMtRandFunction()
+    public function testUsingTheDefaultMtRandFunction()
     {
         $this
             ->withRand('mt_rand')

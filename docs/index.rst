@@ -19,6 +19,7 @@ In property-based testing, several properties that the System Under Test must re
    limits
    reproducibility
    listeners
+   randomness
 .. filtering
 .. generators/domainbased names,date,regex
 

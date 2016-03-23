@@ -51,3 +51,5 @@ By default size is equal to ``1000``, which means no number greater than ``1000`
     /home/giorgio/code/eris/examples/SizeTest.php:22
     /home/giorgio/code/eris/examples/SizeTest.php:22
 
+The maximum sizes that can be reached are also limited by the :ref:`underlying random number generator<randomness-size>`. 
+

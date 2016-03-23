@@ -61,6 +61,7 @@ class MersenneTwister implements Source
 
     public function max()
     {
+        // TODO: are we sure? Why the standard implementations say 2^31? To be compatible with 32 bit versions of PHP?
         return 0xffffffff;
     }
 
