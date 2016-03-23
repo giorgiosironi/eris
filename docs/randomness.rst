@@ -34,11 +34,14 @@ The size that can be set and actually reached with ``withMaxSize()`` is limited 
 
 * For ``rand`` the maximum values is the result of ``getrandmax()``, which is platform dependent but usually 2^31-1.
 * For ``mt_rand`` the maximum value is the result of ``mt_getrandmax()``, which is also platform dependent but usually 2^31-1.
-* For ``purePhpMtRand``, being implemented in PHP code, the maximum value is 2^32-1.
+* For ``purePhpMtRand()``, being implemented in PHP code, the maximum value is 2^32-1.
 
 The limitation on size depends not only on the processor architecture but also on the parameters of the algorithm. Both ``mt_rand`` and `purePhpMtRand()`` implement `MT19937`_, which generates 32-bit integers that can be scaled on any smaller interval.
 
+However, according to the `PHP source code`_, ``mt_rand`` implementations uses a lower limit for backward compatibility with ``rand``. ``purePhpMtRand()`` has no need for backward compatibility and chooses to allow numbers up to 2^32-1, which is the maximum unsigned number representable with 32 bit.
+
 .. _MT19937: https://en.wikipedia.org/wiki/Mersenne_Twister 
+.. _PHP source code: https://github.com/php/php-src/blob/master/ext/standard/rand.c#L361
 
 Seeding
 -------

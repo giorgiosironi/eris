@@ -40,6 +40,21 @@ class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($oracleOutput, $numbers);
     }
 
+    public function testDistribution()
+    {
+        $twister = new MersenneTwister();
+        $twister->seed(424242);
+        $bins = array_fill(0, 2, 0);
+        for ($i = 0; $i < 1000; $i++) {
+            $number = $twister->extractNumber();
+            $bin = (int) floor($number / pow(2, 31));
+            $bins[$bin]++;
+        }
+        foreach ($bins as $count) {
+            $this->assertGreaterThan(400, $count);
+        }
+    }
+
     private function enableAssertions()
     {
         assert_options(ASSERT_ACTIVE, 1);
