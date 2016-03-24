@@ -17,5 +17,16 @@ class LogFileTest extends PHPUnit_Framework_TestCase
                 $this->assertInternalType('integer', $number);
             });
     }
+
+    public function testLogOfFailuresAndShrinking()
+    {
+        $this->forAll(
+            Generator\int()
+        )
+            ->hook(Listener\log('/tmp/eris-log-file-shrinking.log'))
+            ->then(function($number) {
+                $this->assertLessThanOrEqual(42, $number);
+            });
+    }
 }
 

@@ -22,7 +22,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             ["GeneratorSamplesTest.php"],
             ["IntegerTest.php"],
             ["LimitToTest.php"],
-            ["LogFileTest.php"],
             ["NamesTest.php"],
             ["OneOfTest.php"],
             ["RegexTest.php"],
@@ -198,6 +197,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp(
             "/triple sum array/",
             (string) $this->theTest('testShrinkingMappedValuesInsideOtherGenerators')->failure
+        );
+    }
+
+    public function testLogFileTest()
+    {
+        $this->runExample('LogFileTest.php');
+        $this->assertTestsAreFailing(1);
+        $this->assertRegexp(
+            "/asserting that 43 is equal to 42 or is less than 42/",
+            (string) $this->theTest('testLogOfFailuresAndShrinking')->failure
         );
     }
 

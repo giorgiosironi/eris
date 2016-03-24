@@ -9,7 +9,11 @@ Consider that Eris performs (by default) 100 iterations for each ``forAll()`` in
 
 * ``startPropertyVerification()`` is called before the first iteration starts.
 * ``endPropertyVerification($ordinaryEvaluations)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of iterations due to failures or ``when()`` filters not being satisfied.
-* ``newGeneration(array $generatedValues, $iteration)`` is called after generating a new iteration, and is passed the tuple of generated values which corresponds to the argument of ``then()`` along with the 0-based index of the iteration.
+* ``newGeneration(array $generation, $iteration)`` is called after generating a new iteration, and is passed the tuple of values along with the 0-based index of the iteration.
+* ``failure(array $generation, Exception $e)`` is called after the failure of an assertion (and not for generic exceptions). The method can be called only once per ``then()`` run.
+* ``shrinking(array $generation)`` is called before each shrinking attempt, with the values that will be used as the simplified input.
+
+``$generation`` is always an array of the same form as the arguments passed to ``then()``, without any Eris class wrapping them.
 
 Collect Frequencies
 -------------------
@@ -72,13 +76,20 @@ A file will be written during the test run with the following contents:
 
 .. code-block:: bash
 
-    [2016-03-19T14:50:11+00:00][7822] iteration 0
-    [2016-03-19T14:50:11+00:00][7822] iteration 1
-    [2016-03-19T14:50:11+00:00][7822] iteration 2
-    [2016-03-19T14:50:11+00:00][7822] iteration 3
-    [2016-03-19T14:50:11+00:00][7822] iteration 4
-    [2016-03-19T14:50:11+00:00][7822] iteration 5
-    [2016-03-19T14:50:11+00:00][7822] iteration 6
+    ...
+    [2016-03-24T09:14:20+00:00][2593] iteration 12: [-9]
+    [2016-03-24T09:14:20+00:00][2593] iteration 13: [-59]
+    [2016-03-24T09:14:20+00:00][2593] iteration 14: [-51]
+    [2016-03-24T09:14:20+00:00][2593] iteration 15: [-52]
+    [2016-03-24T09:14:20+00:00][2593] iteration 16: [-83]
+    [2016-03-24T09:14:20+00:00][2593] iteration 17: [78]
+    [2016-03-24T09:14:20+00:00][2593] failure: [78]. Failed asserting that 78 is equal
+    to 42 or is less than 42.
+    [2016-03-24T09:14:20+00:00][2593] shrinking: [77]
+    [2016-03-24T09:14:20+00:00][2593] shrinking: [76]
+    [2016-03-24T09:14:20+00:00][2593] shrinking: [75]
+    [2016-03-24T09:14:20+00:00][2593] shrinking: [74]
+    [
     ...
 
 It is not advised to rely on this format for parsing, being it only oriented to human readability.
