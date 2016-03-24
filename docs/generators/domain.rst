@@ -63,7 +63,9 @@ The ``date()`` Generator produces uniformly distributed DateTime objects.
 
 ``testDefaultValuesForTheInterval`` shows that by default, given the 32-bit random generators used as a source, dates span the 1970-2038 interval of 32-bit UNIX timestamps.
 
-``testFromDayOfYearFactoryMethodRespectsDistanceBetweenDays`` uses the :ref:``choose()<choose>`` Generator to pick directly integers and build ``DateTime`` objects itself. The test demonstrates a bug in the ``datetime`` PHP extension when an off-by-one error can be introduced when dealing with leap years.
+``testFromDayOfYearFactoryMethodRespectsDistanceBetweenDays`` uses the :ref:``choose()<choose>`` Generator to pick directly integers and build ``DateTime`` objects itself. The test demonstrates `a bug`_ in the ``datetime`` PHP extension when an off-by-one error can be introduced when dealing with leap years.
+
+.. _a bug: https://bugs.php.net/bug.php?id=70956
 
 Regex
 -----
