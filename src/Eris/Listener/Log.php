@@ -55,6 +55,17 @@ class Log
         ));
     }
 
+    public function shrinking(array $generation)
+    {
+        $this->log(sprintf(
+            "shrinking: %s",
+            // TODO: duplication with collect
+            json_encode(
+                $generation
+            )
+        ));
+    }
+
     private function log($text)
     {
         fwrite(

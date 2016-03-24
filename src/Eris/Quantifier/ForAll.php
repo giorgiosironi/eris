@@ -144,10 +144,14 @@ class ForAll
                         }
                         $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
-                        $shrinking->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
-                            return $this->antecedentsAreSatisfied($generatedValues->unbox());
-                        });
-                        $shrinking->from($generatedValues, $exception);
+                        $shrinking
+                            ->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
+                                return $this->antecedentsAreSatisfied($generatedValues->unbox());
+                            })
+                            ->onAttempt(function(GeneratedValue $generatedValues) {
+                                $this->notifyListeners('shrinking', $generatedValues->unbox());
+                            })
+                            ->from($generatedValues, $exception);
                     })
                     ->execute();
             }

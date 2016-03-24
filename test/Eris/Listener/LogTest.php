@@ -37,6 +37,15 @@ class LogTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testWritesALineForEachShrinkingAttempt()
+    {
+        $this->log->shrinking([22], new \PHPUnit_Framework_AssertionFailedError("Failed asserting that..."));
+        $this->assertEquals(
+            "[2011-03-13T07:06:40+00:00][1234] shrinking: [22]" . PHP_EOL,
+            file_get_contents($this->file)
+        );
+    }
+
     public function testCleansTheFile()
     {
         $this->log->newGeneration([], 42);

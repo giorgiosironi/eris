@@ -21,4 +21,8 @@ abstract class EmptyListener implements Listener
     public function failure(array $generation, Exception $exception)
     {
     }
+
+    public function shrinking(array $generation)
+    {
+    }
 }

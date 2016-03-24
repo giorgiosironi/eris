@@ -30,4 +30,10 @@ interface Listener
      * @return void
      */
     public function failure(array $generation, Exception $exception);
+
+    /**
+     * @param array  of mixed values
+     * @return void
+     */
+    public function shrinking(array $generation);
 }
