@@ -10,18 +10,18 @@ use PHPUnit_Framework_ExpectationFailedException;
  * @param callable|PHPUnit_Framework_Constraint $filter
  * @return SuchThatGenerator
  */
-function filter($filter, Generator $generator)
+function filter($filter, Generator $generator, $maximumAttempts = 100)
 {
-    return suchThat($filter, $generator);
+    return suchThat($filter, $generator, $maximumAttempts);
 }
 
 /**
  * @param callable|PHPUnit_Framework_Constraint $filter
  * @return SuchThatGenerator
  */
-function suchThat($filter, Generator $generator)
+function suchThat($filter, Generator $generator, $maximumAttempts = 100)
 {
-    return new SuchThatGenerator($filter, $generator);
+    return new SuchThatGenerator($filter, $generator, $maximumAttempts);
 }
 
 class SuchThatGenerator implements Generator
@@ -33,11 +33,11 @@ class SuchThatGenerator implements Generator
     /**
      * @param callable|PHPUnit_Framework_Constraint
      */
-    public function __construct($filter, $generator)
+    public function __construct($filter, $generator, $maximumAttempts = 100)
     {
         $this->filter = $filter;
         $this->generator = $generator;
-        $this->maximumAttempts = 10;
+        $this->maximumAttempts = $maximumAttempts;
     }
 
     public function __invoke($size)
