@@ -2,6 +2,7 @@
 namespace Eris;
 
 use Eris\Generator\GeneratedValue;
+use Exception;
 
 interface Listener
 {
@@ -17,9 +18,16 @@ interface Listener
     public function endPropertyVerification($ordinaryEvaluations);
 
     /**
-     * @param array  of GeneratedValue
+     * @param array  of mixed values
      * @param integer  index of current iteration
      * @return void
      */
-    public function newGeneration(array $generatedValues, $iteration);
+    public function newGeneration(array $generation, $iteration);
+
+    /**
+     * @param array  of mixed values
+     * @param Exception  assertion failure
+     * @return void
+     */
+    public function failure(array $generation, Exception $exception);
 }

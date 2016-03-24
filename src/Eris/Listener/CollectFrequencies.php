@@ -48,15 +48,9 @@ class CollectFrequencies
         }
     }
 
-    public function newGeneration(array $generatedValues, $iteration)
+    public function newGeneration(array $generation, $iteration)
     {
-        $values = array_map(
-            function($generatedValue) {
-                return $generatedValue->unbox();
-            },
-            $generatedValues
-        );
-        $key = call_user_func_array($this->collectFunction, $values);
+        $key = call_user_func_array($this->collectFunction, $generation);
         // TODO: check key is a correct key, identity may lead this to be a non-string and non-integer value
         // have a default for arrays and other scalars
         if (!is_string($key) && !is_integer($key)) {

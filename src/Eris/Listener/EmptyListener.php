@@ -2,6 +2,7 @@
 namespace Eris\Listener;
 
 use Eris\Listener;
+use Exception;
 
 abstract class EmptyListener implements Listener
 {
@@ -13,7 +14,11 @@ abstract class EmptyListener implements Listener
     {
     }
 
-    public function newGeneration(array $generatedValues, $iteration)
+    public function newGeneration(array $generation, $iteration)
+    {
+    }
+
+    public function failure(array $generation, Exception $exception)
     {
     }
 }

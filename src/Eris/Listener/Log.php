@@ -3,6 +3,7 @@ namespace Eris\Listener;
 
 use Eris\Listener;
 use Eris\Listener\EmptyListener;
+use Exception;
 
 function log($file)
 {
@@ -25,14 +26,33 @@ class Log
         $this->pid = $pid;
     }
 
-    public function newGeneration(array $generatedValues, $iteration)
+    public function newGeneration(array $generation, $iteration)
     {
-        $this->log("iteration $iteration");
+        $this->log(sprintf(
+            "iteration %d: %s",
+            $iteration,
+            // TODO: duplication with collect
+            json_encode(
+                $generation
+            )
+        ));
     }
 
     public function endPropertyVerification($ordinaryEvaluations)
     {
         fclose($this->fp);
+    }
+
+    public function failure(array $generation, Exception $exception)
+    {
+        $this->log(sprintf(
+            "failure: %s. %s",
+            // TODO: duplication with collect
+            json_encode(
+                $generation
+            ),
+            $exception->getMessage()
+        ));
     }
 
     private function log($text)

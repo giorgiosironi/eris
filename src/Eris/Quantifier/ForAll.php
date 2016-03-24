@@ -122,7 +122,12 @@ class ForAll
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
-                $this->notifyListeners('newGeneration', $generatedValues, $iteration);
+                $generation = GeneratedValue::fromValueAndInput(
+                    $values,
+                    $generatedValues, 
+                    'tuple'
+                );
+                $this->notifyListeners('newGeneration', $generation->unbox(), $iteration);
 
                 if (!$this->antecedentsAreSatisfied($values)) {
                     continue;
@@ -131,12 +136,9 @@ class ForAll
                 $this->ordinaryEvaluations++;
                 Evaluation::of($assertion)
                     // TODO: coupling between here and the TupleGenerator used inside?
-                    ->with(GeneratedValue::fromValueAndInput(
-                        $values,
-                        $generatedValues, 
-                        'tuple'
-                    ))
+                    ->with($generation)
                     ->onFailure(function($generatedValues, $exception) use ($assertion) {
+                        $this->notifyListeners('failure', $generatedValues->unbox(), $exception);
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
                         }
