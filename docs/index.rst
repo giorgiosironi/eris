@@ -16,10 +16,10 @@ In property-based testing, several properties that the System Under Test must re
    generators/scalar
    generators/collections
    generators/composite
+   generators/domain
    limits
    listeners
 .. filtering
-.. generators/domainbased names,date,regex
 .. reproducibility: seed
 
 .. worked out examples: sort is the first
