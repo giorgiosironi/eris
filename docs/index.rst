@@ -5,7 +5,10 @@ Eris is a porting of `QuickCheck`_  and property-based testing tools to the PHP 
 
 .. _QuickCheck: https://hackage.haskell.org/package/QuickCheck
 
-In property-based testing, several properties that the System Under Test must respect are defined, and a large sample of generated inputs is sent to it in an attempt to break the properties.
+In property-based testing, several properties that the System Under Test must respect are defined, and a large sample of generated inputs is sent to it in an attempt to break the properties. With a few lines of code, hundreds of test cases can be generated and run.
+
+    "Don't write tests. Generate them."
+    -- John Hughes
 
 .. toctree::
    :maxdepth: 2
