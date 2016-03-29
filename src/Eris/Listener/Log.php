@@ -2,7 +2,6 @@
 namespace Eris\Listener;
 
 use Eris\Listener;
-use Eris\Listener\EmptyListener;
 
 function log($file)
 {
