@@ -3,7 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use DomainException;
-use InvalidArgumentException;
 
 /**
  * @param mixed $value  the only value to generate
