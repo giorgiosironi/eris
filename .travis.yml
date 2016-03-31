@@ -2,6 +2,10 @@ language: php
 
 sudo: false
 
+env:
+  global:
+    - secure: "Vbdts9k+dvnzAmuRPXMDZLw2+s+4q0Ijdbx97rCBefrBbG+6elfR0ao60135QVAoiQxTR//Iz6ZZbsFfTTt9Qo4SVvulzepuLz4lDQmO1BTeKlAWyM650+uFDP39iRY+i6Z7w5RGZzw4F3Sjw8N4kcxdrkkJLH4p9ZQkA5uSkzg="
+
 php:
   - 5.5
   - 5.6
