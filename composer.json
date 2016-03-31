@@ -21,11 +21,11 @@
         "phpunit/phpunit": ">4,<6"
     },
     "require-dev": {
-        "icomefromthenet/reverse-regex": "v0.0.6.2"
+        "icomefromthenet/reverse-regex": "v0.0.6.3"
     },
     "suggest":
     {
-        "icomefromthenet/reverse-regex": "v0.0.6.2 for the regex() Generator"
+        "icomefromthenet/reverse-regex": "v0.0.6.3 for the regex() Generator"
     },
     "autoload": {
         "psr-0": {"" : "src/"},
