@@ -209,7 +209,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     private function runExample($testFile)
     {
         $this->testFile = $testFile;
-        $examplesDir = realpath(__DIR__ . '/../../examples');
+        $examplesDir = realpath(__DIR__ . '/../examples');
         $samplesTestCase = $examplesDir . '/' . $testFile;
         $logFile = tempnam(sys_get_temp_dir(), 'phpunit_log_');
         $environmentVariables = [];
