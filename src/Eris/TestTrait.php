@@ -47,36 +47,6 @@ trait TestTrait
     }
 
     /**
-     * @beforeClass
-     */
-    public static function loadAllErisGenerators()
-    {
-        foreach(glob(__DIR__ . '/Generator/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisAntecedents()
-    {
-        foreach(glob(__DIR__ . '/Antecedent/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisListeners()
-    {
-        foreach(glob(__DIR__ . '/Listener/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
      * @after
      */
     public function checkConstraintsHaveNotSkippedTooManyIterations()
