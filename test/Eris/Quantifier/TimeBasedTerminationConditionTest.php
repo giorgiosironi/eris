@@ -5,7 +5,7 @@ use DateInterval;
 
 class TimeBasedTerminationConditionTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->time = function() {
             return $this->currentTime;
