@@ -4,15 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-/**
- * @param Generator $singleElementGenerator
- * @return SetGenerator
- */
-function set($singleElementGenerator)
-{
-    return new SetGenerator($singleElementGenerator);
-}
-
 class SetGenerator implements Generator
 {
     private $singleElementGenerator;

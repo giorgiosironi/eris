@@ -4,50 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-/**
- * Generates a positive or negative integer (with absolute value bounded by
- * the generation size).
- */
-function int()
-{
-    return new IntegerGenerator();
-}
-
-/**
- * Generates a positive integer (bounded by the generation size).
- */
-function pos()
-{
-    $mustBeStrictlyPositive = function($n) {
-        return abs($n) + 1;
-    };
-    return new IntegerGenerator($mustBeStrictlyPositive);
-}
-
-function nat()
-{
-    $mustBeNatural = function($n) {
-        return abs($n);
-    };
-    return new IntegerGenerator($mustBeNatural);
-}
-
-/**
- * Generates a negative integer (bounded by the generation size).
- */
-function neg()
-{
-    $mustBeStrictlyNegative = function($n) {
-        return (-1) * (abs($n) + 1);
-    };
-    return new IntegerGenerator($mustBeStrictlyNegative);
-}
-
-function byte()
-{
-    return new ChooseGenerator(0, 255);
-}
-
 class IntegerGenerator implements Generator
 {
     private $mapFn;

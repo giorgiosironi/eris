@@ -4,11 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function float()
-{
-    return new FloatGenerator();
-}
-
 class FloatGenerator implements Generator
 {
     public function __construct()

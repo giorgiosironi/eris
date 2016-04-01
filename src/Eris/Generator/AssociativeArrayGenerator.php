@@ -3,14 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-/**
- * @return AssociativeArrayGenerator
- */
-function associative(array $generators)
-{
-    return new AssociativeArrayGenerator($generators);
-}
-
 class AssociativeArrayGenerator implements Generator
 {
     private $generators;

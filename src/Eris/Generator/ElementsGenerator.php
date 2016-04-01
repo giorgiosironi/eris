@@ -4,17 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function elements(/*$a, $b, ...*/)
-{
-    $arguments = func_get_args();
-    if (count($arguments) == 1) {
-        return Generator\ElementsGenerator::fromArray($arguments[0]);
-    } else {
-        return Generator\ElementsGenerator::fromArray($arguments);
-    }
-}
-
-
 class ElementsGenerator implements Generator
 {
     private $domain;

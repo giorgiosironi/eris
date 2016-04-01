@@ -4,24 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-/**
- * One Generator for each member of the Tuple:
- * tuple(Generator, Generator, Generator...)
- * Or an array of generators:
- * tuple(array $generators)
- * @return Generator\TupleGenerator
- */
-function tuple()
-{
-    $arguments = func_get_args();
-    if (is_array($arguments[0])) {
-        $generators = $arguments[0];
-    } else {
-        $generators = $arguments;
-    }
-    return new TupleGenerator($generators);
-}
-
 class TupleGenerator implements Generator
 {
     private $generators;

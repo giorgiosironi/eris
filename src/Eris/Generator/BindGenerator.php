@@ -3,14 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
-{
-    return new BindGenerator(
-        $innerGenerator,
-        $outerGeneratorFactory
-    );
-}
-
 class BindGenerator implements Generator
 {
     private $innerGenerator;

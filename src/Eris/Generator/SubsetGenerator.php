@@ -6,15 +6,6 @@ namespace Eris\Generator;
 use Eris\Quantifier\ForAll;
 use Eris\Generator;
 
-/**
- * @param array $universe
- * @return SubsetGenerator
- */
-function subset($input)
-{
-    return new SubsetGenerator($input);
-}
-
 class SubsetGenerator implements Generator
 {
     private $universe;

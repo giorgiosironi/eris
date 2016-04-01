@@ -4,15 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function seq(Generator $singleElementGenerator)
-{
-    // TODO: Generator::box($singleElementGenerator);
-    if (!($singleElementGenerator instanceof Generator)) {
-        $singleElementGenerator = new Constant($singleElementGenerator);
-    }
-    return new SequenceGenerator($singleElementGenerator);
-}
-
 class SequenceGenerator implements Generator
 {
     private $singleElementGenerator;

@@ -4,22 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use LogicException;
 
-/**
- * @return SuchThatGenerator
- */
-function filter(callable $filter, Generator $generator)
-{
-    return suchThat($filter, $generator);
-}
-
-/**
- * @return SuchThatGenerator
- */
-function suchThat(callable $filter, Generator $generator)
-{
-    return new SuchThatGenerator($filter, $generator);
-}
-
 class SuchThatGenerator implements Generator
 {
     private $filter;

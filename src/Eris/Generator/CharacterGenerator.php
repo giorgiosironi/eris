@@ -4,18 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 
 /**
- * Generates character in the ASCII 0-127 range.
- *
- * @param array $characterSets  Only supported charset: "basic-latin"
- * @param string $encoding  Only supported encoding: "utf-8"
- * @return Generator\CharacterGenerator
- */
-function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
-{
-    return CharacterGenerator::ascii();
-}
-
-/**
  * Generates character in the ASCII 32-127 range, excluding non-printable ones
  * or modifiers such as CR, LF and Tab.
  *

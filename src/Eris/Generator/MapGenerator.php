@@ -3,12 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-// TODO: support calls like ($function . $generator)
-function map(callable $function, Generator $generator)
-{
-    return new MapGenerator($function, $generator);
-}
-
 class MapGenerator implements Generator
 {
     private $map;
