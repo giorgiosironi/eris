@@ -29,10 +29,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Eris\\" : "src/Eris"
+            "Eris\\" : "src/"
         },
         "files": [
-          "src/Eris/Generator/functions.php"
+            "src/Generator/functions.php"
         ]
     }
 }
