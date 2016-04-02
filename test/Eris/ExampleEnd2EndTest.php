@@ -62,7 +62,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('StringTest.php');
         $this->assertTestsAreFailing(1);
         $errorMessage = (string) $this->theTest('testLengthPreservation')->failure;
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/Concatenating '' to '.{6}' gives '.{6}ERROR'/",
             $errorMessage,
             "It seems there is a problem with shrinking: we were expecting a minimal error message but instead the one for StringTest::testLengthPreservation() didn't match"
@@ -73,11 +73,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('ShrinkingTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/Failed asserting that .* does not contain \"B\"/",
             (string) $this->theTest('testShrinkingAString')->failure
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/The number 11 is not multiple of 29/",
             (string) $this->theTest('testShrinkingRespectsAntecedents')->failure,
             "It seems there is a problem with shrinking: we were expecting an error message containing '11' since it's the lowest value in the domain that satisfies the antecedents."
@@ -97,7 +97,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('DisableShrinkingTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Total calls: 1\n/',
             (string) $this->theTest('testThenIsNotCalledMultipleTime')->failure
         );
@@ -125,7 +125,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('ErrorTest.php');
         $this->assertTestsAreFailing(1);
         $errorMessage = (string) $this->theTest('testGenericExceptionsDoNotShrinkButStillShowTheInput')->error;
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/Original input:/",
             $errorMessage
         );
@@ -153,7 +153,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('FrequencyTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Failed asserting that (1|100|200) matches expected 0./',
             (string) $this->theTest('testAlwaysFails')->failure
         );
@@ -163,11 +163,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('SuchThatTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/number was asserted to be more than 100, but it\'s 43/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheCondition')->failure
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/number was asserted to be more than 100, but it\'s 0/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet')->failure
         );
@@ -177,11 +177,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('WhenTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/should be less or equal to 100, but/",
             (string) $this->theTest('testWhenFailingWillNaturallyHaveALowEvaluationRatioSoWeDontWantThatErrorToObscureTheTrueOne')->failure
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/Evaluation ratio .* is under the threshold/",
             (string) $this->theTest('testWhenWhichSkipsTooManyValues')->error
         );
@@ -191,11 +191,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('MapTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/number is not less than 100/",
             (string) $this->theTest('testShrinkingJustMappedValues')->failure
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             "/triple sum array/",
             (string) $this->theTest('testShrinkingMappedValuesInsideOtherGenerators')->failure
         );
