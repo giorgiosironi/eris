@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->letterGenerator = ElementsGenerator::fromArray(['A', 'B', 'C']);
         $this->cipherGenerator = ElementsGenerator::fromArray([0, 1, 2]);

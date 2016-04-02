@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 0;
     }

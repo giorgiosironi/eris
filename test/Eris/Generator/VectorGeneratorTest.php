@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->vectorSize = rand(5, 10);
         $this->size = 10;
