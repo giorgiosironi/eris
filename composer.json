@@ -34,5 +34,8 @@
         "files": [
           "src/Eris/Generator/functions.php"
         ]
+    },
+    "scripts": {
+        "test": "composer validate --no-check-lock && composer update && vendor/bin/phpunit test"
     }
 }
