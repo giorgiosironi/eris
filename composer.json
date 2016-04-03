@@ -37,7 +37,15 @@
         ]
     },
     "scripts": {
-        "cs": "composer validate --no-check-lock && composer update && vendor/bin/php-cs-fixer fix --config-file=.php_cs --verbose --diff",
-        "test": "composer validate --no-check-lock && composer update && vendor/bin/phpunit test"
+        "cs": [
+            "composer validate --no-check-lock",
+            "composer update",
+            "vendor/bin/php-cs-fixer fix --config-file=.php_cs --verbose --diff"
+        ],
+        "test": [
+            "composer validate --no-check-lock",
+            "composer update",
+            "vendor/bin/phpunit test"
+        ]
     }
 }
