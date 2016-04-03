@@ -9,7 +9,7 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->size = 10;
         $this->elementGenerator = new ChooseGenerator(1, 10);
         $this->vectorGenerator = new VectorGenerator($this->vectorSize, $this->elementGenerator);
-        $this->sum = function($acc, $item) {
+        $this->sum = function ($acc, $item) {
             $acc = $acc + $item;
             return $acc;
         };

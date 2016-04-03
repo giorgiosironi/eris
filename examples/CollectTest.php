@@ -12,7 +12,7 @@ class CollectTest extends PHPUnit_Framework_TestCase
         $this
             ->forAll(Generator\neg())
             ->hook(Listener\collectFrequencies())
-            ->then(function($x) {
+            ->then(function ($x) {
                 $this->assertTrue($x < $x + 1);
             });
     }
@@ -25,7 +25,7 @@ class CollectTest extends PHPUnit_Framework_TestCase
                 Generator\char()
             )
             ->hook(Listener\collectFrequencies())
-            ->then(function($vector) {
+            ->then(function ($vector) {
                 $this->assertEquals(2, count($vector));
             });
     }
@@ -37,10 +37,10 @@ class CollectTest extends PHPUnit_Framework_TestCase
                 Generator\seq(Generator\nat())
             )
             ->withMaxSize(10)
-            ->hook(Listener\collectFrequencies(function($array) {
+            ->hook(Listener\collectFrequencies(function ($array) {
                 return count($array);
             }))
-            ->then(function($array) {
+            ->then(function ($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
     }

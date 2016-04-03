@@ -15,7 +15,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
                     [4, '']
                 )
             )
-            ->then(function($falsyValue) {
+            ->then(function ($falsyValue) {
                 $this->assertFalse((bool) $falsyValue);
             });
     }
@@ -30,7 +30,7 @@ class FrequencyTest extends \PHPUnit_Framework_TestCase
                     [4, Generator\choose(200, 300)]
                 )
             )
-            ->then(function($element) {
+            ->then(function ($element) {
                 $this->assertEquals(0, $element);
             });
     }

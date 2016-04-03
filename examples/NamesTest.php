@@ -9,7 +9,7 @@ class NamesTest extends PHPUnit_Framework_TestCase
     {
         $this->forAll(
             Generator\names()
-        )->then(function($name) {
+        )->then(function ($name) {
             var_dump($name);
         });
     }

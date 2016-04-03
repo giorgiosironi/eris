@@ -119,5 +119,4 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         }
         return $countOf;
     }
-
 }

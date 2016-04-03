@@ -12,7 +12,7 @@ class ChooseTest extends PHPUnit_Framework_TestCase
             Generator\choose(-1000, 430),
             Generator\choose(230, -30000)
         )
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $x = $first + $second;
                 $y = $second + $first;
                 $this->assertEquals(

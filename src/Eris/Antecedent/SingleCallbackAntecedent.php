@@ -22,4 +22,3 @@ class SingleCallbackAntecedent implements Antecedent
         return call_user_func_array($this->callback, $values);
     }
 }
-

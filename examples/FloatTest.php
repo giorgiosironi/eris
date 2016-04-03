@@ -8,7 +8,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function testAPropertyHoldingForAllNumbers()
     {
         $this->forAll(Generator\float())
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertEquals(
                     0.0,
                     abs($number) - abs($number)
@@ -19,7 +19,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function testAPropertyHoldingOnlyForPositiveNumbers()
     {
         $this->forAll(Generator\float())
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number >= 0,
                     "$number is not a (loosely) positive number"

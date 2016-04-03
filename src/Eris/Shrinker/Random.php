@@ -23,7 +23,7 @@ class Random // implements Shrinker
 
     public function setTimeLimit(TimeLimit $timeLimit)
     {
-        $this->timeLimit = $timeLimit; 
+        $this->timeLimit = $timeLimit;
     }
 
     public function addGoodShrinkCondition(callable $condition)
@@ -36,12 +36,12 @@ class Random // implements Shrinker
      */
     public function from(GeneratedValue $elements, AssertionFailed $exception)
     {
-        $onBadShrink = function() use (&$exception) {
+        $onBadShrink = function () use (&$exception) {
             $this->attempts->increase();
             $this->attempts->ensureLimit($exception);
         };
 
-        $onGoodShrink = function($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
+        $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception) {
             $this->attempts->reset();
             $elements = $elementsAfterShrink;
             $exception = $exceptionAfterShrink;

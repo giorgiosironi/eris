@@ -35,7 +35,7 @@ class SubsetGenerator implements Generator
             $elementPresent = $binaryDescription{$i};
             if ($elementPresent == "1") {
                 $subset[] = $this->universe[$i];
-            } 
+            }
         }
 
         return GeneratedValue::fromJustValue($subset, 'subset');

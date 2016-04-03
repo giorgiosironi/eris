@@ -63,7 +63,7 @@ class SetGenerator implements Generator
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
         return GeneratedValue::fromValueAndInput(
-            array_map(function($element) {
+            array_map(function ($element) {
                 return $element->unbox();
             }, $input),
             array_values($input),

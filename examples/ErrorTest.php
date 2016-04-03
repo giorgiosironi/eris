@@ -10,7 +10,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\string()
         )
-            ->then(function($string) {
+            ->then(function ($string) {
                 throw new RuntimeException("Something like a missing array index happened.");
             });
     }

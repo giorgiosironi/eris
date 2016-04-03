@@ -19,7 +19,8 @@ if (!defined('ERIS_PHP_INT_MIN')) {
  * @param $y int The other boundary of the range
  * @return Generator\ChooseGenerator
  */
-function choose($lowerLimit, $upperLimit) {
+function choose($lowerLimit, $upperLimit)
+{
     return new ChooseGenerator($lowerLimit, $upperLimit);
 }
 

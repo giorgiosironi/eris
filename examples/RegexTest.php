@@ -13,7 +13,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\regex("[a-z]{10}")
         )
-            ->then(function($string) {
+            ->then(function ($string) {
                 $this->assertEquals(10, strlen($string));
             });
     }

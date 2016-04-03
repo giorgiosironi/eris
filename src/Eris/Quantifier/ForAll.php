@@ -86,9 +86,9 @@ class ForAll
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
             $antecedent = $arguments[0];
-        } else if ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
+        } elseif ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
             $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
-        } else if ($arguments && count($arguments) == 1) {
+        } elseif ($arguments && count($arguments) == 1) {
             $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
             throw new \InvalidArgumentException("Invalid call to when(): " . var_export($arguments, true));
@@ -130,16 +130,16 @@ class ForAll
                     // TODO: coupling between here and the TupleGenerator used inside?
                     ->with(GeneratedValue::fromValueAndInput(
                         $values,
-                        $generatedValues, 
+                        $generatedValues,
                         'tuple'
                     ))
-                    ->onFailure(function($generatedValues, $exception) use ($assertion) {
+                    ->onFailure(function ($generatedValues, $exception) use ($assertion) {
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
                         }
                         $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
-                        $shrinking->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
+                        $shrinking->addGoodShrinkCondition(function (GeneratedValue $generatedValues) {
                             return $this->antecedentsAreSatisfied($generatedValues->unbox());
                         });
                         $shrinking->from($generatedValues, $exception);
@@ -185,7 +185,7 @@ class ForAll
     private function generatorsFrom($supposedToBeGenerators)
     {
         $generators = [];
-        foreach($supposedToBeGenerators as $supposedToBeGenerator) {
+        foreach ($supposedToBeGenerators as $supposedToBeGenerator) {
             if (!$supposedToBeGenerator instanceof Generator) {
                 $generators[] = new Generator\ConstantGenerator($supposedToBeGenerator);
             } else {
@@ -223,7 +223,7 @@ class ForAll
      */
     private function linearGrowth()
     {
-        return function($n) {
+        return function ($n) {
             return $n;
         };
     }
@@ -240,7 +240,7 @@ class ForAll
      */
     private function triangleNumber()
     {
-        return function($n) {
+        return function ($n) {
             if ($n === 0) {
                 return 0;
             }

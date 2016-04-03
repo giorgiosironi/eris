@@ -12,7 +12,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 Generator\vector(
                     5,
                     Generator\suchThat(
-                        function($n) {
+                        function ($n) {
                             return $n > 42;
                         },
                         Generator\choose(0, 1000)
@@ -29,7 +29,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 Generator\vector(
                     5,
                     Generator\filter(
-                        function($n) {
+                        function ($n) {
                             return $n > 42;
                         },
                         Generator\choose(0, 1000)
@@ -63,7 +63,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
         $this
             ->forAll(
                 Generator\suchThat(
-                    function($n) {
+                    function ($n) {
                         return $n > 42;
                     },
                     Generator\choose(0, 1000)
@@ -77,7 +77,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
         $this
             ->forAll(
                 Generator\suchThat(
-                    function($n) {
+                    function ($n) {
                         return $n <> 42;
                     },
                     Generator\choose(0, 1000)
@@ -88,7 +88,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
 
     public function allNumbersAreBiggerThan($lowerLimit)
     {
-        return function($vector) use ($lowerLimit) {
+        return function ($vector) use ($lowerLimit) {
             foreach ($vector as $number) {
                 $this->assertTrue(
                     $number > $lowerLimit,
@@ -100,7 +100,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
 
     public function numberIsBiggerThan($lowerLimit)
     {
-        return function($number) use ($lowerLimit) {
+        return function ($number) use ($lowerLimit) {
             $this->assertTrue(
                 $number > $lowerLimit,
                 "\$number was asserted to be more than $lowerLimit, but it's $number"

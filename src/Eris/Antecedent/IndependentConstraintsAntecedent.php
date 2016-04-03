@@ -30,5 +30,4 @@ class IndependentConstraintsAntecedent implements Antecedent
         }
         return true;
     }
-
 }

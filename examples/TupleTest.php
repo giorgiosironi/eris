@@ -13,7 +13,7 @@ class TupleTest extends PHPUnit_Framework_TestCase
                 Generator\choose(0, 9)
             )
         )
-            ->then(function($tuple) {
+            ->then(function ($tuple) {
                 $letter = $tuple[0];
                 $cipher = $tuple[1];
                 $this->assertEquals(

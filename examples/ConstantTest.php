@@ -13,7 +13,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
                 Generator\nat(),
                 Generator\constant(2)
             )
-            ->then(function($number, $alwaysTwo) {
+            ->then(function ($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
             });
     }
@@ -25,7 +25,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
                 Generator\nat(),
                 2
             )
-            ->then(function($number, $alwaysTwo) {
+            ->then(function ($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
             });
     }

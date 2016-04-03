@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Generator;
+
 use DateTime;
 
 class DateGeneratorTest extends \PHPUnit_Framework_TestCase

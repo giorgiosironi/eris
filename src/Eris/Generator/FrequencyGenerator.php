@@ -27,7 +27,7 @@ class FrequencyGenerator implements Generator
         }
         $this->generators = array_reduce(
             $generatorsWithFrequency,
-            function($generators, $generatorWithFrequency) {
+            function ($generators, $generatorWithFrequency) {
                 list($frequency, $generator) = $generatorWithFrequency;
                 $frequency = $this->ensureIsFrequency($generatorWithFrequency[0]);
                 $generator = ensureIsGenerator($generatorWithFrequency[1]);
@@ -45,7 +45,7 @@ class FrequencyGenerator implements Generator
 
     public function __invoke($size)
     {
-        list ($index, $generator) = $this->pickFrom($this->generators);
+        list($index, $generator) = $this->pickFrom($this->generators);
         $originalValue = $generator->__invoke($size);
         return GeneratedValue::fromValueAndInput(
             $originalValue->unbox(),
@@ -107,7 +107,7 @@ class FrequencyGenerator implements Generator
     private function frequenciesFrom($generators)
     {
         return array_map(
-            function($generatorWithFrequency) {
+            function ($generatorWithFrequency) {
                 return $generatorWithFrequency['frequency'];
             },
             $generators

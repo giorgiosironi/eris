@@ -13,7 +13,7 @@ class SubsetTest extends PHPUnit_Framework_TestCase
                 2, 4, 6, 8, 10
             ])
         )
-            ->then(function($set) {
+            ->then(function ($set) {
                 $this->assertInternalType('array', $set);
                 foreach ($set as $element) {
                     $this->assertTrue($this->isEven($element), "Element $element is not even, where did it come from?");

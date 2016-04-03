@@ -12,7 +12,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
             ->forAll(
                 Generator\seq(Generator\nat())
             )
-            ->then(function($array) {
+            ->then(function ($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
     }
@@ -23,7 +23,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
             ->forAll(
                 Generator\seq(Generator\nat())
             )
-            ->then(function($array) {
+            ->then(function ($array) {
                 $this->assertEquals($array, array_reverse(array_reverse($array)));
             });
     }

@@ -19,7 +19,7 @@ class NamesGenerator implements Generator
     {
         return new self(
             array_map(
-                function($line) {
+                function ($line) {
                     return trim($line, " \n");
                 },
                 file(__DIR__ . "/first_names.txt")
@@ -72,7 +72,7 @@ class NamesGenerator implements Generator
 
     private function lengthLessThanOrEqualTo($size)
     {
-        return function($name) use ($size) {
+        return function ($name) use ($size) {
             return strlen($name) <= $size;
         };
     }
@@ -80,7 +80,7 @@ class NamesGenerator implements Generator
     private function lengthSlightlyLessThan($size)
     {
         $lowerLength = $size - 1;
-        return function($name) use ($lowerLength) {
+        return function ($name) use ($lowerLength) {
             return strlen($name) === $lowerLength;
         };
     }
@@ -99,7 +99,7 @@ class NamesGenerator implements Generator
         $minimumDistance = min($distances);
         $candidatesWithEqualDistance = array_filter(
             $distances,
-            function($distance) use ($minimumDistance) {
+            function ($distance) use ($minimumDistance) {
                 return $distance == $minimumDistance;
             }
         );

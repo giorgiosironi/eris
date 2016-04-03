@@ -15,7 +15,8 @@ class OneOfGenerator implements Generator
 {
     private $generator;
 
-    public function __construct($generators) {
+    public function __construct($generators)
+    {
         $this->generator = new FrequencyGenerator($this->allWithSameFrequency($generators));
     }
 
@@ -37,7 +38,7 @@ class OneOfGenerator implements Generator
     private function allWithSameFrequency($generators)
     {
         return array_map(
-            function($generator) {
+            function ($generator) {
                 return [1, $generator];
             },
             $generators

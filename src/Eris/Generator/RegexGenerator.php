@@ -39,8 +39,8 @@ class RegexGenerator implements Generator
         $gen   = new SimpleRandom(rand());
         $result = null;
 
-        $parser = new Parser($lexer,new Scope(),new Scope());
-        $parser->parse()->getResult()->generate($result,$gen);
+        $parser = new Parser($lexer, new Scope(), new Scope());
+        $parser->parse()->getResult()->generate($result, $gen);
 
         return GeneratedValue::fromJustValue($result, 'regex');
     }

@@ -13,7 +13,7 @@ class AssociativeArrayTest extends PHPUnit_Framework_TestCase
                 'cipher' => Generator\choose(0, 9),
             ])
         )
-            ->then(function($array) {
+            ->then(function ($array) {
                 $this->assertEquals(2, count($array));
                 $letter = $array['letter'];
                 $this->assertInternalType('string', $letter);

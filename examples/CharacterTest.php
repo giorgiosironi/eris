@@ -17,7 +17,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\char(['basic-latin'])
         )
-            ->then(function($char) {
+            ->then(function ($char) {
                 $this->assertLenghtIs1($char);
             });
     }
@@ -28,7 +28,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             Generator\char(['basic-latin'])
         )
             ->when(is\printableCharacter())
-            ->then(function($char) {
+            ->then(function ($char) {
                 $this->assertFalse(ord($char) < 32);
             });
     }
@@ -40,7 +40,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             Generator\char(['basic-latin'])
         )
             ->when(are\printableCharacters())
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $this->assertFalse(ord($first) < 32);
                 $this->assertFalse(ord($second) < 32);
             });

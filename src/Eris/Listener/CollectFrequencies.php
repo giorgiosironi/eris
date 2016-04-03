@@ -4,7 +4,7 @@ namespace Eris\Listener;
 use Eris\Listener;
 use InvalidArgumentException;
 
-function collectFrequencies(callable $collectFunction = null) 
+function collectFrequencies(callable $collectFunction = null)
 {
     return new CollectFrequencies($collectFunction);
 }
@@ -19,7 +19,7 @@ class CollectFrequencies
     public function __construct($collectFunction = null)
     {
         if ($collectFunction === null) {
-            $collectFunction = function(/*...*/) { 
+            $collectFunction = function (/*...*/) {
                 $generatedValues = func_get_args();
                 if (count($generatedValues) === 1) {
                     $value = $generatedValues[0];
@@ -28,7 +28,7 @@ class CollectFrequencies
                 }
 
                 if (is_string($value) || is_integer($value)) {
-                    return $value; 
+                    return $value;
                 } else {
                     return json_encode($value);
                 }
@@ -50,7 +50,7 @@ class CollectFrequencies
     public function newGeneration(array $generatedValues, $iteration)
     {
         $values = array_map(
-            function($generatedValue) {
+            function ($generatedValue) {
                 return $generatedValue->unbox();
             },
             $generatedValues

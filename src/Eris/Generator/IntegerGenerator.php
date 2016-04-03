@@ -18,7 +18,7 @@ function int()
  */
 function pos()
 {
-    $mustBeStrictlyPositive = function($n) {
+    $mustBeStrictlyPositive = function ($n) {
         return abs($n) + 1;
     };
     return new IntegerGenerator($mustBeStrictlyPositive);
@@ -26,7 +26,7 @@ function pos()
 
 function nat()
 {
-    $mustBeNatural = function($n) {
+    $mustBeNatural = function ($n) {
         return abs($n);
     };
     return new IntegerGenerator($mustBeNatural);
@@ -37,7 +37,7 @@ function nat()
  */
 function neg()
 {
-    $mustBeStrictlyNegative = function($n) {
+    $mustBeStrictlyNegative = function ($n) {
         return (-1) * (abs($n) + 1);
     };
     return new IntegerGenerator($mustBeStrictlyNegative);
@@ -107,7 +107,7 @@ class IntegerGenerator implements Generator
 
     private function identity()
     {
-        return function($n) {
+        return function ($n) {
             return $n;
         };
     }
