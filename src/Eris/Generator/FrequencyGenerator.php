@@ -16,6 +16,7 @@ function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
 class FrequencyGenerator implements Generator
 {
     private $generators;
+    private $frequencies;
 
     public function __construct(array $generatorsWithFrequency)
     {

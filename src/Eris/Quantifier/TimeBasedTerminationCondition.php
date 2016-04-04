@@ -11,6 +11,7 @@ class TimeBasedTerminationCondition
     implements TerminationCondition, Listener
 {
     private $limitTime;
+    private $time;
     private $maximumInterval;
 
     public function __construct(callable $time, DateInterval $maximumInterval)
