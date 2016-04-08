@@ -4,11 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function string()
-{
-    return new StringGenerator();
-}
-
 class StringGenerator implements Generator
 {
     public function __invoke($size)

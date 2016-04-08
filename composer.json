@@ -32,7 +32,9 @@
             "Eris" : "src/"
         },
         "files": [
-          "src/Eris/Generator/functions.php"
+            "src/Eris/Antecedent/functions.php",
+            "src/Eris/Generator/functions.php",
+            "src/Eris/Listener/functions.php"
         ]
     },
     "scripts": {

@@ -5,14 +5,6 @@ use Eris\Generator;
 use DomainException;
 use InvalidArgumentException;
 
-/**
- * @return FrequencyGenerator
- */
-function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
-{
-    return new FrequencyGenerator(func_get_args());
-}
-
 class FrequencyGenerator implements Generator
 {
     private $generators;

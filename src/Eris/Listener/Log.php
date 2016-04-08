@@ -3,11 +3,6 @@ namespace Eris\Listener;
 
 use Eris\Listener;
 
-function log($file)
-{
-    return new Log($file, 'time', getmypid());
-}
-
 class Log
     extends EmptyListener
     implements Listener

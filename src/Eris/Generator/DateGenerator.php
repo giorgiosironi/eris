@@ -5,29 +5,6 @@ use Eris\Generator;
 use DateTime;
 use DomainException;
 
-function date($lowerLimit = null, $upperLimit = null)
-{
-    $box = function($date) {
-        if ($date === null) {
-            return $date;
-        }
-        if ($date instanceof DateTime) {
-            return $date;
-        }
-        return new DateTime($date);
-    };
-    $withDefault = function($value, $default) {
-        if ($value !== null) {
-            return $value;
-        }
-        return $default;
-    };
-    return new DateGenerator(
-        $withDefault($box($lowerLimit), new DateTime("@0")),
-        $withDefault($box($upperLimit), new DateTime("@" . getrandmax()))
-    );
-}
-
 class DateGenerator implements Generator
 {
     private $lowerLimit;

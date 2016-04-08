@@ -4,15 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-/**
- * @param mixed $value  the only value to generate
- * @return ConstantGenerator
- */
-function constant($value)
-{
-    return ConstantGenerator::box($value);
-}
-
 class ConstantGenerator implements Generator
 {
     private $value;

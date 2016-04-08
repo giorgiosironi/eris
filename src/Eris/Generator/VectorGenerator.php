@@ -4,11 +4,6 @@ namespace Eris\Generator;
 use Eris\Generator;
 use DomainException;
 
-function vector($size, Generator $elementsGenerator)
-{
-    return new VectorGenerator($size, $elementsGenerator);
-}
-
 class VectorGenerator implements Generator
 {
     private $generator;
