@@ -162,12 +162,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testSuchThatTest()
     {
         $this->runExample('SuchThatTest.php');
-        $this->assertTestsAreFailing(2);
-        $this->assertRegExp(
+        $this->assertTestsAreFailing(3);
+        $this->assertRegexp(
             '/number was asserted to be more than 100, but it\'s 43/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheCondition')->failure
         );
-        $this->assertRegExp(
+        $this->assertRegexp(
+            '/number was asserted to be more than 42, but it\'s 0/',
+            (string) $this->theTest('testSuchThatAcceptsPHPUnitConstraints')->failure
+        );
+        $this->assertRegexp(
             '/number was asserted to be more than 100, but it\'s 0/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet')->failure
         );
