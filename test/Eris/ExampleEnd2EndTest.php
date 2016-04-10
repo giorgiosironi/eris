@@ -43,19 +43,19 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     public function testAllTestClassesWhichAreFullyGreen($testCaseFileName)
     {
         $this->runExample($testCaseFileName);
-        $this->assertAllTestsArePassing();
+        $this->assertNoTestsAreRed();
     }
 
     public function testSequenceTest()
     {
         $this->runExample('SequenceTest.php');
-        $this->assertAllTestsArePassing();
+        $this->assertNoTestsAreRed();
     }
 
     public function testCharacterTests()
     {
         $this->runExample('CharacterTest.php');
-        $this->assertAllTestsArePassing();
+        $this->assertNoTestsAreRed();
     }
 
     public function testStringShrinkingTests()
@@ -277,7 +277,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         return $this->testsByName[$name];
     }
 
-    private function assertAllTestsArePassing()
+    private function assertNoTestsAreRed()
     {
         $this->assertTestsAreFailing(0);
     }
