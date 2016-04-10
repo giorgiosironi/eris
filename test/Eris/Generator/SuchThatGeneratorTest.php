@@ -14,7 +14,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function($n) { return $n % 2 == 0; },
             ConstantGenerator::box(10)
         );
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $generator->__invoke($this->size)->unbox()
         );
@@ -26,7 +26,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->callback(function($n) { return $n % 2 == 0; }),
             ConstantGenerator::box(10)
         );
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $generator->__invoke($this->size)->unbox()
         );
@@ -46,7 +46,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
                 "Every shrunk element should still be contained: " . var_export($element, true)
             );
             $this->assertTrue(
-                $element->unbox() % 2 == 0,
+                $element->unbox() % 2 === 0,
                 "Element should still be filtered while shrinking: " . var_export($element, true)
             );
         }
