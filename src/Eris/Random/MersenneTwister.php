@@ -1,6 +1,8 @@
 <?php
 namespace Eris\Random;
 
+use PHPUnit_Framework_SkippedTestError;
+
 class MersenneTwister implements Source
 {
     private $seed;
@@ -24,6 +26,13 @@ class MersenneTwister implements Source
     private $t = 15;
     private $c = 0xefc60000;
     private $l = 18;
+
+    public function __construct()
+    {
+        if (defined('HHVM_VERSION')) {
+            throw new PHPUnit_Framework_SkippedTestError("Pure PHP random implemnentation segfaults HHVM, so it's not available for this platform");
+        }
+    }
     
     public function seed($seed)
     {
