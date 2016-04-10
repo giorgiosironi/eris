@@ -16,6 +16,7 @@ function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
 class FrequencyGenerator implements Generator
 {
     private $generators;
+    private $frequencies;
 
     public function __construct(array $generatorsWithFrequency)
     {
@@ -90,7 +91,8 @@ class FrequencyGenerator implements Generator
     private function pickFrom($generators, $rand)
     {
         $acc = 0;
-        $random = $rand(1, array_sum($this->frequenciesFrom($generators)));
+        $frequencies = $this->frequenciesFrom($generators);
+        $random = $rand(1, array_sum($frequencies));
         foreach ($generators as $index => $generator) {
             $acc += $generator['frequency'];
             if ($random <= $acc) {
@@ -98,7 +100,7 @@ class FrequencyGenerator implements Generator
             }
         }
         throw new Exception(
-            'Unable to pick a generator with frequencies: ' . var_export($this->frequencies, true)
+            'Unable to pick a generator with frequencies: ' . var_export($frequencies, true)
         );
     }
 

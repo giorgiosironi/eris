@@ -14,7 +14,8 @@ function associative(array $generators)
 class AssociativeArrayGenerator implements Generator
 {
     private $generators;
-    
+    private $tupleGenerator;
+
     public function __construct(array $generators)
     {
         $this->generators = $generators;

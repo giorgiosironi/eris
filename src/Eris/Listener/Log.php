@@ -2,7 +2,6 @@
 namespace Eris\Listener;
 
 use Eris\Listener;
-use Eris\Listener\EmptyListener;
 
 function log($file)
 {
@@ -14,6 +13,7 @@ class Log
     implements Listener
 {
     private $file;
+    private $fp;
     private $time;
     private $pid;
 

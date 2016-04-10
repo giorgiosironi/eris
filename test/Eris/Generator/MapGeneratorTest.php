@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class MapGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
         $this->rand = 'rand';

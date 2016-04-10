@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use InvalidArgumentException;
 use DomainException;
 
 /**

@@ -5,6 +5,7 @@ Scalar generators
 .. _pos:
 .. _neg:
 .. _byte:
+.. _choose:
 
 Integers
 --------

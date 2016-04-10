@@ -5,7 +5,7 @@ use Eris\Quantifier\ForAll;
 
 class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->universe = ['a', 'b', 'c', 'd', 'e'];
         $this->generator = new SubsetGenerator($this->universe);

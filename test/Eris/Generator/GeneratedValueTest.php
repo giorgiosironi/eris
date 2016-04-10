@@ -48,8 +48,8 @@ class GeneratedValueTest extends \PHPUnit_Framework_TestCase
             'map'
         );
         $this->assertInternalType('string', $generatedValue->__toString());
-        $this->assertRegexp('/value.*422/', $generatedValue->__toString());
-        $this->assertRegexp('/211/', $generatedValue->__toString());
-        $this->assertRegexp('/generator.*map/', $generatedValue->__toString());
+        $this->assertRegExp('/value.*422/', $generatedValue->__toString());
+        $this->assertRegExp('/211/', $generatedValue->__toString());
+        $this->assertRegExp('/generator.*map/', $generatedValue->__toString());
     }
 }

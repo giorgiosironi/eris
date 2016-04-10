@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->singleElementGenerator = new ChooseGenerator(0, 100);
         $this->size = 10;

@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 0; // ignored by this kind of generator
         $this->rand = 'rand';

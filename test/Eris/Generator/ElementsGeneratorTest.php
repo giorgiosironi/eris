@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
         $this->rand = 'rand';

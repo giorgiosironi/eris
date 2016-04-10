@@ -26,6 +26,7 @@ class TupleGenerator implements Generator
 {
     private $generators;
     private $size;
+    private $numberOfGenerators;
 
     public function __construct(array $generators)
     {
