@@ -83,10 +83,12 @@ class SuchThatGenerator implements Generator
             } catch (PHPUnit_Framework_ExpectationFailedException $e) {
                 return false;
             }
-        } else if (is_callable($this->filter)) {
+        } 
+
+        if (is_callable($this->filter)) {
             return call_user_func($this->filter, $value->unbox());
-        } else {
-            throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit_Framework_Constraint instead of " . var_export($this->filter, true));
-        }
+        } 
+
+        throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit_Framework_Constraint instead of " . var_export($this->filter, true));
     }
 }
