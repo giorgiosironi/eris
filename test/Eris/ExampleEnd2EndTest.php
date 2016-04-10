@@ -91,7 +91,6 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertTestsAreFailing(1);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
         // one failure, two shrinking attempts
-        $this->assertGreaterThanOrEqual(3.0, $executionTime);
         $this->assertLessThanOrEqual(5.0, $executionTime);
     }
 
