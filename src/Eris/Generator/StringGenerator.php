@@ -11,13 +11,13 @@ function string()
 
 class StringGenerator implements Generator
 {
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $length = rand(0, $size);
+        $length = $rand(0, $size);
 
         $built = '';
         for ($i = 0; $i < $length; $i++) {
-            $built .= chr(rand(33, 126));
+            $built .= chr($rand(33, 126));
         }
         return GeneratedValue::fromJustValue($built, 'string');
     }

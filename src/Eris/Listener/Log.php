@@ -15,6 +15,7 @@ class Log
     implements Listener
 {
     private $file;
+    private $fp;
     private $time;
     private $pid;
 

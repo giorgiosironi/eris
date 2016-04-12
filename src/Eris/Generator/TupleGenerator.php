@@ -26,6 +26,7 @@ class TupleGenerator implements Generator
 {
     private $generators;
     private $size;
+    private $numberOfGenerators;
 
     public function __construct(array $generators)
     {
@@ -33,11 +34,11 @@ class TupleGenerator implements Generator
         $this->numberOfGenerators = count($generators);
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
         $input = array_map(
-            function($generator) use ($size) {
-                return $generator($size);
+            function($generator) use ($size, $rand) {
+                return $generator->__invoke($size, $rand);
             },
             $this->generators
         );
@@ -60,6 +61,7 @@ class TupleGenerator implements Generator
         $this->checkValueToShrink($tuple);
         $input = $tuple->input();
 
+        // TODO: make deterministic
         if (count($input) > 0) {
             $attemptsToShrink = 10;
             $numberOfElementsToShrink = rand(1, max(floor($this->numberOfGenerators/2), 1));

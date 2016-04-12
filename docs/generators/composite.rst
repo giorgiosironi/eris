@@ -107,6 +107,8 @@ Such That allows a Generator's output to be filtered, excluding values that to d
 
 ``testFilterSyntax`` shows the ``Generator\filter()`` syntax, which is just an alias for ``Generator\suchThat()``. The order of the parameters requires to pass the callable first, for consistency with ``Generator\map()`` and in opposition to ``array_filter``.
 
+``testSuchThatAcceptsPHPUnitConstraints`` shows that you can pass in PHPUnit constraints in lieu of callables, in the same way as they are passed to ``assertThat()``, or to ``with()`` when defining PHPUnit mock expectations.
+
 ``testSuchThatShrinkingRespectsTheCondition`` shows that shrinking takes into account the callable and stops when it is not satisfied anymore. Therefore, this test will fail for all numbers lower than or equal to 100, but the minimum example found is 43 as it's the smallest and simplest value that still satisfied the condition.
 
 .. code-block:: bash

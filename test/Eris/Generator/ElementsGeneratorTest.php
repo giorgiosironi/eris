@@ -3,16 +3,17 @@ namespace Eris\Generator;
 
 class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testGeneratesOnlyArgumentsInsideTheGivenArray()
     {
         $array = [1, 4, 5, 9];
         $generator = ElementsGenerator::fromArray($array);
-        $generated = $generator($this->size);
+        $generated = $generator($this->size, $this->rand);
         for ($i = 0; $i < 1000; $i++) {
             $this->assertContains(
                 $generated->unbox(),

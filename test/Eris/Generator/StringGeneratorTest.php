@@ -3,6 +3,11 @@ namespace Eris\Generator;
 
 class StringGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->rand = 'rand';
+    }
+    
     public function testRandomlyPicksLengthAndCharacters()
     {
         $size = 10;
@@ -10,7 +15,7 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
         $lengths = [];
         $usedChars = [];
         for ($i = 0; $i < 1000; $i++) {
-            $value = $generator($size)->unbox();
+            $value = $generator($size, $this->rand)->unbox();
             $length = strlen($value);
             $this->assertLessThanOrEqual(10, $length);
             $lengths = $this->accumulateLengths($lengths, $length);
@@ -25,7 +30,7 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generationSize = 100;
         $generator = new StringGenerator();
-        $value = $generator($generationSize)->unbox();
+        $value = $generator($generationSize, $this->rand)->unbox();
 
         $this->assertLessThanOrEqual($generationSize, strlen($value));
     }
@@ -33,7 +38,7 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksByChoppingOffChars()
     {
         $generator = new StringGenerator();
-        $lastValue = $generator($size = 10);
+        $lastValue = $generator($size = 10, $this->rand);
         $this->assertSame('abcde', $generator->shrink(GeneratedValue::fromJustValue('abcdef'))->unbox());
     }
 

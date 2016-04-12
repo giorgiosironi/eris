@@ -3,9 +3,10 @@ namespace Eris\Generator;
 
 class BindGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
     
     public function testGeneratesAGeneratedValueObject()
@@ -19,7 +20,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertInternalType(
             'integer',
-            $generator->__invoke($this->size)->unbox()
+            $generator->__invoke($this->size, $this->rand)->unbox()
         );
     }
 
@@ -31,7 +32,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
                 return new ChooseGenerator($n, $n + 10);
             }
         );
-        $value = $generator->__invoke($this->size);
+        $value = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
             $this->assertInternalType(
                 'integer',
@@ -68,8 +69,8 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
             }
         );
         for ($i = 0; $i < 100; $i++) {
-            $this->assertIsAnArrayOfX0OrX1Elements($firstGenerator->__invoke($this->size)->unbox());
-            $this->assertIsAnArrayOfX0OrX1Elements($secondGenerator->__invoke($this->size)->unbox());
+            $this->assertIsAnArrayOfX0OrX1Elements($firstGenerator->__invoke($this->size, $this->rand)->unbox());
+            $this->assertIsAnArrayOfX0OrX1Elements($secondGenerator->__invoke($this->size, $this->rand)->unbox());
         }
     }
 

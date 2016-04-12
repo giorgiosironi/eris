@@ -8,10 +8,13 @@ use InvalidArgumentException;
 trait TestTrait
 {
     // TODO: make this private as much as possible
+    // TODO: it's time, extract an object?
     private $quantifiers = [];
     private $iterations = 100;
     private $listeners = [];
     private $terminationConditions = [];
+    private $randFunction = 'rand';
+    private $seedFunction = 'srand';
     // TODO: what is the correct name for this concept?
     protected $minimumEvaluationRatio = 0.5;
     protected $seed;
@@ -27,7 +30,6 @@ trait TestTrait
         } else {
             $this->seed = (int) (microtime(true)*1000000);
         }
-        srand($this->seed);
     }
 
     /**
@@ -39,7 +41,7 @@ trait TestTrait
     {
         if ($this->hasFailed()) {
             global $argv;
-            $command = "ERIS_SEED={$this->seed} " . implode(" ", $argv);
+            $command = "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter {$this->toString()}";
             echo PHP_EOL;
             echo "Reproduce with:", PHP_EOL;
             echo $command, PHP_EOL;
@@ -72,6 +74,16 @@ trait TestTrait
     public static function loadAllErisListeners()
     {
         foreach(glob(__DIR__ . '/Listener/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    /**
+     * @beforeClass
+     */
+    public static function loadAllErisRandom()
+    {
+        foreach(glob(__DIR__ . '/Random/*.php') as $filename) {
             require_once($filename);
         }
     }
@@ -132,17 +144,50 @@ trait TestTrait
     }
 
     /**
+     * @return self
+     */
+    protected function withRand($randFunction)
+    {
+        // TODO: invert and wrap rand, srand into objects?
+        if ($randFunction instanceof \Eris\Random\RandomRange) {
+            $this->randFunction = function($lower = null, $upper = null) use ($randFunction) {
+                return $randFunction->rand($lower, $upper);
+            };
+            $this->seedFunction = function($seed) use ($randFunction) {
+                return $randFunction->seed($seed);
+            };
+        }
+        if (is_callable($randFunction)) {
+            switch ($randFunction) {
+                case 'rand':
+                    $seedFunction = 'srand';
+                    break;
+                case 'mt_rand':
+                    $seedFunction = 'mt_srand';
+                    break;
+                default:
+                    throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
+            }
+            $this->randFunction = $randFunction;
+            $this->seedFunction = $seedFunction;
+        }
+        return $this;
+    }
+
+    /**
      * forAll($generator1, $generator2, ...)
      */
     protected function forAll()
     {
+        call_user_func($this->seedFunction, $this->seed);
         $generators = func_get_args();
         $quantifier = new Quantifier\ForAll(
             $generators,
             $this->iterations,
             new Shrinker\ShrinkerFactory([
                 'timeLimit' => $this->shrinkingTimeLimit,
-            ])
+            ]),
+            $this->randFunction
         );
         foreach ($this->listeners as $listener) {
             $quantifier->hook($listener);
@@ -156,11 +201,11 @@ trait TestTrait
 
     protected function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator)->repeat($times);
+        return Sample::of($generator, $this->randFunction)->repeat($times);
     }
 
     protected function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator)->shrink($fromValue);
+        return Sample::of($generator, $this->randFunction)->shrink($fromValue);
     }
 }

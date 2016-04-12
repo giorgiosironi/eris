@@ -49,9 +49,9 @@ class CharacterGenerator implements Generator
         $this->shrinkingProgression = ArithmeticProgression::discrete($this->lowerLimit);
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
-        return GeneratedValue::fromJustValue(chr(rand($this->lowerLimit, $this->upperLimit)), 'character');
+        return GeneratedValue::fromJustValue(chr($rand($this->lowerLimit, $this->upperLimit)), 'character');
     }
 
     public function shrink(GeneratedValue $element)

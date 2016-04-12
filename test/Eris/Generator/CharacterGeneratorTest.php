@@ -3,16 +3,17 @@ namespace Eris\Generator;
 
 class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 0;
+        $this->rand = 'rand';
     }
 
     public function testBasicAsciiCharacterGenerators()
     {
         $generator = CharacterGenerator::ascii();
         for ($i = 0; $i < 100; $i++) {
-            $generatedValue = $generator($this->size);
+            $generatedValue = $generator($this->size, $this->rand);
             $value = $generatedValue->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(0, ord($value));
@@ -25,7 +26,7 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = CharacterGenerator::printableAscii();
         for ($i = 0; $i < 100; $i++) {
-            $generatedValue = $generator($this->size);
+            $generatedValue = $generator($this->size, $this->rand);
             $value = $generatedValue->unbox();
             $this->assertEquals(1, strlen($value));
             $this->assertGreaterThanOrEqual(32, ord($value));

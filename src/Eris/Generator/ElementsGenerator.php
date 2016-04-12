@@ -29,9 +29,9 @@ class ElementsGenerator implements Generator
         $this->domain = $domain;
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
-        $index = rand(0, count($this->domain) - 1);
+        $index = $rand(0, count($this->domain) - 1);
         return GeneratedValue::fromJustValue($this->domain[$index], 'elements');
     }
 

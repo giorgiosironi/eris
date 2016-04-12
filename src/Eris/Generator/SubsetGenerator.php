@@ -24,11 +24,11 @@ class SubsetGenerator implements Generator
         $this->universe = $universe;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
         $relativeSize = $size / ForAll::DEFAULT_MAX_SIZE;
         $maximumSubsetIndex = floor(pow(2, count($this->universe)) * $relativeSize);
-        $subsetIndex = rand(0, $maximumSubsetIndex);
+        $subsetIndex = $rand(0, $maximumSubsetIndex);
         $binaryDescription = str_pad(decbin($subsetIndex), count($this->universe), "0", STR_PAD_LEFT);
         $subset = [];
         for ($i = 0; $i < strlen($binaryDescription); $i++) {
@@ -56,6 +56,7 @@ class SubsetGenerator implements Generator
         }
 
         $input = $set->input();
+        // TODO: make deterministic by returning an array of GeneratedValues
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         return GeneratedValue::fromJustValue(

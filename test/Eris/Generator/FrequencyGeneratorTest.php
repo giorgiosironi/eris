@@ -3,9 +3,10 @@ namespace Eris\Generator;
 
 class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testEqualProbability()
@@ -76,7 +77,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         for ($i = 0; $i < $this->size; $i++) {
-            $element = $generator($this->size);
+            $element = $generator($this->size, $this->rand);
             $shrinked = $generator->shrink($element);
             $this->assertThat(
                 $shrinked->unbox(),
@@ -97,7 +98,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $shrinkedTable = [];
         for ($i = 0; $i < 100; $i++) {
-            $element = $generator($this->size);
+            $element = $generator($this->size, $this->rand);
             for ($j = 0; $j < 100; $j++) {
                 $element = $generator->shrink($element);
             }
@@ -110,7 +111,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $countOf = [];
         for ($i = 0; $i < 1000; $i++) {
-            $value = $generator($this->size)->unbox();
+            $value = $generator($this->size, $this->rand)->unbox();
             if (array_key_exists($value, $countOf)) {
                 $countOf[$value] += 1;
             } else {

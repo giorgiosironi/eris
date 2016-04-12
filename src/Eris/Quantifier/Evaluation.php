@@ -11,6 +11,7 @@ final class Evaluation
     private $assertion;
     private $onFailure;
     private $onSuccess;
+    private $values;
 
     public static function of($assertion)
     {

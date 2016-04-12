@@ -22,11 +22,11 @@ class BindGenerator implements Generator
         $this->outerGeneratorFactory = $outerGeneratorFactory;
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $innerGeneratorValue = $this->innerGenerator->__invoke($size);
+        $innerGeneratorValue = $this->innerGenerator->__invoke($size, $rand);
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
-        $outerGeneratorValue = $outerGenerator->__invoke($size);
+        $outerGeneratorValue = $outerGenerator->__invoke($size, $rand);
         return $this->packageGeneratedValue(
             $outerGeneratorValue,
             $innerGeneratorValue

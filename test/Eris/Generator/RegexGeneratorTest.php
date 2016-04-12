@@ -15,9 +15,10 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     /**
@@ -27,7 +28,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
-            $value = $generator($this->size)->unbox();
+            $value = $generator($this->size, $this->rand)->unbox();
             $this->assertTrue(
                 $generator->contains(GeneratedValue::fromJustValue($value)), 
                 "Failed asserting that " . var_export($value, true) . " matches the regexp $expression"

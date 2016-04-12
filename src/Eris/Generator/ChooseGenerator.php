@@ -41,9 +41,9 @@ class ChooseGenerator implements Generator
         );
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
-        $value = rand($this->lowerLimit, $this->upperLimit);
+        $value = $rand($this->lowerLimit, $this->upperLimit);
 
         return GeneratedValue::fromJustValue($value, 'choose');
     }

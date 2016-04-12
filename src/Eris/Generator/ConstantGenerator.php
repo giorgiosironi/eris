@@ -3,7 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use DomainException;
-use InvalidArgumentException;
 
 /**
  * @param mixed $value  the only value to generate
@@ -28,7 +27,7 @@ class ConstantGenerator implements Generator
         $this->value = $value;
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
         return GeneratedValue::fromJustValue($this->value, 'constant');
     }

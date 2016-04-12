@@ -1,7 +1,6 @@
 <?php
 namespace Eris\Listener;
 
-use Eris\Generator\GeneratedValue;
 use Eris\Listener;
 use InvalidArgumentException;
 

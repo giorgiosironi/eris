@@ -7,7 +7,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->minimumEvaluationRatio = 0.2;
     }

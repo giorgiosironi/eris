@@ -14,16 +14,17 @@ function associative(array $generators)
 class AssociativeArrayGenerator implements Generator
 {
     private $generators;
-    
+    private $tupleGenerator;
+
     public function __construct(array $generators)
     {
         $this->generators = $generators;
         $this->tupleGenerator = new TupleGenerator(array_values($generators));
     }
 
-    public function __invoke($size)
+    public function __invoke($size, $rand)
     {
-        $tuple = $this->tupleGenerator->__invoke($size);
+        $tuple = $this->tupleGenerator->__invoke($size, $rand);
         return $this->mapToAssociativeArray($tuple);
     }
 

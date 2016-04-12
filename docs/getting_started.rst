@@ -8,6 +8,10 @@ This test tries to verify that natural numbers from 0 to 1000 are all greater th
 
 Eris generates a sample of elements from the required domain (here the integers from 0 to 1000) and verifies a property on each of them, stopping at the first failure. Its functionalities are exported trough a ``TestTrait`` you can insert into your PHPUnit tests and through a series of functions in the ``Eris\Generator`` and ``Eris\Listener`` namespaces.
 
+Generators implement the ``Eris\Generator`` interface, and provide random generation of values conforming to some types or domains. By combining them, your System Under Test can receive hundreds of different inputs with only a few lines of code.
+
+Given that the input is unknown when writing the test, we have to test predicates over the result or the state of the System Under Test instead of writing equality assertions over the output. Properties should always be true, so that their violation indicates a bug and hence a failing test.
+
 .. code-block:: bash
 
     [10:34:32][giorgio@Bipbip:~/code/eris]$ vendor/bin/phpunit examples/ReadmeTest.php

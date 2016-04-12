@@ -5,7 +5,7 @@ use Eris\Generator\GeneratedValue;
 
 class LogTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->file = '/tmp/eris-log-unit-test.log';
         $this->time = function() {

@@ -3,10 +3,11 @@ namespace Eris\Generator;
 
 class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->generatorForSingleElement = new ChooseGenerator(0, 100);
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testConstructWithAnArrayOfGenerators()
@@ -16,7 +17,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->generatorForSingleElement,
         ]);
 
-        $generated = $generator($this->size);
+        $generated = $generator($this->size, $this->rand);
 
         $this->assertSame(2, count($generated->unbox()));
         foreach ($generated->unbox() as $element) {
@@ -31,7 +32,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $aNonGenerator = 42;
         $generator = new TupleGenerator([$aNonGenerator]);
 
-        $generated = $generator($this->size);
+        $generated = $generator($this->size, $this->rand);
 
         foreach ($generated->unbox() as $element) {
             $this->assertTrue(
@@ -46,7 +47,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new TupleGenerator([]);
 
-        $this->assertSame([], $generator($this->size)->unbox());
+        $this->assertSame([], $generator($this->size, $this->rand)->unbox());
     }
 
     public function testContainsGeneratedElements()
@@ -57,8 +58,8 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $tupleThatCanBeGenerated = GeneratedValue::fromJustValue([
-            $this->generatorForSingleElement->__invoke($this->size),
-            $this->generatorForSingleElement->__invoke($this->size),
+            $this->generatorForSingleElement->__invoke($this->size, $this->rand),
+            $this->generatorForSingleElement->__invoke($this->size, $this->rand),
         ]);
 
         $this->assertTrue($generator->contains($tupleThatCanBeGenerated));
@@ -71,7 +72,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->generatorForSingleElement,
         ]);
 
-        $elements = $generator->__invoke($this->size);
+        $elements = $generator->__invoke($this->size, $this->rand);
         $elementsAfterShrink = $generator->shrink($elements);
 
         $this->assertTrue($this->generatorForSingleElement->contains(
@@ -91,7 +92,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $constants = [42, 42];
         $generator = new TupleGenerator($constants);
-        $elements = $generator($this->size);
+        $elements = $generator($this->size, $this->rand);
         $this->assertSame($constants, $elements->unbox());
         $elementsAfterShrink = $generator->shrink($elements);
         $this->assertSame($constants, $elementsAfterShrink->unbox());
@@ -100,7 +101,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkNothing()
     {
         $generator = new TupleGenerator([]);
-        $elements = $generator($this->size);
+        $elements = $generator($this->size, $this->rand);
         $this->assertSame([], $elements->unbox());
         $elementsAfterShrink = $generator->shrink($elements);
         $this->assertSame([], $elementsAfterShrink->unbox());

@@ -3,7 +3,7 @@ namespace Eris\Generator;
 
 class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->vectorSize = rand(5, 10);
         $this->size = 10;
@@ -13,12 +13,13 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
             $acc = $acc + $item;
             return $acc;
         };
+        $this->rand = 'rand';
     }
 
     public function testGeneratesVectorWithGivenSizeAndElementsFromGivenGenerator()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator($this->size);
+        $vector = $generator($this->size, $this->rand);
 
         $this->assertSame($this->vectorSize, count($vector->unbox()));
         foreach ($vector->unbox() as $element) {
@@ -31,7 +32,7 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksElementsOfTheVector()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator($this->size);
+        $vector = $generator($this->size, $this->rand);
 
         $previousSum = array_reduce($vector->unbox(), $this->sum);
         for ($i = 0; $i < 15; $i++) {
@@ -45,7 +46,7 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testEachGeneratedVectorShouldBeContainedIntoTheDomain()
     {
         $generator = $this->vectorGenerator;
-        $vector = $generator($this->size);
+        $vector = $generator($this->size, $this->rand);
 
         $this->assertTrue($this->vectorGenerator->contains($vector));
     }

@@ -24,7 +24,8 @@ function date($lowerLimit = null, $upperLimit = null)
     };
     return new DateGenerator(
         $withDefault($box($lowerLimit), new DateTime("@0")),
-        $withDefault($box($upperLimit), new DateTime("@" . getrandmax()))
+        // uses a maximum which is conservative
+        $withDefault($box($upperLimit), new DateTime("@" . pow(2, 31) - 1))
     );
 }
 
@@ -41,9 +42,9 @@ class DateGenerator implements Generator
         $this->intervalInSeconds = $upperLimit->getTimestamp() - $lowerLimit->getTimestamp();
     }
 
-    public function __invoke($_size)
+    public function __invoke($_size, $rand)
     {
-        $generatedOffset = rand(0, $this->intervalInSeconds);
+        $generatedOffset = $rand(0, $this->intervalInSeconds);
         return GeneratedValue::fromJustValue(
             $this->fromOffset($generatedOffset),
             'date'

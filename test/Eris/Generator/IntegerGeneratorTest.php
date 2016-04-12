@@ -3,16 +3,17 @@ namespace Eris\Generator;
 
 class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->size = 10;
+        $this->rand = 'rand';
     }
 
     public function testPicksRandomlyAnInteger()
     {
         $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
-            $this->assertTrue($generator->contains($generator($this->size)));
+            $this->assertTrue($generator->contains($generator($this->size, $this->rand)));
         }
     }
 
@@ -23,7 +24,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
          * To be fixed in the next weeks.
          */
         $generator = new IntegerGenerator();
-        $value = $generator($this->size);
+        $value = $generator($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
             $newValue = $generator->shrink($value);
             $this->assertTrue(in_array(abs($value->unbox() - $newValue->unbox()), [0, 1]));
@@ -37,7 +38,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new IntegerGenerator();
         $values = [];
         for ($i = 0; $i < 1000; $i++) {
-            $values[] = $generator($this->size);
+            $values[] = $generator($this->size, $this->rand);
         }
         $this->assertGreaterThan(
             400,
@@ -49,25 +50,25 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCannotShrinkStopsToZero()
     {
         $generator = new IntegerGenerator();
-        $lastValue = $generator($size = 0);
+        $lastValue = $generator($size = 0, $this->rand);
         $this->assertSame(0, $generator->shrink($lastValue)->unbox());
     }
 
     public function testPosAlreadyStartsFromStrictlyPositiveValues()
     {
         $generator = pos();
-        $this->assertGreaterThan(0, $generator->__invoke(0)->unbox());
+        $this->assertGreaterThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
     public function testNegAlreadyStartsFromStrictlyNegativeValues()
     {
         $generator = neg();
-        $this->assertLessThan(0, $generator->__invoke(0)->unbox());
+        $this->assertLessThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
     public function testNatStartsFromZero()
     {
         $generator = nat();
-        $this->assertEquals(0, $generator->__invoke(0)->unbox());
+        $this->assertEquals(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 }
