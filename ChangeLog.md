@@ -1,8 +1,24 @@
 # ChangeLog
 
+## 0.8.0
+
+* Updated dependency on `icomefromthenet/reverse-regex` to solve warnings on PHP 7.
+* `bind` Generator.
+* Default string dump for `Listener\collectFrequencies()`.
+* Optionally logging generations with `hook(Listener\log($filename))`.
+* `disableShrinking()` option.
+* `limitTo()` accepts a `DateInterval` too.
+* Configurability of randomness: choice between `rand`, `mt_rand`, and a pure PHP Mersenne Twister.
+* `suchThat` Generator accepts PHPUnit constraints like `when()`.
+* `Generator\constant()` utility function.
+* Fixed bug of size not being fully explored due to slow growth.
+* BC: `frequency` generator only accepts variadics args, not an array anymore.
+* BC: removed `strictlyPos` and `strictlyNeg` Generators as duplicated of `pos` and `neg` ones.
+* BC: removed `andAlso`, `theCondition`, `andTheCondition`, `implies`, `imply` aliases which no one uses. Added `and` for multiple preconditions.
+
 ## 0.7.0
 
-* `associative`, `map`, `subSet`, `suchThat`
+* `associative`, `map`, `subSet`, `suchThat` Generators.
 * Optionally limiting the number of generations with `limitTo()`.
 * Optionally collecting generated data with `hook(Listener\collectFrequencies())`.
 * Support for listeners with `startPropertyVerification`, `newGeneration` and `endPropertyVerification` events.
