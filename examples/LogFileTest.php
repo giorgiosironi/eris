@@ -9,9 +9,10 @@ class LogFileTest extends PHPUnit_Framework_TestCase
 
     public function testWritingIterationsOnALogFile()
     {
-        $this->forAll(
-            Generator\int()
-        )
+        $this
+            ->forAll(
+                Generator\int()
+            )
             ->hook(Listener\log('/tmp/eris-log-file-test.log'))
             ->then(function($number) {
                 $this->assertInternalType('integer', $number);
@@ -20,9 +21,10 @@ class LogFileTest extends PHPUnit_Framework_TestCase
 
     public function testLogOfFailuresAndShrinking()
     {
-        $this->forAll(
-            Generator\int()
-        )
+        $this
+            ->forAll(
+                Generator\int()
+            )
             ->hook(Listener\log('/tmp/eris-log-file-shrinking.log'))
             ->then(function($number) {
                 $this->assertLessThanOrEqual(42, $number);

@@ -12,27 +12,27 @@ interface Listener
     public function startPropertyVerification();
 
     /**
-     * @param integer
+     * @param integer $ordinaryEvaluations
      * @return void
      */
     public function endPropertyVerification($ordinaryEvaluations);
 
     /**
-     * @param array  of mixed values
-     * @param integer  index of current iteration
+     * @param array $generation  of mixed values
+     * @param integer $iteration  index of current iteration
      * @return void
      */
     public function newGeneration(array $generation, $iteration);
 
     /**
-     * @param array  of mixed values
-     * @param Exception  assertion failure
+     * @param array $generation  of mixed values
+     * @param Exception $exception  assertion failure
      * @return void
      */
     public function failure(array $generation, Exception $exception);
 
     /**
-     * @param array  of mixed values
+     * @param array $generation  of mixed values
      * @return void
      */
     public function shrinking(array $generation);

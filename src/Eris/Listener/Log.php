@@ -49,9 +49,7 @@ class Log
         $this->log(sprintf(
             "failure: %s. %s",
             // TODO: duplication with collect
-            json_encode(
-                $generation
-            ),
+            json_encode($generation),
             $exception->getMessage()
         ));
     }
@@ -61,9 +59,7 @@ class Log
         $this->log(sprintf(
             "shrinking: %s",
             // TODO: duplication with collect
-            json_encode(
-                $generation
-            )
+            json_encode($generation)
         ));
     }
 
