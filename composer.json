@@ -29,11 +29,11 @@
         "icomefromthenet/reverse-regex": "v0.0.6.3 for the regex() Generator"
     },
     "autoload": {
-        "psr-0": {
-            "Eris" : "src/"
+        "psr-4": {
+            "Eris\\" : "src/"
         },
         "files": [
-          "src/Eris/Generator/functions.php"
+            "src/Generator/functions.php"
         ]
     },
     "scripts": {
