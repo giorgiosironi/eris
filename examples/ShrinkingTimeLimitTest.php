@@ -22,7 +22,7 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
                 Generator\string(),
                 Generator\string()
             )
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $result = very_slow_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),

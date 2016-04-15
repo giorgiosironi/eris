@@ -12,7 +12,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGeneratesAGeneratedValueObject()
     {
         $generator = new MapGenerator(
-            function($n) { return $n * 2; },
+            function ($n) { return $n * 2; },
             ConstantGenerator::box(1)
         );
         $this->assertEquals(
@@ -24,7 +24,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksTheOriginalInput()
     {
         $generator = new MapGenerator(
-            function($n) { return $n * 2; },
+            function ($n) { return $n * 2; },
             new ChooseGenerator(1, 100)
         );
         $element = $generator->__invoke($this->size, $this->rand);
@@ -38,7 +38,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testChecksTheContainmentOfTheOriginalInput()
     {
         $generator = new MapGenerator(
-            function($n) { return $n * 2; },
+            function ($n) { return $n * 2; },
             new ChooseGenerator(1, 100)
         );
         $element = $generator->__invoke($this->size, $this->rand);

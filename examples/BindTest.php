@@ -10,7 +10,7 @@ class BindTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\bind(
                 Generator\vector(4, Generator\nat()),
-                function($vector) {
+                function ($vector) {
                     return Generator\tuple(
                         Generator\elements($vector),
                         Generator\constant($vector)
@@ -18,8 +18,8 @@ class BindTest extends PHPUnit_Framework_TestCase
                 }
             )
         )
-            ->then(function($tuple) {
-                list ($element, $vector) = $tuple;
+            ->then(function ($tuple) {
+                list($element, $vector) = $tuple;
                 $this->assertContains($element, $vector);
             });
     }

@@ -7,7 +7,7 @@ use DomainException;
 
 function date($lowerLimit = null, $upperLimit = null)
 {
-    $box = function($date) {
+    $box = function ($date) {
         if ($date === null) {
             return $date;
         }
@@ -16,7 +16,7 @@ function date($lowerLimit = null, $upperLimit = null)
         }
         return new DateTime($date);
     };
-    $withDefault = function($value, $default) {
+    $withDefault = function ($value, $default) {
         if ($value !== null) {
             return $value;
         }

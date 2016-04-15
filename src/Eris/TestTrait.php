@@ -53,7 +53,7 @@ trait TestTrait
      */
     public static function loadAllErisGenerators()
     {
-        foreach(glob(__DIR__ . '/Generator/*.php') as $filename) {
+        foreach (glob(__DIR__ . '/Generator/*.php') as $filename) {
             require_once($filename);
         }
     }
@@ -63,7 +63,7 @@ trait TestTrait
      */
     public static function loadAllErisAntecedents()
     {
-        foreach(glob(__DIR__ . '/Antecedent/*.php') as $filename) {
+        foreach (glob(__DIR__ . '/Antecedent/*.php') as $filename) {
             require_once($filename);
         }
     }
@@ -73,7 +73,7 @@ trait TestTrait
      */
     public static function loadAllErisListeners()
     {
-        foreach(glob(__DIR__ . '/Listener/*.php') as $filename) {
+        foreach (glob(__DIR__ . '/Listener/*.php') as $filename) {
             require_once($filename);
         }
     }
@@ -122,7 +122,7 @@ trait TestTrait
             $terminationCondition = new Quantifier\TimeBasedTerminationCondition('time', $interval);
             $this->listeners[] = $terminationCondition;
             $this->terminationConditions[] = $terminationCondition;
-        } else if (is_integer($limit)) {
+        } elseif (is_integer($limit)) {
             $this->iterations = $limit;
         } else {
             throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");

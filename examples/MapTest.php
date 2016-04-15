@@ -11,12 +11,12 @@ class MapTest extends PHPUnit_Framework_TestCase
             Generator\vector(
                 3,
                 Generator\map(
-                    function($n) { return $n * 2; },
+                    function ($n) { return $n * 2; },
                     Generator\nat()
                 )
             )
         )
-            ->then(function($tripleOfEvenNumbers) {
+            ->then(function ($tripleOfEvenNumbers) {
                 foreach ($tripleOfEvenNumbers as $number) {
                     $this->assertTrue(
                         $number % 2 == 0,
@@ -30,11 +30,11 @@ class MapTest extends PHPUnit_Framework_TestCase
     {
         $this->forAll(
             Generator\map(
-                function($n) { return $n * 2; },
+                function ($n) { return $n * 2; },
                 Generator\nat()
             )
         )
-            ->then(function($evenNumber) {
+            ->then(function ($evenNumber) {
                 $this->assertLessThanOrEqual(
                     100,
                     $evenNumber,
@@ -49,12 +49,12 @@ class MapTest extends PHPUnit_Framework_TestCase
             Generator\vector(
                 3,
                 Generator\map(
-                    function($n) { return $n * 2; },
+                    function ($n) { return $n * 2; },
                     Generator\nat()
                 )
             )
         )
-            ->then(function($tripleOfEvenNumbers) {
+            ->then(function ($tripleOfEvenNumbers) {
                 $this->assertLessThanOrEqual(
                     100,
                     array_sum($tripleOfEvenNumbers),

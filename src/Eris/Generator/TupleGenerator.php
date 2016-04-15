@@ -37,14 +37,14 @@ class TupleGenerator implements Generator
     public function __invoke($size, $rand)
     {
         $input = array_map(
-            function($generator) use ($size, $rand) {
-                return $generator->__invoke($size, $rand);
+            function ($generator) use ($size, $rand) {
+                return $generator($size, $rand);
             },
             $this->generators
         );
         return GeneratedValue::fromValueAndInput(
             array_map(
-                function($value) {
+                function ($value) {
                     return $value->unbox();
                 },
                 $input
@@ -82,10 +82,10 @@ class TupleGenerator implements Generator
         }
         return GeneratedValue::fromValueAndInput(
             array_map(
-                function($element) { return $element->unbox(); },
+                function ($element) { return $element->unbox(); },
                 $input
             ),
-            $input, 
+            $input,
             'tuple'
         );
     }
@@ -110,7 +110,7 @@ class TupleGenerator implements Generator
     private function ensureAreAllGenerators(array $generators)
     {
         return array_map(
-            function($generator) {
+            function ($generator) {
                 if ($generator instanceof Generator) {
                     return $generator;
                 }

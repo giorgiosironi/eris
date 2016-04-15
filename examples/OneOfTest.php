@@ -14,7 +14,7 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
                     Generator\neg()
                 )
             )
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertNotEquals(0, $number);
             });
     }

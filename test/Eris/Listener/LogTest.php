@@ -8,10 +8,10 @@ class LogTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->file = '/tmp/eris-log-unit-test.log';
-        $this->time = function() {
+        $this->time = function () {
             return 1300000000;
         };
-        $this->log = new Log($this->file, $this->time,1234);
+        $this->log = new Log($this->file, $this->time, 1234);
     }
 
     public function tearDown()
@@ -49,7 +49,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testCleansTheFile()
     {
         $this->log->newGeneration([], 42);
-        $this->log = new Log($this->file, $this->time,1234);
+        $this->log = new Log($this->file, $this->time, 1234);
 
         $this->assertEquals("", file_get_contents($this->file));
     }

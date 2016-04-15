@@ -11,12 +11,11 @@ class SetTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\set(Generator\nat())
         )
-            ->then(function($set) {
+            ->then(function ($set) {
                 $this->assertInternalType('array', $set);
                 foreach ($set as $element) {
                     $this->assertGreaterThanOrEqual(0, $element);
                 }
             });
     }
-
 }

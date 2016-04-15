@@ -10,7 +10,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\date("2014-01-01T00:00:00", "2014-12-31T23:59:59")
         )
-            ->then(function(DateTime $date) {
+            ->then(function (DateTime $date) {
                 $this->assertEquals(
                     "2014",
                     $date->format('Y')
@@ -23,7 +23,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\date()
         )
-            ->then(function(DateTime $date) {
+            ->then(function (DateTime $date) {
                 $this->assertGreaterThanOrEqual(
                     "1970",
                     $date->format('Y')
@@ -42,7 +42,7 @@ class DateTest extends PHPUnit_Framework_TestCase
             Generator\choose(0, 364),
             Generator\choose(0, 364)
         )
-        ->then(function($year, $dayOfYear, $anotherDayOfYear) {
+        ->then(function ($year, $dayOfYear, $anotherDayOfYear) {
             $day = fromZeroBasedDayOfYear($year, $dayOfYear);
             $anotherDay = fromZeroBasedDayOfYear($year, $anotherDayOfYear);
             $this->assertEquals(

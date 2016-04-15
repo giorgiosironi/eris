@@ -1,5 +1,6 @@
 <?php
 namespace Eris;
+
 use SimpleXMLElement;
 
 class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase

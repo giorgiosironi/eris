@@ -12,7 +12,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
              ->forAll(
                 Generator\int()
             )
-            ->then(function($value) {
+            ->then(function ($value) {
                 $this->assertInternalType('integer', $value);
             });
     }
@@ -40,7 +40,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
              ->forAll(
                 Generator\int()
             )
-            ->then(function($value) {
+            ->then(function ($value) {
                 usleep(100 * 1000);
                 $this->assertTrue(true);
             });

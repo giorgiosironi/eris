@@ -83,9 +83,8 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         sort($generated);
         $this->assertTrue(
             array_unique($generated) === $generated,
-            "There are repeated elements inside a generated value: " 
+            "There are repeated elements inside a generated value: "
             . var_export($generated, true)
         );
     }
-
 }

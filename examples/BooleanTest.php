@@ -11,7 +11,7 @@ class BooleanTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\bool()
         )
-            ->then(function($boolValue) {
+            ->then(function ($boolValue) {
                 $this->assertTrue(
                     ($boolValue === true || $boolValue === false),
                     "$boolValue is not true nor false"

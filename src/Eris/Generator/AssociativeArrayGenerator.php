@@ -43,7 +43,7 @@ class AssociativeArrayGenerator implements Generator
     private function mapToAssociativeArray(GeneratedValue $tuple)
     {
         return $tuple->map(
-            function($value) {
+            function ($value) {
                 $associativeArray = [];
                 $keys = array_keys($this->generators);
                 for ($i = 0; $i < count($value); $i++) {

@@ -11,7 +11,7 @@ class VectorTest extends PHPUnit_Framework_TestCase
             Generator\vector(10, Generator\nat(1000)),
             Generator\vector(10, Generator\nat(1000))
         )
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $concatenated = array_merge($first, $second);
                 $this->assertEquals(
                     count($concatenated),

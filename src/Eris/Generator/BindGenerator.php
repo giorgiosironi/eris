@@ -35,7 +35,7 @@ class BindGenerator implements Generator
 
     public function shrink(GeneratedValue $element)
     {
-        list ($outerGeneratorValue, $innerGeneratorValue) = $element->input();
+        list($outerGeneratorValue, $innerGeneratorValue) = $element->input();
         // TODO: shrink also the second generator
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
         $shrinkedOuterGeneratorValue = $outerGenerator->shrink($outerGeneratorValue);
@@ -47,7 +47,7 @@ class BindGenerator implements Generator
 
     public function contains(GeneratedValue $element)
     {
-        list ($outerGeneratorValue, $innerGeneratorValue) = $element->input();
+        list($outerGeneratorValue, $innerGeneratorValue) = $element->input();
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
         return $outerGenerator->contains($outerGeneratorValue);
     }

@@ -10,10 +10,10 @@ class WhenTest extends \PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\choose(0, 1000)
         )
-            ->when(function($n) {
+            ->when(function ($n) {
                 return $n > 42;
             })
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number > 42,
                     "\$number was filtered to be more than 42, but it's $number"
@@ -27,10 +27,10 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000),
             Generator\choose(0, 1000)
         )
-            ->when(function($first, $second) {
+            ->when(function ($first, $second) {
                 return $first > 42 && $second > 23;
             })
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $this->assertTrue(
                     $first + $second > 42 + 23,
                     "\$first and \$second were filtered to be more than 42 and 23, but they are $first and $second"
@@ -44,7 +44,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000)
         )
             ->when($this->greaterThan(42))
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number > 42,
                     "\$number was filtered to be more than 42, but it's $number"
@@ -59,7 +59,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000)
         )
             ->when($this->greaterThan(42), $this->greaterThan(23))
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $this->assertTrue(
                     $first + $second > 42 + 23,
                     "\$first and \$second were filtered to be more than 42 and 23, but they are $first and $second"
@@ -74,7 +74,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
         )
             ->when($this->greaterThan(42))
             ->and($this->lessThan(900))
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number > 42 && $number < 900,
                     "\$number was filtered to be between 42 and 900, but it is $number"
@@ -88,7 +88,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000)
         )
             ->when($this->greaterThan(800))
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number > 800
                 );
@@ -106,7 +106,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
             Generator\choose(0, 1000)
         )
             ->when($this->greaterThan(100))
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertTrue(
                     $number <= 100,
                     "\$number should be less or equal to 100, but it is $number"
@@ -119,10 +119,10 @@ class WhenTest extends \PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\seq(Generator\elements(1, 2, 3))
         )
-            ->when(function($seq) {
+            ->when(function ($seq) {
                 return count($seq) > 0;
             })
-            ->then(function($seq) {
+            ->then(function ($seq) {
                 $this->assertGreaterThan(0, count($seq));
             });
     }

@@ -11,7 +11,7 @@ class SortTest extends PHPUnit_Framework_TestCase
             ->forAll(
                 Generator\seq(Generator\nat())
             )
-            ->then(function($array) {
+            ->then(function ($array) {
                 sort($array);
                 for ($i = 0; $i < count($array) - 1; $i++) {
                     $this->assertTrue(

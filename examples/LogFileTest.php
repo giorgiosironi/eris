@@ -14,7 +14,7 @@ class LogFileTest extends PHPUnit_Framework_TestCase
                 Generator\int()
             )
             ->hook(Listener\log('/tmp/eris-log-file-test.log'))
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertInternalType('integer', $number);
             });
     }
@@ -31,4 +31,3 @@ class LogFileTest extends PHPUnit_Framework_TestCase
             });
     }
 }
-

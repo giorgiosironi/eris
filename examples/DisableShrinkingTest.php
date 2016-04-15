@@ -17,10 +17,9 @@ class DisableShrinkingTest extends \PHPUnit_Framework_TestCase
                 Generator\nat()
             )
             ->disableShrinking()
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->calls++;
                 $this->assertTrue(false, "Total calls: {$this->calls}");
             });
- 
     }
 }

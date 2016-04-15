@@ -12,7 +12,7 @@ class IntegerTest extends PHPUnit_Framework_TestCase
             Generator\int(),
             Generator\int()
         )
-            ->then(function($first, $second) {
+            ->then(function ($first, $second) {
                 $x = $first + $second;
                 $y = $second + $first;
                 $this->assertEquals(
@@ -30,7 +30,7 @@ class IntegerTest extends PHPUnit_Framework_TestCase
             Generator\neg(),
             Generator\pos()
         )
-            ->then(function($first, $second, $third) {
+            ->then(function ($first, $second, $third) {
                 $x = $first + ($second + $third);
                 $y = ($first + $second) + $third;
                 $this->assertEquals(
@@ -46,7 +46,7 @@ class IntegerTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\byte()
         )
-            ->then(function($byte) {
+            ->then(function ($byte) {
                 $this->assertTrue(
                     $byte >= 0 && $byte <= 255,
                     "$byte is not a valid value for a byte"

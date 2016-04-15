@@ -42,7 +42,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertGreaterThan(
             400,
-            count(array_filter($values, function($n) { return $n->unbox() > 0; })),
+            count(array_filter($values, function ($n) { return $n->unbox() > 0; })),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
     }

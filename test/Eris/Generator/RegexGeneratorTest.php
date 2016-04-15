@@ -30,7 +30,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
             $this->assertTrue(
-                $generator->contains(GeneratedValue::fromJustValue($value)), 
+                $generator->contains(GeneratedValue::fromJustValue($value)),
                 "Failed asserting that " . var_export($value, true) . " matches the regexp $expression"
             );
         }

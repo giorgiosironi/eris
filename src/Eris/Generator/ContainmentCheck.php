@@ -1,5 +1,6 @@
 <?php
 namespace Eris\Generator;
+
 use DomainException;
 
 class ContainmentCheck

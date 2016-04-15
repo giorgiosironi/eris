@@ -14,7 +14,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new BindGenerator(
             // TODO: order of parameters should be consistent with map, or not?
             ConstantGenerator::box(4),
-            function($n) {
+            function ($n) {
                 return new ChooseGenerator($n, $n+10);
             }
         );
@@ -28,7 +28,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new BindGenerator(
             new ChooseGenerator(0, 5),
-            function($n) {
+            function ($n) {
                 return new ChooseGenerator($n, $n + 10);
             }
         );
@@ -49,20 +49,20 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         $firstGenerator = new BindGenerator(
             new BindGenerator(
                 new ChooseGenerator(0, 5),
-                function($n) {
+                function ($n) {
                     return new ChooseGenerator($n * 10, $n * 10 + 1);
                 }
             ),
-            function($m) {
+            function ($m) {
                 return new VectorGenerator($m, new IntegerGenerator());
             }
         );
         $secondGenerator = new BindGenerator(
             new ChooseGenerator(0, 5),
-            function($n) {
+            function ($n) {
                 return new BindGenerator(
                     new ChooseGenerator($n * 10, $n * 10 + 1),
-                    function($m) {
+                    function ($m) {
                         return new VectorGenerator($m, new IntegerGenerator());
                     }
                 );

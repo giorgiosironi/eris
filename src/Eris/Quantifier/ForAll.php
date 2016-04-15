@@ -87,9 +87,9 @@ class ForAll
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
             $antecedent = $arguments[0];
-        } else if ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
+        } elseif ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
             $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
-        } else if ($arguments && count($arguments) == 1) {
+        } elseif ($arguments && count($arguments) == 1) {
             $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
             throw new \InvalidArgumentException("Invalid call to when(): " . var_export($arguments, true));
@@ -192,7 +192,7 @@ class ForAll
     private function generatorsFrom($supposedToBeGenerators)
     {
         $generators = [];
-        foreach($supposedToBeGenerators as $supposedToBeGenerator) {
+        foreach ($supposedToBeGenerators as $supposedToBeGenerator) {
             if (!$supposedToBeGenerator instanceof Generator) {
                 $generators[] = new Generator\ConstantGenerator($supposedToBeGenerator);
             } else {
