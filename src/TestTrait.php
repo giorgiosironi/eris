@@ -21,9 +21,35 @@ trait TestTrait
     protected $shrinkingTimeLimit;
 
     /**
+     * @beforeClass
+     */
+    public static function erisSetupBeforeClass()
+    {
+        foreach (['Generator', 'Antecedent', 'Listener', 'Random'] as $namespace) {
+            foreach (glob(__DIR__ . '/' . $namespace . '/*.php') as $filename) {
+                require_once($filename);
+            }
+        }
+    }
+
+    /**
      * @before
      */
-    public function seedingRandomNumberGeneration()
+    public function erisSetup()
+    {
+        $this->seedingRandomNumberGeneration();
+    }
+
+    /**
+     * @after
+     */
+    public function erisTeardown()
+    {
+        $this->dumpSeedForReproducing();
+        $this->checkConstraintsHaveNotSkippedTooManyIterations();
+    }
+
+    private function seedingRandomNumberGeneration()
     {
         if ($seed = getenv('ERIS_SEED')) {
             $this->seed = $seed;
@@ -35,9 +61,8 @@ trait TestTrait
     /**
      * Maybe: we could add --filter options to the command here,
      * since now the original command is printed.
-     * @after
      */
-    public function dumpSeedForReproducing()
+    private function dumpSeedForReproducing()
     {
         if ($this->hasFailed()) {
             global $argv;
@@ -48,50 +73,7 @@ trait TestTrait
         }
     }
 
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisGenerators()
-    {
-        foreach (glob(__DIR__ . '/Generator/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisAntecedents()
-    {
-        foreach (glob(__DIR__ . '/Antecedent/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisListeners()
-    {
-        foreach (glob(__DIR__ . '/Listener/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @beforeClass
-     */
-    public static function loadAllErisRandom()
-    {
-        foreach (glob(__DIR__ . '/Random/*.php') as $filename) {
-            require_once($filename);
-        }
-    }
-
-    /**
-     * @after
-     */
-    public function checkConstraintsHaveNotSkippedTooManyIterations()
+    private function checkConstraintsHaveNotSkippedTooManyIterations()
     {
         foreach ($this->quantifiers as $quantifier) {
             $evaluationRatio = $quantifier->evaluationRatio();
@@ -176,6 +158,7 @@ trait TestTrait
 
     /**
      * forAll($generator1, $generator2, ...)
+     * @return Quantifier\ForAll
      */
     protected function forAll()
     {
@@ -199,11 +182,17 @@ trait TestTrait
         return $quantifier;
     }
 
+    /**
+     * @return Sample
+     */
     protected function sample(Generator $generator, $times = 10)
     {
         return Sample::of($generator, $this->randFunction)->repeat($times);
     }
 
+    /**
+     * @return Sample
+     */
     protected function sampleShrink(Generator $generator, $fromValue = null)
     {
         return Sample::of($generator, $this->randFunction)->shrink($fromValue);
