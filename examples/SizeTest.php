@@ -17,7 +17,7 @@ class SizeTest extends PHPUnit_Framework_TestCase
                 Generator\int()
             )
             ->withMaxSize(1000 * 1000)
-            ->then(function($number) {
+            ->then(function ($number) {
                 $this->assertLessThan(100 * 1000, $number);
             });
     }

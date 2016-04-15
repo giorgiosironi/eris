@@ -46,7 +46,7 @@ class RandomRange
         $delta = $upper - $lower;
         $divisor = ($this->source->max()) / ($delta + 1);
 
-        do { 
+        do {
             $retval = (int) floor($this->source->extractNumber() / $divisor);
         } while ($retval > $delta);
 

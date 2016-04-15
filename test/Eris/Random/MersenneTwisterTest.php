@@ -58,7 +58,7 @@ class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
     private function enableAssertions()
     {
         assert_options(ASSERT_ACTIVE, 1);
-        assert_options(ASSERT_CALLBACK, function($file, $line, $code) {
+        assert_options(ASSERT_CALLBACK, function ($file, $line, $code) {
             throw new \LogicException($code);
         });
     }

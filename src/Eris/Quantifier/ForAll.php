@@ -122,7 +122,7 @@ class ForAll
                 }
                 $generation = GeneratedValue::fromValueAndInput(
                     $values,
-                    $generatedValues, 
+                    $generatedValues,
                     'tuple'
                 );
                 $this->notifyListeners('newGeneration', $generation->unbox(), $iteration);
@@ -135,7 +135,7 @@ class ForAll
                 Evaluation::of($assertion)
                     // TODO: coupling between here and the TupleGenerator used inside?
                     ->with($generation)
-                    ->onFailure(function($generatedValues, $exception) use ($assertion) {
+                    ->onFailure(function ($generatedValues, $exception) use ($assertion) {
                         $this->notifyListeners('failure', $generatedValues->unbox(), $exception);
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
@@ -143,10 +143,10 @@ class ForAll
                         $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
-                            ->addGoodShrinkCondition(function(GeneratedValue $generatedValues) {
+                            ->addGoodShrinkCondition(function (GeneratedValue $generatedValues) {
                                 return $this->antecedentsAreSatisfied($generatedValues->unbox());
                             })
-                            ->onAttempt(function(GeneratedValue $generatedValues) {
+                            ->onAttempt(function (GeneratedValue $generatedValues) {
                                 $this->notifyListeners('shrinking', $generatedValues->unbox());
                             })
                             ->from($generatedValues, $exception);

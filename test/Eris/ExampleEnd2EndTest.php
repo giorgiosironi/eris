@@ -224,7 +224,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $output = (string) $result->{"system-out"};
         if (!preg_match('/ERIS_SEED=([0-9]+)/', $output, $matches)) {
             $this->fail("Cannot find ERIS_SEED in output to rerun the test deterministically: " . var_export($output, true));
-        } 
+        }
         $this->setEnvironmentVariable('ERIS_SEED', $matches[1]);
         $this->runExample('AlwaysFailsTest.php');
         $secondRunResult = $this->results->testsuite->testcase;

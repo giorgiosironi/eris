@@ -62,7 +62,7 @@ class Size implements Countable
     public function at($position)
     {
         $index = $position % count($this->list);
-        return $this->list[$index];   
+        return $this->list[$index];
     }
 
     public function max()

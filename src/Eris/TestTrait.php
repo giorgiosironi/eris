@@ -83,7 +83,7 @@ trait TestTrait
      */
     public static function loadAllErisRandom()
     {
-        foreach(glob(__DIR__ . '/Random/*.php') as $filename) {
+        foreach (glob(__DIR__ . '/Random/*.php') as $filename) {
             require_once($filename);
         }
     }
@@ -150,10 +150,10 @@ trait TestTrait
     {
         // TODO: invert and wrap rand, srand into objects?
         if ($randFunction instanceof \Eris\Random\RandomRange) {
-            $this->randFunction = function($lower = null, $upper = null) use ($randFunction) {
+            $this->randFunction = function ($lower = null, $upper = null) use ($randFunction) {
                 return $randFunction->rand($lower, $upper);
             };
-            $this->seedFunction = function($seed) use ($randFunction) {
+            $this->seedFunction = function ($seed) use ($randFunction) {
                 return $randFunction->seed($seed);
             };
         }

@@ -40,7 +40,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
 
     private function isInteger()
     {
-        return function($number) {
+        return function ($number) {
             $this->assertInternalType('integer', $number);
         };
     }

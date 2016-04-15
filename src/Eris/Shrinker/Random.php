@@ -24,7 +24,7 @@ class Random // implements Shrinker
 
     public function setTimeLimit(TimeLimit $timeLimit)
     {
-        $this->timeLimit = $timeLimit; 
+        $this->timeLimit = $timeLimit;
         return $this;
     }
 
