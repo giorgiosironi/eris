@@ -12,6 +12,7 @@
 * `suchThat` Generator accepts PHPUnit constraints like `when()`.
 * `Generator\constant()` utility function.
 * Fixed bug of size not being fully explored due to slow growth.
+* Switched to PSR-2 coding standards and PSR-4 autoloading.
 * BC: `frequency` generator only accepts variadics args, not an array anymore.
 * BC: removed `strictlyPos` and `strictlyNeg` Generators as duplicated of `pos` and `neg` ones.
 * BC: removed `andAlso`, `theCondition`, `andTheCondition`, `implies`, `imply` aliases which no one uses. Added `and` for multiple preconditions.
