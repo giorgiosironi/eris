@@ -191,11 +191,6 @@ class ForAll
         throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
     }
 
-    public function evaluationRatio()
-    {
-        return $this->ordinaryEvaluations / $this->iterations;
-    }
-
     private function generatorsFrom($supposedToBeGenerators)
     {
         $generators = [];
