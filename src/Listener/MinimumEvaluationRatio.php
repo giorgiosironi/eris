@@ -19,6 +19,9 @@ class MinimumEvaluationRatio
 
     public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
     {
+        if ($exception) {
+            return;
+        }
         $evaluationRatio = $ordinaryEvaluations / $iterations;
         if ($evaluationRatio < $this->threshold) {
             throw new OutOfBoundsException("Evaluation ratio {$evaluationRatio} is under the threshold {$this->threshold}");
