@@ -4,6 +4,7 @@ namespace Eris\Listener;
 use Eris\Listener;
 use Eris\Listener\EmptyListener;
 use OutOfBoundsException;
+use Exception;
 
 class MinimumEvaluationRatio
     extends EmptyListener
@@ -16,7 +17,7 @@ class MinimumEvaluationRatio
         $this->threshold = $threshold;
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
     {
         $evaluationRatio = $ordinaryEvaluations / $iterations;
         if ($evaluationRatio < $this->threshold) {

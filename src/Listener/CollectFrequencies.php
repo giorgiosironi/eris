@@ -3,6 +3,7 @@ namespace Eris\Listener;
 
 use Eris\Listener;
 use InvalidArgumentException;
+use Exception;
 
 function collectFrequencies(callable $collectFunction = null)
 {
@@ -37,7 +38,7 @@ class CollectFrequencies
         $this->collectFunction = $collectFunction;
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
     {
         arsort($this->collectedValues, SORT_NUMERIC);
         echo PHP_EOL;

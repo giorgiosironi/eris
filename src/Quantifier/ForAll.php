@@ -103,6 +103,7 @@ class ForAll
         $sizes = Size::withTriangleGrowth($this->maxSize)
             ->limit($this->iterations);
         try {
+            $redTestException = null;
             $this->notifyListeners('startPropertyVerification');
             for (
                 $iteration = 0;
@@ -154,6 +155,7 @@ class ForAll
                     ->execute();
             }
         } catch (Exception $e) {
+            $redTestException = $e;
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
             if ($wrap) {
                 $message = "Original input: " . var_export($values, true) . PHP_EOL
@@ -163,7 +165,12 @@ class ForAll
                 throw $e;
             }
         } finally {
-            $this->notifyListeners('endPropertyVerification', $this->ordinaryEvaluations, $this->iterations);
+            $this->notifyListeners(
+                'endPropertyVerification',
+                $this->ordinaryEvaluations,
+                $this->iterations,
+                $redTestException
+            );
         }
     }
 
