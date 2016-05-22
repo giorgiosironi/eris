@@ -26,5 +26,5 @@ class MinimumEvaluationRatio
         if ($evaluationRatio < $this->threshold) {
             throw new OutOfBoundsException("Evaluation ratio {$evaluationRatio} is under the threshold {$this->threshold}");
         }
-    }    
+    }
 }
