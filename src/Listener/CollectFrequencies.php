@@ -37,12 +37,12 @@ class CollectFrequencies
         $this->collectFunction = $collectFunction;
     }
 
-    public function endPropertyVerification($evaluations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations)
     {
         arsort($this->collectedValues, SORT_NUMERIC);
         echo PHP_EOL;
         foreach ($this->collectedValues as $key => $value) {
-            $frequency = round(($value / $evaluations) * 100, 2);
+            $frequency = round(($value / $ordinaryEvaluations) * 100, 2);
             echo "{$frequency}%  $key" . PHP_EOL;
         }
     }

@@ -163,7 +163,7 @@ class ForAll
                 throw $e;
             }
         } finally {
-            $this->notifyListeners('endPropertyVerification', $this->ordinaryEvaluations);
+            $this->notifyListeners('endPropertyVerification', $this->ordinaryEvaluations, $this->iterations);
         }
     }
 

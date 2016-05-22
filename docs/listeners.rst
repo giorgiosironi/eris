@@ -8,7 +8,7 @@ Listeners implement the ``Eris\Listener`` interface and are advised to extend th
 Consider that Eris performs (by default) 100 iterations for each ``forAll()`` instance, each corresponding to a different set of generated values. The following methods can be overridden to receive an event:
 
 * ``startPropertyVerification()`` is called before the first iteration starts.
-* ``endPropertyVerification($ordinaryEvaluations)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of iterations due to failures or ``when()`` filters not being satisfied.
+* ``endPropertyVerification($ordinaryEvaluations, $iterations)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of target ``$iterations`` due to failures or ``when()`` filters not being satisfied.
 * ``newGeneration(array $generation, $iteration)`` is called after generating a new iteration, and is passed the tuple of values along with the 0-based index of the iteration.
 * ``failure(array $generation, Exception $e)`` is called after the failure of an assertion (and not for generic exceptions). The method can be called only once per ``then()`` run.
 * ``shrinking(array $generation)`` is called before each shrinking attempt, with the values that will be used as the simplified input.

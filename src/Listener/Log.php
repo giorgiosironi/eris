@@ -39,7 +39,7 @@ class Log
         ));
     }
 
-    public function endPropertyVerification($ordinaryEvaluations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations)
     {
         fclose($this->fp);
     }

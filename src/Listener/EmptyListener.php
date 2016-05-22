@@ -10,7 +10,7 @@ abstract class EmptyListener implements Listener
     {
     }
 
-    public function endPropertyVerification($ordinaryEvaluations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations)
     {
     }
 

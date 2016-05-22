@@ -16,7 +16,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->log->endPropertyVerification(null);
+        $this->log->endPropertyVerification(null, null);
     }
     
     public function testWritesALineForEachIterationShowingItsIndex()
