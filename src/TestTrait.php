@@ -66,7 +66,7 @@ trait TestTrait
     {
         if ($this->hasFailed()) {
             global $argv;
-            $command = "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter {$this->toString()}";
+            $command = PHPUnitCommand::fromSeedAndName($this->seed, $this->toString());
             echo PHP_EOL;
             echo "Reproduce with:", PHP_EOL;
             echo $command, PHP_EOL;
