@@ -244,6 +244,16 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMinimumEvaluations()
+    {
+        $this->runExample('MinimumEvaluationsTest.php');
+        $this->assertTestsAreFailing(1);
+        $this->assertRegexp(
+            "/Evaluation ratio 0\..* is under the threshold 0\.5/",
+            (string) $this->theTest('testFailsBecauseOfTheLowEvaluationRatio')->error
+        );
+    }
+
     private function setEnvironmentVariable($name, $value)
     {
         $this->environment[$name] = $value;

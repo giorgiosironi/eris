@@ -93,3 +93,28 @@ A file will be written during the test run with the following contents:
     ...
 
 It is not advised to rely on this format for parsing, being it only oriented to human readability.
+
+Minimum Evaluations
+---
+
+The ``minimumEvaluations($ratio)`` API method instantiates and wires in a Listener that checks that at least ``$ratio`` of the total number of inputs being generated is actually evaluated. This Listener is only needed in case of an aggressive use of ``when()``.
+
+Management of this Listener is provided through this method instead of explicitly adding a Listener object, as there is a default Listener instantiated with a threshold of 0.5 that has to be replaced in case a new minimum is chosen.
+
+.. literalinclude:: ../examples/MinimumEvaluationsTest.php
+   :language: php
+
+Both tests generate inputs in the range from 0 to 100, and since the condition of them being greater than 90 is rare, most of them will be discarded. By default Eris will check that 50% of the inputs are actually evaluated; therefore ``testFailsBecauseOfTheLowEvaluationRatio`` will fail with this message:
+
+.. code-block:: bash
+
+    ...
+    There was 1 error:
+
+    1) MinimumEvaluationsTest::testFailsBecauseOfTheLowEvaluationRatio
+    OutOfBoundsException: Evaluation ratio 0.05 is under the threshold 0.5
+    ...
+
+The actual ratio may vary depending on the inputs being generated and may not be ``0.05``.
+
+In `testPassesBecauseOfTheArtificiallyLowMinimumEvaluationRatio`, we accept a lower minimum evaluation ratio of 1%; therefore the test does not ordinarily fail. Its coverage will still be very poor, so the user is advised to precisely specify the inputs rather than generating a lot of them and discarding a large percentage with ``when()``.
