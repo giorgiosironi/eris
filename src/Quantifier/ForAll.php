@@ -194,6 +194,12 @@ class ForAll
         throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
     }
 
+    public function shrinkingStrategy($shrinkingStrategy)
+    {
+        $this->shrinkerFactoryMethod = $shrinkingStrategy;
+        return $this;
+    }
+
     private function generatorsFrom($supposedToBeGenerators)
     {
         $generators = [];

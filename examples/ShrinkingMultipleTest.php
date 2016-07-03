@@ -14,6 +14,7 @@ class ShrinkingMultipleTest extends \PHPUnit_Framework_TestCase
             )
             ->hook(Listener\log('/tmp/eris-multiple-shrinking.log'))
             ->withMaxSize(1000 * 1000)
+            ->shrinkingStrategy('multiple')
             ->then(function ($number) {
                 $this->assertLessThanOrEqual(5000, $number);
             });

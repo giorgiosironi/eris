@@ -23,4 +23,9 @@ class ShrinkerFactory
         }
         return $shrinker;
     }
+
+    public function multiple(array $generators, callable $assertion)
+    {
+        return new Multiple($generators, $assertion);
+    }
 }
