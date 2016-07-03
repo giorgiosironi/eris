@@ -80,10 +80,10 @@ trait TestTrait
         $this->listeners = array_filter(
             $this->listeners,
             function ($listener) {
-                return !($listener instanceof Listener\MinimumEvaluationRatio);
+                return !($listener instanceof Listener\MinimumEvaluations);
             }
         );
-        $this->listeners[] = new Listener\MinimumEvaluationRatio($ratio);
+        $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
         return $this;
     }
 

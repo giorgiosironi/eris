@@ -6,13 +6,21 @@ use Eris\Listener\EmptyListener;
 use OutOfBoundsException;
 use Exception;
 
-class MinimumEvaluationRatio
+class MinimumEvaluations
     extends EmptyListener
     implements Listener
 {
     private $threshold;
     
-    public function __construct($threshold)
+    /**
+     * @param float $threshold  from 0.0 to 1.0
+     */
+    public static function ratio($threshold)
+    {
+        return new self($threshold);
+    }
+
+    private function __construct($threshold)
     {
         $this->threshold = $threshold;
     }

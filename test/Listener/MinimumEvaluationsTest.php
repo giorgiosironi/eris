@@ -4,11 +4,11 @@ namespace Eris\Listener;
 use Eris\Generator\GeneratedValue;
 use LogicException;
 
-class MinimumEvaluationRatioTest extends \PHPUnit_Framework_TestCase
+class MinimumEvaluationsTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->listener = new MinimumEvaluationRatio(0.5);
+        $this->listener = MinimumEvaluations::ratio(0.5);
     }
 
     public function testAllowsExecutionsWithHigherThanMinimumRatioToBeGreen()
