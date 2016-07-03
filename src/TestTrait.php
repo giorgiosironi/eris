@@ -15,6 +15,7 @@ trait TestTrait
     private $terminationConditions = [];
     private $randFunction = 'rand';
     private $seedFunction = 'srand';
+    private $shrinkerFactoryMethod = 'random';
     protected $seed;
     protected $shrinkingTimeLimit;
 
@@ -124,6 +125,12 @@ trait TestTrait
         return $this;
     }
 
+    protected function shrinkingStrategy($shrinkerFactoryMethod)
+    {
+        $this->shrinkerFactoryMethod = $shrinkerFactoryMethod;
+        return $this;
+    }
+
     /**
      * @return self
      */
@@ -169,6 +176,7 @@ trait TestTrait
             new Shrinker\ShrinkerFactory([
                 'timeLimit' => $this->shrinkingTimeLimit,
             ]),
+            $this->shrinkerFactoryMethod,
             $this->randFunction
         );
         foreach ($this->listeners as $listener) {

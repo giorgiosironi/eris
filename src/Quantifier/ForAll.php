@@ -26,14 +26,16 @@ class ForAll
     ];
     private $terminationConditions = [];
     private $listeners = [];
+    private $shrinkerFactoryMethod;
     private $rand;
     private $shrinkingEnabled = true;
 
-    public function __construct(array $generators, $iterations, $shrinkerFactory, $rand)
+    public function __construct(array $generators, $iterations, $shrinkerFactory, $shrinkerFactoryMethod, $rand)
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
         $this->shrinkerFactory = $shrinkerFactory;
+        $this->shrinkerFactoryMethod = $shrinkerFactoryMethod;
         $this->rand = $rand;
         $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
@@ -141,7 +143,8 @@ class ForAll
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
                         }
-                        $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
+                        $shrinkerFactoryMethod = $this->shrinkerFactoryMethod;
+                        $shrinking = $this->shrinkerFactory->$shrinkerFactoryMethod($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
                             ->addGoodShrinkCondition(function (GeneratedValue $generatedValues) {
