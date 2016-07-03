@@ -81,7 +81,10 @@ class IntegerGenerator implements Generator
         $element = $element->input();
 
         if ($element > 0) {
-            return GeneratedValue::fromJustValue($element - 1, 'integer');
+            return new GeneratedValueOptions([
+                GeneratedValue::fromJustValue($element - 1, 'integer'),
+                GeneratedValue::fromJustValue((int) floor($element / 2), 'integer'),
+            ]);
         }
         if ($element < 0) {
             return GeneratedValue::fromJustValue($element + 1, 'integer');

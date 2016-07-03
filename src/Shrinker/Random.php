@@ -2,6 +2,7 @@
 namespace Eris\Shrinker;
 
 use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
@@ -63,8 +64,8 @@ class Random // implements Shrinker
             // this would mean we have multiple shrinking possibilities
             // this Shrinker is not capable of exploring them all for now
             // so we just chose the first possibility for BC
-            if (is_array($elementsAfterShrink)) {
-                $elementsAfterShrink = $elementsAfterShrink[0];
+            if ($elementsAfterShrink instanceof GeneratedValueOptions) {
+                $elementsAfterShrink = $elementsAfterShrink->first();
             }
 
             if ($elementsAfterShrink == $elements) {

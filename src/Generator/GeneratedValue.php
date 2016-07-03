@@ -7,7 +7,7 @@ use InvalidArgumentException;
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValue instance.
  */
-final class GeneratedValue
+/*final*/ class GeneratedValue
 {
     private $value;
     private $input;
