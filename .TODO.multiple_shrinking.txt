@@ -1,0 +1,8 @@
+- support array of GeneratedValues being returned in Shrinker\Random (use only the first one)
+- extend Generator\Integer to provide multiple values (-1, /2)
+- allow configuration of method of RandomFactory to call ('random' for now)
+- create an acceptance test in examples/ adding a log listener to check how it is shrinking
+- there, try to use 'multiple'
+- implement Shrinker\Multiple
+-- here there will be many things to do
+- cover with ExampleEnd2EndTest the new example
