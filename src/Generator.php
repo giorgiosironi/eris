@@ -17,7 +17,7 @@ interface Generator
 
     /**
      * @param GeneratedValue<T>
-     * @return GeneratedValue<T>
+     * @return GeneratedValue<T>|array of GeneratedValue<T>
      */
     public function shrink(GeneratedValue $element);
 

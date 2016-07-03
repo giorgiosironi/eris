@@ -60,6 +60,13 @@ class Random // implements Shrinker
         while (!$this->timeLimit->hasBeenReached()) {
             $elementsAfterShrink = $this->generator->shrink($elements);
 
+            // this would mean we have multiple shrinking possibilities
+            // this Shrinker is not capable of exploring them all for now
+            // so we just chose the first possibility for BC
+            if (is_array($elementsAfterShrink)) {
+                $elementsAfterShrink = $elementsAfterShrink[0];
+            }
+
             if ($elementsAfterShrink == $elements) {
                 $onBadShrink();
                 continue;
