@@ -77,14 +77,19 @@ trait TestTrait
      */
     protected function minimumEvaluationRatio($ratio)
     {
-        $this->listeners = array_filter(
-            $this->listeners,
-            function ($listener) {
-                return !($listener instanceof Listener\MinimumEvaluations);
-            }
-        );
+        $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
         $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
         return $this;
+    }
+
+    private function filterOutListenersOfClass($className)
+    {
+        $this->listeners = array_filter(
+            $this->listeners,
+            function ($listener) use ($className) {
+                return !($listener instanceof $className);
+            }
+        );
     }
 
     /**
