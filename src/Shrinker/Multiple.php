@@ -19,8 +19,9 @@ class Multiple
         return $this;
     }
     
-    public function onAttempt()
+    public function onAttempt(callable $listener)
     {
+        $this->onAttempt[] = $listener;
         return $this;
     }
 
@@ -39,7 +40,6 @@ class Multiple
         };
 
         while (true) {
-            var_Dump($elements);
             $elementsAfterShrink = $this->generator->shrink($elements);
 
             if ($elementsAfterShrink instanceof GeneratedValueOptions) {
@@ -49,6 +49,10 @@ class Multiple
             if ($elementsAfterShrink == $elements) {
                 $onBadShrink();
                 continue;
+            }
+
+            foreach ($this->onAttempt as $onAttempt) {
+                $onAttempt($elementsAfterShrink);
             }
 
             Evaluation::of($this->assertion)

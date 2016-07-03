@@ -18,6 +18,10 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
                 $this->assertLessThanOrEqual(5000, $number);
             }
         );
+        $this->attempts = [];
+        $this->shrinker->onAttempt(function($attempt) {
+            $this->attempts[] = $attempt;
+        });
     }
     
     public function testFollowsMultipleBranches()
@@ -35,8 +39,9 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
                 new AssertionFailed()
             );
         } catch (AssertionFailed $e) {
-            $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000", $e->getMessage());
-            var_dump($e);
+            $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
+            $allValues = array_map(function($generatedValue){ return $generatedValue->unbox(); }, $this->attempts);
+            $this->assertEquals([6000, 5001], $allValues);
         }
     }
 }
