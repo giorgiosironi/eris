@@ -3,6 +3,7 @@ namespace Eris\Listener;
 
 use Eris\Listener;
 use InvalidArgumentException;
+use Exception;
 
 function collectFrequencies(callable $collectFunction = null)
 {
@@ -37,12 +38,12 @@ class CollectFrequencies
         $this->collectFunction = $collectFunction;
     }
 
-    public function endPropertyVerification($evaluations)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
     {
         arsort($this->collectedValues, SORT_NUMERIC);
         echo PHP_EOL;
         foreach ($this->collectedValues as $key => $value) {
-            $frequency = round(($value / $evaluations) * 100, 2);
+            $frequency = round(($value / $ordinaryEvaluations) * 100, 2);
             echo "{$frequency}%  $key" . PHP_EOL;
         }
     }

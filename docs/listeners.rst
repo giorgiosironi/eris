@@ -8,9 +8,9 @@ Listeners implement the ``Eris\Listener`` interface and are advised to extend th
 Consider that Eris performs (by default) 100 iterations for each ``forAll()`` instance, each corresponding to a different set of generated values. The following methods can be overridden to receive an event:
 
 * ``startPropertyVerification()`` is called before the first iteration starts.
-* ``endPropertyVerification($ordinaryEvaluations)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of iterations due to failures or ``when()`` filters not being satisfied.
+* ``endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)`` is called when no more iterations will be performed, both in the case of test success and failure. The ``$ordinaryEvaluations`` parameter provides the actual number of evaluations performed. This number may be less than than the number of target ``$iterations`` due to failures or ``when()`` filters not being satisfied. The ``$exception``, when not null, indicated that the test has finally failed and corresponds to the error that is actually bubbling up rather than the original, unshrunk error.
 * ``newGeneration(array $generation, $iteration)`` is called after generating a new iteration, and is passed the tuple of values along with the 0-based index of the iteration.
-* ``failure(array $generation, Exception $e)`` is called after the failure of an assertion (and not for generic exceptions). The method can be called only once per ``then()`` run.
+* ``failure(array $generation, Exception $e)`` is called after the failure of an assertion (and not for generic exceptions). The method can be called only once per ``then()`` run, and is called before any shrinking takes place.
 * ``shrinking(array $generation)`` is called before each shrinking attempt, with the values that will be used as the simplified input.
 
 ``$generation`` is always an array of the same form as the arguments passed to ``then()``, without any Eris class wrapping them.
@@ -93,3 +93,28 @@ A file will be written during the test run with the following contents:
     ...
 
 It is not advised to rely on this format for parsing, being it only oriented to human readability.
+
+Minimum Evaluations
+---
+
+The ``minimumEvaluations($ratio)`` API method instantiates and wires in a Listener that checks that at least ``$ratio`` of the total number of inputs being generated is actually evaluated. This Listener is only needed in case of an aggressive use of ``when()``.
+
+Management of this Listener is provided through this method instead of explicitly adding a Listener object, as there is a default Listener instantiated with a threshold of 0.5 that has to be replaced in case a new minimum is chosen.
+
+.. literalinclude:: ../examples/MinimumEvaluationsTest.php
+   :language: php
+
+Both tests generate inputs in the range from 0 to 100, and since the condition of them being greater than 90 is rare, most of them will be discarded. By default Eris will check that 50% of the inputs are actually evaluated; therefore ``testFailsBecauseOfTheLowEvaluationRatio`` will fail with this message:
+
+.. code-block:: bash
+
+    ...
+    There was 1 error:
+
+    1) MinimumEvaluationsTest::testFailsBecauseOfTheLowEvaluationRatio
+    OutOfBoundsException: Evaluation ratio 0.05 is under the threshold 0.5
+    ...
+
+The actual ratio may vary depending on the inputs being generated and may not be ``0.05``.
+
+In `testPassesBecauseOfTheArtificiallyLowMinimumEvaluationRatio`, we accept a lower minimum evaluation ratio of 1%; therefore the test does not ordinarily fail. Its coverage will still be very poor, so the user is advised to precisely specify the inputs rather than generating a lot of them and discarding a large percentage with ``when()``.

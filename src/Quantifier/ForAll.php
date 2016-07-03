@@ -103,6 +103,7 @@ class ForAll
         $sizes = Size::withTriangleGrowth($this->maxSize)
             ->limit($this->iterations);
         try {
+            $redTestException = null;
             $this->notifyListeners('startPropertyVerification');
             for (
                 $iteration = 0;
@@ -154,6 +155,7 @@ class ForAll
                     ->execute();
             }
         } catch (Exception $e) {
+            $redTestException = $e;
             $wrap = (bool) getenv('ERIS_ORIGINAL_INPUT');
             if ($wrap) {
                 $message = "Original input: " . var_export($values, true) . PHP_EOL
@@ -163,7 +165,12 @@ class ForAll
                 throw $e;
             }
         } finally {
-            $this->notifyListeners('endPropertyVerification', $this->ordinaryEvaluations);
+            $this->notifyListeners(
+                'endPropertyVerification',
+                $this->ordinaryEvaluations,
+                $this->iterations,
+                $redTestException
+            );
         }
     }
 
@@ -182,11 +189,6 @@ class ForAll
             );
         }
         throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
-    }
-
-    public function evaluationRatio()
-    {
-        return $this->ordinaryEvaluations / $this->iterations;
     }
 
     private function generatorsFrom($supposedToBeGenerators)

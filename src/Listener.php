@@ -12,10 +12,13 @@ interface Listener
     public function startPropertyVerification();
 
     /**
-     * @param integer $ordinaryEvaluations
+     * @param integer $ordinaryEvaluations  the number of inputs effectively evaluated, not filtered out.
+     *                                      Does not count evaluations used in shrinking
+     * @param integer $iterations  the total number of inputs that have been generated
+     * @param null|Exception $exception  tells if the test has failed and specifies the exact exception
      * @return void
      */
-    public function endPropertyVerification($ordinaryEvaluations);
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null);
 
     /**
      * @param array $generation  of mixed values

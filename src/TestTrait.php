@@ -15,8 +15,6 @@ trait TestTrait
     private $terminationConditions = [];
     private $randFunction = 'rand';
     private $seedFunction = 'srand';
-    // TODO: what is the correct name for this concept?
-    protected $minimumEvaluationRatio = 0.5;
     protected $seed;
     protected $shrinkingTimeLimit;
 
@@ -38,6 +36,7 @@ trait TestTrait
     public function erisSetup()
     {
         $this->seedingRandomNumberGeneration();
+        $this->minimumEvaluationRatio(0.5);
     }
 
     /**
@@ -46,7 +45,6 @@ trait TestTrait
     public function erisTeardown()
     {
         $this->dumpSeedForReproducing();
-        $this->checkConstraintsHaveNotSkippedTooManyIterations();
     }
 
     private function seedingRandomNumberGeneration()
@@ -73,24 +71,25 @@ trait TestTrait
         }
     }
 
-    private function checkConstraintsHaveNotSkippedTooManyIterations()
-    {
-        foreach ($this->quantifiers as $quantifier) {
-            $evaluationRatio = $quantifier->evaluationRatio();
-            if ($evaluationRatio < $this->minimumEvaluationRatio) {
-                throw new OutOfBoundsException("Evaluation ratio {$evaluationRatio} is under the threshold {$this->minimumEvaluationRatio}");
-            }
-        }
-    }
-
     /**
      * @param float  from 0.0 to 1.0
      * @return self
      */
     protected function minimumEvaluationRatio($ratio)
     {
-        $this->minimumEvaluationRatio = $ratio;
+        $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
+        $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
         return $this;
+    }
+
+    private function filterOutListenersOfClass($className)
+    {
+        $this->listeners = array_filter(
+            $this->listeners,
+            function ($listener) use ($className) {
+                return !($listener instanceof $className);
+            }
+        );
     }
 
     /**

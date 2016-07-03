@@ -7,11 +7,6 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    protected function setUp()
-    {
-        $this->minimumEvaluationRatio = 0.2;
-    }
-
     public function testLengthOfAsciiCharactersInPhp()
     {
         $this->forAll(
@@ -35,10 +30,12 @@ class CharacterTest extends PHPUnit_Framework_TestCase
 
     public function testMultiplePrintableCharacters()
     {
-        $this->forAll(
-            Generator\char(['basic-latin']),
-            Generator\char(['basic-latin'])
-        )
+        $this
+            ->minimumEvaluationRatio(0.1)
+            ->forAll(
+                Generator\char(['basic-latin']),
+                Generator\char(['basic-latin'])
+            )
             ->when(are\printableCharacters())
             ->then(function ($first, $second) {
                 $this->assertFalse(ord($first) < 32);

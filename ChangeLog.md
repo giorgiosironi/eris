@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.next
+
+* BC: `minimumEvaluationRatio` is now a method to be called, not a private field. Defaults to 0.5.
+
 ## 0.8.0
 
 * Updated dependency on `icomefromthenet/reverse-regex` to solve warnings on PHP 7.
