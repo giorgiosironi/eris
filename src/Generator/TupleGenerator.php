@@ -77,7 +77,25 @@ class TupleGenerator implements Generator
                     continue;
                 }
                 $numberOfElementsToShrink--;
-                $input[$indexOfElementToShrink] = $shrinkedValue;
+                if ($shrinkedValue instanceof GeneratedValueOptions) {
+                    $values = [];
+                    // add all options to values
+                    foreach ($shrinkedValue as $each) {
+                        $optionInput = $input;
+                        $optionInput[$indexOfElementToShrink] = $each;
+                        $values[] = GeneratedValue::fromValueAndInput(
+                            array_map(
+                                function ($element) { return $element->unbox(); },
+                                $optionInput
+                            ),
+                            $optionInput,
+                            'tuple'
+                        );
+                    }
+                    return new GeneratedValueOptions($values);
+                } else {
+                    $input[$indexOfElementToShrink] = $shrinkedValue;
+                }
             }
         }
         return GeneratedValue::fromValueAndInput(
