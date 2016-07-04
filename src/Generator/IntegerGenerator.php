@@ -82,8 +82,10 @@ class IntegerGenerator implements Generator
 
         if ($element > 0) {
             return new GeneratedValueOptions([
+                GeneratedValue::fromJustValue((int) floor($element * 0.5), 'integer'),
+                GeneratedValue::fromJustValue((int) floor($element * 0.75), 'integer'),
+                GeneratedValue::fromJustValue((int) floor($element * 0.95), 'integer'),
                 GeneratedValue::fromJustValue($element - 1, 'integer'),
-                GeneratedValue::fromJustValue((int) floor($element * 0.9), 'integer'),
             ]);
         }
         if ($element < 0) {

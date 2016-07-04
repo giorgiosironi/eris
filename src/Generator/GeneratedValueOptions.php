@@ -1,7 +1,10 @@
 <?php
 namespace Eris\Generator;
 
-class GeneratedValueOptions extends GeneratedValue
+use IteratorAggregate;
+use ArrayIterator;
+
+class GeneratedValueOptions extends GeneratedValue implements IteratorAggregate
 {
     private $generatedValues;
     
@@ -33,5 +36,10 @@ class GeneratedValueOptions extends GeneratedValue
     public function input()
     {
         return $this->first()->input();
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->generatedValues);
     }
 }
