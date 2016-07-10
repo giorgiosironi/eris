@@ -19,18 +19,32 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksLinearlyTowardsZero()
     {
-        /* Not a good shrinking policy, it should start to shrink from 0 and move
-         * towards the upper size limit.
-         * To be fixed in the next weeks.
-         */
         $generator = new IntegerGenerator();
         $value = $generator($this->size, $this->rand);
+        $newValue = $value;
+        var_dump($value);
         for ($i = 0; $i < 20; $i++) {
-            $newValue = $generator->shrink($value);
-            $this->assertTrue(in_array(abs($value->unbox() - $newValue->unbox()), [0, 1]));
-            $value = $newValue;
+            $newValue = $generator->shrink($newValue);
         }
-        $this->assertSame(0, $value->unbox());
+        $this->assertSame(0, $newValue->unbox());
+    }
+
+    public function testOffersMultiplePossibilitiesForShrinkingProgressivelySubtracting()
+    {
+        $generator = new IntegerGenerator();
+        $value = GeneratedValue::fromJustValue(100, 'integer');
+        $shrinkingOptions = $generator->shrink($value);
+        $this->assertEquals(
+            new GeneratedValueOptions([
+                GeneratedValue::fromJustValue(50, 'integer'),
+                GeneratedValue::fromJustValue(75, 'integer'),
+                GeneratedValue::fromJustValue(88, 'integer'),
+                GeneratedValue::fromJustValue(94, 'integer'),
+                GeneratedValue::fromJustValue(97, 'integer'),
+                GeneratedValue::fromJustValue(99, 'integer'),
+            ]),
+            $shrinkingOptions
+        );
     }
 
     public function testUniformity()
@@ -47,7 +61,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCannotShrinkStopsToZero()
+    public function testShrinkingStopsToZero()
     {
         $generator = new IntegerGenerator();
         $lastValue = $generator($size = 0, $this->rand);

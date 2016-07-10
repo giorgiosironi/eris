@@ -15,7 +15,7 @@ class GeneratedValueOptions extends GeneratedValue implements IteratorAggregate
 
     public function first()
     {
-        return $this->generatedValues[0];
+        return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
     public function map(callable $callable, $passthru)
