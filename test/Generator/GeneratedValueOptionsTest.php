@@ -15,11 +15,10 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
             GeneratedValue::fromJustValue('2'),
             GeneratedValue::fromJustValue('3'),
         ]);
-        $product = $former->cartesianProduct($latter, function($first, $second) { return $first . $second; });
+        $product = $former->cartesianProduct($latter, function ($first, $second) { return $first . $second; });
         $this->assertEquals(6, count($product));
         foreach ($product as $value) {
             $this->assertRegexp('/^[ab][123]$/', $value->unbox());
         }
     }
 }
-
