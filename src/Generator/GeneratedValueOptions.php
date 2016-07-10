@@ -16,7 +16,7 @@ class GeneratedValueOptions
         $this->generatedValues = $generatedValues;
     }
 
-    public function first()
+    public function last()
     {
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
@@ -55,12 +55,12 @@ class GeneratedValueOptions
 
     public function unbox()
     {
-        return $this->first()->unbox();
+        return $this->last()->unbox();
     }
 
     public function input()
     {
-        return $this->first()->input();
+        return $this->last()->input();
     }
 
     public function getIterator()

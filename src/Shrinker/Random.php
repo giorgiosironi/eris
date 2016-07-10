@@ -63,9 +63,11 @@ class Random // implements Shrinker
 
             // this would mean we have multiple shrinking possibilities
             // this Shrinker is not capable of exploring them all for now
-            // so we just chose the first possibility for BC
+            // so we just chose the last possibility for BC
+            // (the last one should be the less aggressive,
+            // e.g. subtracting 1 for integers)
             if ($elementsAfterShrink instanceof GeneratedValueOptions) {
-                $elementsAfterShrink = $elementsAfterShrink->first();
+                $elementsAfterShrink = $elementsAfterShrink->last();
             }
 
             if ($elementsAfterShrink == $elements) {
