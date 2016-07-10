@@ -56,56 +56,70 @@ class TupleGenerator implements Generator
         );
     }
 
+    /**
+     * TODO: recursion may cause problems here as other Generators
+     * like Vector use this with a high number of elements.
+     * Rewrite to something that does not overflow the stack
+     * @return GeneratedValueOptions
+     */
+    private function optionsFromTheseGenerators($generators, $inputSubset)
+    {
+        $optionsForThisElement = $generators[0]->shrink($inputSubset[0]);
+        $options = [];
+        foreach ($optionsForThisElement as $value) {
+            $options[] = GeneratedValue::fromValueAndInput(
+                [$value->unbox()],
+                [$value],
+                'tuple'
+            );
+        }
+        $options = new GeneratedValueOptions($options);
+        if (count($generators) == 1) {
+            return $options;
+        } else {
+            return $options->cartesianProduct(
+                $this->optionsFromTheseGenerators(
+                    array_slice($generators, 1),
+                    array_slice($inputSubset, 1)
+                ),
+                function($first, $second) {
+                    return array_merge($first, $second);
+                }
+            );
+        }
+    }
+
     public function shrink(GeneratedValue $tuple)
     {
         $this->checkValueToShrink($tuple);
         $input = $tuple->input();
 
-        // TODO: make deterministic
-        if (count($input) > 0) {
-            $attemptsToShrink = 10;
-            $numberOfElementsToShrink = rand(1, max(floor($this->numberOfGenerators/2), 1));
 
-            while ($numberOfElementsToShrink > 0 && $attemptsToShrink > 0) {
-                $indexOfElementToShrink = rand(0, $this->numberOfGenerators - 1);
-
-                $shrinkedValue = $this->generators[$indexOfElementToShrink]
-                    ->shrink($input[$indexOfElementToShrink]);
-
-                if ($shrinkedValue === $input[$indexOfElementToShrink]) {
-                    $attemptsToShrink--;
-                    continue;
-                }
-                $numberOfElementsToShrink--;
-                if ($shrinkedValue instanceof GeneratedValueOptions) {
-                    $values = [];
-                    // add all options to values
-                    foreach ($shrinkedValue as $each) {
-                        $optionInput = $input;
-                        $optionInput[$indexOfElementToShrink] = $each;
-                        $values[] = GeneratedValue::fromValueAndInput(
-                            array_map(
-                                function ($element) { return $element->unbox(); },
-                                $optionInput
-                            ),
-                            $optionInput,
-                            'tuple'
-                        );
-                    }
-                    return new GeneratedValueOptions($values);
-                } else {
-                    $input[$indexOfElementToShrink] = $shrinkedValue;
-                }
+        return $this->optionsFromTheseGenerators($this->generators, $input);
+        
+        if (count($inputs) == 1) {
+            return GeneratedValue::fromValueAndInput(
+                array_map(
+                    function ($element) { return $element->unbox(); },
+                    $input
+                ),
+                $input,
+                'tuple'
+            );
+        } else {
+            $values = [];
+            foreach ($inputs as $optionInput) {
+                $values[] = GeneratedValue::fromValueAndInput(
+                    array_map(
+                        function ($element) { return $element->unbox(); },
+                        $optionInput
+                    ),
+                    $optionInput,
+                    'tuple'
+                );
             }
+            return new GeneratedValueOptions($values);
         }
-        return GeneratedValue::fromValueAndInput(
-            array_map(
-                function ($element) { return $element->unbox(); },
-                $input
-            ),
-            $input,
-            'tuple'
-        );
     }
 
     public function contains(GeneratedValue $tuple)

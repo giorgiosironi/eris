@@ -52,4 +52,14 @@ class GeneratedValueTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/211/', $generatedValue->__toString());
         $this->assertRegExp('/generator.*map/', $generatedValue->__toString());
     }
+
+    public function testCanBeIteratedUponAsASingleOption()
+    {
+        $generatedValue = GeneratedValue::fromValueAndInput(
+            422,
+            GeneratedValue::fromJustValue(211),
+            'map'
+        );
+        $this->assertEquals([$generatedValue], iterator_to_array($generatedValue));
+    }
 }

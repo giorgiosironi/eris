@@ -3,8 +3,11 @@ namespace Eris\Generator;
 
 use IteratorAggregate;
 use ArrayIterator;
+use Countable;
 
-class GeneratedValueOptions extends GeneratedValue implements IteratorAggregate
+class GeneratedValueOptions
+    extends GeneratedValue 
+    implements IteratorAggregate, Countable
 {
     private $generatedValues;
     
@@ -41,5 +44,21 @@ class GeneratedValueOptions extends GeneratedValue implements IteratorAggregate
     public function getIterator()
     {
         return new ArrayIterator($this->generatedValues);
+    }
+
+    public function count()
+    {
+        return count($this->generatedValues);
+    }
+
+    public function cartesianProduct($generatedValueOptions, callable $merge) 
+    {
+        $options = [];
+        foreach ($this as $firstPart) {
+            foreach ($generatedValueOptions as $secondPart) {
+                $options[] = $firstPart->merge($secondPart, $merge);
+            }
+        }
+        return new self($options);
     }
 }

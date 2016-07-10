@@ -98,13 +98,56 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($constants, $elementsAfterShrink->unbox());
     }
 
-    public function testShrinkNothing()
+    public function testShrinkingMultipleOptionsOfOneGenerator()
     {
-        $generator = new TupleGenerator([]);
-        $elements = $generator($this->size, $this->rand);
-        $this->assertSame([], $elements->unbox());
-        $elementsAfterShrink = $generator->shrink($elements);
-        $this->assertSame([], $elementsAfterShrink->unbox());
+        $generator = new TupleGenerator([
+            new IntegerGenerator()
+        ]);
+        $value = GeneratedValue::fromValueAndInput(
+            [100],
+            [GeneratedValue::fromJustValue(100, 'integer')],
+            'tuple'
+        );
+        $shrunk = $generator->shrink($value);
+        $this->assertGreaterThan(1, $shrunk->count());
+        foreach ($shrunk as $option) {
+            $this->assertEquals('tuple', $option->generatorName());
+            $optionValue = $option->unbox();
+            $this->assertInternalType('array', $optionValue);
+            $this->assertEquals(1, count($optionValue));
+        }
+    }
+
+    /**
+     * @depends testShrinkingMultipleOptionsOfOneGenerator
+     */
+    public function testShrinkingMultipleOptionsOfMoreThanOneGenerator()
+    {
+        $generator = new TupleGenerator([
+            new IntegerGenerator(),
+            new IntegerGenerator(),
+        ]);
+        $value = GeneratedValue::fromValueAndInput(
+            [100, 200],
+            [
+                GeneratedValue::fromJustValue(100, 'integer'),
+                GeneratedValue::fromJustValue(200, 'integer'),
+            ],
+            'tuple'
+        );
+        $shrunk = $generator->shrink($value);
+        $this->assertGreaterThan(1, $shrunk->count());
+        foreach ($shrunk as $option) {
+            $this->assertEquals('tuple', $option->generatorName());
+            $optionValue = $option->unbox();
+            $this->assertInternalType('array', $optionValue);
+            $this->assertEquals(2, count($optionValue));
+            // TODO: put in OR, as [99, 200] and [100, 199] should be good
+            $elementsBeingShrunk = 
+                ($optionValue[0] < 100 ? 1 : 0)
+                + ($optionValue[1] < 200 ? 1 : 0);
+            $this->assertGreaterThanOrEqual(1, $elementsBeingShrunk);
+        }
     }
 
     /**
