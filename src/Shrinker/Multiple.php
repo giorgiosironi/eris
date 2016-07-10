@@ -32,43 +32,35 @@ class Multiple
     public function from(GeneratedValue $elements, AssertionFailed $exception)
     {
         $branches = [];
-        $onBadShrink = function ($elementsAfterShrink) use (&$exception, &$branches) {
-            var_Dump("bad shrink: " . var_export($elementsAfterShrink->unbox(), true));
-            //throw $exception;
+
+        $shrink = function ($elements) use (&$elementsAfterShrink, &$branches) {
+            $branches = [];
+            $elementsAfterShrink = $this->generator->shrink($elements);
+            if ($elementsAfterShrink instanceof GeneratedValueOptions) {
+                foreach ($elementsAfterShrink as $each) {
+                    $branches[] = $each;
+                }
+            } else {
+                $branches[] = $elementsAfterShrink;
+            }
+            return $branches;
+
         };
 
-        $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception, &$branches) {
-            var_Dump("good shrink: " . var_export($elementsAfterShrink->unbox(), true));
-            $branches = [];
+        $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception, &$branches, $shrink) {
             $elements = $elementsAfterShrink;
             $exception = $exceptionAfterShrink;
-            // see TODO: duplication
-            $elementsAfterShrink = $this->generator->shrink($elements);
-            if ($elementsAfterShrink instanceof GeneratedValueOptions) {
-                foreach ($elementsAfterShrink as $each) {
-                    $branches[] = $each;
-                }
-            } else {
-                $branches[] = $elementsAfterShrink;
-            }
-            var_dump("Branches to look into: " . count($branches));
+            $branches = $shrink($elements);
         };
 
-        // TODO: duplication with cycle
-            $elementsAfterShrink = $this->generator->shrink($elements);
-            if ($elementsAfterShrink instanceof GeneratedValueOptions) {
-                foreach ($elementsAfterShrink as $each) {
-                    $branches[] = $each;
-                }
-            } else {
-                $branches[] = $elementsAfterShrink;
-            }
+        $shrink($elements);
 
         while ($elementsAfterShrink = array_shift($branches)) {
-            vaR_dump(count($branches));
-
+            // TODO: maybe not necessary
+            // when Generator start returning emtpy options instead of the 
+            // element itself upon no shrinking
+            // For now leave in for BC
             if ($elementsAfterShrink == $elements) {
-                $onBadShrink($elements);
                 continue;
             }
 
@@ -79,9 +71,9 @@ class Multiple
             Evaluation::of($this->assertion)
                 ->with($elementsAfterShrink)
                 ->onFailure($onGoodShrink)
-                ->onSuccess($onBadShrink)
                 ->execute();
         }
-            throw $exception;
+
+        throw $exception;
     }
 }
