@@ -15,7 +15,7 @@ trait TestTrait
     private $terminationConditions = [];
     private $randFunction = 'rand';
     private $seedFunction = 'srand';
-    private $shrinkerFactoryMethod = 'random';
+    private $shrinkerFactoryMethod = 'multiple';
     protected $seed;
     protected $shrinkingTimeLimit;
 
