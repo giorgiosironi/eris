@@ -96,33 +96,8 @@ class TupleGenerator implements Generator
         $this->checkValueToShrink($tuple);
         $input = $tuple->input();
 
-
         return $this->optionsFromTheseGenerators($this->generators, $input)
             ->remove($tuple);
-        
-        if (count($inputs) == 1) {
-            return GeneratedValue::fromValueAndInput(
-                array_map(
-                    function ($element) { return $element->unbox(); },
-                    $input
-                ),
-                $input,
-                'tuple'
-            );
-        } else {
-            $values = [];
-            foreach ($inputs as $optionInput) {
-                $values[] = GeneratedValue::fromValueAndInput(
-                    array_map(
-                        function ($element) { return $element->unbox(); },
-                        $optionInput
-                    ),
-                    $optionInput,
-                    'tuple'
-                );
-            }
-            return new GeneratedValueOptions($values);
-        }
     }
 
     public function contains(GeneratedValue $tuple)
