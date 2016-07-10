@@ -9,7 +9,7 @@ use ArrayIterator;
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValue instance.
  */
-/*final*/ class GeneratedValue
+/*final */class GeneratedValue
     implements IteratorAggregate
     // TODO: interface Options extends IteratorAggregate[, Countable]
 {

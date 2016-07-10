@@ -84,7 +84,7 @@ class TupleGenerator implements Generator
                     array_slice($generators, 1),
                     array_slice($inputSubset, 1)
                 ),
-                function($first, $second) {
+                function ($first, $second) {
                     return array_merge($first, $second);
                 }
             );

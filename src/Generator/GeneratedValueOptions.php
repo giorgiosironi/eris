@@ -11,7 +11,7 @@ use Countable;
  * instances.
  */
 class GeneratedValueOptions
-    extends GeneratedValue 
+    extends GeneratedValue
     implements IteratorAggregate, Countable
 {
     private $generatedValues;
@@ -55,7 +55,6 @@ class GeneratedValueOptions
             unset($generatedValues[$index]);
         }
         return new self(array_values($generatedValues));
-
     }
 
     public function unbox()
@@ -78,7 +77,7 @@ class GeneratedValueOptions
         return count($this->generatedValues);
     }
 
-    public function cartesianProduct($generatedValueOptions, callable $merge) 
+    public function cartesianProduct($generatedValueOptions, callable $merge)
     {
         $options = [];
         foreach ($this as $firstPart) {
