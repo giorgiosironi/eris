@@ -6,12 +6,22 @@
 + implement Shrinker\Multiple
 ++ here there will be many things to do
 - composable Generators must support this in their shrink()
-++ Tuple
--- Sequence
--- Map
+-- AssociativeArray
 -- Bind
+-- Elements
+-- Frequency
+-- Map
+-- OneOf
+-- Sequence
+-- Set
+-- Subset
+-- SuchThat
+++ Tuple
+-- Vector
 -- probably others, list all here
 - extract Shrinker interface
 - extract GeneratedValue interface
 - cover with ExampleEnd2EndTest the new example
 - extend Listener with the result of shrinking (separate method shrinkingResult() or similar because if there is a shrinking attempt that takes long it's important to see it in the log)
+- fix https://github.com/MarcelloDuarte/cathacks/blob/08247f346a4b8e1668f14519101d2489dd4c69e1/src/Md/PropertyTesting/Generator/ImmListGenerator.hh with a PR to avoid depending on GeneratedValue
+- check GeneratedValue with Onebip guys
