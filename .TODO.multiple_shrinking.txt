@@ -7,7 +7,7 @@
 ++ here there will be many things to do
 - composable Generators must support this in their shrink()
 ++ AssociativeArray
--- Bind
+++ Bind
 ++ Elements
 ++ Frequency
 ++ Map
@@ -26,3 +26,4 @@
 - check TODO comments in the diff
 - extract common patterns of usage of GeneratedValue|GeneratedValueOptions into methods on these Value Objects
 - priority in shrinking: when evaluating options order counts a lot. The cartesian product can be improved?
+- use smallestStep() or similar instead of last() and implement it also on GeneratedValue
