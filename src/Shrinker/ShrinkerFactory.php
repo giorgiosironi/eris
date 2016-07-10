@@ -17,15 +17,19 @@ class ShrinkerFactory
 
     public function random(array $generators, callable $assertion)
     {
-        $shrinker = new Random($generators, $assertion);
-        if ($this->options['timeLimit'] !== null) {
-            $shrinker->setTimeLimit(FixedTimeLimit::realTime($this->options['timeLimit']));
-        }
-        return $shrinker;
+        return $this->configureShrinker(new Random($generators, $assertion));
     }
 
     public function multiple(array $generators, callable $assertion)
     {
-        return new Multiple($generators, $assertion);
+        return $this->configureShrinker(new Multiple($generators, $assertion));
+    }
+
+    private function configureShrinker($shrinker)
+    {
+        if ($this->options['timeLimit'] !== null) {
+            $shrinker->setTimeLimit(FixedTimeLimit::realTime($this->options['timeLimit']));
+        }
+        return $shrinker;
     }
 }

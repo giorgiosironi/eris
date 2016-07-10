@@ -91,6 +91,10 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->assertTestsAreFailing(1);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
         // one failure, two shrinking attempts
+        $this->assertRegexp(
+            '/Eris has reached the time limit for shrinking/',
+            (string) $this->theTest('testLengthPreservation')->error
+        );
         $this->assertLessThanOrEqual(5.0, $executionTime);
     }
 

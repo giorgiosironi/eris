@@ -6,7 +6,7 @@
 + implement Shrinker\Multiple
 ++ here there will be many things to do
 - composable Generators must support this in their shrink()
--- Tuple
+++ Tuple
 -- Sequence
 -- Map
 -- Bind
