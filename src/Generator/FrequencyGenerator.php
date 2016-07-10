@@ -68,6 +68,7 @@ class FrequencyGenerator implements Generator
         $originalGeneratorIndex = $input['generator'];
         $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($input['value']);
 
+        // TODO: take advantage of multiple shrinking
         return GeneratedValue::fromValueAndInput(
             $shrinkedValue->unbox(),
             [

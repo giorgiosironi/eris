@@ -9,14 +9,14 @@
 ++ AssociativeArray
 -- Bind
 ++ Elements
--- Frequency
+++ Frequency
 ++ Map
 ++ OneOf
--- Sequence
+++ Sequence
 --- relies on Vector which relies on Tuple... and when there are more than a few elements there is a combinatorial explosion of options for shrinking
--- Set
+++ Set
 ++ Subset
--- SuchThat
+++ SuchThat
 ++ Tuple
 --- Tuple::contains()
 ++ Vector

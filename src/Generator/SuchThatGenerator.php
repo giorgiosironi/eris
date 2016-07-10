@@ -5,6 +5,7 @@ use Eris\Generator;
 use LogicException;
 use PHPUnit_Framework_Constraint;
 use PHPUnit_Framework_ExpectationFailedException;
+use Traversable;
 
 /**
  * @param callable|PHPUnit_Framework_Constraint $filter
@@ -58,20 +59,34 @@ class SuchThatGenerator implements Generator
     {
         $shrunk = $this->generator->shrink($value);
         $attempts = 0;
-        while (!$this->predicate($shrunk)) {
+        while (!($filtered = $this->filterForPredicate($shrunk))) {
             if ($attempts >= $this->maximumAttempts) {
                 return $value;
             }
             $shrunk = $this->generator->shrink($shrunk);
             $attempts++;
         }
-        return $shrunk;
+        return new GeneratedValueOptions($filtered);
     }
 
     public function contains(GeneratedValue $value)
     {
         return $this->generator->contains($value)
             && $this->predicate($value);
+    }
+
+    /**
+     * @return array  of GeneratedValue
+     */
+    private function filterForPredicate(Traversable $options)
+    {
+        $goodOnes = [];
+        foreach ($options as $option) {
+            if ($this->predicate($option)) {
+                $goodOnes[] = $option;
+            }
+        }
+        return $goodOnes;
     }
 
     private function predicate(GeneratedValue $value)

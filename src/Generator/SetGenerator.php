@@ -60,6 +60,7 @@ class SetGenerator implements Generator
 
         $input = $set->input();
         // TODO: make deterministic
+        // TODO: shrink also the elements, not just the size of the set
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
