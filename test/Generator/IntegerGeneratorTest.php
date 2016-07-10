@@ -34,7 +34,6 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $shrinkingOptions = $generator->shrink($value);
         $this->assertEquals(
             new GeneratedValueOptions([
-                GeneratedValue::fromJustValue(0, 'integer'),
                 GeneratedValue::fromJustValue(50, 'integer'),
                 GeneratedValue::fromJustValue(75, 'integer'),
                 GeneratedValue::fromJustValue(88, 'integer'),

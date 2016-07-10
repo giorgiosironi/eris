@@ -82,10 +82,6 @@ class IntegerGenerator implements Generator
 
         if ($element > 0) {
             $options = [];
-            $options[] = GeneratedValue::fromJustValue(
-                0,
-                'integer'
-            );
             $nextHalf = $element;
             while (($nextHalf = (int) floor($nextHalf / 2)) > 0) {
                 $options[] = GeneratedValue::fromJustValue(
@@ -93,10 +89,11 @@ class IntegerGenerator implements Generator
                     'integer'
                 );
             }
-            if (!$options) {
-                return GeneratedValue::fromJustValue($element, 'integer');
+            if ($options) {
+                return new GeneratedValueOptions($options);
+            } else {
+                return GeneratedValue::fromJustValue($element - 1, 'integer');
             }
-            return new GeneratedValueOptions($options);
         }
         if ($element < 0) {
             return GeneratedValue::fromJustValue($element + 1, 'integer');
