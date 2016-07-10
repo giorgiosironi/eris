@@ -37,7 +37,6 @@ class StringTest extends PHPUnit_Framework_TestCase
                 Generator\string()
             )
             ->hook(Listener\log('/tmp/eris-string-shrinking.log'))
-            ->shrinkingStrategy('multiple')
             ->then(function ($first, $second) {
                 $result = string_concatenation($first, $second);
                 $this->assertEquals(

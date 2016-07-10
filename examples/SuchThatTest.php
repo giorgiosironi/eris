@@ -56,7 +56,6 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->hook(Listener\log('/tmp/eris-such-that.log'))
-            ->shrinkingStrategy('multiple')
             ->then($this->allNumbersAreBiggerThan(42));
     }
 

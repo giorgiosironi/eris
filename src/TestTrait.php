@@ -125,12 +125,6 @@ trait TestTrait
         return $this;
     }
 
-    protected function shrinkingStrategy($shrinkerFactoryMethod)
-    {
-        $this->shrinkerFactoryMethod = $shrinkerFactoryMethod;
-        return $this;
-    }
-
     /**
      * @return self
      */

@@ -5,6 +5,11 @@ use IteratorAggregate;
 use ArrayIterator;
 use Countable;
 
+/**
+ * Parametric with respect to the type <T> of its value, 
+ * which should be the type parameter <T> of all the contained GeneratedValue
+ * instances.
+ */
 class GeneratedValueOptions
     extends GeneratedValue 
     implements IteratorAggregate, Countable

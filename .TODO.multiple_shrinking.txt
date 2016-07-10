@@ -10,7 +10,7 @@
 -- Sequence
 -- Map
 -- Bind
--- probably others
+-- probably others, list all here
 - extract Shrinker interface
 - extract GeneratedValue interface
 - cover with ExampleEnd2EndTest the new example

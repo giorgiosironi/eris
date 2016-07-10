@@ -69,8 +69,6 @@ class Multiple
         $this->timeLimit->start();
         $shrink($elements);
         while ($elementsAfterShrink = array_shift($branches)) {
-            echo $this->timeLimit, "\n";
-            // TODO in ExampleEnd2EndTest check that this error message is present
             if ($this->timeLimit->hasBeenReached()) {
                 throw new \RuntimeException(
                     "Eris has reached the time limit for shrinking ($this->timeLimit), here it is presenting the simplest failure case." . PHP_EOL
