@@ -9,14 +9,27 @@ use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
 class Multiple
 {
+    private $generator;
+    private $assertion;
+    private $goodShrinkConditions = [];
+    private $onAttempt = [];
+
     public function __construct(array $generators, callable $assertion)
     {
         $this->generator = new TupleGenerator($generators);
         $this->assertion = $assertion;
+        $this->timeLimit = new NoTimeLimit();
     }
 
-    public function addGoodShrinkCondition()
+    public function setTimeLimit(TimeLimit $timeLimit)
     {
+        $this->timeLimit = $timeLimit;
+        return $this;
+    }
+
+    public function addGoodShrinkCondition(callable $condition)
+    {
+        $this->goodShrinkConditions[] = $condition;
         return $this;
     }
     
@@ -53,14 +66,26 @@ class Multiple
             $branches = $shrink($elements);
         };
 
+        $this->timeLimit->start();
         $shrink($elements);
-
         while ($elementsAfterShrink = array_shift($branches)) {
+            if ($this->timeLimit->hasBeenReached()) {
+                throw new \RuntimeException(
+                    "Eris has reached the time limit for shrinking ($this->timeLimit), here it is presenting the simplest failure case." . PHP_EOL
+                    . "If you can afford to spend more time to find a simpler failing input, increase it with \$this->shrinkingTimeLimit(\$seconds).",
+                    -1,
+                    $exception
+                );
+            }
             // TODO: maybe not necessary
             // when Generator start returning emtpy options instead of the 
             // element itself upon no shrinking
             // For now leave in for BC
             if ($elementsAfterShrink == $elements) {
+                continue;
+            }
+
+            if (!$this->checkGoodShrinkConditions($elementsAfterShrink)) {
                 continue;
             }
 
@@ -75,5 +100,15 @@ class Multiple
         }
 
         throw $exception;
+    }
+
+    private function checkGoodShrinkConditions(GeneratedValue $values)
+    {
+        foreach ($this->goodShrinkConditions as $condition) {
+            if (!$condition($values)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
