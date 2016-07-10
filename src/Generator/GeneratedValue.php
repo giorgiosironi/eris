@@ -123,4 +123,12 @@ use ArrayIterator;
             $this->generatorName
         );
     }
+
+    public function add(GeneratedValue $value)
+    {
+        return new GeneratedValueOptions([
+            $this,
+            $value,
+        ]);
+    }
 }

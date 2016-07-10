@@ -121,7 +121,39 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testShrinkingMultipleOptionsOfOneGenerator
      */
-    public function testShrinkingMultipleOptionsOfMoreThanOneGenerator()
+    public function testShrinkingMultipleOptionsOfMoreThanOneSingleShrinkingGenerator()
+    {
+        $generator = new TupleGenerator([
+            new StringGenerator(),
+            new StringGenerator(),
+        ]);
+        $value = GeneratedValue::fromValueAndInput(
+            ['hello', 'world'],
+            [
+                GeneratedValue::fromJustValue('hello', 'string'),
+                GeneratedValue::fromJustValue('world', 'string'),
+            ],
+            'tuple'
+        );
+        $shrunk = $generator->shrink($value);
+        // shrinking (a), (b) or (a and b)
+        $this->assertEquals(3, $shrunk->count());
+        foreach ($shrunk as $option) {
+            $this->assertEquals('tuple', $option->generatorName());
+            $optionValue = $option->unbox();
+            $this->assertInternalType('array', $optionValue);
+            $this->assertEquals(2, count($optionValue));
+            $elementsBeingShrunk = 
+                (strlen($optionValue[0]) < 5 ? 1 : 0)
+                + (strlen($optionValue[1]) < 5 ? 1 : 0);
+            $this->assertGreaterThanOrEqual(1, $elementsBeingShrunk);
+        }
+    }
+
+    /**
+     * @depends testShrinkingMultipleOptionsOfOneGenerator
+     */
+    public function testShrinkingMultipleOptionsOfMoreThanOneMultipleShrinkingGenerator()
     {
         $generator = new TupleGenerator([
             new IntegerGenerator(),

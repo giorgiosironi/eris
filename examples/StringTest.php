@@ -1,5 +1,6 @@
 <?php
 use Eris\Generator;
+use Eris\Listener;
 
 function string_concatenation($first, $second)
 {
@@ -15,9 +16,10 @@ class StringTest extends PHPUnit_Framework_TestCase
 
     public function testRightIdentityElement()
     {
-        $this->forAll(
-            Generator\string()
-        )
+        $this
+            ->forAll(
+                Generator\string()
+            )
             ->then(function ($string) {
                 $this->assertEquals(
                     $string,
@@ -29,10 +31,13 @@ class StringTest extends PHPUnit_Framework_TestCase
 
     public function testLengthPreservation()
     {
-        $this->forAll(
-            Generator\string(),
-            Generator\string()
-        )
+        $this
+            ->forAll(
+                Generator\string(),
+                Generator\string()
+            )
+            ->hook(Listener\log('/tmp/eris-string-shrinking.log'))
+            ->shrinkingStrategy('multiple')
             ->then(function ($first, $second) {
                 $result = string_concatenation($first, $second);
                 $this->assertEquals(

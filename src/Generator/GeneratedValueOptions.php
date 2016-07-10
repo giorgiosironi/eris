@@ -31,6 +31,28 @@ class GeneratedValueOptions
         ));
     }
 
+    /**
+     * @return self
+     */
+    public function add(GeneratedValue $value)
+    {
+        return new self(array_merge(
+            $this->generatedValues,
+            [$value]
+        ));
+    }
+
+    public function remove(GeneratedValue $value)
+    {
+        $generatedValues = $this->generatedValues;
+        $index = array_search($value, $generatedValues);
+        if ($index !== false) {
+            unset($generatedValues[$index]);
+        }
+        return new self($generatedValues);
+
+    }
+
     public function unbox()
     {
         return $this->first()->unbox();

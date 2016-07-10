@@ -65,6 +65,8 @@ class TupleGenerator implements Generator
     private function optionsFromTheseGenerators($generators, $inputSubset)
     {
         $optionsForThisElement = $generators[0]->shrink($inputSubset[0]);
+        // so that it can be used in combination with other shrunk elements
+        $optionsForThisElement = $optionsForThisElement->add($inputSubset[0]);
         $options = [];
         foreach ($optionsForThisElement as $value) {
             $options[] = GeneratedValue::fromValueAndInput(
@@ -95,7 +97,8 @@ class TupleGenerator implements Generator
         $input = $tuple->input();
 
 
-        return $this->optionsFromTheseGenerators($this->generators, $input);
+        return $this->optionsFromTheseGenerators($this->generators, $input)
+            ->remove($tuple);
         
         if (count($inputs) == 1) {
             return GeneratedValue::fromValueAndInput(
