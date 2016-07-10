@@ -49,7 +49,7 @@ class GeneratedValueOptions
         if ($index !== false) {
             unset($generatedValues[$index]);
         }
-        return new self($generatedValues);
+        return new self(array_values($generatedValues));
 
     }
 
