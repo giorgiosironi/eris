@@ -9,6 +9,14 @@ use Countable;
  * Parametric with respect to the type <T> of its value, 
  * which should be the type parameter <T> of all the contained GeneratedValue
  * instances.
+ *
+ * Mainly used in shrinking, to support multiple options as possibilities
+ * for shrinking a GeneratedValue.
+ *
+ * This class tends to delegate operations to its last() elements for 
+ * backwards compatibility. So it can be used in context where a single
+ * value is expected. The last of the options is usually the more conservative
+ * in shrinking, for example subtracting 1 for the IntegerGenerator.
  */
 class GeneratedValueOptions
     extends GeneratedValue
@@ -57,14 +65,37 @@ class GeneratedValueOptions
         return new self(array_values($generatedValues));
     }
 
+    /**
+     * @override
+     */
     public function unbox()
     {
         return $this->last()->unbox();
     }
 
+    /**
+     * @override
+     */
     public function input()
     {
         return $this->last()->input();
+    }
+
+    /**
+     * @override
+     */
+    public function __toString()
+    {
+        return var_export($this, true);
+    }
+
+    /**
+     * @override
+     * @return string
+     */
+    public function generatorName()
+    {
+        return $this->last()->generatorName();
     }
 
     public function getIterator()

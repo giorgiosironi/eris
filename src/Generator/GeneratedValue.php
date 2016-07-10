@@ -84,6 +84,11 @@ use ArrayIterator;
     }
 
     /**
+     * Produces a new GeneratedValue that wraps this one,
+     * and that is labelled with $generatorName.
+     * $applyToValue is mapped over the value 
+     * to build the outer GeneratedValue object $this->value field.
+     *
      * @return GeneratedValue
      */
     public function map(callable $applyToValue, $generatorName)
@@ -96,6 +101,10 @@ use ArrayIterator;
     }
 
     /**
+     * Basically changes the name of the Generator,
+     * but without introducing an additional layer
+     * of wrapping of GeneratedValue objects.
+     *
      * @param string $generatorName  'tuple', 'vector'
      * @return GeneratedValue
      */
