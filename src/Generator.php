@@ -16,6 +16,10 @@ interface Generator
     public function __invoke($size, $rand);
 
     /**
+     * The conditions for terminating are either:
+     * - returning the same GeneratedValue passed in
+     * - returning an empty GeneratedValueOptions
+     *
      * @param GeneratedValue<T>
      * @return GeneratedValue<T>|GeneratedValueOptions<T>
      */

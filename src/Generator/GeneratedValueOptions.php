@@ -29,6 +29,11 @@ class GeneratedValueOptions
         $this->generatedValues = $generatedValues;
     }
 
+    public function first()
+    {
+        return $this->generatedValues[0];
+    }
+
     public function last()
     {
         return $this->generatedValues[count($this->generatedValues) - 1];

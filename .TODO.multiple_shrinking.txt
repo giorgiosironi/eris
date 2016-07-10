@@ -13,6 +13,7 @@
 ++ Map
 ++ OneOf
 -- Sequence
+--- relies on Vector which relies on Tuple... and when there are more than a few elements there is a combinatorial explosion of options for shrinking
 -- Set
 ++ Subset
 -- SuchThat
@@ -23,3 +24,5 @@
 - extract GeneratedValue interface, and rename GeneratedValue to GeneratedValueSingle or SingleGeneratedValue
 - check GeneratedValue with Onebip guys
 - check TODO comments in the diff
+- extract common patterns of usage of GeneratedValue|GeneratedValueOptions into methods on these Value Objects
+- priority in shrinking: when evaluating options order counts a lot. The cartesian product can be improved?
