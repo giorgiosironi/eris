@@ -5,9 +5,10 @@ use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
+use Eris\Shrinker;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
-class Multiple
+class Multiple implements Shrinker
 {
     private $generator;
     private $assertion;

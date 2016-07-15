@@ -5,9 +5,10 @@ use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
+use Eris\Shrinker;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
-class Random // implements Shrinker
+class Random implements Shrinker
 {
     private $generator;
     private $assertion;

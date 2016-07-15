@@ -20,10 +20,12 @@
 ++ Tuple
 --- Tuple::contains()
 ++ Vector
-- extract Shrinker interface
-- extract GeneratedValue interface, and rename GeneratedValue to GeneratedValueSingle or SingleGeneratedValue
-- check GeneratedValue with Onebip guys
++ extract Shrinker interface
+- GeneratedValue rename
+-- extract GeneratedValue interface, and rename GeneratedValue to GeneratedValueSingle or SingleGeneratedValue
+-- use smallestStep() or similar instead of last() and implement it also on GeneratedValue
+-- complete first Phunkie PRs
++ check GeneratedValue with Onebip guys
 - check TODO comments in the diff
 - extract common patterns of usage of GeneratedValue|GeneratedValueOptions into methods on these Value Objects
 - priority in shrinking: when evaluating options order counts a lot. The cartesian product can be improved?
-- use smallestStep() or similar instead of last() and implement it also on GeneratedValue
