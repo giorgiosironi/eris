@@ -8,6 +8,11 @@ use Eris\Quantifier\Evaluation;
 use Eris\Shrinker;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
+/**
+ * @deprecated from 0.9
+ * Many Generators now use GeneratedValueOptions which is not supported
+ * by this Shrinker. Use at your peril.
+ */
 class Random implements Shrinker
 {
     private $generator;

@@ -174,7 +174,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $optionValue = $option->unbox();
             $this->assertInternalType('array', $optionValue);
             $this->assertEquals(2, count($optionValue));
-            // TODO: put in OR, as [99, 200] and [100, 199] should be good
+            $this->assertNotEquals([100, 200], $optionValue);
             $elementsBeingShrunk =
                 ($optionValue[0] < 100 ? 1 : 0)
                 + ($optionValue[1] < 200 ? 1 : 0);

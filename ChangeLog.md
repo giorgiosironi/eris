@@ -2,7 +2,9 @@
 
 ## 0.next
 
+* Using new `multiple` deterministic shrinking instead of `random`, being abandoned.
 * BC: `minimumEvaluationRatio` is now a method to be called, not a private field. Defaults to 0.5.
+* BC: extended `Listener::endPropertyVerification()` with additional parameters `$iterations` and optional `$exception`.
 
 ## 0.8.0
 

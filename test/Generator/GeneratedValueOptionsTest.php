@@ -4,6 +4,50 @@ namespace Eris\Generator;
 // TODO: complete *unit* test coverage
 class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
 {
+    public function testMapsOverAllTheOptions()
+    {
+        $value = GeneratedValue::fromJustValue(42);
+        $options = new GeneratedValueOptions([$value]);
+        $double = function($n) { return $n * 2; };
+        $this->assertEquals(
+            new GeneratedValueOptions([$value->map($double, 'doubler')]),
+            $options->map($double, 'doubler')
+        );
+    }
+
+    public function testAddingAndRemoving()
+    {
+        $someOptions = new GeneratedValueOptions([
+            GeneratedValue::fromJustValue(42),
+            GeneratedValue::fromJustValue(43),
+            GeneratedValue::fromJustValue(44),
+        ]);
+        $this->assertEquals(
+            new GeneratedValueOptions([
+                GeneratedValue::fromJustValue(44),
+                GeneratedValue::fromJustValue(45),
+                GeneratedValue::fromJustValue(46),
+            ]),
+            $someOptions
+                ->add(GeneratedValue::fromJustValue(45))
+                ->remove(GeneratedValue::fromJustValue(42))
+                ->add(GeneratedValue::fromJustValue(46))
+                ->remove(GeneratedValue::fromJustValue(43))
+        );
+    }
+
+    public function testCount()
+    {
+        $this->assertEquals(
+            3,
+            count(new GeneratedValueOptions([
+                GeneratedValue::fromJustValue(44),
+                GeneratedValue::fromJustValue(45),
+                GeneratedValue::fromJustValue(46),
+            ]))
+        );
+    }
+    
     public function testCartesianProductWithOtherValues()
     {
         $former = new GeneratedValueOptions([

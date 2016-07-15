@@ -11,7 +11,7 @@ use ArrayIterator;
  */
 /*final */class GeneratedValue
     implements IteratorAggregate
-    // TODO: interface Options extends IteratorAggregate[, Countable]
+    // TODO: interface ShrunkValue extends IteratorAggregate[, Countable]
 {
     private $value;
     private $input;
@@ -125,10 +125,12 @@ use ArrayIterator;
 
     public function merge(GeneratedValue $another, callable $merge)
     {
+        if ($another->generatorName !== $this->generatorName) {
+            throw new InvalidArgumentException("Trying to merge a {$this->generatorName} GeneratedValue with a {$another->generatorName} GeneratedValue");
+        }
         return self::fromValueAndInput(
             $merge($this->unbox(), $another->unbox()),
             $merge($this->input(), $another->input()),
-            // TODO: check $another->generatorName is the same as this
             $this->generatorName
         );
     }

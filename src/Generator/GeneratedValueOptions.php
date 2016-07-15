@@ -39,11 +39,11 @@ class GeneratedValueOptions
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
-    public function map(callable $callable, $passthru)
+    public function map(callable $callable, $generatorName)
     {
         return new self(array_map(
-            function ($value) use ($callable, $passthru) {
-                return $value->map($callable, $passthru);
+            function ($value) use ($callable, $generatorName) {
+                return $value->map($callable, $generatorName);
             },
             $this->generatedValues
         ));
