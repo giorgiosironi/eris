@@ -8,7 +8,7 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $value = GeneratedValue::fromJustValue(42);
         $options = new GeneratedValueOptions([$value]);
-        $double = function($n) { return $n * 2; };
+        $double = function ($n) { return $n * 2; };
         $this->assertEquals(
             new GeneratedValueOptions([$value->map($double, 'doubler')]),
             $options->map($double, 'doubler')
