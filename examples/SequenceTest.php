@@ -27,4 +27,18 @@ class SequenceTest extends PHPUnit_Framework_TestCase
                 $this->assertEquals($array, array_reverse(array_reverse($array)));
             });
     }
+
+    public function testArraySortingIsIdempotent()
+    {
+        $this
+            ->forAll(
+                Generator\seq(Generator\nat())
+            )
+            ->then(function ($array) {
+                sort($array);
+                $expected = $array;
+                sort($array);
+                $this->assertEquals($expected, $array);
+            });
+    }
 }
