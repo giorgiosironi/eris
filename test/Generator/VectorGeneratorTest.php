@@ -36,6 +36,7 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $previousSum = array_reduce($vector->unbox(), $this->sum);
         for ($i = 0; $i < 15; $i++) {
+            $vector = GeneratedValueOptions::mostPessimisticChoice($vector);
             $vector = $generator->shrink($vector);
             $currentSum = array_reduce($vector->unbox(), $this->sum);
             $this->assertLessThanOrEqual($previousSum, $currentSum);

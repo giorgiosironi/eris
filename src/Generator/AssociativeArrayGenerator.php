@@ -40,7 +40,7 @@ class AssociativeArrayGenerator implements Generator
         return $this->tupleGenerator->contains($element->input());
     }
 
-    private function mapToAssociativeArray(GeneratedValueSingle $tuple)
+    private function mapToAssociativeArray(GeneratedValue $tuple)
     {
         return $tuple->map(
             function ($value) {

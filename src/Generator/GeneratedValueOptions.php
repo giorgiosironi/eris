@@ -1,9 +1,9 @@
 <?php
 namespace Eris\Generator;
 
-use IteratorAggregate;
 use ArrayIterator;
-use Countable;
+use IteratorAggregate;
+use LogicException;
 
 /**
  * Parametric with respect to the type <T> of its value, 
@@ -19,14 +19,22 @@ use Countable;
  * in shrinking, for example subtracting 1 for the IntegerGenerator.
  */
 class GeneratedValueOptions
-    extends GeneratedValueSingle
-    implements IteratorAggregate, Countable
+    implements GeneratedValue
 {
     private $generatedValues;
     
     public function __construct(array $generatedValues)
     {
         $this->generatedValues = $generatedValues;
+    }
+
+    public static function mostPessimisticChoice(GeneratedValue $value)
+    {
+        if ($value instanceof GeneratedValueOptions) {
+            return $value->last();
+        } else {
+            return $value;
+        }
     }
 
     public function first()
@@ -36,6 +44,9 @@ class GeneratedValueOptions
 
     public function last()
     {
+        if (count($this->generatedValues) == 0) {
+            throw new LogicException("This GeneratedValueOptions is empty");
+        }
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
@@ -47,6 +58,18 @@ class GeneratedValueOptions
             },
             $this->generatedValues
         ));
+    }
+    
+    public function derivedIn($generatorName)
+    {
+        throw new RuntimeException("GeneratedValueOptions::derivedIn() is needed, uncomment it");
+    /*
+     * Not sure this is needed.
+        return $this->map(
+            function ($value) { return $value; },
+            $generatorName
+        );
+     */
     }
 
     /**

@@ -44,6 +44,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $value = $generator($this->size, $this->rand);
 
         for ($i = 0; $i < 100; $i++) {
+            $value = GeneratedValueOptions::mostPessimisticChoice($value);
             $value = $generator->shrink($value);
             $array = $value->unbox();
             $this->assertEquals(2, count($array));

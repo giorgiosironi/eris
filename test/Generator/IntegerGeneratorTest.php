@@ -22,6 +22,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new IntegerGenerator();
         $value = $generator($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
+            $value = GeneratedValueOptions::mostPessimisticChoice($value);
             $value = $generator->shrink($value);
         }
         $this->assertSame(0, $value->unbox());

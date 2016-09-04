@@ -2,16 +2,15 @@
 namespace Eris\Generator;
 
 use InvalidArgumentException;
-use IteratorAggregate;
 use ArrayIterator;
 
 /**
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValueSingle instance.
  */
-/*final */class GeneratedValueSingle
-    implements IteratorAggregate
-    // TODO: interface ShrunkValue extends IteratorAggregate[, Countable]
+final class GeneratedValueSingle
+    implements GeneratedValue
+    // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
 {
     private $value;
     private $input;
@@ -121,6 +120,11 @@ use ArrayIterator;
         return new ArrayIterator([
             $this
         ]);
+    }
+
+    public function count()
+    {
+        return 1;
     }
 
     public function merge(GeneratedValueSingle $another, callable $merge)

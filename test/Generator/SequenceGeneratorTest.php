@@ -41,6 +41,10 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($this->size, $this->rand);
         $elementsAfterShrink = $generator->shrink($elements);
+        if ($elementsAfterShrink->count() == 0) {
+            // the generated value couldn't be shrunk
+            return;
+        }
 
         $this->assertLessThanOrEqual(count($elements->unbox()), count($elementsAfterShrink->unbox()));
         $this->assertLessThanOrEqual(array_sum($elements->unbox()), array_sum($elementsAfterShrink->unbox()));
