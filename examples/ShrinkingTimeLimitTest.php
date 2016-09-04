@@ -3,7 +3,7 @@ use Eris\Generator;
 
 function very_slow_concatenation($first, $second)
 {
-    if (strlen($second) > 5) {
+    if (strlen($second) > 10) {
         sleep(2);
         $second .= 'ERROR';
     }
