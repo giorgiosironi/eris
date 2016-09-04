@@ -62,7 +62,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testContainsElementsWhenElementsAreContainedInTheUniverse()
     {
-        $elements = GeneratedValue::fromJustValue([
+        $elements = GeneratedValueSingle::fromJustValue([
             $this->universe[0],
             $this->universe[1],
         ]);
@@ -72,12 +72,12 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testDoesNotContainElementsWhenElementsAreNotContainedInTheUniverse()
     {
         $aString = 'a string';
-        $this->assertFalse($this->generator->contains(GeneratedValue::fromJustValue([$aString, $aString])));
+        $this->assertFalse($this->generator->contains(GeneratedValueSingle::fromJustValue([$aString, $aString])));
     }
 
     public function testContainsAnEmptySet()
     {
-        $this->assertTrue($this->generator->contains(GeneratedValue::fromJustValue([])));
+        $this->assertTrue($this->generator->contains(GeneratedValueSingle::fromJustValue([])));
     }
 
     private function assertNoRepeatedElements($generated)

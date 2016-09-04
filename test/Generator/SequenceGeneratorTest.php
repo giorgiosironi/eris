@@ -71,6 +71,6 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testContainsAnEmptySequence()
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue([])));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue([])));
     }
 }

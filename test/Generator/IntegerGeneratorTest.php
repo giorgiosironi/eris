@@ -30,16 +30,16 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testOffersMultiplePossibilitiesForShrinkingProgressivelySubtracting()
     {
         $generator = new IntegerGenerator();
-        $value = GeneratedValue::fromJustValue(100, 'integer');
+        $value = GeneratedValueSingle::fromJustValue(100, 'integer');
         $shrinkingOptions = $generator->shrink($value);
         $this->assertEquals(
             new GeneratedValueOptions([
-                GeneratedValue::fromJustValue(50, 'integer'),
-                GeneratedValue::fromJustValue(75, 'integer'),
-                GeneratedValue::fromJustValue(88, 'integer'),
-                GeneratedValue::fromJustValue(94, 'integer'),
-                GeneratedValue::fromJustValue(97, 'integer'),
-                GeneratedValue::fromJustValue(99, 'integer'),
+                GeneratedValueSingle::fromJustValue(50, 'integer'),
+                GeneratedValueSingle::fromJustValue(75, 'integer'),
+                GeneratedValueSingle::fromJustValue(88, 'integer'),
+                GeneratedValueSingle::fromJustValue(94, 'integer'),
+                GeneratedValueSingle::fromJustValue(97, 'integer'),
+                GeneratedValueSingle::fromJustValue(99, 'integer'),
             ]),
             $shrinkingOptions
         );

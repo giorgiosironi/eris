@@ -38,22 +38,22 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCharacterGeneratorsShrinkByConventionToTheLowestCodePoint()
     {
         $generator = CharacterGenerator::ascii();
-        $this->assertEquals('@', $generator->shrink(GeneratedValue::fromJustValue('A', 'character'))->unbox());
+        $this->assertEquals('@', $generator->shrink(GeneratedValueSingle::fromJustValue('A', 'character'))->unbox());
     }
 
     public function testTheLowestCodePointCannotBeShrunk()
     {
         $generator = new CharacterGenerator(65, 90);
-        $lowest = GeneratedValue::fromJustValue('A', 'character');
+        $lowest = GeneratedValueSingle::fromJustValue('A', 'character');
         $this->assertEquals($lowest, $generator->shrink($lowest));
     }
 
     public function testContainsOnlyTheSpecifiedRange()
     {
         $generator = CharacterGenerator::ascii();
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("\0")));
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("A")));
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("b")));
-        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue("é")));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue("\0")));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue("A")));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue("b")));
+        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue("é")));
     }
 }

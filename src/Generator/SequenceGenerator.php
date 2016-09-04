@@ -28,7 +28,7 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $sequence)
+    public function shrink(GeneratedValueSingle $sequence)
     {
         if (!$this->contains($sequence)) {
             throw new DomainException(
@@ -53,7 +53,7 @@ class SequenceGenerator implements Generator
         return new GeneratedValueOptions($options);
     }
 
-    public function contains(GeneratedValue $sequence)
+    public function contains(GeneratedValueSingle $sequence)
     {
         return $this->vector(count($sequence->unbox()))->contains($sequence);
     }
@@ -68,7 +68,7 @@ class SequenceGenerator implements Generator
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             array_map(
                 function ($element) { return $element->unbox(); },
                 $input

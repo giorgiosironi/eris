@@ -2,7 +2,7 @@
 namespace Eris\Shrinker;
 
 use Eris\Generator\IntegerGenerator;
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\GeneratedValueOptions;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
@@ -41,12 +41,12 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->shrinker->from(
-                GeneratedValue::fromValueAndInput(
+                GeneratedValueSingle::fromValueAndInput(
                     [
                         $startingPoint
                     ],
                     [
-                        GeneratedValue::fromJustValue($startingPoint, 'integer')
+                        GeneratedValueSingle::fromJustValue($startingPoint, 'integer')
                     ]
                 ),
                 new AssertionFailed()

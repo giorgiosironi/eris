@@ -45,25 +45,25 @@ class DateGenerator implements Generator
     public function __invoke($_size, $rand)
     {
         $generatedOffset = $rand(0, $this->intervalInSeconds);
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             $this->fromOffset($generatedOffset),
             'date'
         );
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         $this->ensureIsInDomain($element);
 
         $timeOffset = $element->unbox()->getTimestamp() - $this->lowerLimit->getTimestamp();
         $halvedOffset = floor($timeOffset / 2);
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             $this->fromOffset($halvedOffset),
             'date'
         );
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         $value = $element->unbox();
         return $value instanceof DateTime

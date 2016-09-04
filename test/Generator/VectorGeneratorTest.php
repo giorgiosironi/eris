@@ -24,7 +24,7 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->vectorSize, count($vector->unbox()));
         foreach ($vector->unbox() as $element) {
             $this->assertTrue($this->elementGenerator->contains(
-                GeneratedValue::fromJustValue($element)
+                GeneratedValueSingle::fromJustValue($element)
             ));
         }
     }

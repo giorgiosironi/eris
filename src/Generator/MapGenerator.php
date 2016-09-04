@@ -29,7 +29,7 @@ class MapGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValueSingle $value)
     {
         $input = $value->input();
         $shrunkInput = $this->generator->shrink($input);
@@ -39,7 +39,7 @@ class MapGenerator implements Generator
         );
     }
 
-    public function contains(GeneratedValue $value)
+    public function contains(GeneratedValueSingle $value)
     {
         return $this->generator->contains($value->input());
     }

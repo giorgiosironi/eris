@@ -69,13 +69,13 @@ class IntegerGenerator implements Generator
         $result = $rand(0, 1) === 0
                           ? $mapFn($value)
                           : $mapFn($value * (-1));
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             $result,
             'integer'
         );
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         $this->checkValueToShrink($element);
         $element = $element->input();
@@ -84,7 +84,7 @@ class IntegerGenerator implements Generator
             $options = [];
             $nextHalf = $element;
             while (($nextHalf = (int) floor($nextHalf / 2)) > 0) {
-                $options[] = GeneratedValue::fromJustValue(
+                $options[] = GeneratedValueSingle::fromJustValue(
                     $element - $nextHalf,
                     'integer'
                 );
@@ -92,17 +92,17 @@ class IntegerGenerator implements Generator
             if ($options) {
                 return new GeneratedValueOptions($options);
             } else {
-                return GeneratedValue::fromJustValue($element - 1, 'integer');
+                return GeneratedValueSingle::fromJustValue($element - 1, 'integer');
             }
         }
         if ($element < 0) {
-            return GeneratedValue::fromJustValue($element + 1, 'integer');
+            return GeneratedValueSingle::fromJustValue($element + 1, 'integer');
         }
 
-        return GeneratedValue::fromJustValue($element, 'integer');
+        return GeneratedValueSingle::fromJustValue($element, 'integer');
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return is_int($element->input());
     }

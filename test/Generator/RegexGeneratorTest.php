@@ -30,7 +30,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
             $this->assertTrue(
-                $generator->contains(GeneratedValue::fromJustValue($value)),
+                $generator->contains(GeneratedValueSingle::fromJustValue($value)),
                 "Failed asserting that " . var_export($value, true) . " matches the regexp $expression"
             );
         }
@@ -39,7 +39,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingIsNotImplementedYet()
     {
         $generator = new RegexGenerator(".*");
-        $word = GeneratedValue::fromJustValue("something");
+        $word = GeneratedValueSingle::fromJustValue("something");
         $this->assertEquals($word, $generator->shrink($word));
     }
 }

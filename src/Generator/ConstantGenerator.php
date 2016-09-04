@@ -29,10 +29,10 @@ class ConstantGenerator implements Generator
 
     public function __invoke($_size, $rand)
     {
-        return GeneratedValue::fromJustValue($this->value, 'constant');
+        return GeneratedValueSingle::fromJustValue($this->value, 'constant');
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
@@ -41,10 +41,10 @@ class ConstantGenerator implements Generator
             );
         }
 
-        return GeneratedValue::fromJustValue($this->value, 'constant');
+        return GeneratedValueSingle::fromJustValue($this->value, 'constant');
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return $this->value === $element->input();
     }

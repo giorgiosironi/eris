@@ -38,13 +38,13 @@ class NamesGenerator implements Generator
             $this->lengthLessThanOrEqualTo($size)
         );
         if (!$candidateNames) {
-            return GeneratedValue::fromJustValue('', 'names');
+            return GeneratedValueSingle::fromJustValue('', 'names');
         }
         $index = $rand(0, count($candidateNames) - 1);
-        return GeneratedValue::fromJustValue($candidateNames[$index], 'names');
+        return GeneratedValueSingle::fromJustValue($candidateNames[$index], 'names');
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValueSingle $value)
     {
         $candidateNames = $this->filterDataSet(
             $this->lengthSlightlyLessThan(strlen($value->unbox()))
@@ -54,10 +54,10 @@ class NamesGenerator implements Generator
             return $value;
         }
         $distances = $this->distancesBy($value->unbox(), $candidateNames);
-        return GeneratedValue::fromJustValue($this->minimumDistanceName($distances), 'names');
+        return GeneratedValueSingle::fromJustValue($this->minimumDistanceName($distances), 'names');
     }
 
-    public function contains(GeneratedValue $value)
+    public function contains(GeneratedValueSingle $value)
     {
         return in_array($value->unbox(), $this->list);
     }

@@ -47,7 +47,7 @@ class FrequencyGenerator implements Generator
     {
         list($index, $generator) = $this->pickFrom($this->generators, $rand);
         $originalValue = $generator->__invoke($size, $rand);
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             $originalValue->unbox(),
             [
                 'value' => $originalValue,
@@ -57,7 +57,7 @@ class FrequencyGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
@@ -69,7 +69,7 @@ class FrequencyGenerator implements Generator
         $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($input['value']);
 
         // TODO: take advantage of multiple shrinking
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             $shrinkedValue->unbox(),
             [
                 'value' => $shrinkedValue,
@@ -79,7 +79,7 @@ class FrequencyGenerator implements Generator
         );
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         $input = $element->input();
         $originalGeneratorIndex = $input['generator'];

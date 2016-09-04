@@ -19,10 +19,10 @@ class StringGenerator implements Generator
         for ($i = 0; $i < $length; $i++) {
             $built .= chr($rand(33, 126));
         }
-        return GeneratedValue::fromJustValue($built, 'string');
+        return GeneratedValueSingle::fromJustValue($built, 'string');
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
@@ -34,13 +34,13 @@ class StringGenerator implements Generator
         if ($element->unbox() === '') {
             return $element;
         }
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             substr($element->unbox(), 0, -1),
             'string'
         );
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return is_string($element->unbox());
     }

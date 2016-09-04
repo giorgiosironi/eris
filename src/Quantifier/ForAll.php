@@ -3,7 +3,7 @@ namespace Eris\Quantifier;
 
 use Eris\Antecedent;
 use Eris\Generator;
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 use Exception;
@@ -117,13 +117,13 @@ class ForAll
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
                     $value = $generator($sizes->at($iteration), $this->rand);
-                    if (!($value instanceof GeneratedValue)) {
-                        throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValue, but it is " . var_export($value, true));
+                    if (!($value instanceof GeneratedValueSingle)) {
+                        throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValueSingle, but it is " . var_export($value, true));
                     }
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
-                $generation = GeneratedValue::fromValueAndInput(
+                $generation = GeneratedValueSingle::fromValueAndInput(
                     $values,
                     $generatedValues,
                     'tuple'
@@ -147,10 +147,10 @@ class ForAll
                         $shrinking = $this->shrinkerFactory->$shrinkerFactoryMethod($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
-                            ->addGoodShrinkCondition(function (GeneratedValue $generatedValues) {
+                            ->addGoodShrinkCondition(function (GeneratedValueSingle $generatedValues) {
                                 return $this->antecedentsAreSatisfied($generatedValues->unbox());
                             })
-                            ->onAttempt(function (GeneratedValue $generatedValues) {
+                            ->onAttempt(function (GeneratedValueSingle $generatedValues) {
                                 $this->notifyListeners('shrinking', $generatedValues->unbox());
                             })
                             ->from($generatedValues, $exception);

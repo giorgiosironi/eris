@@ -71,7 +71,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function ($n) { return $n % 250 == 0; },
             new ChooseGenerator(0, 1000)
         );
-        $unshrinkable = GeneratedValue::fromJustValue(470);
+        $unshrinkable = GeneratedValueSingle::fromJustValue(470);
         $this->assertEquals(
             $unshrinkable,
             $generator->shrink($unshrinkable)
@@ -84,7 +84,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function ($n) { return $n % 2 == 0; },
             new IntegerGenerator()
         );
-        $element = GeneratedValue::fromJustValue(100);
+        $element = GeneratedValueSingle::fromJustValue(100);
         $options = $generator->shrink($element);
         foreach ($options as $option) {
             $this->assertTrue(
@@ -100,7 +100,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             function ($n) { return $n < 250; },
             new IntegerGenerator()
         );
-        $unshrinkable = GeneratedValue::fromJustValue(470);
+        $unshrinkable = GeneratedValueSingle::fromJustValue(470);
         $options = $generator->shrink($unshrinkable);
         $this->assertGreaterThan(0, count($options));
         foreach ($options as $option) {

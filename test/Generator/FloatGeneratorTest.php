@@ -27,16 +27,16 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksLinearly()
     {
         $generator = new FloatGenerator();
-        $this->assertSame(3.5, $generator->shrink(GeneratedValue::fromJustValue(4.5))->unbox());
-        $this->assertSame(-2.5, $generator->shrink(GeneratedValue::fromJustValue(-3.5))->unbox());
+        $this->assertSame(3.5, $generator->shrink(GeneratedValueSingle::fromJustValue(4.5))->unbox());
+        $this->assertSame(-2.5, $generator->shrink(GeneratedValueSingle::fromJustValue(-3.5))->unbox());
     }
 
     public function testWhenBothSignsArePossibleCannotShrinkBelowZero()
     {
         $generator = new FloatGenerator();
-        $this->assertSame(0.0, $generator->shrink(GeneratedValue::fromJustValue(0.0))->unbox());
-        $this->assertSame(0.0, $generator->shrink(GeneratedValue::fromJustValue(0.5))->unbox());
-        $this->assertSame(0.0, $generator->shrink(GeneratedValue::fromJustValue(-0.5))->unbox());
+        $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(0.0))->unbox());
+        $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(0.5))->unbox());
+        $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(-0.5))->unbox());
     }
 
     /**
@@ -45,6 +45,6 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
         $generator = new FloatGenerator(100.12, 200.12);
-        $generator->shrink(GeneratedValue::fromJustValue(300));
+        $generator->shrink(GeneratedValueSingle::fromJustValue(300));
     }
 }

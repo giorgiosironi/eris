@@ -31,7 +31,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
             new DateTime("2014-01-02T23:59:59")
         );
         $value = $generator($this->size, $this->rand);
-        $generator->shrink(GeneratedValue::fromJustValue(new DateTime("2014-01-10T00:00:00"), 'date'));
+        $generator->shrink(GeneratedValueSingle::fromJustValue(new DateTime("2014-01-10T00:00:00"), 'date'));
     }
 
     public function testDateTimeShrinkGeometrically()
@@ -42,7 +42,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             new DateTime("2014-01-01T16:00:00"),
-            $generator->shrink(GeneratedValue::fromJustValue(
+            $generator->shrink(GeneratedValueSingle::fromJustValue(
                 new DateTime("2014-01-02T08:00:00"),
                 'date'
             ))->unbox()
@@ -55,7 +55,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
             $lowerLimit = new DateTime("2014-01-01T00:00:00"),
             new DateTime("2014-01-02T23:59:59")
         );
-        $value = GeneratedValue::fromJustValue(
+        $value = GeneratedValueSingle::fromJustValue(
             new DateTime("2014-01-01T00:01:00"),
             'date'
         );

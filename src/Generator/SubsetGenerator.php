@@ -38,10 +38,10 @@ class SubsetGenerator implements Generator
             }
         }
 
-        return GeneratedValue::fromJustValue($subset, 'subset');
+        return GeneratedValueSingle::fromJustValue($subset, 'subset');
     }
 
-    public function shrink(GeneratedValue $set)
+    public function shrink(GeneratedValueSingle $set)
     {
         // TODO: see SetGenerator::shrink()
         if (!$this->contains($set)) {
@@ -59,13 +59,13 @@ class SubsetGenerator implements Generator
         // TODO: make deterministic by returning an array of GeneratedValues
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             array_values($input),
             'subset'
         );
     }
 
-    public function contains(GeneratedValue $set)
+    public function contains(GeneratedValueSingle $set)
     {
         foreach ($set->input() as $element) {
             if (!in_array($element, $this->universe)) {

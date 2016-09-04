@@ -39,13 +39,13 @@ class StringGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new StringGenerator();
         $lastValue = $generator($size = 10, $this->rand);
-        $this->assertSame('abcde', $generator->shrink(GeneratedValue::fromJustValue('abcdef'))->unbox());
+        $this->assertSame('abcde', $generator->shrink(GeneratedValueSingle::fromJustValue('abcdef'))->unbox());
     }
 
     public function testCannotShrinkTheEmptyString()
     {
         $generator = new StringGenerator();
-        $minimumValue = GeneratedValue::fromJustValue('');
+        $minimumValue = GeneratedValueSingle::fromJustValue('');
         $this->assertEquals($minimumValue, $generator->shrink($minimumValue));
     }
 

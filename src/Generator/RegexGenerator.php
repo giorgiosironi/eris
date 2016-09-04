@@ -42,15 +42,15 @@ class RegexGenerator implements Generator
         $parser = new Parser($lexer, new Scope(), new Scope());
         $parser->parse()->getResult()->generate($result, $gen);
 
-        return GeneratedValue::fromJustValue($result, 'regex');
+        return GeneratedValueSingle::fromJustValue($result, 'regex');
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValueSingle $value)
     {
         return $value;
     }
 
-    public function contains(GeneratedValue $value)
+    public function contains(GeneratedValueSingle $value)
     {
         return is_string($value->unbox())
             && (bool) preg_match("/{$this->expression}/", $value->unbox());

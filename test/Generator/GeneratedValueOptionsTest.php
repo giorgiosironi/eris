@@ -6,7 +6,7 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
 {
     public function testMapsOverAllTheOptions()
     {
-        $value = GeneratedValue::fromJustValue(42);
+        $value = GeneratedValueSingle::fromJustValue(42);
         $options = new GeneratedValueOptions([$value]);
         $double = function ($n) { return $n * 2; };
         $this->assertEquals(
@@ -18,21 +18,21 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
     public function testAddingAndRemoving()
     {
         $someOptions = new GeneratedValueOptions([
-            GeneratedValue::fromJustValue(42),
-            GeneratedValue::fromJustValue(43),
-            GeneratedValue::fromJustValue(44),
+            GeneratedValueSingle::fromJustValue(42),
+            GeneratedValueSingle::fromJustValue(43),
+            GeneratedValueSingle::fromJustValue(44),
         ]);
         $this->assertEquals(
             new GeneratedValueOptions([
-                GeneratedValue::fromJustValue(44),
-                GeneratedValue::fromJustValue(45),
-                GeneratedValue::fromJustValue(46),
+                GeneratedValueSingle::fromJustValue(44),
+                GeneratedValueSingle::fromJustValue(45),
+                GeneratedValueSingle::fromJustValue(46),
             ]),
             $someOptions
-                ->add(GeneratedValue::fromJustValue(45))
-                ->remove(GeneratedValue::fromJustValue(42))
-                ->add(GeneratedValue::fromJustValue(46))
-                ->remove(GeneratedValue::fromJustValue(43))
+                ->add(GeneratedValueSingle::fromJustValue(45))
+                ->remove(GeneratedValueSingle::fromJustValue(42))
+                ->add(GeneratedValueSingle::fromJustValue(46))
+                ->remove(GeneratedValueSingle::fromJustValue(43))
         );
     }
 
@@ -41,9 +41,9 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             3,
             count(new GeneratedValueOptions([
-                GeneratedValue::fromJustValue(44),
-                GeneratedValue::fromJustValue(45),
-                GeneratedValue::fromJustValue(46),
+                GeneratedValueSingle::fromJustValue(44),
+                GeneratedValueSingle::fromJustValue(45),
+                GeneratedValueSingle::fromJustValue(46),
             ]))
         );
     }
@@ -51,13 +51,13 @@ class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
     public function testCartesianProductWithOtherValues()
     {
         $former = new GeneratedValueOptions([
-            GeneratedValue::fromJustValue('a'),
-            GeneratedValue::fromJustValue('b'),
+            GeneratedValueSingle::fromJustValue('a'),
+            GeneratedValueSingle::fromJustValue('b'),
         ]);
         $latter = new GeneratedValueOptions([
-            GeneratedValue::fromJustValue('1'),
-            GeneratedValue::fromJustValue('2'),
-            GeneratedValue::fromJustValue('3'),
+            GeneratedValueSingle::fromJustValue('1'),
+            GeneratedValueSingle::fromJustValue('2'),
+            GeneratedValueSingle::fromJustValue('3'),
         ]);
         $product = $former->cartesianProduct($latter, function ($first, $second) { return $first . $second; });
         $this->assertEquals(6, count($product));

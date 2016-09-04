@@ -22,7 +22,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(2, count($generated->unbox()));
         foreach ($generated->unbox() as $element) {
             $this->assertTrue(
-                $this->generatorForSingleElement->contains(GeneratedValue::fromJustValue($element))
+                $this->generatorForSingleElement->contains(GeneratedValueSingle::fromJustValue($element))
             );
         }
     }
@@ -37,7 +37,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         foreach ($generated->unbox() as $element) {
             $this->assertTrue(
                 (new ConstantGenerator($aNonGenerator))->contains(
-                    GeneratedValue::fromJustValue($element)
+                    GeneratedValueSingle::fromJustValue($element)
                 )
             );
         }
@@ -57,7 +57,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->generatorForSingleElement,
         ]);
 
-        $tupleThatCanBeGenerated = GeneratedValue::fromJustValue([
+        $tupleThatCanBeGenerated = GeneratedValueSingle::fromJustValue([
             $this->generatorForSingleElement->__invoke($this->size, $this->rand),
             $this->generatorForSingleElement->__invoke($this->size, $this->rand),
         ]);
@@ -76,10 +76,10 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $elementsAfterShrink = $generator->shrink($elements);
 
         $this->assertTrue($this->generatorForSingleElement->contains(
-            GeneratedValue::fromJustValue($elementsAfterShrink->unbox()[0]))
+            GeneratedValueSingle::fromJustValue($elementsAfterShrink->unbox()[0]))
         );
         $this->assertTrue($this->generatorForSingleElement->contains(
-            GeneratedValue::fromJustValue($elementsAfterShrink->unbox()[1]))
+            GeneratedValueSingle::fromJustValue($elementsAfterShrink->unbox()[1]))
         );
 
         $this->assertLessThan(
@@ -103,9 +103,9 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new TupleGenerator([
             new IntegerGenerator()
         ]);
-        $value = GeneratedValue::fromValueAndInput(
+        $value = GeneratedValueSingle::fromValueAndInput(
             [100],
-            [GeneratedValue::fromJustValue(100, 'integer')],
+            [GeneratedValueSingle::fromJustValue(100, 'integer')],
             'tuple'
         );
         $shrunk = $generator->shrink($value);
@@ -127,11 +127,11 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             new StringGenerator(),
             new StringGenerator(),
         ]);
-        $value = GeneratedValue::fromValueAndInput(
+        $value = GeneratedValueSingle::fromValueAndInput(
             ['hello', 'world'],
             [
-                GeneratedValue::fromJustValue('hello', 'string'),
-                GeneratedValue::fromJustValue('world', 'string'),
+                GeneratedValueSingle::fromJustValue('hello', 'string'),
+                GeneratedValueSingle::fromJustValue('world', 'string'),
             ],
             'tuple'
         );
@@ -159,11 +159,11 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             new IntegerGenerator(),
             new IntegerGenerator(),
         ]);
-        $value = GeneratedValue::fromValueAndInput(
+        $value = GeneratedValueSingle::fromValueAndInput(
             [100, 200],
             [
-                GeneratedValue::fromJustValue(100, 'integer'),
-                GeneratedValue::fromJustValue(200, 'integer'),
+                GeneratedValueSingle::fromJustValue(100, 'integer'),
+                GeneratedValueSingle::fromJustValue(200, 'integer'),
             ],
             'tuple'
         );
@@ -191,6 +191,6 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->generatorForSingleElement,
             $this->generatorForSingleElement,
         ]);
-        $generator->shrink(GeneratedValue::fromJustValue([1, 2, 3]));
+        $generator->shrink(GeneratedValueSingle::fromJustValue([1, 2, 3]));
     }
 }

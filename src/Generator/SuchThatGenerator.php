@@ -55,7 +55,7 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValueSingle $value)
     {
         $shrunk = $this->generator->shrink($value);
         $attempts = 0;
@@ -69,14 +69,14 @@ class SuchThatGenerator implements Generator
         return new GeneratedValueOptions($filtered);
     }
 
-    public function contains(GeneratedValue $value)
+    public function contains(GeneratedValueSingle $value)
     {
         return $this->generator->contains($value)
             && $this->predicate($value);
     }
 
     /**
-     * @return array  of GeneratedValue
+     * @return array  of GeneratedValueSingle
      */
     private function filterForPredicate(Traversable $options)
     {
@@ -89,7 +89,7 @@ class SuchThatGenerator implements Generator
         return $goodOnes;
     }
 
-    private function predicate(GeneratedValue $value)
+    private function predicate(GeneratedValueSingle $value)
     {
         if ($this->filter instanceof PHPUnit_Framework_Constraint) {
             try {

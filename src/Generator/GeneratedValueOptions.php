@@ -7,11 +7,11 @@ use Countable;
 
 /**
  * Parametric with respect to the type <T> of its value, 
- * which should be the type parameter <T> of all the contained GeneratedValue
+ * which should be the type parameter <T> of all the contained GeneratedValueSingle
  * instances.
  *
  * Mainly used in shrinking, to support multiple options as possibilities
- * for shrinking a GeneratedValue.
+ * for shrinking a GeneratedValueSingle.
  *
  * This class tends to delegate operations to its last() elements for 
  * backwards compatibility. So it can be used in context where a single
@@ -19,7 +19,7 @@ use Countable;
  * in shrinking, for example subtracting 1 for the IntegerGenerator.
  */
 class GeneratedValueOptions
-    extends GeneratedValue
+    extends GeneratedValueSingle
     implements IteratorAggregate, Countable
 {
     private $generatedValues;
@@ -52,7 +52,7 @@ class GeneratedValueOptions
     /**
      * @return self
      */
-    public function add(GeneratedValue $value)
+    public function add(GeneratedValueSingle $value)
     {
         return new self(array_merge(
             $this->generatedValues,
@@ -60,7 +60,7 @@ class GeneratedValueOptions
         ));
     }
 
-    public function remove(GeneratedValue $value)
+    public function remove(GeneratedValueSingle $value)
     {
         $generatedValues = $this->generatedValues;
         $index = array_search($value, $generatedValues);

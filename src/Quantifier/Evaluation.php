@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Quantifier;
 
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 
 /**
  * TODO: change namespace. To what?
@@ -25,7 +25,7 @@ final class Evaluation
         $this->onSuccess = function () {};
     }
 
-    public function with(GeneratedValue $values)
+    public function with(GeneratedValueSingle $values)
     {
         $this->values = $values;
         return $this;

@@ -42,7 +42,7 @@ class TupleGenerator implements Generator
             },
             $this->generators
         );
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             array_map(
                 function ($value) {
                     return $value->unbox();
@@ -69,7 +69,7 @@ class TupleGenerator implements Generator
         $optionsForThisElement = $optionsForThisElement->add($inputSubset[0]);
         $options = [];
         foreach ($optionsForThisElement as $value) {
-            $options[] = GeneratedValue::fromValueAndInput(
+            $options[] = GeneratedValueSingle::fromValueAndInput(
                 [$value->unbox()],
                 [$value],
                 'tuple'
@@ -91,7 +91,7 @@ class TupleGenerator implements Generator
         }
     }
 
-    public function shrink(GeneratedValue $tuple)
+    public function shrink(GeneratedValueSingle $tuple)
     {
         $this->checkValueToShrink($tuple);
         $input = $tuple->input();
@@ -100,7 +100,7 @@ class TupleGenerator implements Generator
             ->remove($tuple);
     }
 
-    public function contains(GeneratedValue $tuple)
+    public function contains(GeneratedValueSingle $tuple)
     {
         $input = $tuple->input();
         if (!is_array($input)) {

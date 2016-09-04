@@ -1,7 +1,7 @@
 <?php
 namespace Eris;
 
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 use Exception;
 
 interface Listener
