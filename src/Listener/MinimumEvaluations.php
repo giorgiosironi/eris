@@ -6,9 +6,7 @@ use Eris\Listener\EmptyListener;
 use OutOfBoundsException;
 use Exception;
 
-class MinimumEvaluations
-    extends EmptyListener
-    implements Listener
+class MinimumEvaluations extends EmptyListener implements Listener
 {
     private $threshold;
     

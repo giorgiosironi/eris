@@ -8,9 +8,7 @@ use ArrayIterator;
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValueSingle instance.
  */
-final class GeneratedValueSingle
-    implements GeneratedValue
-    // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
+final class GeneratedValueSingle implements GeneratedValue // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
 {
     private $value;
     private $input;
@@ -85,7 +83,7 @@ final class GeneratedValueSingle
     /**
      * Produces a new GeneratedValueSingle that wraps this one,
      * and that is labelled with $generatorName.
-     * $applyToValue is mapped over the value 
+     * $applyToValue is mapped over the value
      * to build the outer GeneratedValueSingle object $this->value field.
      *
      * @return GeneratedValueSingle
@@ -110,7 +108,9 @@ final class GeneratedValueSingle
     public function derivedIn($generatorName)
     {
         return $this->map(
-            function ($value) { return $value; },
+            function ($value) {
+                return $value;
+            },
             $generatorName
         );
     }

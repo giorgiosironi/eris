@@ -10,9 +10,7 @@ function collectFrequencies(callable $collectFunction = null)
     return new CollectFrequencies($collectFunction);
 }
 
-class CollectFrequencies
-    extends EmptyListener
-    implements Listener
+class CollectFrequencies extends EmptyListener implements Listener
 {
     private $collectFunction;
     private $collectedValues = [];

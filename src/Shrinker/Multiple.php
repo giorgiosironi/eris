@@ -58,7 +58,6 @@ class Multiple implements Shrinker
                 $branches[] = $elementsAfterShrink;
             }
             return $branches;
-
         };
 
         $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception, &$branches, $shrink) {
@@ -79,7 +78,7 @@ class Multiple implements Shrinker
                 );
             }
             // TODO: maybe not necessary
-            // when Generator start returning emtpy options instead of the 
+            // when Generator start returning emtpy options instead of the
             // element itself upon no shrinking
             // For now leave in for BC
             if ($elementsAfterShrink == $elements) {

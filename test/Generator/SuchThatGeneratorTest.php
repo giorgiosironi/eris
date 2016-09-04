@@ -12,7 +12,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGeneratesAGeneratedValueObject()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n % 2 == 0; },
+            function ($n) {
+                return $n % 2 == 0;
+            },
             ConstantGenerator::box(10)
         );
         $this->assertSame(
@@ -24,7 +26,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsPHPUnitConstraints()
     {
         $generator = new SuchThatGenerator(
-            $this->callback(function ($n) { return $n % 2 == 0; }),
+            $this->callback(function ($n) {
+                return $n % 2 == 0;
+            }),
             ConstantGenerator::box(10)
         );
         $this->assertSame(
@@ -36,7 +40,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksTheOriginalInput()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n % 2 == 0; },
+            function ($n) {
+                return $n % 2 == 0;
+            },
             new ChooseGenerator(0, 100)
         );
         $element = $generator->__invoke($this->size, $this->rand);
@@ -59,7 +65,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGivesUpGenerationIfTheFilterIsNotSatisfiedTooManyTimes()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n % 2 == 0; },
+            function ($n) {
+                return $n % 2 == 0;
+            },
             ConstantGenerator::box(11)
         );
         $generator->__invoke($this->size, $this->rand);
@@ -68,7 +76,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGivesUpShrinkingIfTheFilterIsNotSatisfiedTooManyTimes()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n % 250 == 0; },
+            function ($n) {
+                return $n % 250 == 0;
+            },
             new ChooseGenerator(0, 1000)
         );
         $unshrinkable = GeneratedValueSingle::fromJustValue(470);
@@ -81,7 +91,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinksMultipleOptionsButFiltersTheOnesThatSatisfyTheCondition()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n % 2 == 0; },
+            function ($n) {
+                return $n % 2 == 0;
+            },
             new IntegerGenerator()
         );
         $element = GeneratedValueSingle::fromJustValue(100);
@@ -97,7 +109,9 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testThanksToMultipleShrinkingItCanBeLikelyToFindShrunkValuesWithRespectToOnlyFollowingThePessimistRoute()
     {
         $generator = new SuchThatGenerator(
-            function ($n) { return $n < 250; },
+            function ($n) {
+                return $n < 250;
+            },
             new IntegerGenerator()
         );
         $unshrinkable = GeneratedValueSingle::fromJustValue(470);

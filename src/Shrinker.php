@@ -43,7 +43,7 @@ interface Shrinker
     /**
      * Adds callables that will be passed all the attempt to shrink $elements.
      * Data structure is, in fact, the same as `$elements`.
-     * 
+     *
      * @return $this
      */
     public function onAttempt(callable $listener);

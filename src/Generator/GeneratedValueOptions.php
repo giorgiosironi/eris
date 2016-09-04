@@ -6,20 +6,19 @@ use IteratorAggregate;
 use LogicException;
 
 /**
- * Parametric with respect to the type <T> of its value, 
+ * Parametric with respect to the type <T> of its value,
  * which should be the type parameter <T> of all the contained GeneratedValueSingle
  * instances.
  *
  * Mainly used in shrinking, to support multiple options as possibilities
  * for shrinking a GeneratedValueSingle.
  *
- * This class tends to delegate operations to its last() elements for 
+ * This class tends to delegate operations to its last() elements for
  * backwards compatibility. So it can be used in context where a single
  * value is expected. The last of the options is usually the more conservative
  * in shrinking, for example subtracting 1 for the IntegerGenerator.
  */
-class GeneratedValueOptions
-    implements GeneratedValue
+class GeneratedValueOptions implements GeneratedValue
 {
     private $generatedValues;
     

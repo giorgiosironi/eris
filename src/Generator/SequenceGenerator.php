@@ -70,7 +70,9 @@ class SequenceGenerator implements Generator
         $input = array_values($input);
         return GeneratedValueSingle::fromValueAndInput(
             array_map(
-                function ($element) { return $element->unbox(); },
+                function ($element) {
+                    return $element->unbox();
+                },
                 $input
             ),
             $input,

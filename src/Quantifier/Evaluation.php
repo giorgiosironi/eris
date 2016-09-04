@@ -21,8 +21,10 @@ final class Evaluation
     private function __construct($assertion)
     {
         $this->assertion = $assertion;
-        $this->onFailure = function () {};
-        $this->onSuccess = function () {};
+        $this->onFailure = function () {
+        };
+        $this->onSuccess = function () {
+        };
     }
 
     public function with(GeneratedValueSingle $values)

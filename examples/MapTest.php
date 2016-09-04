@@ -11,7 +11,9 @@ class MapTest extends PHPUnit_Framework_TestCase
             Generator\vector(
                 3,
                 Generator\map(
-                    function ($n) { return $n * 2; },
+                    function ($n) {
+                        return $n * 2;
+                    },
                     Generator\nat()
                 )
             )
@@ -30,7 +32,9 @@ class MapTest extends PHPUnit_Framework_TestCase
     {
         $this->forAll(
             Generator\map(
-                function ($n) { return $n * 2; },
+                function ($n) {
+                    return $n * 2;
+                },
                 Generator\nat()
             )
         )
@@ -49,7 +53,9 @@ class MapTest extends PHPUnit_Framework_TestCase
             Generator\vector(
                 3,
                 Generator\map(
-                    function ($n) { return $n * 2; },
+                    function ($n) {
+                        return $n * 2;
+                    },
                     Generator\nat()
                 )
             )
