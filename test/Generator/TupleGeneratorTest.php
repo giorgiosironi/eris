@@ -82,9 +82,16 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             GeneratedValueSingle::fromJustValue($elementsAfterShrink->unbox()[1]))
         );
 
-        $this->assertLessThan(
+        $this->assertLessThanOrEqual(
             $elements->unbox()[0] + $elements->unbox()[1],
-            $elementsAfterShrink->unbox()[0] + $elementsAfterShrink->unbox()[1]
+            $elementsAfterShrink->unbox()[0] + $elementsAfterShrink->unbox()[1],
+            var_export(
+                [
+                    'elements' => $elements,
+                    'elementsAfterShrink' => $elementsAfterShrink,
+                ],
+                true
+            )
         );
     }
 
