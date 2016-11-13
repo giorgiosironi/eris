@@ -56,7 +56,7 @@ class DifferentElementsTest extends \PHPUnit_Framework_TestCase
 
         $this
             ->forAll(Generator\bind(
-                Generator\elements(...$allTypes),
+                call_user_func_array('Eris\Generator\elements', $allTypes),
                 function ($first) use ($allTypes, $remove) {
                     return Generator\tuple(
                         Generator\constant($first),
