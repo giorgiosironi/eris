@@ -5,7 +5,7 @@ namespace Eris\Generator;
  * Moves a value toward a lower limit such that the difference between two
  * members of the progression is constant (currently 1).
  *
- * TODO: GeometricProgression where the ratio between two members 
+ * TODO: GeometricProgression where the ratio between two members
  *       of the progression is constant
  */
 class ArithmeticProgression

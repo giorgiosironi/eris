@@ -6,9 +6,7 @@ use Eris\Listener\EmptyListener;
 use DateTime;
 use DateInterval;
 
-class TimeBasedTerminationCondition
-    extends EmptyListener
-    implements TerminationCondition, Listener
+class TimeBasedTerminationCondition extends EmptyListener implements TerminationCondition, Listener
 {
     private $limitTime;
     private $time;

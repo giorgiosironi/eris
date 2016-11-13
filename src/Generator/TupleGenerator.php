@@ -82,7 +82,9 @@ class TupleGenerator implements Generator
         }
         return GeneratedValue::fromValueAndInput(
             array_map(
-                function ($element) { return $element->unbox(); },
+                function ($element) {
+                    return $element->unbox();
+                },
                 $input
             ),
             $input,

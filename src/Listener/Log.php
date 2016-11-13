@@ -10,9 +10,7 @@ function log($file)
     return new Log($file, 'time', getmypid());
 }
 
-class Log
-    extends EmptyListener
-    implements Listener
+class Log extends EmptyListener implements Listener
 {
     private $file;
     private $fp;

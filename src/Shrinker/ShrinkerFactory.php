@@ -7,7 +7,7 @@ class ShrinkerFactory
     
     /**
      * @param array $options
-     *  'timeLimit' => null|integer  in seconds. The maximum time that should 
+     *  'timeLimit' => null|integer  in seconds. The maximum time that should
      *                               be allocated to a Shrinker before giving up
      */
     public function __construct(array $options)

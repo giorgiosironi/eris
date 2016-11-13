@@ -90,7 +90,9 @@ final class GeneratedValue
     public function derivedIn($generatorName)
     {
         return $this->map(
-            function ($value) { return $value; },
+            function ($value) {
+                return $value;
+            },
             $generatorName
         );
     }

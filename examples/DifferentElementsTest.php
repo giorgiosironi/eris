@@ -2,7 +2,8 @@
 use Eris\Generator;
 use Eris\TestTrait;
 
-class Type {
+class Type
+{
     const TYPE_A = 1;
     const TYPE_B = 2;
     const TYPE_C = 3;
@@ -14,17 +15,17 @@ class Type {
         $this->type = $type;
     }
 
-    static public function A()
+    public static function A()
     {
         return new self(self::TYPE_A);
     }
 
-    static public function B()
+    public static function B()
     {
         return new self(self::TYPE_B);
     }
 
-    static public function C()
+    public static function C()
     {
         return new self(self::TYPE_C);
     }
@@ -32,7 +33,7 @@ class Type {
 
 class DifferentElementsTest extends \PHPUnit_Framework_TestCase
 {
-	use TestTrait;
+    use TestTrait;
 
     /**
      * @test
@@ -44,10 +45,12 @@ class DifferentElementsTest extends \PHPUnit_Framework_TestCase
             Type::B(),
             Type::C(),
         ];
-        $remove = function($array, $whatToRemove) {
+        $remove = function ($array, $whatToRemove) {
             return array_values(array_filter(
-                $array, 
-                function($candidate) use ($whatToRemove) { return $candidate != $whatToRemove; }
+                $array,
+                function ($candidate) use ($whatToRemove) {
+                    return $candidate != $whatToRemove;
+                }
             ));
         };
 
