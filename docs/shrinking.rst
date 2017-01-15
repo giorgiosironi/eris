@@ -64,7 +64,7 @@ From there, the value is shrunk by chopping away a single character at the end o
     FAILURES!
     Tests: 1, Assertions: 119, Failures: 1.
 
-Shriking and preconditions
+Shrinking and preconditions
 --------------------------
 
 ``testShrinkingRespectsAntecedents`` generates a random number from 0 to 20 and tries to check that it is multiple of 29. All generated numbers will fail this test, but shrinking will try to present the lowest possible number; still, the ``when()`` antecedent has to be satisfied and so the number cannot decrease down to 0 but has to stop at 11:
