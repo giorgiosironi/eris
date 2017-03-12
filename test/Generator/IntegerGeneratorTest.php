@@ -62,10 +62,30 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
+    public function testPosNeverShrinksToZero()
+    {
+        $generator = pos();
+        $value = $generator->__invoke(10, $this->rand);
+        for ($i = 0; $i < 20; $i++) {
+            $value = $generator->shrink($value);
+            $this->assertNotEquals(0, $value->unbox());
+        }
+    }
+
     public function testNegAlreadyStartsFromStrictlyNegativeValues()
     {
         $generator = neg();
         $this->assertLessThan(0, $generator->__invoke(0, $this->rand)->unbox());
+    }
+
+    public function testNegNeverShrinksToZero()
+    {
+        $generator = neg();
+        $value = $generator->__invoke(10, $this->rand);
+        for ($i = 0; $i < 20; $i++) {
+            $value = $generator->shrink($value);
+            $this->assertNotEquals(0, $value->unbox());
+        }
     }
 
     public function testNatStartsFromZero()

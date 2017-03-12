@@ -78,16 +78,17 @@ class IntegerGenerator implements Generator
     public function shrink(GeneratedValue $element)
     {
         $this->checkValueToShrink($element);
+        $mapFn = $this->mapFn;
         $element = $element->input();
 
         if ($element > 0) {
-            return GeneratedValue::fromJustValue($element - 1, 'integer');
+            return GeneratedValue::fromJustValue($mapFn($element - 1), 'integer');
         }
         if ($element < 0) {
-            return GeneratedValue::fromJustValue($element + 1, 'integer');
+            return GeneratedValue::fromJustValue($mapFn($element + 1), 'integer');
         }
 
-        return GeneratedValue::fromJustValue($element, 'integer');
+        return GeneratedValue::fromJustValue($mapFn($element), 'integer');
     }
 
     public function contains(GeneratedValue $element)
