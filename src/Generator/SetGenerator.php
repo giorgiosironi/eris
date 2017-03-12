@@ -37,10 +37,10 @@ class SetGenerator implements Generator
             $set[] = $candidateNewElement->unbox();
             $input[] = $candidateNewElement;
         }
-        return GeneratedValue::fromValueAndInput($set, $input, 'set');
+        return GeneratedValueSingle::fromValueAndInput($set, $input, 'set');
     }
 
-    public function shrink(GeneratedValue $set)
+    public function shrink(GeneratedValueSingle $set)
     {
         // TODO: extract duplication with Generator\SequenceGenerator
         // to do so, implement __toString for every Generator (put it
@@ -60,10 +60,11 @@ class SetGenerator implements Generator
 
         $input = $set->input();
         // TODO: make deterministic
+        // TODO: shrink also the elements, not just the size of the set
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             array_map(function ($element) {
                 return $element->unbox();
             }, $input),
@@ -72,7 +73,7 @@ class SetGenerator implements Generator
         );
     }
 
-    public function contains(GeneratedValue $set)
+    public function contains(GeneratedValueSingle $set)
     {
         foreach ($set->input() as $element) {
             if (!$this->singleElementGenerator->contains($element)) {

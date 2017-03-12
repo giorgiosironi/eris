@@ -3,7 +3,7 @@ namespace Eris\Quantifier;
 
 use Eris\Antecedent;
 use Eris\Generator;
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -27,14 +27,16 @@ class ForAll
     ];
     private $terminationConditions = [];
     private $listeners = [];
+    private $shrinkerFactoryMethod;
     private $rand;
     private $shrinkingEnabled = true;
 
-    public function __construct(array $generators, $iterations, $shrinkerFactory, $rand)
+    public function __construct(array $generators, $iterations, $shrinkerFactory, $shrinkerFactoryMethod, $rand)
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;
         $this->shrinkerFactory = $shrinkerFactory;
+        $this->shrinkerFactoryMethod = $shrinkerFactoryMethod;
         $this->rand = $rand;
         $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
@@ -118,13 +120,13 @@ class ForAll
                 $values = [];
                 foreach ($this->generators as $name => $generator) {
                     $value = $generator($sizes->at($iteration), $this->rand);
-                    if (!($value instanceof GeneratedValue)) {
-                        throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValue, but it is " . var_export($value, true));
+                    if (!($value instanceof GeneratedValueSingle)) {
+                        throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValueSingle, but it is " . var_export($value, true));
                     }
                     $generatedValues[] = $value;
                     $values[] = $value->unbox();
                 }
-                $generation = GeneratedValue::fromValueAndInput(
+                $generation = GeneratedValueSingle::fromValueAndInput(
                     $values,
                     $generatedValues,
                     'tuple'
@@ -144,13 +146,14 @@ class ForAll
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
                         }
-                        $shrinking = $this->shrinkerFactory->random($this->generators, $assertion);
+                        $shrinkerFactoryMethod = $this->shrinkerFactoryMethod;
+                        $shrinking = $this->shrinkerFactory->$shrinkerFactoryMethod($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
-                            ->addGoodShrinkCondition(function (GeneratedValue $generatedValues) {
+                            ->addGoodShrinkCondition(function (GeneratedValueSingle $generatedValues) {
                                 return $this->antecedentsAreSatisfied($generatedValues->unbox());
                             })
-                            ->onAttempt(function (GeneratedValue $generatedValues) {
+                            ->onAttempt(function (GeneratedValueSingle $generatedValues) {
                                 $this->notifyListeners('shrinking', $generatedValues->unbox());
                             })
                             ->from($generatedValues, $exception);

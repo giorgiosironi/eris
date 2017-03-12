@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Listener;
 
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 
 class LogTest extends \PHPUnit_Framework_TestCase
 {

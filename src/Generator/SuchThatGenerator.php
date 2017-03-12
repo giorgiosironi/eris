@@ -7,6 +7,7 @@ use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit_Framework_ExpectationFailedException;
 use PHPUnit\Framework\ExpectationFailedException;
+use Traversable;
 
 /**
  * @param callable|PHPUnit_Framework_Constraint $filter
@@ -56,27 +57,41 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValueSingle $value)
     {
         $shrunk = $this->generator->shrink($value);
         $attempts = 0;
-        while (!$this->predicate($shrunk)) {
+        while (!($filtered = $this->filterForPredicate($shrunk))) {
             if ($attempts >= $this->maximumAttempts) {
                 return $value;
             }
             $shrunk = $this->generator->shrink($shrunk);
             $attempts++;
         }
-        return $shrunk;
+        return new GeneratedValueOptions($filtered);
     }
 
-    public function contains(GeneratedValue $value)
+    public function contains(GeneratedValueSingle $value)
     {
         return $this->generator->contains($value)
             && $this->predicate($value);
     }
 
-    private function predicate(GeneratedValue $value)
+    /**
+     * @return array  of GeneratedValueSingle
+     */
+    private function filterForPredicate(Traversable $options)
+    {
+        $goodOnes = [];
+        foreach ($options as $option) {
+            if ($this->predicate($option)) {
+                $goodOnes[] = $option;
+            }
+        }
+        return $goodOnes;
+    }
+
+    private function predicate(GeneratedValueSingle $value)
     {
         if ($this->filter instanceof PHPUnit_Framework_Constraint || $this->filter instanceof Constraint) {
             try {

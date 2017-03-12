@@ -1,0 +1,31 @@
++ support array of GeneratedValues being returned in Shrinker\Random (use only the first one)
++ extend Generator\Integer to provide multiple values (-1, /2)
++ allow configuration of method of ShrinkerFactory to call ('random' for now)
++ create an acceptance test in examples/ adding a log listener to check how it is shrinking
++ there, try to use 'multiple'
++ implement Shrinker\Multiple
+++ here there will be many things to do
+- composable Generators must support this in their shrink()
+++ AssociativeArray
+++ Bind
+++ Elements
+++ Frequency
+++ Map
+++ OneOf
+++ Sequence
+--- relies on Vector which relies on Tuple... and when there are more than a few elements there is a combinatorial explosion of options for shrinking
+++ Set
+++ Subset
+++ SuchThat
+++ Tuple
+--- Tuple::contains()
+++ Vector
++ extract Shrinker interface
+- GeneratedValue rename
+-- extract GeneratedValue interface, and rename GeneratedValue to GeneratedValueSingle or SingleGeneratedValue
+-- use smallestStep() or similar instead of last() and implement it also on GeneratedValue
+-- complete first Phunkie PRs
++ check GeneratedValue with Onebip guys
++ check TODO comments in the diff
+- extract common patterns of usage of GeneratedValue|GeneratedValueOptions into methods on these Value Objects
+- priority in shrinking: when evaluating options order counts a lot. The cartesian product can be improved?

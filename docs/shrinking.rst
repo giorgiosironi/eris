@@ -133,6 +133,14 @@ The shrinking for this test will not run for more than 2 seconds (although the t
     FAILURES!
     Tests: 1, Assertions: 8, Errors: 1.
 
+Tree-based shrinking
+--------------------
+
+- for some generators what goes on under the hood is not a linear shrinking, write test that demonstrates that with Sample class
+-- optimistic path
+-- pessimistic path
+-- average path (choose the middle)
+
 Disabling shrinking
 -------------------
 

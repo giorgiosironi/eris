@@ -1,11 +1,18 @@
 <?php
 namespace Eris\Shrinker;
 
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
+use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
+use Eris\Shrinker;
 
-class Random // implements Shrinker
+/**
+ * @deprecated from 0.9
+ * Many Generators now use GeneratedValueOptions which is not supported
+ * by this Shrinker. Use at your peril.
+ */
+class Random implements Shrinker
 {
     private $generator;
     private $assertion;
@@ -42,7 +49,7 @@ class Random // implements Shrinker
     /**
      * Precondition: $values should fail $this->assertion
      */
-    public function from(GeneratedValue $elements, $exception)
+    public function from(GeneratedValueSingle $elements, $exception)
     {
         $onBadShrink = function () use (&$exception) {
             $this->attempts->increase();
@@ -58,6 +65,15 @@ class Random // implements Shrinker
         $this->timeLimit->start();
         while (!$this->timeLimit->hasBeenReached()) {
             $elementsAfterShrink = $this->generator->shrink($elements);
+
+            // this would mean we have multiple shrinking possibilities
+            // this Shrinker is not capable of exploring them all for now
+            // so we just chose the last possibility for BC
+            // (the last one should be the less aggressive,
+            // e.g. subtracting 1 for integers)
+            if ($elementsAfterShrink instanceof GeneratedValueOptions) {
+                $elementsAfterShrink = $elementsAfterShrink->last();
+            }
 
             if ($elementsAfterShrink == $elements) {
                 $onBadShrink();
@@ -88,7 +104,7 @@ class Random // implements Shrinker
         );
     }
 
-    private function checkGoodShrinkConditions(GeneratedValue $values)
+    private function checkGoodShrinkConditions(GeneratedValueSingle $values)
     {
         foreach ($this->goodShrinkConditions as $condition) {
             if (!$condition($values)) {

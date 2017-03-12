@@ -69,29 +69,43 @@ class IntegerGenerator implements Generator
         $result = $rand(0, 1) === 0
                           ? $mapFn($value)
                           : $mapFn($value * (-1));
-        return GeneratedValue::fromJustValue(
+        return GeneratedValueSingle::fromJustValue(
             $result,
             'integer'
         );
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         $this->checkValueToShrink($element);
         $mapFn = $this->mapFn;
         $element = $element->input();
 
         if ($element > 0) {
-            return GeneratedValue::fromJustValue($mapFn($element - 1), 'integer');
+            $options = [];
+            $nextHalf = $element;
+            while (($nextHalf = (int) floor($nextHalf / 2)) > 0) {
+                $options[] = GeneratedValueSingle::fromJustValue(
+                    $mapFn($element - $nextHalf),
+                    'integer'
+                );
+            }
+            $options = array_unique($options, SORT_REGULAR);
+            if ($options) {
+                return new GeneratedValueOptions($options);
+            } else {
+                return GeneratedValueSingle::fromJustValue($mapFn($element - 1), 'integer');
+            }
         }
         if ($element < 0) {
-            return GeneratedValue::fromJustValue($mapFn($element + 1), 'integer');
+            // TODO: shrink with options also negative values
+            return GeneratedValueSingle::fromJustValue($mapFn($element + 1), 'integer');
         }
 
-        return GeneratedValue::fromJustValue($mapFn($element), 'integer');
+        return GeneratedValueSingle::fromJustValue($element, 'integer');
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return is_int($element->input());
     }

@@ -29,8 +29,8 @@ class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testContainsOnlyTheValue()
     {
         $generator = new ConstantGenerator(true);
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue(true)));
-        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue(42)));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue(true)));
+        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue(42)));
     }
 
     /**
@@ -39,6 +39,6 @@ class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
     {
         $generator = new ConstantGenerator(5);
-        $generator->shrink(GeneratedValue::fromJustValue(10));
+        $generator->shrink(GeneratedValueSingle::fromJustValue(10));
     }
 }

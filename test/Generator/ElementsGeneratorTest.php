@@ -25,18 +25,18 @@ class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testASingleValueCannotShrinkGivenThereIsNoExplicitRelationshipBetweenTheValuesInTheDomain()
     {
         $generator = ElementsGenerator::fromArray(['A', 2, false]);
-        $singleValue = GeneratedValue::fromJustValue(2, 'elements');
+        $singleValue = GeneratedValueSingle::fromJustValue(2, 'elements');
         $this->assertEquals($singleValue, $generator->shrink($singleValue));
     }
 
     public function testOnlyContainsTheElementsGeneratorOfTheGivenDomain()
     {
         $generator = ElementsGenerator::fromArray(['A', 2]);
-        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue(1)));
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue('A')));
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue(2)));
+        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue(1)));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue('A')));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue(2)));
         // disregarding types
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue('2')));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue('2')));
     }
 
     /**
@@ -45,6 +45,6 @@ class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
         $generator = ElementsGenerator::fromArray(['A', 1]);
-        $generator->shrink(GeneratedValue::fromJustValue(2));
+        $generator->shrink(GeneratedValueSingle::fromJustValue(2));
     }
 }

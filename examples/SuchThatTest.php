@@ -1,5 +1,6 @@
 <?php
 use Eris\Generator;
+use Eris\Listener;
 
 class SuchThatTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,6 +55,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
+            ->hook(Listener\log('/tmp/eris-such-that.log'))
             ->then($this->allNumbersAreBiggerThan(42));
     }
 

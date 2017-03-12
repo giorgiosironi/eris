@@ -28,7 +28,7 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $sequence)
+    public function shrink(GeneratedValueSingle $sequence)
     {
         if (!$this->contains($sequence)) {
             throw new DomainException(
@@ -37,17 +37,23 @@ class SequenceGenerator implements Generator
             );
         }
 
-        // TODO: make deterministic, try first one then the other?
-        $willShrinkInSize = (new BooleanGenerator())->__invoke(1, 'rand');
-        if ($willShrinkInSize) {
-            return $this->shrinkInSize($sequence);
+        $options = [];
+        if (count($sequence->unbox()) > 0) {
+            $options[] = $this->shrinkInSize($sequence);
+            // TODO: try to shrink the elements also of longer sequences
+            if (count($sequence->unbox()) < 10) {
+                // a size which is computationally acceptable
+                $shrunkElements = $this->shrinkTheElements($sequence);
+                foreach ($shrunkElements as $shrunkValue) {
+                    $options[] = $shrunkValue;
+                }
+            }
         }
-        if (!$willShrinkInSize) {
-            return $this->shrinkTheElements($sequence);
-        }
+
+        return new GeneratedValueOptions($options);
     }
 
-    public function contains(GeneratedValue $sequence)
+    public function contains(GeneratedValueSingle $sequence)
     {
         return $this->vector(count($sequence->unbox()))->contains($sequence);
     }
@@ -62,7 +68,7 @@ class SequenceGenerator implements Generator
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
-        return GeneratedValue::fromValueAndInput(
+        return GeneratedValueSingle::fromValueAndInput(
             array_map(
                 function ($element) {
                     return $element->unbox();
@@ -74,9 +80,12 @@ class SequenceGenerator implements Generator
         );
     }
 
+    /**
+     * @return GeneratedValueOptions
+     */
     private function shrinkTheElements($sequence)
     {
-        return $this->vector(count($sequence))->shrink($sequence);
+        return $this->vector(count($sequence->unbox()))->shrink($sequence);
     }
 
     private function vector($size)

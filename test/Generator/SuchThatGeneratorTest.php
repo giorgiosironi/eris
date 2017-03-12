@@ -47,7 +47,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         );
         $element = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 100; $i++) {
-            $element = $generator->shrink($element);
+            $element = $generator->shrink($element)->last();
             $this->assertTrue(
                 $generator->contains($element),
                 "Every shrunk element should still be contained: " . var_export($element, true)
@@ -81,10 +81,44 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
             },
             new ChooseGenerator(0, 1000)
         );
-        $unshrinkable = GeneratedValue::fromJustValue(470);
+        $unshrinkable = GeneratedValueSingle::fromJustValue(470);
         $this->assertEquals(
             $unshrinkable,
             $generator->shrink($unshrinkable)
         );
+    }
+    
+    public function testShrinksMultipleOptionsButFiltersTheOnesThatSatisfyTheCondition()
+    {
+        $generator = new SuchThatGenerator(
+            function ($n) {
+                return $n % 2 == 0;
+            },
+            new IntegerGenerator()
+        );
+        $element = GeneratedValueSingle::fromJustValue(100);
+        $options = $generator->shrink($element);
+        foreach ($options as $option) {
+            $this->assertTrue(
+                $option->unbox() % 2 === 0,
+                "Option should still be filtered while shrinking: " . var_export($option, true)
+            );
+        }
+    }
+
+    public function testThanksToMultipleShrinkingItCanBeLikelyToFindShrunkValuesWithRespectToOnlyFollowingThePessimistRoute()
+    {
+        $generator = new SuchThatGenerator(
+            function ($n) {
+                return $n < 250;
+            },
+            new IntegerGenerator()
+        );
+        $unshrinkable = GeneratedValueSingle::fromJustValue(470);
+        $options = $generator->shrink($unshrinkable);
+        $this->assertGreaterThan(0, count($options));
+        foreach ($options as $option) {
+            $this->assertLessThan(250, $option->unbox());
+        }
     }
 }

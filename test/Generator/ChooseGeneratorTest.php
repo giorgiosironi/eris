@@ -87,7 +87,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
     {
         $generator = new ChooseGenerator(100, 200);
-        $generator->shrink(GeneratedValue::fromJustValue(300));
+        $generator->shrink(GeneratedValueSingle::fromJustValue(300));
     }
 
     public function testTheOrderOfBoundariesDoesNotMatter()

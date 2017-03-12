@@ -25,12 +25,12 @@ class OneOfGenerator implements Generator
         return $this->generator->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         return $this->generator->shrink($element);
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return $this->generator->contains($element);
     }

@@ -19,18 +19,31 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testShrinksLinearlyTowardsZero()
     {
-        /* Not a good shrinking policy, it should start to shrink from 0 and move
-         * towards the upper size limit.
-         * To be fixed in the next weeks.
-         */
         $generator = new IntegerGenerator();
         $value = $generator($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
-            $newValue = $generator->shrink($value);
-            $this->assertTrue(in_array(abs($value->unbox() - $newValue->unbox()), [0, 1]));
-            $value = $newValue;
+            $value = GeneratedValueOptions::mostPessimisticChoice($value);
+            $value = $generator->shrink($value);
         }
         $this->assertSame(0, $value->unbox());
+    }
+
+    public function testOffersMultiplePossibilitiesForShrinkingProgressivelySubtracting()
+    {
+        $generator = new IntegerGenerator();
+        $value = GeneratedValueSingle::fromJustValue(100, 'integer');
+        $shrinkingOptions = $generator->shrink($value);
+        $this->assertEquals(
+            new GeneratedValueOptions([
+                GeneratedValueSingle::fromJustValue(50, 'integer'),
+                GeneratedValueSingle::fromJustValue(75, 'integer'),
+                GeneratedValueSingle::fromJustValue(88, 'integer'),
+                GeneratedValueSingle::fromJustValue(94, 'integer'),
+                GeneratedValueSingle::fromJustValue(97, 'integer'),
+                GeneratedValueSingle::fromJustValue(99, 'integer'),
+            ]),
+            $shrinkingOptions
+        );
     }
 
     public function testUniformity()
@@ -49,7 +62,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCannotShrinkStopsToZero()
+    public function testShrinkingStopsToZero()
     {
         $generator = new IntegerGenerator();
         $lastValue = $generator($size = 0, $this->rand);
@@ -67,7 +80,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = pos();
         $value = $generator->__invoke(10, $this->rand);
         for ($i = 0; $i < 20; $i++) {
-            $value = $generator->shrink($value);
+            $value = $generator->shrink(GeneratedValueOptions::mostPessimisticChoice($value));
             $this->assertNotEquals(0, $value->unbox());
         }
     }
@@ -83,7 +96,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = neg();
         $value = $generator->__invoke(10, $this->rand);
         for ($i = 0; $i < 20; $i++) {
-            $value = $generator->shrink($value);
+            $value = $generator->shrink(GeneratedValueOptions::mostPessimisticChoice($value));
             $this->assertNotEquals(0, $value->unbox());
         }
     }

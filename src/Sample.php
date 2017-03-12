@@ -1,6 +1,8 @@
 <?php
 namespace Eris;
 
+use Eris\Generator\GeneratedValueOptions;
+
 class Sample
 {
     const DEFAULT_SIZE = 10;
@@ -39,7 +41,7 @@ class Sample
                 break;
             }
             $this->collected[] = $value->unbox();
-            $nextValue = $value;
+            $nextValue = GeneratedValueOptions::mostPessimisticChoice($value);
         }
         return $this;
     }

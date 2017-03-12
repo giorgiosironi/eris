@@ -32,10 +32,10 @@ class ElementsGenerator implements Generator
     public function __invoke($_size, $rand)
     {
         $index = $rand(0, count($this->domain) - 1);
-        return GeneratedValue::fromJustValue($this->domain[$index], 'elements');
+        return GeneratedValueSingle::fromJustValue($this->domain[$index], 'elements');
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
@@ -47,7 +47,7 @@ class ElementsGenerator implements Generator
         return $element;
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return in_array($element->unbox(), $this->domain);
     }

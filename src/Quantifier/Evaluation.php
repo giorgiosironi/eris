@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Quantifier;
 
-use Eris\Generator\GeneratedValue;
+use Eris\Generator\GeneratedValueSingle;
 use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit\Framework\AssertionFailedError;
 
@@ -29,7 +29,7 @@ final class Evaluation
         };
     }
 
-    public function with(GeneratedValue $values)
+    public function with(GeneratedValueSingle $values)
     {
         $this->values = $values;
         return $this;

@@ -54,7 +54,7 @@ class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = NamesGenerator::defaultDataSet();
         $this->assertEquals(
             $shrunk,
-            $generator->shrink(GeneratedValue::fromJustValue($original))
+            $generator->shrink(GeneratedValueSingle::fromJustValue($original))
                 ->unbox()
         );
     }
@@ -62,7 +62,7 @@ class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testContainsAllTheNamesInTheSpecifiedDataSet()
     {
         $generator = NamesGenerator::defaultDataSet();
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue("Bob")));
-        $this->assertFalse($generator->contains(GeneratedValue::fromJustValue("Daitarn")));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue("Bob")));
+        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue("Daitarn")));
     }
 }

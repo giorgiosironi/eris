@@ -41,6 +41,10 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($this->size, $this->rand);
         $elementsAfterShrink = $generator->shrink($elements);
+        if ($elementsAfterShrink->count() == 0) {
+            // the generated value couldn't be shrunk
+            return;
+        }
 
         $this->assertLessThanOrEqual(count($elements->unbox()), count($elementsAfterShrink->unbox()));
         $this->assertLessThanOrEqual(array_sum($elements->unbox()), array_sum($elementsAfterShrink->unbox()));
@@ -51,26 +55,27 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0, $this->rand);
         $this->assertEquals(0, count($elements->unbox()));
-        $this->assertEquals(0, count($generator->shrink($elements)->unbox()));
+        $this->assertEquals(0, count($generator->shrink($elements)));
     }
 
-    public function testShrinkEventuallyEndsUpWithAnEmptySequence()
+    public function testShrinkEventuallyEndsUpWithNoOptions()
     {
         $numberOfShrinks = 0;
         $generator = new SequenceGenerator($this->singleElementGenerator);
-        $elements = $generator($this->size, $this->rand);
-        while (count($elements->unbox()) > 0) {
-            if ($numberOfShrinks++ > 10000) {
+        $value = $generator($this->size, $this->rand);
+        $options = $generator->shrink($value);
+        while (count($options) > 0) {
+            if ($numberOfShrinks++ > 100) {
                 $this->fail('Too many shrinks');
             }
-            $elements = $generator->shrink($elements);
+            $options = $generator->shrink($options->first());
         }
-        $this->assertEquals([], $elements->unbox());
+        $this->assertEquals(0, $options->count());
     }
 
     public function testContainsAnEmptySequence()
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
-        $this->assertTrue($generator->contains(GeneratedValue::fromJustValue([])));
+        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue([])));
     }
 }

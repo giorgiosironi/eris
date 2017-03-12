@@ -16,10 +16,10 @@ class BooleanGenerator implements Generator
         $booleanValues = [true, false];
         $randomIndex = $rand(0, count($booleanValues) - 1);
 
-        return GeneratedValue::fromJustValue($booleanValues[$randomIndex], 'boolean');
+        return GeneratedValueSingle::fromJustValue($booleanValues[$randomIndex], 'boolean');
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValueSingle $element)
     {
         if (!$this->contains($element)) {
             throw new DomainException(
@@ -30,7 +30,7 @@ class BooleanGenerator implements Generator
         return false;
     }
 
-    public function contains(GeneratedValue $element)
+    public function contains(GeneratedValueSingle $element)
     {
         return is_bool($element->unbox());
     }
