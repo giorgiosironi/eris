@@ -10,10 +10,10 @@ Frequency
 
 ``Generator\frequency`` randomly chooses a Generator to use from the specified list, weighting the probability of each Generator with the provided value.
 
-.. literalinclude:: ../../examples/MapTest.php
+.. literalinclude:: ../../examples/FrequencyTest.php
    :language: php
 
-``testFalsyValues`` chooses the ``false`` value half of the times.
+``testFalsyValues`` chooses the ``false`` value half of the times, ``0`` one quarter of the time, and ``''`` one quarte of the time.
 
 ``testAlwaysFails`` chooses the Generator from 1 to 100 half of the times. However, in case of failure it will try to shrink the value only with the original Generator that created it. Therefore, each of the possible outputs will be possible:
 

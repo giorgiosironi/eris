@@ -17,7 +17,9 @@ class FloatGenerator implements Generator
 
     public function __invoke($size, $rand)
     {
-        $value = (float) $rand(0, $size) / (float) $rand(1, $size);
+        $denominator = $rand(1, $size) ?: 1;
+
+        $value = (float) $rand(0, $size) / (float) $denominator;
 
         $signedValue = $rand(0, 1) === 0
             ? $value

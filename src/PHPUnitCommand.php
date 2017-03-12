@@ -22,6 +22,6 @@ final class PHPUnitCommand
 
     public function __toString()
     {
-        return "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter {$this->name}";
+        return "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter '{$this->name}'";
     }
 }
