@@ -4,7 +4,6 @@ namespace Eris\Shrinker;
 use Eris\Generator\GeneratedValue;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
-use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
 class Random // implements Shrinker
 {
@@ -43,7 +42,7 @@ class Random // implements Shrinker
     /**
      * Precondition: $values should fail $this->assertion
      */
-    public function from(GeneratedValue $elements, AssertionFailed $exception)
+    public function from(GeneratedValue $elements, $exception)
     {
         $onBadShrink = function () use (&$exception) {
             $this->attempts->increase();
