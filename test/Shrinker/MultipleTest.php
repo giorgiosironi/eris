@@ -7,7 +7,7 @@ use Eris\Generator\GeneratedValueOptions;
 use RuntimeException;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit_Framework_AssertionFailedError;
-use Throwable;
+use Exception;
 
 class MultipleTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,7 +61,7 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function verifyAssertionFailure(Throwable $e, $startingPoint)
+    private function verifyAssertionFailure(Exception $e, $startingPoint)
     {
         $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
         $allValues = array_map(function ($generatedValue) {
