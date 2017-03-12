@@ -5,6 +5,10 @@ class RandomRangeTest extends \PHPUnit_Framework_TestCase
 {
     public function testTheRange()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('MersenneTwister class does not support HHVM');
+        }
+
         $range = new RandomRange(new MersenneTwister());
         $range->seed(424242);
         $bins = [];

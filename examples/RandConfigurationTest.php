@@ -30,6 +30,10 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
 
     public function testUsingThePurePhpMtRandFunction()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('MersenneTwister class does not support HHVM');
+        }
+
         $this
             ->withRand(Random\purePhpMtRand())
             ->forAll(
