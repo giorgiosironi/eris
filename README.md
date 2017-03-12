@@ -6,6 +6,12 @@ Eris is a porting of [QuickCheck](https://hackage.haskell.org/package/QuickCheck
 
 In property-based testing, several properties that the System Under Test must respect are defined, and a large sample of generated inputs is sent to it in an attempt to break the properties.
 
+## Compatibility
+
+- PHP 5.5, 5.6, 7.0, 7.1
+- HHVM (without `purePhpMtRand`)
+- PHPUnit 5.x, 6.x
+
 ## Installation
 
 You can install Eris through [Composer](https://getcomposer.org/) by adding:
@@ -93,6 +99,11 @@ On ReadTheDocs you can find [the reference documentation for the Eris project](h
 
 Consult [the ChangeLog file](https://github.com/giorgiosironi/eris/blob/master/ChangeLog.md) to know the latest new features.
 
-## Support
+## Support and contributing
 
-Feel free to open issues on the [GitHub project](https://github.com/giorgiosironi/eris/issues) for support.
+Feel free to open issues on the [GitHub project](https://github.com/giorgiosironi/eris/issues) for support and feature requests.
+
+Pull requests are welcome. For anything longer than a few lines it's worth to open an issue first to get feedback on the intended solution and whether it will integrate well with the rest of the codebase.
+
+If you contribute a commit to Eris, you will be credited in the [contributors](CONTRIBUTORS.md) file (unless you don't want to.)
+
