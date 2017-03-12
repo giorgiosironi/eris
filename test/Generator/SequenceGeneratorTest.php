@@ -65,6 +65,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
             }
             $elements = $generator->shrink($elements);
         }
+        $this->assertEquals([], $elements->unbox());
     }
 
     public function testContainsAnEmptySequence()

@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Random;
 
-use PHPUnit_Framework_SkippedTestError;
+use RuntimeException;
 
 class MersenneTwister implements Source
 {
@@ -30,7 +30,7 @@ class MersenneTwister implements Source
     public function __construct()
     {
         if (defined('HHVM_VERSION')) {
-            throw new PHPUnit_Framework_SkippedTestError("Pure PHP random implemnentation segfaults HHVM, so it's not available for this platform");
+            throw new RuntimeException("Pure PHP random implemnentation segfaults HHVM, so it's not available for this platform");
         }
     }
     

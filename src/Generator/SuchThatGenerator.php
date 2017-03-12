@@ -4,7 +4,9 @@ namespace Eris\Generator;
 use Eris\Generator;
 use LogicException;
 use PHPUnit_Framework_Constraint;
+use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 
 /**
  * @param callable|PHPUnit_Framework_Constraint $filter
@@ -76,11 +78,13 @@ class SuchThatGenerator implements Generator
 
     private function predicate(GeneratedValue $value)
     {
-        if ($this->filter instanceof PHPUnit_Framework_Constraint) {
+        if ($this->filter instanceof PHPUnit_Framework_Constraint || $this->filter instanceof Constraint) {
             try {
                 $this->filter->evaluate($value->unbox());
                 return true;
             } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+                return false;
+            } catch (ExpectationFailedException $e) {
                 return false;
             }
         }
@@ -89,6 +93,6 @@ class SuchThatGenerator implements Generator
             return call_user_func($this->filter, $value->unbox());
         }
 
-        throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit_Framework_Constraint instead of " . var_export($this->filter, true));
+        throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit\Framework\Constraint instead of " . var_export($this->filter, true));
     }
 }
