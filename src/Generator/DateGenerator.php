@@ -25,7 +25,7 @@ function date($lowerLimit = null, $upperLimit = null)
     return new DateGenerator(
         $withDefault($box($lowerLimit), new DateTime("@0")),
         // uses a maximum which is conservative
-        $withDefault($box($upperLimit), new DateTime("@" . pow(2, 31) - 1))
+        $withDefault($box($upperLimit), new DateTime("@" . (pow(2, 31) - 1)))
     );
 }
 
