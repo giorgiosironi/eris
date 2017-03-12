@@ -6,7 +6,6 @@ use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\TupleGenerator;
 use Eris\Quantifier\Evaluation;
 use Eris\Shrinker;
-use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
 class Multiple implements Shrinker
 {
@@ -43,7 +42,7 @@ class Multiple implements Shrinker
     /**
      * Precondition: $values should fail $this->assertion
      */
-    public function from(GeneratedValueSingle $elements, AssertionFailed $exception)
+    public function from(GeneratedValueSingle $elements, $exception)
     {
         $branches = [];
 

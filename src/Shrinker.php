@@ -4,7 +4,6 @@ namespace Eris;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\TupleGenerator;
 use Eris\Shrinker\TimeLimit;
-use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
 
 /**
  * @private  this interface is not stable yet and may change in the future
@@ -16,9 +15,9 @@ interface Shrinker
      * from shrinking $elements.
      * $elements contains an array of GeneratedValueSingle objects corresponding
      * to the elements that lead to the original failure of the assertion.
-     * @throws AssertionFailed
+     * @throws Throwable
      */
-    public function from(GeneratedValueSingle $elements, AssertionFailed $exception);
+    public function from(GeneratedValueSingle $elements, $exception);
 
     /**
      * Configuration: allows specifying a time limit that should stop
