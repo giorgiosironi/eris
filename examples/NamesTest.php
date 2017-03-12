@@ -10,6 +10,7 @@ class NamesTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\names()
         )->then(function ($name) {
+            $this->assertInternalType('string', $name);
             var_dump($name);
         });
     }
@@ -17,6 +18,8 @@ class NamesTest extends PHPUnit_Framework_TestCase
     public function testSamplingShrinkingOfNames()
     {
         $generator = Generator\NamesGenerator::defaultDataSet();
-        var_dump($this->sampleShrink($generator)->collected());
+        $sample = $this->sampleShrink($generator);
+        $this->assertInternalType('array', $sample->collected());
+        var_dump($sample->collected());
     }
 }
