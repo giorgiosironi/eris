@@ -35,6 +35,7 @@ class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
         echo PHP_EOL;
         echo $description . " with size 10";
         $sample = $this->sample($generator);
+        $this->assertInternalType('array', $sample->collected());
         $this->prettyPrint($sample->collected());
     }
 

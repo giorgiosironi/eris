@@ -5,6 +5,9 @@ class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('MersenneTwister class does not support HHVM');
+        }
         $this->enableAssertions();
     }
 

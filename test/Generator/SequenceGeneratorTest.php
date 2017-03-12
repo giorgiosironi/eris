@@ -58,7 +58,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($generator->shrink($elements)));
     }
 
-    public function testShrinkEventuallyEndsUpWithAnEmptySequence()
+    public function testShrinkEventuallyEndsUpWithNoOptions()
     {
         $numberOfShrinks = 0;
         $generator = new SequenceGenerator($this->singleElementGenerator);
@@ -70,6 +70,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
             }
             $options = $generator->shrink($options->first());
         }
+        $this->assertEquals(0, $options->count());
     }
 
     public function testContainsAnEmptySequence()
