@@ -1,8 +1,18 @@
 # ChangeLog
 
-## 0.next
+The project follows [semantic versioning](http://semver.org/). `BC` stands for an change that impacts `Backward Compatibility`.
 
-* Using new `multiple` deterministic shrinking instead of `random`, being abandoned.
+## 0.9.0
+
+* Using new `multiple` deterministic shrinking instead of `random`, being abandoned (#87).
+* Supporting PHPUnit 6.x (#96).
+* Supporting PHP 7.1 (#97).
+* Added `Listener::onAttempt()`
+* Fixed bug: `pos()` and `neg()` can shrink to `0` (#96).
+* Fixed bug: denominator in float generation can be 0 (#92).
+* Fixed bug: shrinking of date generation uses wrong operator precedence (#94).
+* Fixed bug: reproducible PHPUnit commands are not escaped correctly if they contain namespaced classes.
+* Added CONTRIBUTORS
 * BC: `minimumEvaluationRatio` is now a method to be called, not a private field. Defaults to 0.5.
 * BC: `GeneratedValue` is now an interface and not a class.
 * BC: extended `Listener::endPropertyVerification()` with additional parameters `$iterations` and optional `$exception`.
