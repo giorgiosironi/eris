@@ -13,7 +13,7 @@ class MinimumEvaluationsTest extends \PHPUnit_Framework_TestCase
 
     public function testAllowsExecutionsWithHigherThanMinimumRatioToBeGreen()
     {
-        $this->listener->endPropertyVerification(99, 100);
+        $this->assertNull($this->listener->endPropertyVerification(99, 100));
     }
 
     /**
@@ -27,6 +27,8 @@ class MinimumEvaluationsTest extends \PHPUnit_Framework_TestCase
 
     public function testIfTheTestIsAlreadyFailingDoesNotCreateNoiseWithItsOwnCheck()
     {
-        $this->listener->endPropertyVerification(10, 100, new LogicException("One of the cross beams has gone out askew on the treadle"));
+        $this->assertNull(
+            $this->listener->endPropertyVerification(10, 100, new LogicException("One of the cross beams has gone out askew on the treadle"))
+        );
     }
 }
