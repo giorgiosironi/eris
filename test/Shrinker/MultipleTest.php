@@ -4,7 +4,10 @@ namespace Eris\Shrinker;
 use Eris\Generator\IntegerGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\GeneratedValueOptions;
-use PHPUnit_Framework_AssertionFailedError as AssertionFailed;
+use RuntimeException;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit_Framework_AssertionFailedError;
+use Throwable;
 
 class MultipleTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,15 +52,22 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
                         GeneratedValueSingle::fromJustValue($startingPoint, 'integer')
                     ]
                 ),
-                new AssertionFailed()
+                new RuntimeException()
             );
-        } catch (AssertionFailed $e) {
-            $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
-            $allValues = array_map(function ($generatedValue) {
-                return $generatedValue->unbox();
-            }, $this->attempts);
-            $linearShrinkingAttempts = $startingPoint - 5000;
-            $this->assertLessThan(0.2 * $linearShrinkingAttempts, count($allValues));
+        } catch (AssertionFailedError $e) {
+            $this->verifyAssertionFailure($e, $startingPoint);
+        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+            $this->verifyAssertionFailure($e, $startingPoint);
         }
+    }
+
+    private function verifyAssertionFailure(Throwable $e, $startingPoint)
+    {
+        $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
+        $allValues = array_map(function ($generatedValue) {
+            return $generatedValue->unbox();
+        }, $this->attempts);
+        $linearShrinkingAttempts = $startingPoint - 5000;
+        $this->assertLessThan(0.2 * $linearShrinkingAttempts, count($allValues));
     }
 }
