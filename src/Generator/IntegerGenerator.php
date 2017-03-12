@@ -78,6 +78,7 @@ class IntegerGenerator implements Generator
     public function shrink(GeneratedValueSingle $element)
     {
         $this->checkValueToShrink($element);
+        $mapFn = $this->mapFn;
         $element = $element->input();
 
         if ($element > 0) {
@@ -85,18 +86,20 @@ class IntegerGenerator implements Generator
             $nextHalf = $element;
             while (($nextHalf = (int) floor($nextHalf / 2)) > 0) {
                 $options[] = GeneratedValueSingle::fromJustValue(
-                    $element - $nextHalf,
+                    $mapFn($element - $nextHalf),
                     'integer'
                 );
             }
+            $options = array_unique($options, SORT_REGULAR);
             if ($options) {
                 return new GeneratedValueOptions($options);
             } else {
-                return GeneratedValueSingle::fromJustValue($element - 1, 'integer');
+                return GeneratedValueSingle::fromJustValue($mapFn($element - 1), 'integer');
             }
         }
         if ($element < 0) {
-            return GeneratedValueSingle::fromJustValue($element + 1, 'integer');
+            // TODO: shrink with options also negative values
+            return GeneratedValueSingle::fromJustValue($mapFn($element + 1), 'integer');
         }
 
         return GeneratedValueSingle::fromJustValue($element, 'integer');
