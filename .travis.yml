@@ -15,6 +15,10 @@ matrix:
     - php: 7 # PHPUnit 6.x
     - php: 7.1 # PHPUnit 6.x
     - php: hhvm
+      env: SKIP_LINT_TEST_CASES=1
+      sudo: required
+      dist: trusty
+      group: edge
 
 cache:
   directories:
