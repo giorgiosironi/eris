@@ -21,7 +21,7 @@
         "phpunit/phpunit": ">4,<7"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "^1.11.2",
+        "friendsofphp/php-cs-fixer": "^2.0",
         "icomefromthenet/reverse-regex": "v0.0.6.3"
     },
     "suggest":

@@ -1,9 +1,10 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()->in(__DIR__);
+$finder = PhpCsFixer\Finder::create()->in(__DIR__);
 
-return Symfony\CS\Config\Config::create()
-    ->setUsingCache(true)
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->finder($finder)
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+    ])
+    ->setFinder($finder)
 ;
