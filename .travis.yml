@@ -31,7 +31,7 @@ install:
 
 script:
   - vendor/bin/phpunit test
-  - if [[ "$WITH_CS" == "true" ]]; then vendor/bin/php-cs-fixer fix --config-file=.php_cs --verbose --diff --dry-run; fi
+  - if [[ "$WITH_CS" == "true" ]]; then vendor/bin/php-cs-fixer fix --config=.php_cs --verbose --diff --dry-run; fi
 
 notifications:
   webhooks:
