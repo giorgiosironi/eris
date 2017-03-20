@@ -12,6 +12,7 @@ Everyone that has contributed at least a commit to Eris.
 - Dave Marshall (@davedevelopment)
 - Nicolo Pignatelli (@nicolopignarocket)
 - Danilo Silva (@silvadanilo)
+- Massimiliano Arione (@garak)
 
 Data comes from https://github.com/giorgiosironi/eris/graphs/contributors
 
