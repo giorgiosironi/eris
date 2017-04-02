@@ -15,11 +15,6 @@ class ShrinkerFactory
         $this->options = $options;
     }
 
-    public function random(array $generators, callable $assertion)
-    {
-        return $this->configureShrinker(new Random($generators, $assertion));
-    }
-
     public function multiple(array $generators, callable $assertion)
     {
         return $this->configureShrinker(new Multiple($generators, $assertion));
