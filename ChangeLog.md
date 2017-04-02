@@ -4,6 +4,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## 0.NEXT
 
+* Fixed bug: `suchThat()` fails to generated good values when all those from generator size 0 are exclude (#100).
 * BC: dropped the deprecated `Shrinker\Random`.
 
 ## 0.9.0
