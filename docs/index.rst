@@ -33,6 +33,7 @@ Eris is the `Greek goddess`_ of chaos, strife, and discord. It tries to break yo
    reproducibility
    listeners
    randomness
+   outside_phpunit
 
 .. filtering: when and suchthat?
 .. random configurability: rand, mt_rand, else?

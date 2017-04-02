@@ -4,6 +4,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## 0.NEXT
 
+* Allowing use outside of PHPUnit through `Eris\Facade`.
 * Fixed bug: `suchThat()` fails to generated good values when all those from generator size 0 are exclude (#100).
 * BC: dropped the deprecated `Shrinker\Random`.
 * BC: dropped the unused `Generator::contains()`.
