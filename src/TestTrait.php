@@ -160,7 +160,7 @@ trait TestTrait
      * forAll($generator1, $generator2, ...)
      * @return Quantifier\ForAll
      */
-    protected function forAll()
+    public function forAll()
     {
         call_user_func($this->seedFunction, $this->seed);
         $generators = func_get_args();
@@ -186,7 +186,7 @@ trait TestTrait
     /**
      * @return Sample
      */
-    protected function sample(Generator $generator, $times = 10)
+    public function sample(Generator $generator, $times = 10)
     {
         return Sample::of($generator, $this->randFunction)->repeat($times);
     }
@@ -194,7 +194,7 @@ trait TestTrait
     /**
      * @return Sample
      */
-    protected function sampleShrink(Generator $generator, $fromValue = null)
+    public function sampleShrink(Generator $generator, $fromValue = null)
     {
         return Sample::of($generator, $this->randFunction)->shrink($fromValue);
     }

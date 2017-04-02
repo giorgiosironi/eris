@@ -259,6 +259,12 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGeneratingIntegersWithAScript()
+    {
+        $output = $this->runScript('generating_integers.php');
+        $this->assertEquals(100, count($output));
+    }
+
     private function setEnvironmentVariable($name, $value)
     {
         $this->environment[$name] = $value;
@@ -286,6 +292,15 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             );
         }
         $this->results = new SimpleXMLElement($contentsOfXmlLog);
+    }
+
+    private function runScript($filename)
+    {
+        $examplesDir = realpath(__DIR__ . '/../examples');
+        $command = "php {$examplesDir}/{$filename}";
+        exec($command, $outputLines, $exitCode);
+        $this->assertEquals(0, $exitCode);
+        return $outputLines;
     }
 
     private function theTest($name)
