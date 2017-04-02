@@ -31,18 +31,6 @@ class VectorGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $vector)
     {
-        if (!$this->contains($vector)) {
-            throw new DomainException(
-                'Cannot shrink ' . var_export($vector, true) . ' because it does not ' .
-                'belong to the domain of the Vectors with '  . count($this->generator) .
-                ' elements of type ' . $this->elementsGeneratorClass
-            );
-        }
         return $this->generator->shrink($vector);
-    }
-
-    public function contains(GeneratedValueSingle $vector)
-    {
-        return $this->generator->contains($vector);
     }
 }

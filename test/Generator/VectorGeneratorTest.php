@@ -23,9 +23,8 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($this->vectorSize, count($vector->unbox()));
         foreach ($vector->unbox() as $element) {
-            $this->assertTrue($this->elementGenerator->contains(
-                GeneratedValueSingle::fromJustValue($element)
-            ));
+            $this->assertGreaterThanOrEqual(1, $element);
+            $this->assertLessThanOrEqual(10, $element);
         }
     }
 
@@ -42,13 +41,5 @@ class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->assertLessThanOrEqual($previousSum, $currentSum);
             $previousSum = $currentSum;
         }
-    }
-
-    public function testEachGeneratedVectorShouldBeContainedIntoTheDomain()
-    {
-        $generator = $this->vectorGenerator;
-        $vector = $generator($this->size, $this->rand);
-
-        $this->assertTrue($this->vectorGenerator->contains($vector));
     }
 }

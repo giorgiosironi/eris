@@ -37,18 +37,6 @@ class ElementsGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        if (!$this->contains($element)) {
-            throw new DomainException(
-                $element . ' does not belong to the domain with elements ' .
-                var_export($this->domain, true)
-            );
-        }
-
         return $element;
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        return in_array($element->unbox(), $this->domain);
     }
 }

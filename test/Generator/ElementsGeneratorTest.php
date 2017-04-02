@@ -28,23 +28,4 @@ class ElementsGeneratorTest extends \PHPUnit_Framework_TestCase
         $singleValue = GeneratedValueSingle::fromJustValue(2, 'elements');
         $this->assertEquals($singleValue, $generator->shrink($singleValue));
     }
-
-    public function testOnlyContainsTheElementsGeneratorOfTheGivenDomain()
-    {
-        $generator = ElementsGenerator::fromArray(['A', 2]);
-        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue(1)));
-        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue('A')));
-        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue(2)));
-        // disregarding types
-        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue('2')));
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = ElementsGenerator::fromArray(['A', 1]);
-        $generator->shrink(GeneratedValueSingle::fromJustValue(2));
-    }
 }

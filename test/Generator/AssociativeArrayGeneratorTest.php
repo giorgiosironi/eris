@@ -21,7 +21,6 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generated = $generator($this->size, $this->rand);
 
-        $this->assertTrue($generator->contains($generated));
         $array = $generated->unbox();
         $this->assertEquals(2, count($array));
         $letter = $array['letter'];

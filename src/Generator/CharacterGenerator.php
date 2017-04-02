@@ -60,13 +60,4 @@ class CharacterGenerator implements Generator
         $shrinkedValue = chr($this->shrinkingProgression->next(ord($element->unbox())));
         return GeneratedValueSingle::fromJustValue($shrinkedValue, 'character');
     }
-
-    public function contains(GeneratedValueSingle $generatedValue)
-    {
-        $value = $generatedValue->unbox();
-        return is_string($value)
-            && strlen($value) == 1
-            && ord($value) >= $this->lowerLimit
-            && ord($value) <= $this->upperLimit;
-    }
 }

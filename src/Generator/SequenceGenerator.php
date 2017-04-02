@@ -30,13 +30,6 @@ class SequenceGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $sequence)
     {
-        if (!$this->contains($sequence)) {
-            throw new DomainException(
-                'Cannot shrink {' . var_export($sequence, true) . '} because ' .
-                'it does not belong to the domain of this sequence'
-            );
-        }
-
         $options = [];
         if (count($sequence->unbox()) > 0) {
             $options[] = $this->shrinkInSize($sequence);
@@ -51,11 +44,6 @@ class SequenceGenerator implements Generator
         }
 
         return new GeneratedValueOptions($options);
-    }
-
-    public function contains(GeneratedValueSingle $sequence)
-    {
-        return $this->vector(count($sequence->unbox()))->contains($sequence);
     }
 
     private function shrinkInSize($sequence)

@@ -93,28 +93,10 @@ class TupleGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $tuple)
     {
-        $this->checkValueToShrink($tuple);
         $input = $tuple->input();
 
         return $this->optionsFromTheseGenerators($this->generators, $input)
             ->remove($tuple);
-    }
-
-    public function contains(GeneratedValueSingle $tuple)
-    {
-        $input = $tuple->input();
-        if (!is_array($input)) {
-            throw new \Exception("Input must be an array, not " . var_export($input, true));
-        }
-        if (count($input) !== $this->numberOfGenerators) {
-            return false;
-        }
-        for ($i = 0; $i < $this->numberOfGenerators; $i++) {
-            if (!$this->generators[$i]->contains($input[$i])) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private function ensureAreAllGenerators(array $generators)
@@ -128,17 +110,6 @@ class TupleGenerator implements Generator
             },
             $generators
         );
-    }
-
-    private function checkValueToShrink($value)
-    {
-        if (!$this->contains($value)) {
-            throw new DomainException(
-                'Cannot shrink ' . var_export($value, true) . ' because it does not ' .
-                ' belong to the domain of the Tuples with domain elements ' .
-                $this->domainsTupleAsString()
-            );
-        }
     }
 
     private function domainsTupleAsString()

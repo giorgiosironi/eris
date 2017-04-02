@@ -24,10 +24,4 @@ interface Generator
      * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
      */
     public function shrink(GeneratedValueSingle $element);
-
-    /**
-     * @param GeneratedValueSingle
-     * @return boolean
-     */
-    public function contains(GeneratedValueSingle $element);
 }

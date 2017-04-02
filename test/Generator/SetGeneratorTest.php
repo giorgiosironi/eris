@@ -72,12 +72,6 @@ class SetGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($generator->shrink($elements)->unbox()));
     }
 
-    public function testContainsAnEmptySet()
-    {
-        $generator = new SetGenerator($this->singleElementGenerator);
-        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue([])));
-    }
-
     private function assertNoRepeatedElements(array $generated)
     {
         sort($generated);

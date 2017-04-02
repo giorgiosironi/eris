@@ -38,13 +38,4 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(0.5))->unbox());
         $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(-0.5))->unbox());
     }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = new FloatGenerator(100.12, 200.12);
-        $generator->shrink(GeneratedValueSingle::fromJustValue(300));
-    }
 }

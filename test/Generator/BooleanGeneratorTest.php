@@ -13,7 +13,7 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 0, $this->rand);
-            $this->assertTrue($generator->contains($generatedValue));
+            $this->assertInternalType('bool', $generatedValue->unbox());
         }
     }
 
@@ -24,14 +24,5 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
             $generatedValue = $generator($_size = 10, $this->rand);
             $this->assertFalse($generator->shrink($generatedValue));
         }
-    }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testShrinkOnlyAcceptsElementsOfTheDomainAsParameters()
-    {
-        $generator = new BooleanGenerator();
-        $generator->shrink(GeneratedValueSingle::fromJustValue(10));
     }
 }

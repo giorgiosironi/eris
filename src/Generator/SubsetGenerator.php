@@ -44,13 +44,6 @@ class SubsetGenerator implements Generator
     public function shrink(GeneratedValueSingle $set)
     {
         // TODO: see SetGenerator::shrink()
-        if (!$this->contains($set)) {
-            throw new DomainException(
-                'Cannot shrink {' . var_export($set, true) . '} because ' .
-                'it does not belong to the domain of this set'
-            );
-        }
-
         if (count($set->unbox()) === 0) {
             return $set;
         }
@@ -63,15 +56,5 @@ class SubsetGenerator implements Generator
             array_values($input),
             'subset'
         );
-    }
-
-    public function contains(GeneratedValueSingle $set)
-    {
-        foreach ($set->input() as $element) {
-            if (!in_array($element, $this->universe)) {
-                return false;
-            }
-        }
-        return true;
     }
 }

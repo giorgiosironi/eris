@@ -30,11 +30,6 @@ class OneOfGenerator implements Generator
         return $this->generator->shrink($element);
     }
 
-    public function contains(GeneratedValueSingle $element)
-    {
-        return $this->generator->contains($element);
-    }
-
     private function allWithSameFrequency($generators)
     {
         return array_map(

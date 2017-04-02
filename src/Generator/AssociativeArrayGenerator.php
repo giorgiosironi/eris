@@ -35,11 +35,6 @@ class AssociativeArrayGenerator implements Generator
         return $this->mapToAssociativeArray($shrunkInput);
     }
 
-    public function contains(GeneratedValueSingle $element)
-    {
-        return $this->tupleGenerator->contains($element->input());
-    }
-
     private function mapToAssociativeArray(GeneratedValue $tuple)
     {
         return $tuple->map(

@@ -38,9 +38,4 @@ class MapGenerator implements Generator
             'map'
         );
     }
-
-    public function contains(GeneratedValueSingle $value)
-    {
-        return $this->generator->contains($value->input());
-    }
 }

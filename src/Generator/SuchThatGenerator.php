@@ -71,12 +71,6 @@ class SuchThatGenerator implements Generator
         return new GeneratedValueOptions($filtered);
     }
 
-    public function contains(GeneratedValueSingle $value)
-    {
-        return $this->generator->contains($value)
-            && $this->predicate($value);
-    }
-
     /**
      * @return array  of GeneratedValueSingle
      */

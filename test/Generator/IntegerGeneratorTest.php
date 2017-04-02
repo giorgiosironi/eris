@@ -13,7 +13,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
-            $this->assertTrue($generator->contains($generator($this->size, $this->rand)));
+            $this->assertInternalType('integer', $generator($this->size, $this->rand)->unbox());
         }
     }
 

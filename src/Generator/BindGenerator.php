@@ -45,13 +45,6 @@ class BindGenerator implements Generator
         );
     }
 
-    public function contains(GeneratedValueSingle $element)
-    {
-        list($outerGeneratorValue, $innerGeneratorValue) = $element->input();
-        $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
-        return $outerGenerator->contains($outerGeneratorValue);
-    }
-
     private function packageGeneratedValueSingle($outerGeneratorValue, $innerGeneratorValue)
     {
         return GeneratedValueSingle::fromValueAndInput(

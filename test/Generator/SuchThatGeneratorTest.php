@@ -49,10 +49,6 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 100; $i++) {
             $element = $generator->shrink($element)->last();
             $this->assertTrue(
-                $generator->contains($element),
-                "Every shrunk element should still be contained: " . var_export($element, true)
-            );
-            $this->assertTrue(
                 $element->unbox() % 2 === 0,
                 "Element should still be filtered while shrinking: " . var_export($element, true)
             );
