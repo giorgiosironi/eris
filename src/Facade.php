@@ -3,7 +3,7 @@ namespace Eris;
 
 class Facade
 {
-    use TestTrait; 
+    use TestTrait;
 
     public function __construct()
     {
