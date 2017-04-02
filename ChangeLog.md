@@ -2,6 +2,10 @@
 
 The project follows [semantic versioning](http://semver.org/). `BC` stands for an change that impacts `Backward Compatibility`.
 
+## 0.NEXT
+
+* BC: dropped the deprecated `Shrinker\Random`.
+
 ## 0.9.0
 
 * Using new `multiple` deterministic shrinking instead of `random`, being abandoned (#87).
