@@ -21,19 +21,6 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('DateTime', $value->unbox());
     }
 
-    /**
-     * @expectedException DomainException
-     */
-    public function testCannotShrinkValuesOutsideOfItsDomain()
-    {
-        $generator = new DateGenerator(
-            new DateTime("2014-01-01T00:00:00"),
-            new DateTime("2014-01-02T23:59:59")
-        );
-        $value = $generator($this->size, $this->rand);
-        $generator->shrink(GeneratedValueSingle::fromJustValue(new DateTime("2014-01-10T00:00:00"), 'date'));
-    }
-
     public function testDateTimeShrinkGeometrically()
     {
         $generator = new DateGenerator(

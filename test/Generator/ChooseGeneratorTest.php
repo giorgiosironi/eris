@@ -81,15 +81,6 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(42, $generator->shrink($generator($this->size, $this->rand))->unbox());
     }
 
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = new ChooseGenerator(100, 200);
-        $generator->shrink(GeneratedValueSingle::fromJustValue(300));
-    }
-
     public function testTheOrderOfBoundariesDoesNotMatter()
     {
         $this->assertEquals(

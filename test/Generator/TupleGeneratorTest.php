@@ -170,16 +170,4 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->assertGreaterThanOrEqual(1, $elementsBeingShrunk);
         }
     }
-
-    /**
-     * @expectedException DomainException
-     */
-    public function testExceptionWhenTryingToShrinkValuesOutsideOfTheDomain()
-    {
-        $generator = new TupleGenerator([
-            $this->generatorForSingleElement,
-            $this->generatorForSingleElement,
-        ]);
-        $generator->shrink(GeneratedValueSingle::fromJustValue([1, 2, 3]));
-    }
 }
