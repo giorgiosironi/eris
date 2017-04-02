@@ -60,7 +60,7 @@ class SuchThatGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException LogicException
+     * @expectedException Eris\Generator\SkipValueException
      */
     public function testGivesUpGenerationIfTheFilterIsNotSatisfiedTooManyTimes()
     {
