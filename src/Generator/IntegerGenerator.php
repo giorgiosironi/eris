@@ -77,7 +77,6 @@ class IntegerGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        $this->checkValueToShrink($element);
         $mapFn = $this->mapFn;
         $element = $element->input();
 
@@ -103,21 +102,6 @@ class IntegerGenerator implements Generator
         }
 
         return GeneratedValueSingle::fromJustValue($element, 'integer');
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        return is_int($element->input());
-    }
-
-    private function checkValueToShrink($value)
-    {
-        if (!$this->contains($value)) {
-            throw new DomainException(
-                'Cannot shrink ' . $value . ' because it does not belong to ' .
-                'the domain of Integers'
-            );
-        }
     }
 
     private function identity()

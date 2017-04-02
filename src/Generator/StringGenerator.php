@@ -24,13 +24,6 @@ class StringGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        if (!$this->contains($element)) {
-            throw new DomainException(
-                'Cannot shrink ' . $element . ' because it does not belong ' .
-                'to the domain of the Strings.'
-            );
-        }
-
         if ($element->unbox() === '') {
             return $element;
         }
@@ -38,10 +31,5 @@ class StringGenerator implements Generator
             substr($element->unbox(), 0, -1),
             'string'
         );
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        return is_string($element->unbox());
     }
 }

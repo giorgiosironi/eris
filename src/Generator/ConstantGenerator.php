@@ -34,18 +34,6 @@ class ConstantGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        if (!$this->contains($element)) {
-            throw new DomainException(
-                $element . ' does not belong to the domain of the constant value ' .
-                $this->value . '.'
-            );
-        }
-
         return GeneratedValueSingle::fromJustValue($this->value, 'constant');
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        return $this->value === $element->input();
     }
 }

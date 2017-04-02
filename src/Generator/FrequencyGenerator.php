@@ -59,11 +59,6 @@ class FrequencyGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        if (!$this->contains($element)) {
-            throw new DomainException(
-                var_export($element, true) . ' is not in one of the given domains'
-            );
-        }
         $input = $element->input();
         $originalGeneratorIndex = $input['generator'];
         $shrinkedValue = $this->generators[$originalGeneratorIndex]['generator']->shrink($input['value']);
@@ -77,13 +72,6 @@ class FrequencyGenerator implements Generator
             ],
             'frequency'
         );
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        $input = $element->input();
-        $originalGeneratorIndex = $input['generator'];
-        return $this->generators[$originalGeneratorIndex]['generator']->contains($input['value']);
     }
 
     /**

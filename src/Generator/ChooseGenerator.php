@@ -51,8 +51,6 @@ class ChooseGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        $this->checkValueToShrink($element);
-
         if ($element->input() > $this->shrinkTarget) {
             return GeneratedValueSingle::fromJustValue($element->input() - 1);
         }
@@ -63,13 +61,6 @@ class ChooseGenerator implements Generator
         return $element;
     }
 
-    public function contains(GeneratedValueSingle $element)
-    {
-        return is_int($element->input())
-            && $element->input() >= $this->lowerLimit
-            && $element->input() <= $this->upperLimit;
-    }
-
     private function checkLimits($lowerLimit, $upperLimit)
     {
         // TODO: the problem with the random number generator is still here.
@@ -78,16 +69,6 @@ class ChooseGenerator implements Generator
                 'lowerLimit (' . var_export($lowerLimit, true) . ') and ' .
                 'upperLimit (' . var_export($upperLimit, true) . ') should ' .
                 'be Integers between ' . ERIS_PHP_INT_MIN . ' and ' . PHP_INT_MAX
-            );
-        }
-    }
-
-    private function checkValueToShrink($value)
-    {
-        if (!$this->contains($value)) {
-            throw new DomainException(
-                'Cannot shrink ' . $value . ' because it does not belong to the domain of ' .
-                'Integers between ' . $this->lowerLimit . ' and ' . $this->upperLimit
             );
         }
     }

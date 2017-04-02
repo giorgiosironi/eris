@@ -42,18 +42,6 @@ class SetGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $set)
     {
-        // TODO: extract duplication with Generator\SequenceGenerator
-        // to do so, implement __toString for every Generator (put it
-        // in the interface) and then Extract Class
-        // ContainmentCheck::of($this)->on($set);
-        // which will use $generator->__toString() in the error message
-        if (!$this->contains($set)) {
-            throw new DomainException(
-                'Cannot shrink {' . var_export($set, true) . '} because ' .
-                'it does not belong to the domain of this set'
-            );
-        }
-
         if (count($set->input()) === 0) {
             return $set;
         }
@@ -71,15 +59,5 @@ class SetGenerator implements Generator
             array_values($input),
             'set'
         );
-    }
-
-    public function contains(GeneratedValueSingle $set)
-    {
-        foreach ($set->input() as $element) {
-            if (!$this->singleElementGenerator->contains($element)) {
-                return false;
-            }
-        }
-        return true;
     }
 }

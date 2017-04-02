@@ -21,17 +21,6 @@ class BooleanGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        if (!$this->contains($element)) {
-            throw new DomainException(
-                $element . ' does not belong to the domain of the Booleans'
-            );
-        }
-
         return false;
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        return is_bool($element->unbox());
     }
 }

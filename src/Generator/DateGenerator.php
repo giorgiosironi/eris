@@ -53,22 +53,12 @@ class DateGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        $this->ensureIsInDomain($element);
-
         $timeOffset = $element->unbox()->getTimestamp() - $this->lowerLimit->getTimestamp();
         $halvedOffset = floor($timeOffset / 2);
         return GeneratedValueSingle::fromJustValue(
             $this->fromOffset($halvedOffset),
             'date'
         );
-    }
-
-    public function contains(GeneratedValueSingle $element)
-    {
-        $value = $element->unbox();
-        return $value instanceof DateTime
-            && $value >= $this->lowerLimit
-            && $value <= $this->upperLimit;
     }
 
     /**
@@ -81,12 +71,5 @@ class DateGenerator implements Generator
         $element = new DateTime();
         $element->setTimestamp($chosenTimestamp);
         return $element;
-    }
-
-    private function ensureIsInDomain($element)
-    {
-        if (!$this->contains($element)) {
-            throw new DomainException("The element " . var_export($element, true) . " is not part of this generator's domain");
-        }
     }
 }

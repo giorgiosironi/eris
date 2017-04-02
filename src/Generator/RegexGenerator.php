@@ -49,10 +49,4 @@ class RegexGenerator implements Generator
     {
         return $value;
     }
-
-    public function contains(GeneratedValueSingle $value)
-    {
-        return is_string($value->unbox())
-            && (bool) preg_match("/{$this->expression}/", $value->unbox());
-    }
 }
