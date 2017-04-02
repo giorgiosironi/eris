@@ -10,6 +10,13 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->rand = 'rand';
     }
 
+    private function assertInSingleElementGenerator($value)
+    {
+        $this->assertInternalType('integer', $value);
+        $this->assertGreaterThanOrEqual(0, $value);
+        $this->assertLessThanOrEqual(100, $value);
+    }
+
     public function testConstructWithAnArrayOfGenerators()
     {
         $generator = new TupleGenerator([
@@ -21,9 +28,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(2, count($generated->unbox()));
         foreach ($generated->unbox() as $element) {
-            $this->assertTrue(
-                $this->generatorForSingleElement->contains(GeneratedValueSingle::fromJustValue($element))
-            );
+            $this->assertInSingleElementGenerator($element);
         }
     }
 
@@ -35,11 +40,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $generated = $generator($this->size, $this->rand);
 
         foreach ($generated->unbox() as $element) {
-            $this->assertTrue(
-                (new ConstantGenerator($aNonGenerator))->contains(
-                    GeneratedValueSingle::fromJustValue($element)
-                )
-            );
+            $this->assertEquals(42, $element);
         }
     }
 
@@ -48,21 +49,6 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new TupleGenerator([]);
 
         $this->assertSame([], $generator($this->size, $this->rand)->unbox());
-    }
-
-    public function testContainsGeneratedElements()
-    {
-        $generator = new TupleGenerator([
-            $this->generatorForSingleElement,
-            $this->generatorForSingleElement,
-        ]);
-
-        $tupleThatCanBeGenerated = GeneratedValueSingle::fromJustValue([
-            $this->generatorForSingleElement->__invoke($this->size, $this->rand),
-            $this->generatorForSingleElement->__invoke($this->size, $this->rand),
-        ]);
-
-        $this->assertTrue($generator->contains($tupleThatCanBeGenerated));
     }
 
     public function testShrink()
@@ -75,12 +61,8 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
         $elements = $generator->__invoke($this->size, $this->rand);
         $elementsAfterShrink = $generator->shrink($elements);
 
-        $this->assertTrue($this->generatorForSingleElement->contains(
-            GeneratedValueSingle::fromJustValue($elementsAfterShrink->unbox()[0]))
-        );
-        $this->assertTrue($this->generatorForSingleElement->contains(
-            GeneratedValueSingle::fromJustValue($elementsAfterShrink->unbox()[1]))
-        );
+        $this->assertInSingleElementGenerator($elementsAfterShrink->unbox()[0]);
+        $this->assertInSingleElementGenerator($elementsAfterShrink->unbox()[1]);
 
         $this->assertLessThanOrEqual(
             $elements->unbox()[0] + $elements->unbox()[1],

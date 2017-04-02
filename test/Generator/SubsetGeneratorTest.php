@@ -60,26 +60,6 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($this->generator->shrink($elements)->unbox()));
     }
 
-    public function testContainsElementsWhenElementsAreContainedInTheUniverse()
-    {
-        $elements = GeneratedValueSingle::fromJustValue([
-            $this->universe[0],
-            $this->universe[1],
-        ]);
-        $this->assertTrue($this->generator->contains($elements));
-    }
-
-    public function testDoesNotContainElementsWhenElementsAreNotContainedInTheUniverse()
-    {
-        $aString = 'a string';
-        $this->assertFalse($this->generator->contains(GeneratedValueSingle::fromJustValue([$aString, $aString])));
-    }
-
-    public function testContainsAnEmptySet()
-    {
-        $this->assertTrue($this->generator->contains(GeneratedValueSingle::fromJustValue([])));
-    }
-
     private function assertNoRepeatedElements($generated)
     {
         sort($generated);

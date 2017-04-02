@@ -18,7 +18,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
             new DateTime("2014-01-02T23:59:59")
         );
         $value = $generator($this->size, $this->rand);
-        $this->assertTrue($generator->contains($value));
+        $this->assertInstanceOf('DateTime', $value->unbox());
     }
 
     /**

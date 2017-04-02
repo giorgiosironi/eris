@@ -18,8 +18,7 @@ class OneOfGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $element = $generator($this->size, $this->rand);
-
-        $this->assertTrue($generator->contains($element));
+        $this->assertInternalType('integer', $element->unbox());
     }
 
     public function testConstructWithNonGenerators()

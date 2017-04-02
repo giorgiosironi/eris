@@ -26,13 +26,6 @@ class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testContainsOnlyTheValue()
-    {
-        $generator = new ConstantGenerator(true);
-        $this->assertTrue($generator->contains(GeneratedValueSingle::fromJustValue(true)));
-        $this->assertFalse($generator->contains(GeneratedValueSingle::fromJustValue(42)));
-    }
-
     /**
      * @expectedException DomainException
      */

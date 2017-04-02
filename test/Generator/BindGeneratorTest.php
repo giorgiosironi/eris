@@ -38,7 +38,6 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
                 'integer',
                 $value->unbox()
             );
-            $this->assertTrue($generator->contains($value), "Element $value should be contained in the Generator");
             $value = $generator->shrink($value);
         }
         $this->assertLessThanOrEqual(5, $value->unbox());

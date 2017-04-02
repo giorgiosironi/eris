@@ -13,10 +13,10 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new ChooseGenerator(-10, 10);
         for ($i = 0; $i < 100; $i++) {
-            $this->assertTrue(
-                $generator->contains($value = $generator($this->size, $this->rand)),
-                "Failed to assert that the value {$value} is between -10 and 10"
-            );
+            $value = $generator($this->size, $this->rand)->unbox();
+            $this->assertInternalType('integer', $value);
+            $this->assertGreaterThanOrEqual(-10, $value);
+            $this->assertLessThanOrEqual(10, $value);
         }
     }
 
