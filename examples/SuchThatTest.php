@@ -88,6 +88,23 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
             ->then($this->numberIsBiggerThan(100));
     }
 
+    public function testSuchThatAvoidingTheEmptyListDoesNotGetStuckOnASmallGeneratorSize()
+    {
+        $this
+            ->forAll(
+                Generator\suchThat(
+                    function (array $ints) {
+                        return count($ints) > 0;
+                    },
+                    Generator\seq(Generator\int())
+                )
+            )
+            ->then(function (array $ints) use (&$i) {
+                $this->assertGreaterThanOrEqual(1, count($ints));
+            })
+        ;
+    }
+
     public function allNumbersAreBiggerThan($lowerLimit)
     {
         return function ($vector) use ($lowerLimit) {
