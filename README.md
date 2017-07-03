@@ -41,7 +41,7 @@ use Eris\Generator;
 
 class ReadmeTest extends \PHPUnit_Framework_TestCase
 {
-    use Eris\TestTrait;
+    use \Eris\TestTrait;
 
     public function testNaturalNumbersMagnitude()
     {
