@@ -15,15 +15,11 @@ In property-based testing, several properties that the System Under Test must re
 
 ## Installation
 
-You can install Eris through [Composer](https://getcomposer.org/) by adding:
+You can install Eris through [Composer](https://getcomposer.org/) by running the following command in your terminal:
 
-```json
-    "require": {
-        "giorgiosironi/eris": "dev-master"
-    }
 ```
-
-to your composer.json, and run `composer update`.
+composer require --dev giorgiosironi/eris
+```
 
 You can run some of Eris example tests with `vendor/bin/phpunit vendor/giorgiosironi/eris/examples`.
 
