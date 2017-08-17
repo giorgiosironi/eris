@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-This test tries to verify that natural numbers from 0 to 1000 are all greater than 42. It's a failing test designed to show you an example of error message.
+This test tries to verify that natural numbers from 0 to 1000 are all smaller than 42. It's a failing test designed to show you an example of error message.
 
 .. literalinclude:: ../examples/ReadmeTest.php
    :language: php
