@@ -40,7 +40,8 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testVectorOfElementsGenerators()
     {
         $this->forAll(
-            Generator\vector(4,
+            Generator\vector(
+                4,
                 Generator\elements([2, 4, 6, 8, 10, 12])
             )
         )

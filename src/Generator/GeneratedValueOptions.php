@@ -62,13 +62,13 @@ class GeneratedValueOptions implements GeneratedValue
     public function derivedIn($generatorName)
     {
         throw new RuntimeException("GeneratedValueOptions::derivedIn() is needed, uncomment it");
-    /*
-     * Not sure this is needed.
-        return $this->map(
-            function ($value) { return $value; },
-            $generatorName
-        );
-     */
+        /*
+         * Not sure this is needed.
+            return $this->map(
+                function ($value) { return $value; },
+                $generatorName
+            );
+         */
     }
 
     /**
