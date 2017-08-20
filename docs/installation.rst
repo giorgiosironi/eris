@@ -1,16 +1,11 @@
 Installation
 ============
 
-You can install Eris through `Composer`_ by adding
+You can install Eris through `Composer`_ by running the following command in your terminal:
 
-.. code-block:: javascript
+.. code-block:: bash
 
-    "require": {
-        "giorgiosironi/eris": "dev-master"
-    }
-
-to your composer.json, and run ``composer update``.
-
+    composer require --dev giorgiosironi/eris
 
 You can run some of Eris example tests with ``vendor/bin/phpunit vendor/giorgiosironi/eris/examples``.
 
