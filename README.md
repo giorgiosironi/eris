@@ -11,7 +11,7 @@ In property-based testing, several properties that the System Under Test must re
 
 - PHP 5.5, 5.6, 7.0, 7.1
 - HHVM (without `purePhpMtRand`)
-- PHPUnit 5.x, 6.x
+- PHPUnit 5.x, 6.x, 7.x
 
 ## Installation
 

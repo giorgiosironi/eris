@@ -2,10 +2,11 @@
 
 The project follows [semantic versioning](http://semver.org/). `BC` stands for an change that impacts `Backward Compatibility`.
 
-## 0.NEXT
+## 0.10
 
 * Allowing use outside of PHPUnit through `Eris\Facade`.
 * Fixed bug: `suchThat()` fails to generated good values when all those from generator size 0 are exclude (#100).
+* PHPUnit 7.x support (#112, #113).
 * BC: dropped the deprecated `Shrinker\Random`.
 * BC: dropped the unused `Generator::contains()`.
 
