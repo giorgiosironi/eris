@@ -43,9 +43,9 @@ class MersenneTwister implements Source
             $this->mt[$i] = ($this->f * (
                 $this->mt[$i - 1] ^ (($this->mt[$i - 1] >> ($this->w - 2)) & 0b11)
             ) + $i) & $this->wMask;
-            assert('$this->mt[$i] <= $this->wMask');
+            assert($this->mt[$i] <= $this->wMask);
         }
-        assert('count($this->mt) === 624');
+        assert(count($this->mt) === 624);
         return $this;
     }
 
