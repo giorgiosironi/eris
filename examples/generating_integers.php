@@ -7,5 +7,5 @@ $eris = new Eris\Facade();
 $eris
     ->forAll(Generator\int())
     ->then(function ($integer) {
-        var_dump($integer);
+        echo var_export($integer, true) . PHP_EOL;
     });
