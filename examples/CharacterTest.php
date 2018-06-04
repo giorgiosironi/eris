@@ -1,7 +1,6 @@
 <?php
 use Eris\Generator;
-use Eris\Antecedent as is;
-use Eris\Antecedent as are;
+use Eris\Antecedent;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
@@ -22,7 +21,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this->forAll(
             Generator\char(['basic-latin'])
         )
-            ->when(is\printableCharacter())
+            ->when(Antecedent\printableCharacter())
             ->then(function ($char) {
                 $this->assertFalse(ord($char) < 32);
             });
@@ -36,7 +35,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
                 Generator\char(['basic-latin']),
                 Generator\char(['basic-latin'])
             )
-            ->when(are\printableCharacters())
+            ->when(Antecedent\printableCharacters())
             ->then(function ($first, $second) {
                 $this->assertFalse(ord($first) < 32);
                 $this->assertFalse(ord($second) < 32);
