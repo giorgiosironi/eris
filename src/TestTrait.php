@@ -1,9 +1,15 @@
 <?php
 namespace Eris;
 
-use OutOfBoundsException;
+use BadMethodCallException;
 use DateInterval;
-use InvalidArgumentException;
+use Eris\Listener\MinimumEvaluations;
+use Eris\Quantifier\ForAll;
+use Eris\Quantifier\TimeBasedTerminationCondition;
+use Eris\Random\MtRandSource;
+use Eris\Random\RandomRange;
+use Eris\Random\RandSource;
+use Eris\Shrinker\ShrinkerFactory;
 
 trait TestTrait
 {
@@ -13,8 +19,10 @@ trait TestTrait
     private $iterations = 100;
     private $listeners = [];
     private $terminationConditions = [];
-    private $randFunction = 'rand';
-    private $seedFunction = 'srand';
+    /**
+     * @var RandomRange
+     */
+    private $randFunction;
     private $shrinkerFactoryMethod = 'multiple';
     protected $seed;
     protected $shrinkingTimeLimit;
@@ -36,8 +44,52 @@ trait TestTrait
      */
     public function erisSetup()
     {
-        $this->seedingRandomNumberGeneration();
-        $this->minimumEvaluationRatio(0.5);
+        $this->seed = intval(getenv('ERIS_SEED') ?: (microtime(true)*1000000));
+        if ($this->seed < 0) {
+            $this->seed *= -1;
+        }
+        $this->listeners = array_filter(
+            $this->listeners,
+            function ($listener) {
+                return !($listener instanceof MinimumEvaluations);
+            }
+        );
+        $tags = $this->getAnnotations();//from TestCase of PHPunit
+        $this->withRand($this->getAnnotationValue($tags, 'eris-method', 'rand', 'strval'));
+        $this->iterations = $this->getAnnotationValue($tags, 'eris-repeat', 100, 'intval');
+        $this->shrinkingTimeLimit = $this->getAnnotationValue($tags, 'eris-shrink', null, 'intval');
+        $this->listeners[] = MinimumEvaluations::ratio($this->getAnnotationValue($tags, 'eris-ratio', 50, 'floatval')/100);
+        $duration = $this->getAnnotationValue($tags, 'eris-duration', false, 'strval');
+        if ($duration) {
+            $terminationCondition = new TimeBasedTerminationCondition('time', new DateInterval($duration));
+            $this->listeners[] = $terminationCondition;
+            $this->terminationConditions[] = $terminationCondition;
+        }
+    }
+
+    /**
+     * @param array $annotations
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    private function getAnnotationValue(array $annotations, $key, $default, $cast)
+    {
+        $annotation = $this->getAnnotation($annotations, $key);
+        return isset($annotation[0])?$cast($annotation[0]):$default;
+    }
+
+    /**
+     * @param array $annotations
+     * @param string $key
+     * @return array
+     */
+    private function getAnnotation(array $annotations, $key)
+    {
+        if (isset($annotations['method'][$key])) {
+            return $annotations['method'][$key];
+        }
+        return isset($annotations['class'][$key])?$annotations['class'][$key]:[];
     }
 
     /**
@@ -48,81 +100,17 @@ trait TestTrait
         $this->dumpSeedForReproducing();
     }
 
-    private function seedingRandomNumberGeneration()
-    {
-        if ($seed = getenv('ERIS_SEED')) {
-            $this->seed = $seed;
-        } else {
-            $this->seed = (int) (microtime(true)*1000000);
-        }
-    }
-
     /**
      * Maybe: we could add --filter options to the command here,
      * since now the original command is printed.
      */
     private function dumpSeedForReproducing()
     {
-        if ($this->hasFailed()) {
-            global $argv;
-            $command = PHPUnitCommand::fromSeedAndName($this->seed, $this->toString());
-            echo PHP_EOL;
-            echo "Reproduce with:", PHP_EOL;
-            echo $command, PHP_EOL;
+        if (!$this->hasFailed()) {
+            return;
         }
-    }
-
-    /**
-     * @param float  from 0.0 to 1.0
-     * @return self
-     */
-    protected function minimumEvaluationRatio($ratio)
-    {
-        $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
-        $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
-        return $this;
-    }
-
-    private function filterOutListenersOfClass($className)
-    {
-        $this->listeners = array_filter(
-            $this->listeners,
-            function ($listener) use ($className) {
-                return !($listener instanceof $className);
-            }
-        );
-    }
-
-    /**
-     * @param integer|DateInterval
-     * @return self
-     */
-    protected function limitTo($limit)
-    {
-        if ($limit instanceof DateInterval) {
-            $interval = $limit;
-            $terminationCondition = new Quantifier\TimeBasedTerminationCondition('time', $interval);
-            $this->listeners[] = $terminationCondition;
-            $this->terminationConditions[] = $terminationCondition;
-        } elseif (is_integer($limit)) {
-            $this->iterations = $limit;
-        } else {
-            throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
-        }
-        return $this;
-    }
-
-    /**
-     * The maximum time to spend trying to shrink the input after a failed test.
-     * The default is no limit.
-     *
-     * @param integer  in seconds
-     * @return self
-     */
-    protected function shrinkingTimeLimit($shrinkingTimeLimit)
-    {
-        $this->shrinkingTimeLimit = $shrinkingTimeLimit;
-        return $this;
+        $command = PHPUnitCommand::fromSeedAndName($this->seed, $this->toString());
+        echo PHP_EOL."Reproduce with:".PHP_EOL.$command.PHP_EOL;
     }
 
     /**
@@ -130,44 +118,33 @@ trait TestTrait
      */
     protected function withRand($randFunction)
     {
-        // TODO: invert and wrap rand, srand into objects?
-        if ($randFunction instanceof \Eris\Random\RandomRange) {
-            $this->randFunction = function ($lower = null, $upper = null) use ($randFunction) {
-                return $randFunction->rand($lower, $upper);
-            };
-            $this->seedFunction = function ($seed) use ($randFunction) {
-                return $randFunction->seed($seed);
-            };
+        if ($randFunction === 'mt_rand') {
+            $this->randFunction = new RandomRange(new MtRandSource());
+            return $this;
         }
-        if (is_callable($randFunction)) {
-            switch ($randFunction) {
-                case 'rand':
-                    $seedFunction = 'srand';
-                    break;
-                case 'mt_rand':
-                    $seedFunction = 'mt_srand';
-                    break;
-                default:
-                    throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
-            }
+        if ($randFunction === 'rand') {
+            $this->randFunction = new RandomRange(new RandSource());
+            return $this;
+        }
+        if ($randFunction instanceof RandomRange) {
             $this->randFunction = $randFunction;
-            $this->seedFunction = $seedFunction;
+            return $this;
         }
-        return $this;
+        throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
     }
 
     /**
      * forAll($generator1, $generator2, ...)
-     * @return Quantifier\ForAll
+     * @return ForAll
      */
     public function forAll()
     {
-        call_user_func($this->seedFunction, $this->seed);
+        $this->randFunction->seed($this->seed);
         $generators = func_get_args();
-        $quantifier = new Quantifier\ForAll(
+        $quantifier = new ForAll(
             $generators,
             $this->iterations,
-            new Shrinker\ShrinkerFactory([
+            new ShrinkerFactory([
                 'timeLimit' => $this->shrinkingTimeLimit,
             ]),
             $this->shrinkerFactoryMethod,

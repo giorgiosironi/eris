@@ -20,7 +20,7 @@ class OneOfGenerator implements Generator
         $this->generator = new FrequencyGenerator($this->allWithSameFrequency($generators));
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         return $this->generator->__invoke($size, $rand);
     }

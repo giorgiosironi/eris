@@ -55,7 +55,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-            ->hook(Listener\log('/tmp/eris-such-that.log'))
+            ->hook(Listener\log(sys_get_temp_dir().'/eris-such-that.log'))
             ->then($this->allNumbersAreBiggerThan(42));
     }
 

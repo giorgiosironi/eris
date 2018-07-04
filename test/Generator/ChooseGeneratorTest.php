@@ -6,7 +6,7 @@ class ChooseGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->size = 0; // ignored by this kind of generator
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
 
     public function testPicksRandomlyAnIntegerAmongBoundaries()

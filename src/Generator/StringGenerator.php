@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 function string()
 {
@@ -11,13 +10,13 @@ function string()
 
 class StringGenerator implements Generator
 {
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
-        $length = $rand(0, $size);
+        $length = $rand->rand(0, $size);
 
         $built = '';
         for ($i = 0; $i < $length; $i++) {
-            $built .= chr($rand(33, 126));
+            $built .= chr($rand->rand(33, 126));
         }
         return GeneratedValueSingle::fromJustValue($built, 'string');
     }

@@ -3,7 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use DateTime;
-use DomainException;
 
 function date($lowerLimit = null, $upperLimit = null)
 {
@@ -42,9 +41,9 @@ class DateGenerator implements Generator
         $this->intervalInSeconds = $upperLimit->getTimestamp() - $lowerLimit->getTimestamp();
     }
 
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
-        $generatedOffset = $rand(0, $this->intervalInSeconds);
+        $generatedOffset = $rand->rand(0, $this->intervalInSeconds);
         return GeneratedValueSingle::fromJustValue(
             $this->fromOffset($generatedOffset),
             'date'

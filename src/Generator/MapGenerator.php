@@ -20,7 +20,7 @@ class MapGenerator implements Generator
         $this->generator = $generator;
     }
 
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
         $input = $this->generator->__invoke($_size, $rand);
         return $input->map(

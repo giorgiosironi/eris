@@ -8,7 +8,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->size = 10;
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
 
     public function testGenerateDateTimeObjectsInTheGivenInterval()

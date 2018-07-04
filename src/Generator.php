@@ -10,10 +10,10 @@ interface Generator
 {
     /**
      * @param int The generation size
-     * @param callable  a rand() function
+     * @param Random\RandomRange
      * @return GeneratedValueSingle<T>
      */
-    public function __invoke($size, $rand);
+    public function __invoke($size, Random\RandomRange $rand);
 
     /**
      * The conditions for terminating are either:

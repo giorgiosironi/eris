@@ -5,7 +5,7 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
     
     public function testRandomlyPicksTrueOrFalse()

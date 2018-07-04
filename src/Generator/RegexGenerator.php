@@ -33,10 +33,10 @@ class RegexGenerator implements Generator
         $this->expression = $expression;
     }
 
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
         $lexer = new Lexer($this->expression);
-        $gen   = new SimpleRandom($rand());
+        $gen   = new SimpleRandom($rand->rand());
         $result = null;
 
         $parser = new Parser($lexer, new Scope(), new Scope());

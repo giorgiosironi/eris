@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 function seq(Generator $singleElementGenerator)
 {
@@ -22,9 +21,9 @@ class SequenceGenerator implements Generator
         $this->singleElementGenerator = $singleElementGenerator;
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
-        $sequenceLength = $rand(0, $size);
+        $sequenceLength = $rand->rand(0, $size);
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 

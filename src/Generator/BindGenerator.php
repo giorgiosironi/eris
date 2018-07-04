@@ -22,7 +22,7 @@ class BindGenerator implements Generator
         $this->outerGeneratorFactory = $outerGeneratorFactory;
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         $innerGeneratorValue = $this->innerGenerator->__invoke($size, $rand);
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());

@@ -22,7 +22,7 @@ class AssociativeArrayGenerator implements Generator
         $this->tupleGenerator = new TupleGenerator(array_values($generators));
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         $tuple = $this->tupleGenerator->__invoke($size, $rand);
         return $this->mapToAssociativeArray($tuple);

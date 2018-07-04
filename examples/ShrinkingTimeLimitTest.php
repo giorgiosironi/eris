@@ -14,10 +14,12 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
+    /**
+     * @eris-shrink 2
+     */
     public function testLengthPreservation()
     {
         $this
-            ->shrinkingTimeLimit(2)
             ->forAll(
                 Generator\string(),
                 Generator\string()

@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 function bool()
 {
@@ -11,10 +10,10 @@ function bool()
 
 class BooleanGenerator implements Generator
 {
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
         $booleanValues = [true, false];
-        $randomIndex = $rand(0, count($booleanValues) - 1);
+        $randomIndex = $rand->rand(0, count($booleanValues) - 1);
 
         return GeneratedValueSingle::fromJustValue($booleanValues[$randomIndex], 'boolean');
     }

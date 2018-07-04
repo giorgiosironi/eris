@@ -7,7 +7,7 @@ class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->generatorForSingleElement = new ChooseGenerator(0, 100);
         $this->size = 10;
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
 
     private function assertInSingleElementGenerator($value)

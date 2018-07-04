@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 function vector($size, Generator $elementsGenerator)
 {
@@ -24,7 +23,7 @@ class VectorGenerator implements Generator
         $this->elementsGeneratorClass = get_class($generator);
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         return $this->generator->__invoke($size, $rand);
     }

@@ -24,11 +24,11 @@ class SubsetGenerator implements Generator
         $this->universe = $universe;
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         $relativeSize = $size / ForAll::DEFAULT_MAX_SIZE;
         $maximumSubsetIndex = floor(pow(2, count($this->universe)) * $relativeSize);
-        $subsetIndex = $rand(0, $maximumSubsetIndex);
+        $subsetIndex = $rand->rand(0, $maximumSubsetIndex);
         $binaryDescription = str_pad(decbin($subsetIndex), count($this->universe), "0", STR_PAD_LEFT);
         $subset = [];
         for ($i = 0; $i < strlen($binaryDescription); $i++) {

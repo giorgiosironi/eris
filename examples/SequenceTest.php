@@ -1,6 +1,5 @@
 <?php
 use Eris\Generator;
-use Eris\Listener;
 
 class SequenceTest extends PHPUnit_Framework_TestCase
 {

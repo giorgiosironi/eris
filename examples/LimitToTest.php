@@ -6,10 +6,12 @@ class LimitToTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
+    /**
+     * @eris-repeat 5
+     */
     public function testNumberOfIterationsCanBeConfigured()
     {
-        $this->limitTo(5)
-             ->forAll(
+        $this->forAll(
                 Generator\int()
             )
             ->then(function ($value) {
@@ -33,11 +35,13 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     }
      */
 
+    /**
+     * @eris-ratio 0
+     * @eris-duration PT2S
+     */
     public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored()
     {
-        $this->minimumEvaluationRatio(0.0)
-             ->limitTo(new DateInterval("PT2S"))
-             ->forAll(
+        $this->forAll(
                 Generator\int()
             )
             ->then(function ($value) {

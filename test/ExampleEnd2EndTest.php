@@ -274,13 +274,15 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->testFile = $testFile;
         $examplesDir = realpath(__DIR__ . '/../examples');
-        $samplesTestCase = $examplesDir . '/' . $testFile;
+        $samplesTestCase = $examplesDir . DIRECTORY_SEPARATOR . $testFile;
         $logFile = tempnam(sys_get_temp_dir(), 'phpunit_log_');
         $environmentVariables = [];
         foreach ($this->environment as $name => $value) {
-            $environmentVariables[] .= "$name=$value";
+            $var = "$name=$value";
+            $environmentVariables[] = DIRECTORY_SEPARATOR==='\\' ? "set $var && " : $var;
         }
-        $phpunitCommand = implode(" ", $environmentVariables) . " vendor/bin/phpunit --log-junit $logFile $samplesTestCase";
+        $bin = "vendor".DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."phpunit";
+        $phpunitCommand = implode(" ", $environmentVariables) . " $bin --log-junit $logFile $samplesTestCase";
         exec($phpunitCommand, $output);
         $contentsOfXmlLog = file_get_contents($logFile);
         if (!$contentsOfXmlLog) {

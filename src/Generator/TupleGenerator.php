@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 /**
  * One Generator for each member of the Tuple:
@@ -25,7 +24,6 @@ function tuple()
 class TupleGenerator implements Generator
 {
     private $generators;
-    private $size;
     private $numberOfGenerators;
 
     public function __construct(array $generators)
@@ -34,7 +32,7 @@ class TupleGenerator implements Generator
         $this->numberOfGenerators = count($generators);
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         $input = array_map(
             function ($generator) use ($size, $rand) {

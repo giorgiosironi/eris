@@ -49,14 +49,13 @@ class CharacterGenerator implements Generator
         $this->shrinkingProgression = ArithmeticProgression::discrete($this->lowerLimit);
     }
 
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
-        return GeneratedValueSingle::fromJustValue(chr($rand($this->lowerLimit, $this->upperLimit)), 'character');
+        return GeneratedValueSingle::fromJustValue(chr($rand->rand($this->lowerLimit, $this->upperLimit)), 'character');
     }
 
     public function shrink(GeneratedValueSingle $element)
     {
-        $codePoint = ord($element->unbox());
         $shrinkedValue = chr($this->shrinkingProgression->next(ord($element->unbox())));
         return GeneratedValueSingle::fromJustValue($shrinkedValue, 'character');
     }

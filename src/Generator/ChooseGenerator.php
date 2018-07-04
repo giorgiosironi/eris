@@ -3,7 +3,6 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use InvalidArgumentException;
-use DomainException;
 
 if (!defined('ERIS_PHP_INT_MIN')) {
     define('ERIS_PHP_INT_MIN', ~PHP_INT_MAX);
@@ -42,9 +41,9 @@ class ChooseGenerator implements Generator
         );
     }
 
-    public function __invoke($_size, $rand)
+    public function __invoke($_size, \Eris\Random\RandomRange $rand)
     {
-        $value = $rand($this->lowerLimit, $this->upperLimit);
+        $value = $rand->rand($this->lowerLimit, $this->upperLimit);
 
         return GeneratedValueSingle::fromJustValue($value, 'choose');
     }

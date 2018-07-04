@@ -2,7 +2,6 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
 
 function float()
 {
@@ -15,13 +14,13 @@ class FloatGenerator implements Generator
     {
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
-        $denominator = $rand(1, $size) ?: 1;
+        $denominator = $rand->rand(1, $size) ?: 1;
 
-        $value = (float) $rand(0, $size) / (float) $denominator;
+        $value = (float) $rand->rand(0, $size) / (float) $denominator;
 
-        $signedValue = $rand(0, 1) === 0
+        $signedValue = $rand->rand(0, 1) === 0
             ? $value
             : $value * (-1);
         return GeneratedValueSingle::fromJustValue($signedValue, 'float');

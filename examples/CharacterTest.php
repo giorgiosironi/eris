@@ -27,10 +27,12 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             });
     }
 
+    /**
+     * @eris-ratio 10
+     */
     public function testMultiplePrintableCharacters()
     {
         $this
-            ->minimumEvaluationRatio(0.1)
             ->forAll(
                 Generator\char(['basic-latin']),
                 Generator\char(['basic-latin'])

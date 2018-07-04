@@ -43,27 +43,27 @@ class MersenneTwister implements Source
             $this->mt[$i] = ($this->f * (
                 $this->mt[$i - 1] ^ (($this->mt[$i - 1] >> ($this->w - 2)) & 0b11)
             ) + $i) & $this->wMask;
-            assert('$this->mt[$i] <= $this->wMask');
+            assert($this->mt[$i] <= $this->wMask);
         }
-        assert('count($this->mt) === 624');
+        assert(count($this->mt) === 624);
         return $this;
     }
 
     public function extractNumber()
     {
-        assert('$this->index <= $this->n');
+        assert($this->index <= $this->n);
         if ($this->index >= $this->n) {
             $this->twist();
         }
         $y = $this->mt[$this->index];
         $y = $y ^ (($y >> $this->u) & $this->d);
-        assert('$y <= 0xffffffff');
+        assert($y <= 0xffffffff);
         $y = $y ^ (($y << $this->s) & $this->b);
-        assert('$y <= 0xffffffff');
+        assert($y <= 0xffffffff);
         $y = $y ^ (($y << $this->t) & $this->c);
-        assert('$y <= 0xffffffff');
+        assert($y <= 0xffffffff);
         $y = $y ^ ($y >> $this->l);
-        assert('$y <= 0xffffffff');
+        assert($y <= 0xffffffff);
         $this->index = $this->index + 1;
         return $y & $this->wMask;
     }
@@ -78,9 +78,9 @@ class MersenneTwister implements Source
         for ($i = 0; $i <= $this->n - 1; $i++) {
             $x = ($this->mt[$i] & $this->upperMask)
                + (($this->mt[($i+1) % $this->n]) & $this->lowerMask);
-            assert('$x <= 0xffffffff');
+            assert($x <= 0xffffffff);
             $xA = $x >> 1;
-            assert('$xA <= 0x7fffffff');
+            assert($xA <= 0x7fffffff);
             if (($x % 2) != 0) {
                 $xA = $xA ^ $this->a;
             }

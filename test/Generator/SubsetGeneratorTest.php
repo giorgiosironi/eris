@@ -10,7 +10,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->universe = ['a', 'b', 'c', 'd', 'e'];
         $this->generator = new SubsetGenerator($this->universe);
         $this->size = 100;
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
     
     public function testScalesGenerationSizeToTouchAllPossibleSubsets()

@@ -7,7 +7,7 @@ class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->size = 100;
         $this->singleElementGenerator = new ChooseGenerator(10, 100);
-        $this->rand = 'rand';
+        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
     }
 
     public function testRespectsGenerationSize()

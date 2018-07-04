@@ -36,7 +36,7 @@ class StringTest extends PHPUnit_Framework_TestCase
                 Generator\string(),
                 Generator\string()
             )
-            ->hook(Listener\log('/tmp/eris-string-shrinking.log'))
+            ->hook(Listener\log(sys_get_temp_dir().'/eris-string-shrinking.log'))
             ->then(function ($first, $second) {
                 $result = string_concatenation($first, $second);
                 $this->assertEquals(

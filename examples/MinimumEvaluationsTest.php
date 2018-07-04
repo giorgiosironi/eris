@@ -19,10 +19,12 @@ class MinimumEvaluationsTest extends PHPUnit_Framework_TestCase
             });
     }
 
+    /**
+     * @eris-ratio 1
+     */
     public function testPassesBecauseOfTheArtificiallyLowMinimumEvaluationRatio()
     {
         $this
-            ->minimumEvaluationRatio(0.01)
             ->forAll(
                 Generator\choose(0, 100)
             )

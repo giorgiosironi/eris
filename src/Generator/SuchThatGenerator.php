@@ -43,7 +43,7 @@ class SuchThatGenerator implements Generator
         $this->maximumAttempts = $maximumAttempts;
     }
 
-    public function __invoke($size, $rand)
+    public function __invoke($size, \Eris\Random\RandomRange $rand)
     {
         $value = $this->generator->__invoke($size, $rand);
         $attempts = 0;
