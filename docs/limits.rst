@@ -6,10 +6,12 @@ Time and iterations
 
 By default Eris extracts a sample of 100 values for each ``forAll()`` call, and runs the ``then()`` callback over each of them.
 
-For tests which take very long to run, it is possible to limit the number of elements in the sample, or to specify a time limit the test should not exceed. For this purpose, the you can use the following annotations:
+For tests which take very long to run, it is possible to limit the number of elements in the sample, or to specify a time limit the test should not exceed. For this purpose, the you can use the following:
 
-* `@eris-repeat {number}` with an integer requesting a fixed number of iterations;
-* `@eris-duration {definition}` with a `DateInterval`_ compatible definition.
+* Annotation `@eris-repeat {number}` with an integer requesting a fixed number of iterations;
+* Annotation `@eris-duration {definition}` with a `DateInterval`_ compatible definition.
+* ``limitTo()``-method with an integer requesting a fixed number of iterations;
+* ``limitTo()``-method with a `DateInterval`_ object from the standard PHP library.
  
 .. literalinclude:: ../examples/LimitToTest.php
    :language: php

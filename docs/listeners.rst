@@ -97,7 +97,7 @@ It is not advised to rely on this format for parsing, being it only oriented to 
 Minimum Evaluations
 ---
 
-The ``@eris-ratio {ratio}`` annotation instantiates and wires in a Listener that checks that at least ``ratio``% of the total number of inputs being generated is actually evaluated. This Listener is only needed in case of an aggressive use of ``when()``.
+The ``@eris-ratio {ratio}`` annotation or  the``minimumEvaluations($ratio)`` API method instantiate and wire in a Listener that checks that at least ``ratio``% of the total number of inputs being generated is actually evaluated. This Listener is only needed in case of an aggressive use of ``when()``.
 
 Management of this Listener is provided through this method instead of explicitly adding a Listener object, as there is a default Listener instantiated with a threshold of 0.5 that has to be replaced in case a new minimum is chosen.
 

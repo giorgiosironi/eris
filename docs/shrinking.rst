@@ -105,7 +105,7 @@ The shrinking for this test will not run for more than 2 seconds (although the t
 
     1) ShrinkingTimeLimitTest::testLengthPreservation
     RuntimeException: Eris has reached the time limit for shrinking (2s elapsed of 2s), here it is presenting the simplest failure case.
-    If you can afford to spend more time to find a simpler failing input, increase it with the annotation '@eris-shrink {seconds}'.
+    If you can afford to spend more time to find a simpler failing input, increase it with the annotation '@eris-shrink {seconds}' or $this->shrinkingTimeLimit($seconds).
 
     /home/giorgio/code/eris/src/Eris/Shrinker/Random.php:71
     /home/giorgio/code/eris/src/Eris/Quantifier/ForAll.php:128

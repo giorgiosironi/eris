@@ -27,10 +27,25 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             });
     }
 
+    public function testMultiplePrintableCharacters()
+    {
+        $this
+            ->minimumEvaluationRatio(0.1)
+            ->forAll(
+                Generator\char(['basic-latin']),
+                Generator\char(['basic-latin'])
+            )
+            ->when(Antecedent\printableCharacters())
+            ->then(function ($first, $second) {
+                $this->assertFalse(ord($first) < 32);
+                $this->assertFalse(ord($second) < 32);
+            });
+    }
+
     /**
      * @eris-ratio 10
      */
-    public function testMultiplePrintableCharacters()
+    public function testMultiplePrintableCharactersFromAnnotation()
     {
         $this
             ->forAll(

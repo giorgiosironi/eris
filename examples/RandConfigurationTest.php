@@ -7,10 +7,21 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
 {
     use TestTrait;
 
+    public function testUsingTheDefaultRandFunction()
+    {
+        $this
+            ->withRand('mt_rand')
+            ->forAll(
+                Generator\int()
+            )
+            ->withMaxSize(1000 * 1000* 1000)
+            ->then($this->isInteger());
+    }
+
     /**
      * @eris-method rand
      */
-    public function testUsingTheDefaultRandFunction()
+    public function testUsingTheDefaultRandFunctionFromAnnotation()
     {
         $this
             ->forAll(
@@ -20,10 +31,21 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
             ->then($this->isInteger());
     }
 
+    public function testUsingTheDefaultMtRandFunction()
+    {
+        $this
+            ->withRand('mt_rand')
+            ->forAll(
+                Generator\int()
+            )
+            ->then($this->isInteger());
+    }
+
+
     /**
      * @eris-method mt_rand
      */
-    public function testUsingTheDefaultMtRandFunction()
+    public function testUsingTheDefaultMtRandFunctionFromAnnotation()
     {
         $this
             ->forAll(

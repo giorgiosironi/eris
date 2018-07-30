@@ -20,7 +20,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $this->log->endPropertyVerification(null, null);
         date_default_timezone_set($this->timezone);
     }
-    
+
     public function testWritesALineForEachIterationShowingItsIndex()
     {
         $this->log->newGeneration([23], 42);

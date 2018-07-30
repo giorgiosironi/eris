@@ -61,9 +61,7 @@ trait TestTrait
         $this->listeners[] = MinimumEvaluations::ratio($this->getAnnotationValue($tags, 'eris-ratio', 50, 'floatval')/100);
         $duration = $this->getAnnotationValue($tags, 'eris-duration', false, 'strval');
         if ($duration) {
-            $terminationCondition = new TimeBasedTerminationCondition('time', new DateInterval($duration));
-            $this->listeners[] = $terminationCondition;
-            $this->terminationConditions[] = $terminationCondition;
+            $this->limitTo(new DateInterval($duration));
         }
     }
 
@@ -114,6 +112,64 @@ trait TestTrait
     }
 
     /**
+     * @param float  from 0.0 to 1.0
+     * @return self
+     */
+    protected function minimumEvaluationRatio($ratio)
+    {
+        $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
+        $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
+        return $this;
+    }
+
+    /**
+     * @param string $className
+     * @return void
+     */
+    private function filterOutListenersOfClass($className)
+    {
+        $this->listeners = array_filter(
+            $this->listeners,
+            function ($listener) use ($className) {
+                return !($listener instanceof $className);
+            }
+        );
+    }
+
+    /**
+     * @param integer|DateInterval
+     * @return self
+     */
+    protected function limitTo($limit)
+    {
+        if ($limit instanceof DateInterval) {
+            $interval = $limit;
+            $terminationCondition = new Quantifier\TimeBasedTerminationCondition('time', $interval);
+            $this->listeners[] = $terminationCondition;
+            $this->terminationConditions[] = $terminationCondition;
+        } elseif (is_integer($limit)) {
+            $this->iterations = $limit;
+        } else {
+            throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
+        }
+        return $this;
+    }
+
+    /**
+     * The maximum time to spend trying to shrink the input after a failed test.
+     * The default is no limit.
+     *
+     * @param integer  in seconds
+     * @return self
+     */
+    protected function shrinkingTimeLimit($shrinkingTimeLimit)
+    {
+        $this->shrinkingTimeLimit = $shrinkingTimeLimit;
+        return $this;
+    }
+
+    /**
+     * @param string|RandomRande $randFunction mt_rand, rand or a RandomRange
      * @return self
      */
     protected function withRand($randFunction)

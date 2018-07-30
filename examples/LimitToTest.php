@@ -35,11 +35,25 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     }
      */
 
+    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored()
+    {
+        $this
+            ->minimumEvaluationRatio(0)
+            ->limitTo(new DateInterval('PT2S'))
+            ->forAll(
+                Generator\int()
+            )
+            ->then(function ($value) {
+                usleep(100 * 1000);
+                $this->assertTrue(true);
+            });
+    }
+
     /**
      * @eris-ratio 0
      * @eris-duration PT2S
      */
-    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored()
+    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation()
     {
         $this->forAll(
                 Generator\int()
