@@ -14,6 +14,7 @@ matrix:
       env: WITH_CS=true
     - php: 7 # PHPUnit 6.x
     - php: 7.1 # PHPUnit 7.x
+    - php: 7.2 # PHPUnit 7.x
     - php: hhvm
       env: SKIP_LINT_TEST_CASES=1
       sudo: required
