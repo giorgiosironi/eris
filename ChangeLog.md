@@ -2,6 +2,10 @@
 
 The project follows [semantic versioning](http://semver.org/). `BC` stands for an change that impacts `Backward Compatibility`.
 
+## 0.next
+
+* PHP 7.2 support (#116, #114).
+
 ## 0.10
 
 * Allowing use outside of PHPUnit through `Eris\Facade`.
