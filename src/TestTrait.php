@@ -44,7 +44,7 @@ trait TestTrait
      */
     public function erisSetup()
     {
-        $this->seed = $this->seedFromEnv();
+        $this->seedingRandomNumberGeneration();
         $this->listeners = array_filter(
             $this->listeners,
             function ($listener) {
@@ -64,15 +64,15 @@ trait TestTrait
 
     /**
      * @internal
-     * @return int
+     * @return void
      */
-    private function seedFromEnv()
+    private function seedingRandomNumberGeneration()
     {
         $seed = intval(getenv('ERIS_SEED') ?: (microtime(true)*1000000));
         if ($seed < 0) {
             $seed *= -1;
         }
-        return $seed;
+        $this->seed = $seed;
     }
 
     /**
