@@ -96,7 +96,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
             var_export($this->theTest('testLengthPreservation'), true)
         );
         // one failure, two shrinking attempts: 2.0 + 2.0 == 4.0 seconds, plus some overhead
-        $this->assertLessThanOrEqual(5.0, $executionTime);
+        $this->assertLessThanOrEqual(9.0, $executionTime);
     }
 
     public function testDisableShrinkingTest()
