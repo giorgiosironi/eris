@@ -22,7 +22,7 @@ trait TestTrait
     /**
      * @var RandomRange
      */
-    private $randFunction;
+    private $randRange;
     private $shrinkerFactoryMethod = 'multiple';
     protected $seed;
     protected $shrinkingTimeLimit;
@@ -44,10 +44,7 @@ trait TestTrait
      */
     public function erisSetup()
     {
-        $this->seed = intval(getenv('ERIS_SEED') ?: (microtime(true)*1000000));
-        if ($this->seed < 0) {
-            $this->seed *= -1;
-        }
+        $this->seed = $this->seedFromEnv();
         $this->listeners = array_filter(
             $this->listeners,
             function ($listener) {
@@ -63,6 +60,19 @@ trait TestTrait
         if ($duration) {
             $this->limitTo(new DateInterval($duration));
         }
+    }
+
+    /**
+     * @internal
+     * @return int
+     */
+    private function seedFromEnv()
+    {
+        $seed = intval(getenv('ERIS_SEED') ?: (microtime(true)*1000000));
+        if ($seed < 0) {
+            $seed *= -1;
+        }
+        return $seed;
     }
 
     /**
@@ -112,13 +122,13 @@ trait TestTrait
     }
 
     /**
-     * @param float  from 0.0 to 1.0
+     * @param float from 0.0 to 1.0
      * @return self
      */
     protected function minimumEvaluationRatio($ratio)
     {
         $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
-        $this->listeners[] = Listener\MinimumEvaluations::ratio($ratio);
+        $this->listeners[] = MinimumEvaluations::ratio($ratio);
         return $this;
     }
 
@@ -144,7 +154,7 @@ trait TestTrait
     {
         if ($limit instanceof DateInterval) {
             $interval = $limit;
-            $terminationCondition = new Quantifier\TimeBasedTerminationCondition('time', $interval);
+            $terminationCondition = new TimeBasedTerminationCondition('time', $interval);
             $this->listeners[] = $terminationCondition;
             $this->terminationConditions[] = $terminationCondition;
         } elseif (is_integer($limit)) {
@@ -169,21 +179,21 @@ trait TestTrait
     }
 
     /**
-     * @param string|RandomRande $randFunction mt_rand, rand or a RandomRange
+     * @param string|RandomRange $randFunction mt_rand, rand or a RandomRange
      * @return self
      */
     protected function withRand($randFunction)
     {
         if ($randFunction === 'mt_rand') {
-            $this->randFunction = new RandomRange(new MtRandSource());
+            $this->randRange = new RandomRange(new MtRandSource());
             return $this;
         }
         if ($randFunction === 'rand') {
-            $this->randFunction = new RandomRange(new RandSource());
+            $this->randRange = new RandomRange(new RandSource());
             return $this;
         }
         if ($randFunction instanceof RandomRange) {
-            $this->randFunction = $randFunction;
+            $this->randRange = $randFunction;
             return $this;
         }
         throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
@@ -195,7 +205,7 @@ trait TestTrait
      */
     public function forAll()
     {
-        $this->randFunction->seed($this->seed);
+        $this->randRange->seed($this->seed);
         $generators = func_get_args();
         $quantifier = new ForAll(
             $generators,
@@ -204,7 +214,7 @@ trait TestTrait
                 'timeLimit' => $this->shrinkingTimeLimit,
             ]),
             $this->shrinkerFactoryMethod,
-            $this->randFunction
+            $this->randRange
         );
         foreach ($this->listeners as $listener) {
             $quantifier->hook($listener);
@@ -221,7 +231,7 @@ trait TestTrait
      */
     public function sample(Generator $generator, $times = 10)
     {
-        return Sample::of($generator, $this->randFunction)->repeat($times);
+        return Sample::of($generator, $this->randRange)->repeat($times);
     }
 
     /**
@@ -229,6 +239,6 @@ trait TestTrait
      */
     public function sampleShrink(Generator $generator, $fromValue = null)
     {
-        return Sample::of($generator, $this->randFunction)->shrink($fromValue);
+        return Sample::of($generator, $this->randRange)->shrink($fromValue);
     }
 }

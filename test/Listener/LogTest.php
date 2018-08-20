@@ -3,10 +3,10 @@ namespace Eris\Listener;
 
 class LogTest extends \PHPUnit_Framework_TestCase
 {
-    private $timezone;
+    private $originalTimezone;
     protected function setUp()
     {
-        $this->timezone = date_default_timezone_get();
+        $this->originalTimezone = date_default_timezone_get();
         $this->file = sys_get_temp_dir().'/eris-log-unit-test.log';
         $this->time = function () {
             return 1300000000;
@@ -18,7 +18,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->log->endPropertyVerification(null, null);
-        date_default_timezone_set($this->timezone);
+        date_default_timezone_set($this->originalTimezone);
     }
 
     public function testWritesALineForEachIterationShowingItsIndex()

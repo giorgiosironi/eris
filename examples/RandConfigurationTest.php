@@ -10,7 +10,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
     public function testUsingTheDefaultRandFunction()
     {
         $this
-            ->withRand('mt_rand')
+            ->withRand('rand')
             ->forAll(
                 Generator\int()
             )

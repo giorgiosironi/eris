@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 function bool()
 {
@@ -10,7 +11,7 @@ function bool()
 
 class BooleanGenerator implements Generator
 {
-    public function __invoke($_size, \Eris\Random\RandomRange $rand)
+    public function __invoke($_size, RandomRange $rand)
     {
         $booleanValues = [true, false];
         $randomIndex = $rand->rand(0, count($booleanValues) - 1);
