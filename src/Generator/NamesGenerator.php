@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 function names()
 {
@@ -32,7 +33,7 @@ class NamesGenerator implements Generator
         $this->list = $list;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $candidateNames = $this->filterDataSet(
             $this->lengthLessThanOrEqualTo($size)

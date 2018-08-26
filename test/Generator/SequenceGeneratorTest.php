@@ -1,13 +1,16 @@
 <?php
 namespace Eris\Generator;
 
+use Eris\Random\RandomRange;
+use Eris\Random\RandSource;
+
 class SequenceGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         $this->size = 100;
         $this->singleElementGenerator = new ChooseGenerator(10, 100);
-        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
+        $this->rand = new RandomRange(new RandSource());
     }
 
     public function testRespectsGenerationSize()

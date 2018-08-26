@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 /**
  * @return OneOfGenerator
@@ -20,7 +21,7 @@ class OneOfGenerator implements Generator
         $this->generator = new FrequencyGenerator($this->allWithSameFrequency($generators));
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         return $this->generator->__invoke($size, $rand);
     }

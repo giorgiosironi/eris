@@ -4,10 +4,11 @@ namespace Eris\Generator;
 // TODO: dependency on ForAll is bad,
 // maybe inject the relative size?
 use Eris\Quantifier\ForAll;
+use Eris\Random\RandomRange;
 use Eris\Generator;
 
 /**
- * @param array $universe
+ * @param array $input
  * @return SubsetGenerator
  */
 function subset($input)
@@ -24,7 +25,7 @@ class SubsetGenerator implements Generator
         $this->universe = $universe;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $relativeSize = $size / ForAll::DEFAULT_MAX_SIZE;
         $maximumSubsetIndex = floor(pow(2, count($this->universe)) * $relativeSize);

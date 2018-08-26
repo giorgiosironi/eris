@@ -1,12 +1,15 @@
 <?php
 namespace Eris\Generator;
 
+use Eris\Random\RandomRange;
+use Eris\Random\RandSource;
+
 class BindGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         $this->size = 10;
-        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
+        $this->rand = new RandomRange(new RandSource());
     }
     
     public function testGeneratesAGeneratedValueObject()

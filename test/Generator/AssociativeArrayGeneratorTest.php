@@ -1,6 +1,9 @@
 <?php
 namespace Eris\Generator;
 
+use Eris\Random\RandomRange;
+use Eris\Random\RandSource;
+
 class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
@@ -9,7 +12,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->cipherGenerator = ElementsGenerator::fromArray([0, 1, 2]);
         $this->smallIntegerGenerator = new ChooseGenerator(0, 100);
         $this->size = 10;
-        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
+        $this->rand = new RandomRange(new RandSource());
     }
 
     public function testConstructWithAnAssociativeArrayOfGenerators()

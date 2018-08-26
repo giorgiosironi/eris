@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 // TODO: support calls like ($function . $generator)
 function map(callable $function, Generator $generator)
@@ -20,7 +21,7 @@ class MapGenerator implements Generator
         $this->generator = $generator;
     }
 
-    public function __invoke($_size, \Eris\Random\RandomRange $rand)
+    public function __invoke($_size, RandomRange $rand)
     {
         $input = $this->generator->__invoke($_size, $rand);
         return $input->map(

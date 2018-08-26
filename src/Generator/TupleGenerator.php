@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 /**
  * One Generator for each member of the Tuple:
@@ -32,7 +33,7 @@ class TupleGenerator implements Generator
         $this->numberOfGenerators = count($generators);
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $input = array_map(
             function ($generator) use ($size, $rand) {

@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
 {
@@ -22,7 +23,7 @@ class BindGenerator implements Generator
         $this->outerGeneratorFactory = $outerGeneratorFactory;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $innerGeneratorValue = $this->innerGenerator->__invoke($size, $rand);
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());

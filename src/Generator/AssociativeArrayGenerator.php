@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 /**
  * @return AssociativeArrayGenerator
@@ -22,7 +23,7 @@ class AssociativeArrayGenerator implements Generator
         $this->tupleGenerator = new TupleGenerator(array_values($generators));
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $tuple = $this->tupleGenerator->__invoke($size, $rand);
         return $this->mapToAssociativeArray($tuple);

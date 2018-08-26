@@ -1,6 +1,8 @@
 <?php
 namespace Eris\Generator;
 
+use Eris\Random\RandomRange;
+use Eris\Random\RandSource;
 use Eris\Quantifier\ForAll;
 
 class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +12,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->universe = ['a', 'b', 'c', 'd', 'e'];
         $this->generator = new SubsetGenerator($this->universe);
         $this->size = 100;
-        $this->rand = new \Eris\Random\RandomRange(new \Eris\Random\RandSource());
+        $this->rand = new RandomRange(new RandSource());
     }
     
     public function testScalesGenerationSizeToTouchAllPossibleSubsets()

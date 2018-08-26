@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use InvalidArgumentException;
+use Eris\Random\RandomRange;
 
 /**
  * @return FrequencyGenerator
@@ -41,7 +42,7 @@ class FrequencyGenerator implements Generator
         );
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         list($index, $generator) = $this->pickFrom($this->generators, $rand);
         $originalValue = $generator->__invoke($size, $rand);
@@ -75,7 +76,7 @@ class FrequencyGenerator implements Generator
     /**
      * @return array  two elements: index and Generator object
      */
-    private function pickFrom($generators, \Eris\Random\RandomRange $rand)
+    private function pickFrom($generators, RandomRange $rand)
     {
         $acc = 0;
         $frequencies = $this->frequenciesFrom($generators);

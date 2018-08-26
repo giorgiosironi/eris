@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 use DateTime;
 
 function date($lowerLimit = null, $upperLimit = null)
@@ -41,7 +42,7 @@ class DateGenerator implements Generator
         $this->intervalInSeconds = $upperLimit->getTimestamp() - $lowerLimit->getTimestamp();
     }
 
-    public function __invoke($_size, \Eris\Random\RandomRange $rand)
+    public function __invoke($_size, RandomRange $rand)
     {
         $generatedOffset = $rand->rand(0, $this->intervalInSeconds);
         return GeneratedValueSingle::fromJustValue(

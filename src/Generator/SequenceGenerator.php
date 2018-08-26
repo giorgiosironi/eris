@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 function seq(Generator $singleElementGenerator)
 {
@@ -21,7 +22,7 @@ class SequenceGenerator implements Generator
         $this->singleElementGenerator = $singleElementGenerator;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $sequenceLength = $rand->rand(0, $size);
         return $this->vector($sequenceLength)->__invoke($size, $rand);

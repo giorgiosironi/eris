@@ -2,7 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
-use DomainException;
+use Eris\Random\RandomRange;
 
 function elements(/*$a, $b, ...*/)
 {
@@ -29,7 +29,7 @@ class ElementsGenerator implements Generator
         $this->domain = $domain;
     }
 
-    public function __invoke($_size, \Eris\Random\RandomRange $rand)
+    public function __invoke($_size, RandomRange $rand)
     {
         $index = $rand->rand(0, count($this->domain) - 1);
         return GeneratedValueSingle::fromJustValue($this->domain[$index], 'elements');

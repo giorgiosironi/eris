@@ -11,6 +11,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 use Exception;
 use RuntimeException;
 use Eris\Listener;
+use Eris\Random\RandomRange;
 
 class ForAll
 {
@@ -36,7 +37,7 @@ class ForAll
     private $rand;
     private $shrinkingEnabled = true;
 
-    public function __construct(array $generators, $iterations, $shrinkerFactory, $shrinkerFactoryMethod, \Eris\Random\RandomRange $rand)
+    public function __construct(array $generators, $iterations, $shrinkerFactory, $shrinkerFactoryMethod, RandomRange $rand)
     {
         $this->generators = $this->generatorsFrom($generators);
         $this->iterations = $iterations;

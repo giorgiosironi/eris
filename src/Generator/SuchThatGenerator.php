@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 use LogicException;
 use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -43,7 +44,7 @@ class SuchThatGenerator implements Generator
         $this->maximumAttempts = $maximumAttempts;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $value = $this->generator->__invoke($size, $rand);
         $attempts = 0;

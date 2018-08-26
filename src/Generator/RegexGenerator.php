@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use BadFunctionCallException;
 use Eris\Generator;
+use Eris\Random\RandomRange;
 use ReverseRegex\Lexer;
 use ReverseRegex\Random\SimpleRandom;
 use ReverseRegex\Parser;
@@ -33,7 +34,7 @@ class RegexGenerator implements Generator
         $this->expression = $expression;
     }
 
-    public function __invoke($_size, \Eris\Random\RandomRange $rand)
+    public function __invoke($_size, RandomRange $rand)
     {
         $lexer = new Lexer($this->expression);
         $gen   = new SimpleRandom($rand->rand());

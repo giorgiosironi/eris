@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 /**
  * Generates a positive or negative integer (with absolute value bounded by
@@ -60,7 +61,7 @@ class IntegerGenerator implements Generator
         }
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $value = $rand->rand(0, $size);
         $mapFn = $this->mapFn;

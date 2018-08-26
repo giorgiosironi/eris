@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 /**
  * @param Generator $singleElementGenerator
@@ -21,7 +22,7 @@ class SetGenerator implements Generator
         $this->singleElementGenerator = $singleElementGenerator;
     }
 
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $setSize = rand(0, $size);
         $set = [];

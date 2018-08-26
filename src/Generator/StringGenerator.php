@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Random\RandomRange;
 
 function string()
 {
@@ -10,7 +11,7 @@ function string()
 
 class StringGenerator implements Generator
 {
-    public function __invoke($size, \Eris\Random\RandomRange $rand)
+    public function __invoke($size, RandomRange $rand)
     {
         $length = $rand->rand(0, $size);
 
