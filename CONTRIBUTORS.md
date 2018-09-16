@@ -13,6 +13,10 @@ Everyone that has contributed at least a commit to Eris.
 - Nicolo Pignatelli (@nicolopignarocket)
 - Danilo Silva (@silvadanilo)
 - Massimiliano Arione (@garak)
+- Jacob Dreesen (@jdreesen)
+- Julian Calaby (@SkUrRiEr)
+- Jeroen De Dauw (@JeroenDeDauw)
+- Björn Büttner (@Idrinth)
 
 Data comes from https://github.com/giorgiosironi/eris/graphs/contributors
 

@@ -5,6 +5,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 ## 0.next
 
 * PHP 7.2 support (#116, #114).
+* Annotations support: `@eris-method`, `@eris-shrink`, `@eris-ratio`, `@eris-repeat`, `@eris-duration`
 
 ## 0.10
 
