@@ -4,10 +4,12 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## 0.next
 
+## 0.11.0
+
 * PHP 7.2 support (#116, #114).
 * Annotations support: `@eris-method`, `@eris-shrink`, `@eris-ratio`, `@eris-repeat`, `@eris-duration`
 
-## 0.10
+## 0.10.0
 
 * Allowing use outside of PHPUnit through `Eris\Facade`.
 * Fixed bug: `suchThat()` fails to generated good values when all those from generator size 0 are exclude (#100).
