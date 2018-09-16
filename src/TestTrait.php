@@ -196,7 +196,7 @@ trait TestTrait
             $this->randRange = $randFunction;
             return $this;
         }
-        throw new BadMethodCallException("When specifying random generators different from the standard ones, you must also pass a \$seedFunction callable that will be called to seed it.");
+        throw new BadMethodCallException("When specifying random generators different from the standard ones, you must pass an instance of Eris\\Random\\RandomRange.");
     }
 
     /**
