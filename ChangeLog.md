@@ -4,6 +4,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## 0.next
 
+* PHP 7.3 support (#120).
+
 ## 0.11.0
 
 * PHP 7.2 support (#116, #114).
