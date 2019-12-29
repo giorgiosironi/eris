@@ -75,7 +75,7 @@ class IntegerGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         $mapFn = $this->mapFn;
         $element = $element->input();

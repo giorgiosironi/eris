@@ -40,7 +40,7 @@ class SetGenerator implements Generator
         return GeneratedValueSingle::fromValueAndInput($set, $input, 'set');
     }
 
-    public function shrink(GeneratedValueSingle $set)
+    public function shrink(GeneratedValue $set)
     {
         if (count($set->input()) === 0) {
             return $set;

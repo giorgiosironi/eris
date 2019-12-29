@@ -55,7 +55,7 @@ class CharacterGenerator implements Generator
         return GeneratedValueSingle::fromJustValue(chr($rand->rand($this->lowerLimit, $this->upperLimit)), 'character');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         $shrinkedValue = chr($this->shrinkingProgression->next(ord($element->unbox())));
         return GeneratedValueSingle::fromJustValue($shrinkedValue, 'character');

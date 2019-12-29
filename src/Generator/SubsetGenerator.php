@@ -42,7 +42,7 @@ class SubsetGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($subset, 'subset');
     }
 
-    public function shrink(GeneratedValueSingle $set)
+    public function shrink(GeneratedValue $set)
     {
         // TODO: see SetGenerator::shrink()
         if (count($set->unbox()) === 0) {

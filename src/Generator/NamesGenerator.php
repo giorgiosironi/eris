@@ -45,7 +45,7 @@ class NamesGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($candidateNames[$index], 'names');
     }
 
-    public function shrink(GeneratedValueSingle $value)
+    public function shrink(GeneratedValue $value)
     {
         $candidateNames = $this->filterDataSet(
             $this->lengthSlightlyLessThan(strlen($value->unbox()))

@@ -28,7 +28,7 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValueSingle $sequence)
+    public function shrink(GeneratedValue $sequence)
     {
         $options = [];
         if (count($sequence->unbox()) > 0) {

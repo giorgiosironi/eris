@@ -27,7 +27,7 @@ class FloatGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($signedValue, 'float');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         $value = $element->unbox();
 

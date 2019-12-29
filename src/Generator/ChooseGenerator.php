@@ -49,7 +49,7 @@ class ChooseGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($value, 'choose');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         if ($element->input() > $this->shrinkTarget) {
             return GeneratedValueSingle::fromJustValue($element->input() - 1);

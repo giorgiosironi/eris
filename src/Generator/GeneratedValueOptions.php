@@ -73,7 +73,7 @@ class GeneratedValueOptions implements GeneratedValue
         ));
     }
 
-    public function remove(GeneratedValueSingle $value)
+    public function remove(GeneratedValue $value)
     {
         $generatedValues = $this->generatedValues;
         $index = array_search($value, $generatedValues);

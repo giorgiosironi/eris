@@ -76,6 +76,20 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testShrinkBindGeneratorWithCompositeValue()
+    {
+        $bindGenerator     = new BindGenerator(
+            new ChooseGenerator(0, 5),
+            function ($n) {
+                return new TupleGenerator([$n]);
+            }
+        );
+        $generatedValue    = $bindGenerator->__invoke($this->size, $this->rand);
+        $firstShrunkValue  = $bindGenerator->shrink($generatedValue);
+        $secondShrunkValue = $bindGenerator->shrink($firstShrunkValue);
+        $this->assertInstanceOf('\Eris\Generator\GeneratedValue', $secondShrunkValue);
+    }
+
     private function assertIsAnArrayOfX0OrX1Elements(array $value)
     {
         $this->assertTrue(

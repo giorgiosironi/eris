@@ -32,7 +32,7 @@ class ConstantGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($this->value, 'constant');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         return GeneratedValueSingle::fromJustValue($this->value, 'constant');
     }
