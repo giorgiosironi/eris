@@ -9,15 +9,17 @@ class Sample
 
     private $generator;
     private $rand;
+    private $size;
     private $collected = [];
 
-    public static function of($generator, $rand)
+    public static function of($generator, $rand, $size = null)
     {
-        return new self($generator, $rand);
+        return new self($generator, $rand, $size);
     }
 
-    private function __construct($generator, $rand)
+    private function __construct($generator, $rand, $size = null)
     {
+        $this->size = isset($size) ? (int) $size : self::DEFAULT_SIZE;
         $this->generator = $generator;
         $this->rand = $rand;
     }
@@ -25,7 +27,7 @@ class Sample
     public function repeat($times)
     {
         for ($i = 0; $i < $times; $i++) {
-            $this->collected[] = $this->generator->__invoke(self::DEFAULT_SIZE, $this->rand)->unbox();
+            $this->collected[] = $this->generator->__invoke($this->size, $this->rand)->unbox();
         }
         return $this;
     }
@@ -33,7 +35,7 @@ class Sample
     public function shrink($nextValue = null)
     {
         if ($nextValue === null) {
-            $nextValue = $this->generator->__invoke(self::DEFAULT_SIZE, $this->rand);
+            $nextValue = $this->generator->__invoke($this->size, $this->rand);
         }
         $this->collected[] = $nextValue->unbox();
         while ($value = $this->generator->shrink($nextValue)) {

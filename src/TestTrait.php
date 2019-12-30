@@ -229,16 +229,16 @@ trait TestTrait
     /**
      * @return Sample
      */
-    public function sample(Generator $generator, $times = 10)
+    public function sample(Generator $generator, $times = 10, $size = null)
     {
-        return Sample::of($generator, $this->randRange)->repeat($times);
+        return Sample::of($generator, $this->randRange, $size)->repeat($times);
     }
 
     /**
      * @return Sample
      */
-    public function sampleShrink(Generator $generator, $fromValue = null)
+    public function sampleShrink(Generator $generator, $fromValue = null, $size = null)
     {
-        return Sample::of($generator, $this->randRange)->shrink($fromValue);
+        return Sample::of($generator, $this->randRange, $size)->shrink($fromValue);
     }
 }
