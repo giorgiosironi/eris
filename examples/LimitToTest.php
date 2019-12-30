@@ -12,8 +12,8 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     public function testNumberOfIterationsCanBeConfigured()
     {
         $this->forAll(
-                Generator\int()
-            )
+            Generator\int()
+        )
             ->then(function ($value) {
                 $this->assertInternalType('integer', $value);
             });
@@ -56,8 +56,8 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation()
     {
         $this->forAll(
-                Generator\int()
-            )
+            Generator\int()
+        )
             ->then(function ($value) {
                 usleep(100 * 1000);
                 $this->assertTrue(true);
