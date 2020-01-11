@@ -90,7 +90,7 @@ class TupleGenerator implements Generator
         }
     }
 
-    public function shrink(GeneratedValueSingle $tuple)
+    public function shrink(GeneratedValue $tuple)
     {
         $input = $tuple->input();
 

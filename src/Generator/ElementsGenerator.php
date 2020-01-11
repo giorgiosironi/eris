@@ -35,7 +35,7 @@ class ElementsGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($this->domain[$index], 'elements');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         return $element;
     }

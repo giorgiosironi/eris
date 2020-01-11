@@ -1,6 +1,7 @@
 <?php
 namespace Eris;
 
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
 
 /**
@@ -20,8 +21,8 @@ interface Generator
      * - returning the same GeneratedValueSingle passed in
      * - returning an empty GeneratedValueOptions
      *
-     * @param GeneratedValueSingle<T>
-     * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+     * @param GeneratedValue<T>
+     * @return GeneratedValue<T>
      */
-    public function shrink(GeneratedValueSingle $element);
+    public function shrink(GeneratedValue $element);
 }

@@ -22,7 +22,7 @@ class StringGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($built, 'string');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         if ($element->unbox() === '') {
             return $element;

@@ -30,7 +30,7 @@ class MapGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValueSingle $value)
+    public function shrink(GeneratedValue $value)
     {
         $input = $value->input();
         $shrunkInput = $this->generator->shrink($input);

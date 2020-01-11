@@ -56,7 +56,7 @@ class FrequencyGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         $input = $element->input();
         $originalGeneratorIndex = $input['generator'];

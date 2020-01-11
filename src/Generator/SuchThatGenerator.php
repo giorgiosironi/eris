@@ -58,7 +58,7 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    public function shrink(GeneratedValueSingle $value)
+    public function shrink(GeneratedValue $value)
     {
         $shrunk = $this->generator->shrink($value);
         $attempts = 0;

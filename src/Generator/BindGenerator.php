@@ -34,7 +34,7 @@ class BindGenerator implements Generator
         );
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         list($outerGeneratorValue, $innerGeneratorValue) = $element->input();
         // TODO: shrink also the second generator

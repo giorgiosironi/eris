@@ -29,7 +29,7 @@ class AssociativeArrayGenerator implements Generator
         return $this->mapToAssociativeArray($tuple);
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         $input = $element->input();
         $shrunkInput = $this->tupleGenerator->shrink($input);

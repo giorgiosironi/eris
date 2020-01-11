@@ -19,7 +19,7 @@ class BooleanGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($booleanValues[$randomIndex], 'boolean');
     }
 
-    public function shrink(GeneratedValueSingle $element)
+    public function shrink(GeneratedValue $element)
     {
         return GeneratedValueSingle::fromJustValue(false);
     }
