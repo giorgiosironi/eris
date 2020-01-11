@@ -9,8 +9,8 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingAString()
     {
         $this->forAll(
-                Generator\string()
-            )
+            Generator\string()
+        )
             ->then(function ($string) {
                 var_dump($string);
                 $this->assertNotContains('B', $string);
@@ -20,8 +20,8 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingRespectsAntecedents()
     {
         $this->forAll(
-                Generator\choose(0, 20)
-            )
+            Generator\choose(0, 20)
+        )
             ->when(function ($number) {
                 return $number > 10;
             })
