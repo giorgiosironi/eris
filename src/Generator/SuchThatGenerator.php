@@ -11,7 +11,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 use Traversable;
 
 /**
- * @param callable|PHPUnit_Framework_Constraint $filter
+ * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
  * @return SuchThatGenerator
  */
 function filter($filter, Generator $generator, $maximumAttempts = 100)
@@ -20,7 +20,7 @@ function filter($filter, Generator $generator, $maximumAttempts = 100)
 }
 
 /**
- * @param callable|PHPUnit_Framework_Constraint $filter
+ * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
  * @return SuchThatGenerator
  */
 function suchThat($filter, Generator $generator, $maximumAttempts = 100)
@@ -35,7 +35,7 @@ class SuchThatGenerator implements Generator
     private $maximumAttempts;
     
     /**
-     * @param callable|PHPUnit_Framework_Constraint
+     * @param callable|PHPUnit_Framework_Constraint|Constraint
      */
     public function __construct($filter, $generator, $maximumAttempts = 100)
     {
