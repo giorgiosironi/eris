@@ -25,7 +25,7 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 10, $this->rand);
-            $this->assertFalse($generator->shrink($generatedValue));
+            $this->assertFalse($generator->shrink($generatedValue)->unbox());
         }
     }
 }

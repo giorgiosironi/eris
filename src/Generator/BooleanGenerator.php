@@ -21,6 +21,6 @@ class BooleanGenerator implements Generator
 
     public function shrink(GeneratedValueSingle $element)
     {
-        return false;
+        return GeneratedValueSingle::fromJustValue(false);
     }
 }
