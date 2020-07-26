@@ -16,7 +16,7 @@ class ElementsGenerator implements Generator
 {
     private $domain;
 
-    private static function fromArray(array $domain)
+    public static function fromArray(array $domain)
     {
         return new self($domain);
     }

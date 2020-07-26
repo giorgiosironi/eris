@@ -17,7 +17,7 @@ class ConstantGenerator implements Generator
 {
     private $value;
 
-    private static function box($value)
+    public static function box($value)
     {
         return new self($value);
     }
