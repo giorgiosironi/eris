@@ -1,6 +1,8 @@
 <?php
 use Eris\Generator\ChooseGenerator;
+use Eris\Generator\IntegerGenerator;
 use Eris\Generator\OneOfGenerator;
+use Eris\Generator\SequenceGenerator;
 use Eris\Generator\StringGenerator;
 use Eris\Generator\SuchThatGenerator;
 use Eris\Generator\VectorGenerator;
