@@ -110,7 +110,8 @@ class ForAll
     }
 
     // Alias for __invoke.
-    public function then(callable $assertion){
+    public function then(callable $assertion)
+    {
         return $this->__invoke($assertion);
     }
 
