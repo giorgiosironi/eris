@@ -1,5 +1,11 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\BindGenerator;
+use Eris\Generator\ConstantGenerator;
+use Eris\Generator\ElementsGenerator;
+use Eris\Generator\IntegerGenerator;
+use Eris\Generator\TupleGenerator;
+use Eris\Generator\VectorGenerator;
 
 class BindTest extends PHPUnit_Framework_TestCase
 {
@@ -8,12 +14,12 @@ class BindTest extends PHPUnit_Framework_TestCase
     public function testCreatingABrandNewGeneratorFromAGeneratedValueSingle()
     {
         $this->forAll(
-            Generator\bind(
-                Generator\vector(4, Generator\nat()),
+            BindGenerator::bind(
+                VectorGenerator::vector(4, IntegerGenerator::nat()),
                 function ($vector) {
-                    return Generator\tuple(
-                        Generator\elements($vector),
-                        Generator\constant($vector)
+                    return TupleGenerator::tuple(
+                        ElementsGenerator::elements($vector),
+                        ConstantGenerator::constant($vector)
                     );
                 }
             )

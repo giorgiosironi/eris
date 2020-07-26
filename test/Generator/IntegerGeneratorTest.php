@@ -74,13 +74,13 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testPosAlreadyStartsFromStrictlyPositiveValues()
     {
-        $generator = pos();
+        $generator = IntegerGenerator::pos();
         $this->assertGreaterThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
     public function testPosNeverShrinksToZero()
     {
-        $generator = pos();
+        $generator = IntegerGenerator::pos();
         $value = $generator->__invoke(10, $this->rand);
         for ($i = 0; $i < 20; $i++) {
             $value = $generator->shrink(GeneratedValueOptions::mostPessimisticChoice($value));
@@ -90,13 +90,13 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testNegAlreadyStartsFromStrictlyNegativeValues()
     {
-        $generator = neg();
+        $generator = IntegerGenerator::neg();
         $this->assertLessThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
     public function testNegNeverShrinksToZero()
     {
-        $generator = neg();
+        $generator = IntegerGenerator::neg();
         $value = $generator->__invoke(10, $this->rand);
         for ($i = 0; $i < 20; $i++) {
             $value = $generator->shrink(GeneratedValueOptions::mostPessimisticChoice($value));
@@ -106,7 +106,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testNatStartsFromZero()
     {
-        $generator = nat();
+        $generator = IntegerGenerator::nat();
         $this->assertEquals(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 }

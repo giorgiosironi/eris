@@ -3,49 +3,52 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 use Eris\Random\RandomRange;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * Generates a positive or negative integer (with absolute value bounded by
  * the generation size).
+ * @returns IntegerGenerator
  */
 function int()
 {
-    return new IntegerGenerator();
+    return IntegerGenerator::int();
 }
 
 /**
  * Generates a positive integer (bounded by the generation size).
+ * * @returns IntegerGenerator
  */
 function pos()
 {
-    $mustBeStrictlyPositive = function ($n) {
-        return abs($n) + 1;
-    };
-    return new IntegerGenerator($mustBeStrictlyPositive);
+    return IntegerGenerator::pos();
 }
 
+/**
+ * Generates a natural number.
+ * @return IntegerGenerator
+ */
 function nat()
 {
-    $mustBeNatural = function ($n) {
-        return abs($n);
-    };
-    return new IntegerGenerator($mustBeNatural);
+    return IntegerGenerator::nat();
 }
 
 /**
  * Generates a negative integer (bounded by the generation size).
+ * @return IntegerGenerator
  */
 function neg()
 {
-    $mustBeStrictlyNegative = function ($n) {
-        return (-1) * (abs($n) + 1);
-    };
-    return new IntegerGenerator($mustBeStrictlyNegative);
+    return IntegerGenerator::neg();
 }
 
+/**
+ * Generate a byte (integer value in the interval 0 - 255)
+ * @return ChooseGenerator
+ */
 function byte()
 {
-    return new ChooseGenerator(0, 255);
+    return IntegerGenerator::byte();
 }
 
 class IntegerGenerator implements Generator
@@ -109,5 +112,60 @@ class IntegerGenerator implements Generator
         return function ($n) {
             return $n;
         };
+    }
+
+    /**
+     * Generates a positive or negative integer (with absolute value bounded by
+     * the generation size).
+     * @returns IntegerGenerator
+     */
+    public static function int()
+    {
+        return new self();
+    }
+
+    /**
+     * Generates a positive integer (bounded by the generation size).
+     * * @returns IntegerGenerator
+     */
+    public static function pos()
+    {
+        $mustBeStrictlyPositive = function ($n) {
+            return abs($n) + 1;
+        };
+        return new self($mustBeStrictlyPositive);
+    }
+
+    /**
+     * Generates a natural number.
+     * @return IntegerGenerator
+     */
+    public static function nat()
+    {
+        $mustBeNatural = function ($n) {
+            return abs($n);
+        };
+        return new self($mustBeNatural);
+    }
+
+    /**
+     * Generates a negative integer (bounded by the generation size).
+     * @return IntegerGenerator
+     */
+    public static function neg()
+    {
+        $mustBeStrictlyNegative = function ($n) {
+            return (-1) * (abs($n) + 1);
+        };
+        return new self($mustBeStrictlyNegative);
+    }
+
+    /**
+     * Generate a byte (integer value in the interval 0 - 255)
+     * @return ChooseGenerator
+     */
+    public static function byte()
+    {
+        return new ChooseGenerator(0, 255);
     }
 }

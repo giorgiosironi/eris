@@ -4,13 +4,13 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @param Generator $singleElementGenerator
+ * @return SequenceGenerator
+ */
 function seq(Generator $singleElementGenerator)
 {
-    // TODO: Generator::box($singleElementGenerator);
-    if (!($singleElementGenerator instanceof Generator)) {
-        $singleElementGenerator = new Constant($singleElementGenerator);
-    }
-    return new SequenceGenerator($singleElementGenerator);
+    return SequenceGenerator::seq($singleElementGenerator);
 }
 
 class SequenceGenerator implements Generator
@@ -79,5 +79,18 @@ class SequenceGenerator implements Generator
     private function vector($size)
     {
         return new VectorGenerator($size, $this->singleElementGenerator);
+    }
+
+    /**
+     * @param Generator $singleElementGenerator
+     * @return SequenceGenerator
+     */
+    public static function seq(Generator $singleElementGenerator)
+    {
+        // TODO: Generator::box($singleElementGenerator);
+        if (!($singleElementGenerator instanceof Generator)) {
+            $singleElementGenerator = new Constant($singleElementGenerator);
+        }
+        return new self($singleElementGenerator);
     }
 }

@@ -13,7 +13,7 @@ use Eris\Generator;
  */
 function subset($input)
 {
-    return new SubsetGenerator($input);
+    return SubsetGenerator::subset($input);
 }
 
 class SubsetGenerator implements Generator
@@ -57,5 +57,14 @@ class SubsetGenerator implements Generator
             array_values($input),
             'subset'
         );
+    }
+
+    /**
+     * @param array $input
+     * @return SubsetGenerator
+     */
+    public static function subset($input)
+    {
+        return new SubsetGenerator($input);
     }
 }

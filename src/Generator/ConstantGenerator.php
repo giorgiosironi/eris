@@ -10,14 +10,14 @@ use Eris\Random\RandomRange;
  */
 function constant($value)
 {
-    return ConstantGenerator::box($value);
+    return ConstantGenerator::constant($value);
 }
 
 class ConstantGenerator implements Generator
 {
     private $value;
 
-    public static function box($value)
+    private static function box($value)
     {
         return new self($value);
     }
@@ -35,5 +35,14 @@ class ConstantGenerator implements Generator
     public function shrink(GeneratedValue $element)
     {
         return GeneratedValueSingle::fromJustValue($this->value, 'constant');
+    }
+
+    /**
+     * @param mixed $value  the only value to generate
+     * @return ConstantGenerator
+     */
+    public static function constant($value)
+    {
+        return self::box($value);
     }
 }

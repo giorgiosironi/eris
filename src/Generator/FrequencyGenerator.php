@@ -10,7 +10,7 @@ use Eris\Random\RandomRange;
  */
 function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
 {
-    return new FrequencyGenerator(func_get_args());
+    return FrequencyGenerator::frequency(func_get_args());
 }
 
 class FrequencyGenerator implements Generator
@@ -110,5 +110,13 @@ class FrequencyGenerator implements Generator
             );
         }
         return $frequency;
+    }
+
+    /**
+     * @return FrequencyGenerator
+     */
+    public static function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
+    {
+        return new FrequencyGenerator(func_get_args());
     }
 }

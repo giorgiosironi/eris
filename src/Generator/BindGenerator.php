@@ -4,12 +4,14 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @param Generator $innerGenerator
+ * @param callable $outerGeneratorFactory
+ * @return BindGenerator
+ */
 function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
 {
-    return new BindGenerator(
-        $innerGenerator,
-        $outerGeneratorFactory
-    );
+    return BindGenerator::bind($innerGenerator, $outerGeneratorFactory);
 }
 
 class BindGenerator implements Generator
@@ -55,6 +57,19 @@ class BindGenerator implements Generator
                 $innerGeneratorValue,
             ],
             'bind'
+        );
+    }
+
+    /**
+     * @param Generator $innerGenerator
+     * @param callable $outerGeneratorFactory
+     * @return BindGenerator
+     */
+    public static function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
+    {
+        return new self(
+            $innerGenerator,
+            $outerGeneratorFactory
         );
     }
 }

@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\StringGenerator;
 use Eris\Listener;
 
 function string_concatenation($first, $second)
@@ -18,7 +19,7 @@ class StringTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\string()
+                StringGenerator::string()
             )
             ->then(function ($string) {
                 $this->assertEquals(
@@ -33,8 +34,8 @@ class StringTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\string(),
-                Generator\string()
+                StringGenerator::string(),
+                StringGenerator::string()
             )
             ->hook(Listener\log(sys_get_temp_dir().'/eris-string-shrinking.log'))
             ->then(function ($first, $second) {

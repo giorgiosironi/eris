@@ -4,9 +4,12 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @return StringGenerator
+ */
 function string()
 {
-    return new StringGenerator();
+    return StringGenerator::string();
 }
 
 class StringGenerator implements Generator
@@ -31,5 +34,13 @@ class StringGenerator implements Generator
             substr($element->unbox(), 0, -1),
             'string'
         );
+    }
+
+    /**
+     * @return StringGenerator
+     */
+    public static function string()
+    {
+        return new self();
     }
 }

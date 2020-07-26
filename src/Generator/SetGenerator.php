@@ -10,7 +10,7 @@ use Eris\Random\RandomRange;
  */
 function set($singleElementGenerator)
 {
-    return new SetGenerator($singleElementGenerator);
+    return SetGenerator::set($singleElementGenerator);
 }
 
 class SetGenerator implements Generator
@@ -59,5 +59,14 @@ class SetGenerator implements Generator
             array_values($input),
             'set'
         );
+    }
+
+    /**
+     * @param Generator $singleElementGenerator
+     * @return SetGenerator
+     */
+    public static function set($singleElementGenerator)
+    {
+        return new SetGenerator($singleElementGenerator);
     }
 }

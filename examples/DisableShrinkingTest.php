@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\IntegerGenerator;
 use Eris\TestTrait;
 
 class DisableShrinkingTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +15,7 @@ class DisableShrinkingTest extends \PHPUnit_Framework_TestCase
         $this->calls = 0;
         $this
             ->forAll(
-                Generator\nat()
+                IntegerGenerator::nat()
             )
             ->disableShrinking()
             ->then(function ($number) {

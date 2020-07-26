@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\IntegerGenerator;
 use Eris\TestTrait;
 use Eris\Listener;
 
@@ -11,7 +12,7 @@ class LogFileTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                IntegerGenerator::int()
             )
             ->hook(Listener\log(sys_get_temp_dir().'/eris-log-file-test.log'))
             ->then(function ($number) {
@@ -23,7 +24,7 @@ class LogFileTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                IntegerGenerator::int()
             )
             ->hook(Listener\log(sys_get_temp_dir().'/eris-log-file-shrinking.log'))
             ->then(function ($number) {

@@ -1,5 +1,7 @@
 <?php
-use Eris\Generator;
+
+
+use Eris\Generator\ChooseGenerator;
 
 class MinimumEvaluationsTest extends PHPUnit_Framework_TestCase
 {
@@ -9,7 +11,7 @@ class MinimumEvaluationsTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\choose(0, 100)
+                ChooseGenerator::choose(0, 100)
             )
             ->when(function ($n) {
                 return $n > 90;
@@ -24,7 +26,7 @@ class MinimumEvaluationsTest extends PHPUnit_Framework_TestCase
         $this
             ->minimumEvaluationRatio(0.01)
             ->forAll(
-                Generator\choose(0, 100)
+                ChooseGenerator::choose(0, 100)
             )
             ->when(function ($n) {
                 return $n > 90;
@@ -41,7 +43,7 @@ class MinimumEvaluationsTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\choose(0, 100)
+                ChooseGenerator::choose(0, 100)
             )
             ->when(function ($n) {
                 return $n > 90;

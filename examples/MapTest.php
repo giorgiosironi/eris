@@ -1,5 +1,9 @@
 <?php
-use Eris\Generator;
+
+
+use Eris\Generator\IntegerGenerator;
+use Eris\Generator\MapGenerator;
+use Eris\Generator\VectorGenerator;
 
 class MapTest extends PHPUnit_Framework_TestCase
 {
@@ -8,13 +12,13 @@ class MapTest extends PHPUnit_Framework_TestCase
     public function testApplyingAFunctionToGeneratedValues()
     {
         $this->forAll(
-            Generator\vector(
+            VectorGenerator::vector(
                 3,
-                Generator\map(
+                MapGenerator::map(
                     function ($n) {
                         return $n * 2;
                     },
-                    Generator\nat()
+                    IntegerGenerator::nat()
                 )
             )
         )
@@ -31,11 +35,11 @@ class MapTest extends PHPUnit_Framework_TestCase
     public function testShrinkingJustMappedValues()
     {
         $this->forAll(
-            Generator\map(
+            MapGenerator::map(
                 function ($n) {
                     return $n * 2;
                 },
-                Generator\nat()
+                IntegerGenerator::nat()
             )
         )
             ->then(function ($evenNumber) {
@@ -50,13 +54,13 @@ class MapTest extends PHPUnit_Framework_TestCase
     public function testShrinkingMappedValuesInsideOtherGenerators()
     {
         $this->forAll(
-            Generator\vector(
+            VectorGenerator::vector(
                 3,
-                Generator\map(
+                MapGenerator::map(
                     function ($n) {
                         return $n * 2;
                     },
-                    Generator\nat()
+                    IntegerGenerator::nat()
                 )
             )
         )

@@ -5,11 +5,12 @@ use Eris\Generator;
 use Eris\Random\RandomRange;
 
 /**
+ * @param array<Generator> $generators
  * @return AssociativeArrayGenerator
  */
 function associative(array $generators)
 {
-    return new AssociativeArrayGenerator($generators);
+    return AssociativeArrayGenerator::associative($generators);
 }
 
 class AssociativeArrayGenerator implements Generator
@@ -50,5 +51,14 @@ class AssociativeArrayGenerator implements Generator
             },
             'associative'
         );
+    }
+
+    /**
+     * @param array<Generator> $generators
+     * @return AssociativeArrayGenerator
+     */
+    public static function associative(array $generators)
+    {
+        return new self($generators);
     }
 }

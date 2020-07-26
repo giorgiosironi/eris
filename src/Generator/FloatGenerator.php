@@ -4,9 +4,12 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @return FloatGenerator
+ */
 function float()
 {
-    return new FloatGenerator();
+    return FloatGenerator::float();
 }
 
 class FloatGenerator implements Generator
@@ -38,5 +41,13 @@ class FloatGenerator implements Generator
             return GeneratedValueSingle::fromJustValue(max($value - 1.0, 0.0), 'float');
         }
         return GeneratedValueSingle::fromJustValue(0.0, 'float');
+    }
+
+    /**
+     * @return FloatGenerator
+     */
+    public static function float()
+    {
+        return new FloatGenerator();
     }
 }

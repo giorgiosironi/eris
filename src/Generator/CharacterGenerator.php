@@ -60,4 +60,27 @@ class CharacterGenerator implements Generator
         $shrinkedValue = chr($this->shrinkingProgression->next(ord($element->unbox())));
         return GeneratedValueSingle::fromJustValue($shrinkedValue, 'character');
     }
+
+    /**
+     * Generates character in the ASCII 0-127 range.
+     *
+     * @param array $characterSets  Only supported charset: "basic-latin"
+     * @param string $encoding  Only supported encoding: "utf-8"
+     * @return Generator\CharacterGenerator
+     */
+    public static function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
+    {
+        return self::ascii();
+    }
+
+    /**
+     * Generates character in the ASCII 32-127 range, excluding non-printable ones
+     * or modifiers such as CR, LF and Tab.
+     *
+     * @return Generator\CharacterGenerator
+     */
+    public static function charPrintableAscii()
+    {
+        return self::printableAscii();
+    }
 }

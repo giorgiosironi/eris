@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\IntegerGenerator;
 use Eris\TestTrait;
 
 class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
@@ -10,9 +11,9 @@ class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
     {
         $generators = [
             //"Gen\\int" => Generator\int(),
-            "Gen\\neg" => Generator\neg(),
+            "Gen\\neg" => IntegerGenerator::neg(),
             //"Gen\\nat" => Generator\nat(),
-            "Gen\\pos" => Generator\pos(),
+            "Gen\\pos" => IntegerGenerator::pos(),
             /*
             "Gen\\float" => Generator\float(),
             "Gen\\choose(30, 9000) - no size used" => Generator\choose(30, 9000),

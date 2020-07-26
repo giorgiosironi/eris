@@ -4,9 +4,12 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @return BooleanGenerator
+ */
 function bool()
 {
-    return new BooleanGenerator();
+    return BooleanGenerator::bool();
 }
 
 class BooleanGenerator implements Generator
@@ -22,5 +25,13 @@ class BooleanGenerator implements Generator
     public function shrink(GeneratedValue $element)
     {
         return GeneratedValueSingle::fromJustValue(false);
+    }
+
+    /**
+     * @return BooleanGenerator
+     */
+    public static function bool()
+    {
+        return new self();
     }
 }

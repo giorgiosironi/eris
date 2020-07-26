@@ -1,5 +1,7 @@
 <?php
-use Eris\Generator;
+use Eris\Generator\AssociativeArrayGenerator;
+use Eris\Generator\ChooseGenerator;
+use Eris\Generator\ElementsGenerator;
 
 class AssociativeArrayTest extends PHPUnit_Framework_TestCase
 {
@@ -8,9 +10,9 @@ class AssociativeArrayTest extends PHPUnit_Framework_TestCase
     public function testAssociativeArraysGeneratedOnStandardKeys()
     {
         $this->forAll(
-            Generator\associative([
-                'letter' => Generator\elements("A", "B", "C"),
-                'cipher' => Generator\choose(0, 9),
+            AssociativeArrayGenerator::associative([
+                'letter' => ElementsGenerator::elements("A", "B", "C"),
+                'cipher' => ChooseGenerator::choose(0, 9),
             ])
         )
             ->then(function ($array) {

@@ -109,6 +109,11 @@ class ForAll
         return $this;
     }
 
+    // Alias for __invoke.
+    public function then(callable $assertion){
+        return $this->__invoke($assertion);
+    }
+
     public function __invoke(callable $assertion)
     {
         $sizes = Size::withTriangleGrowth($this->maxSize)

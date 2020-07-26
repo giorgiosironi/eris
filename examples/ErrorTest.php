@@ -1,5 +1,7 @@
 <?php
-use Eris\Generator;
+
+
+use Eris\Generator\StringGenerator;
 
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +10,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     public function testGenericExceptionsDoNotShrinkButStillShowTheInput()
     {
         $this->forAll(
-            Generator\string()
+            StringGenerator::string()
         )
             ->then(function ($string) {
                 throw new RuntimeException("Something like a missing array index happened.");

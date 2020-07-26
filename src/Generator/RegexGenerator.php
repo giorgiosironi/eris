@@ -19,7 +19,7 @@ use ReverseRegex\Generator\Scope;
  */
 function regex($expression)
 {
-    return new RegexGenerator($expression);
+    return RegexGenerator::regex($expression);
 }
 
 class RegexGenerator implements Generator
@@ -49,5 +49,18 @@ class RegexGenerator implements Generator
     public function shrink(GeneratedValue $value)
     {
         return $value;
+    }
+
+    /**
+     * Note * and + modifiers cause an unbounded number of character to be generated
+     * (up to plus infinity) and as such they are not supported.
+     * Please use {1,N} and {0,N} instead of + and *.
+     *
+     * @param string $expression
+     * @return Generator\RegexGenerator
+     */
+    public static function regex($expression)
+    {
+        return new self($expression);
     }
 }

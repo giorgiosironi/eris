@@ -1,5 +1,9 @@
 <?php
-use Eris\Generator;
+use Eris\Generator\ChooseGenerator;
+use Eris\Generator\OneOfGenerator;
+use Eris\Generator\StringGenerator;
+use Eris\Generator\SuchThatGenerator;
+use Eris\Generator\VectorGenerator;
 use Eris\Listener;
 
 class SuchThatTest extends \PHPUnit_Framework_TestCase
@@ -10,13 +14,13 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                VectorGenerator::vector(
                     5,
-                    Generator\suchThat(
+                    SuchThatGenerator::suchThat(
                         function ($n) {
                             return $n > 42;
                         },
-                        Generator\choose(0, 1000)
+                        ChooseGenerator::choose(0, 1000)
                     )
                 )
             )
@@ -27,13 +31,13 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                VectorGenerator::vector(
                     5,
-                    Generator\filter(
+                    SuchThatGenerator::filter(
                         function ($n) {
                             return $n > 42;
                         },
-                        Generator\choose(0, 1000)
+                        ChooseGenerator::choose(0, 1000)
                     )
                 )
             )
@@ -44,13 +48,13 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                VectorGenerator::vector(
                     5,
-                    Generator\suchThat(
+                    SuchThatGenerator::suchThat(
                         $this->isType('integer'),
-                        Generator\oneOf(
-                            Generator\choose(0, 1000),
-                            Generator\string()
+                        OneOfGenerator::oneOf(
+                            ChooseGenerator::choose(0, 1000),
+                            StringGenerator::string()
                         )
                     )
                 )
@@ -64,11 +68,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                SuchThatGenerator::suchThat(
                     function ($n) {
                         return $n > 42;
                     },
-                    Generator\choose(0, 1000)
+                    ChooseGenerator::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
@@ -78,11 +82,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                SuchThatGenerator::suchThat(
                     function ($n) {
                         return $n <> 42;
                     },
-                    Generator\choose(0, 1000)
+                    ChooseGenerator::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
@@ -92,11 +96,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                SuchThatGenerator::suchThat(
                     function (array $ints) {
                         return count($ints) > 0;
                     },
-                    Generator\seq(Generator\int())
+                    SequenceGenerator::seq(IntegerGenerator::int())
                 )
             )
             ->then(function (array $ints) use (&$i) {

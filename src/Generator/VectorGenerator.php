@@ -6,7 +6,7 @@ use Eris\Random\RandomRange;
 
 function vector($size, Generator $elementsGenerator)
 {
-    return new VectorGenerator($size, $elementsGenerator);
+    return VectorGenerator::vector($size, $elementsGenerator);
 }
 
 class VectorGenerator implements Generator
@@ -32,5 +32,10 @@ class VectorGenerator implements Generator
     public function shrink(GeneratedValue $vector)
     {
         return $this->generator->shrink($vector);
+    }
+
+    public static function vector($size, Generator $elementsGenerator)
+    {
+        return new self($size, $elementsGenerator);
     }
 }
