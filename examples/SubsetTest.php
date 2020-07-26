@@ -1,5 +1,6 @@
 <?php
 
+use Eris\Generator\SubsetGenerator;
 use Eris\TestTrait;
 
 class SubsetTest extends PHPUnit_Framework_TestCase
