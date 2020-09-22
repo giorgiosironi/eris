@@ -147,7 +147,7 @@ trait TestTrait
     }
 
     /**
-     * @param integer|DateInterval
+     * @param integer|DateInterval $limit
      * @return self
      */
     protected function limitTo($limit)
