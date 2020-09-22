@@ -87,7 +87,7 @@ class ForAll
      * when(Antecedent $antecedent)
      * @return self
      */
-    public function when(/* see docblock */): self
+    public function when(/* see docblock */)
     {
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
@@ -105,12 +105,12 @@ class ForAll
         return $this;
     }
 
-    public function and(): self
+    public function and()
     {
         return $this->when(...\func_get_args());
     }
 
-    public function __invoke(callable $assertion): void
+    public function __invoke(callable $assertion)
     {
         $sizes = Size::withTriangleGrowth($this->maxSize)
             ->limit($this->iterations);
@@ -190,7 +190,7 @@ class ForAll
         }
     }
 
-    public function then(callable $assertion): void
+    public function then(callable $assertion)
     {
         $this->__invoke($assertion);
     }
