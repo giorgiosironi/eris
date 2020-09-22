@@ -6,6 +6,7 @@ use Eris\Antecedent;
 use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\SkipValueException;
+use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
 use Exception;
@@ -13,6 +14,10 @@ use RuntimeException;
 use Eris\Listener;
 use Eris\Random\RandomRange;
 
+
+/**
+ * @method self and()
+ */
 class ForAll
 {
     const DEFAULT_MAX_SIZE = 200;
@@ -23,6 +28,9 @@ class ForAll
     private $shrinkerFactory;
     private $antecedents = [];
     private $ordinaryEvaluations = 0;
+    private $aliases = [
+        'and' => 'when',
+    ];
     private $terminationConditions = [];
     private $listeners = [];
     private $shrinkerFactoryMethod;
@@ -105,11 +113,6 @@ class ForAll
         return $this;
     }
 
-    public function and()
-    {
-        return $this->when(...\func_get_args());
-    }
-
     public function __invoke(callable $assertion)
     {
         $sizes = Size::withTriangleGrowth($this->maxSize)
@@ -189,10 +192,27 @@ class ForAll
             );
         }
     }
-
+    
     public function then(callable $assertion)
     {
         $this->__invoke($assertion);
+    }
+
+    /**
+     * @see $this->aliases
+     * @method then($assertion)
+     * @method implies($assertion)
+     * @method imply($assertion)
+     */
+    public function __call($method, $arguments)
+    {
+        if (isset($this->aliases[$method])) {
+            return call_user_func_array(
+                [$this, $this->aliases[$method]],
+                $arguments
+            );
+        }
+        throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
     }
 
     private function generatorsFrom($supposedToBeGenerators)
