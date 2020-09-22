@@ -1,11 +1,11 @@
 <?php
+
 namespace Eris\Quantifier;
 
 use Eris\Antecedent;
 use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\SkipValueException;
-use BadMethodCallException;
 use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
 use Exception;
@@ -23,10 +23,6 @@ class ForAll
     private $shrinkerFactory;
     private $antecedents = [];
     private $ordinaryEvaluations = 0;
-    private $aliases = [
-        'and' => 'when',
-        'then' => '__invoke',
-    ];
     private $terminationConditions = [];
     private $listeners = [];
     private $shrinkerFactoryMethod;
@@ -91,7 +87,7 @@ class ForAll
      * when(Antecedent $antecedent)
      * @return self
      */
-    public function when(/* see docblock */)
+    public function when(/* see docblock */): self
     {
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
@@ -109,7 +105,12 @@ class ForAll
         return $this;
     }
 
-    public function __invoke(callable $assertion)
+    public function and(): self
+    {
+        return $this->when(...\func_get_args());
+    }
+
+    public function __invoke(callable $assertion): void
     {
         $sizes = Size::withTriangleGrowth($this->maxSize)
             ->limit($this->iterations);
@@ -119,7 +120,7 @@ class ForAll
             for (
                 $iteration = 0;
                 $iteration < $this->iterations
-                && !$this->terminationConditionsAreSatisfied();
+                    && !$this->terminationConditionsAreSatisfied();
                 $iteration++
             ) {
                 $generatedValues = [];
@@ -189,21 +190,9 @@ class ForAll
         }
     }
 
-    /**
-     * @see $this->aliases
-     * @method then($assertion)
-     * @method implies($assertion)
-     * @method imply($assertion)
-     */
-    public function __call($method, $arguments)
+    public function then(callable $assertion): void
     {
-        if (isset($this->aliases[$method])) {
-            return call_user_func_array(
-                [$this, $this->aliases[$method]],
-                $arguments
-            );
-        }
-        throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
+        $this->__invoke($assertion);
     }
 
     private function generatorsFrom($supposedToBeGenerators)
