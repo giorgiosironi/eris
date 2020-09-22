@@ -14,7 +14,6 @@ use RuntimeException;
 use Eris\Listener;
 use Eris\Random\RandomRange;
 
-
 /**
  * @method self and()
  */
