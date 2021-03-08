@@ -1,7 +1,8 @@
 # Eris
-[![Build Status](https://travis-ci.org/giorgiosironi/eris.svg?branch=master)](https://travis-ci.org/giorgiosironi/eris)
+[![CI](https://github.com/giorgiosironi/eris/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/giorgiosironi/eris/actions/workflows/ci.yml)
+[![Static analysis](https://github.com/giorgiosironi/eris/actions/workflows/static-analysis.yml/badge.svg?branch=master)](https://github.com/giorgiosironi/eris/actions/workflows/static-analysis.yml)
 [![Documentation Status](https://readthedocs.org/projects/eris/badge/?version=latest)](http://eris.readthedocs.org/en/latest/?badge=latest)
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Eris is a porting of [QuickCheck](https://hackage.haskell.org/package/QuickCheck) and property-based testing tools to the PHP and PHPUnit ecosystem.
 
@@ -9,7 +10,7 @@ In property-based testing, several properties that the System Under Test must re
 
 ## Compatibility
 
-- PHP 5.5, 5.6, 7.0, 7.1, 7.2, 7.3
+- PHP 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4
 - HHVM (without `purePhpMtRand`)
 - PHPUnit 5.x, 6.x, 7.x
 

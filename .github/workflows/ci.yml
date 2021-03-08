@@ -4,15 +4,16 @@ on: [pull_request, push]
 
 jobs:
   tests:
-    name: Tests (PHP ${{ matrix.php }})
+    name: Tests (PHP ${{ matrix.php }}, dependencies ${{ matrix.dependencies }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         allow_fail: [false]
-        php: [5.5, 5.6, 7.0, 7.1, 7.2, 7.3]
+        php: [5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4]
+        dependencies:
+          - "lowest"
+          - "highest"
         include:
-          - php: 7.4
-            allow_fail: true
           - php: 8
             allow_fail: true
     steps:
@@ -23,7 +24,9 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: Install dependencies
-        uses: "ramsey/composer-install@v1"
+        uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
       - name: Run tests
         run: vendor/bin/phpunit test
         continue-on-error: ${{ matrix.allow_fail }}
