@@ -23,3 +23,21 @@ jobs:
       - name: Install dependencies
         uses: "ramsey/composer-install@v1"
       - run: ${{ matrix.script }}
+
+  phpunit-compatibility:
+    name: Check installability of phpunit ${{ matrix.phpunit }}
+    strategy:
+      matrix:
+        phpunit: [4, 5, 6, 7]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: Check if phpunit ${{ matrix.phpunit }} can be installed
+        run: |
+          composer require --no-update phpunit/phpunit ~${{ matrix.phpunit }}
+          composer update --ignore-platform-reqs --dry-run
