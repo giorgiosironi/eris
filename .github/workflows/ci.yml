@@ -8,14 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        allow_fail: [false]
         php: [5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4]
         dependencies:
           - "lowest"
           - "highest"
-        include:
-          - php: 8
-            allow_fail: true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,4 +25,31 @@ jobs:
           dependency-versions: ${{ matrix.dependencies }}
       - name: Run tests
         run: vendor/bin/phpunit test
-        continue-on-error: ${{ matrix.allow_fail }}
+
+  phpunit-compatibility:
+    name: Test End to End with php ${{ matrix.php }}, phpunit ${{ matrix.phpunit }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { phpunit: 9, php: 8.0 }
+          - { phpunit: 8, php: 7.4 }
+          - { phpunit: 7, php: 7.3 }
+          - { phpunit: 6, php: 7.2 }
+          - { phpunit: 5, php: 7.1 }
+          - { phpunit: 4, php: 5.6 }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - name: Install dependencies
+        uses: ramsey/composer-install@v1
+      - name: Download phpunit phar
+        run: |
+          wget -O phpunit https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar
+          chmod +x phpunit
+      - name: Run tests
+        run: ./phpunit --testsuite EndToEnd

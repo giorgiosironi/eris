@@ -2,3 +2,4 @@
 .php_cs.cache
 composer.lock
 docs/_build
+.phpunit.result.cache
