@@ -1,10 +1,16 @@
 # ChangeLog
 
-The project follows [semantic versioning](http://semver.org/). `BC` stands for an change that impacts `Backward Compatibility`.
+The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
-## 0.next
+## 0.12.0
 
 * PHP 7.3 support (#120).
+* PHP 7.4 support (#125).
+* CI support for testing end to end suite also with Phpunit 8.x and 9.x 
+* Allow `shrink()` to receive GeneratedValueOptions (#127).
+* Allow specifying generator size with `sample()` (#128)
+* Fix `BooleanGenerator::shrink()` to return a GeneratedValueSingle (#131)
+* Drop support for HHVM 3.30
 
 ## 0.11.0
 
