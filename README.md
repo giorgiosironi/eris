@@ -11,8 +11,7 @@ In property-based testing, several properties that the System Under Test must re
 ## Compatibility
 
 - PHP 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4
-- HHVM (without `purePhpMtRand`)
-- PHPUnit 5.x, 6.x, 7.x
+- PHPUnit 5.x, 6.x, 7.x, 8.x, 9.x
 
 ## Installation
 
