@@ -2,6 +2,10 @@
 
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
+## Unreleased
+
+* Changed visibility of TestTrait's methods in Facade from protected to public (#110)
+
 ## 0.12.0
 
 * PHP 7.3 support (#120).
