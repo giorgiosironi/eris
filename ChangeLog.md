@@ -4,7 +4,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## Unreleased
 
-* Changed visibility of TestTrait's methods in Facade from protected to public (#110,#141)
+* Changed visibility of TestTrait's methods in Facade from protected to public (#110,#141). Thanks @bekh6ex.
 
 ## 0.12.0
 
