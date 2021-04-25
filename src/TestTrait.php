@@ -42,7 +42,7 @@ trait TestTrait
     /**
      * @return array 
      */
-    public function getAnnotations()
+    public function getTestCaseAnnotations()
     {
         //from TestCase of PHPunit
         return \PHPUnit\Util\Test::parseTestMethodAnnotations(
@@ -63,7 +63,7 @@ trait TestTrait
                 return !($listener instanceof MinimumEvaluations);
             }
         );
-        $tags = $this->getAnnotations();
+        $tags = $this->getTestCaseAnnotations();
         $this->withRand($this->getAnnotationValue($tags, 'eris-method', 'rand', 'strval'));
         $this->iterations = $this->getAnnotationValue($tags, 'eris-repeat', 100, 'intval');
         $this->shrinkingTimeLimit = $this->getAnnotationValue($tags, 'eris-shrink', null, 'intval');
