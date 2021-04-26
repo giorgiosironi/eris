@@ -40,6 +40,21 @@ trait TestTrait
     }
 
     /**
+     * @return array
+     */
+    public function getTestCaseAnnotations()
+    {
+        if (\method_exists($this, 'getAnnotations')) {
+            return $this->getAnnotations();
+        }
+        //from TestCase of PHPunit
+        return \PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        );
+    }
+
+    /**
      * @before
      */
     public function erisSetup()
@@ -51,7 +66,7 @@ trait TestTrait
                 return !($listener instanceof MinimumEvaluations);
             }
         );
-        $tags = $this->getAnnotations();//from TestCase of PHPunit
+        $tags = $this->getTestCaseAnnotations();
         $this->withRand($this->getAnnotationValue($tags, 'eris-method', 'rand', 'strval'));
         $this->iterations = $this->getAnnotationValue($tags, 'eris-repeat', 100, 'intval');
         $this->shrinkingTimeLimit = $this->getAnnotationValue($tags, 'eris-shrink', null, 'intval');

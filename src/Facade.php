@@ -20,7 +20,7 @@ class Facade
      * sadly this facade has no option to retrieve annotations of testcases
      * @return array
      */
-    protected function getAnnotations()
+    protected function getTestCaseAnnotations()
     {
         return array();
     }
