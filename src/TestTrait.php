@@ -44,6 +44,9 @@ trait TestTrait
      */
     public function getTestCaseAnnotations()
     {
+        if(\method_exists($this, 'getAnnotations')) {
+            return $this->getAnnotations();
+        }
         //from TestCase of PHPunit
         return \PHPUnit\Util\Test::parseTestMethodAnnotations(
             get_class($this),
