@@ -40,11 +40,11 @@ trait TestTrait
     }
 
     /**
-     * @return array 
+     * @return array
      */
     public function getTestCaseAnnotations()
     {
-        if(\method_exists($this, 'getAnnotations')) {
+        if (\method_exists($this, 'getAnnotations')) {
             return $this->getAnnotations();
         }
         //from TestCase of PHPunit
