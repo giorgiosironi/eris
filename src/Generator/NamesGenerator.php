@@ -4,9 +4,12 @@ namespace Eris\Generator;
 use Eris\Generator;
 use Eris\Random\RandomRange;
 
+/**
+ * @return NamesGenerator
+ */
 function names()
 {
-    return NamesGenerator::defaultDataSet();
+    return NamesGenerator::names();
 }
 
 class NamesGenerator implements Generator
@@ -100,5 +103,13 @@ class NamesGenerator implements Generator
             }
         );
         return array_keys($candidatesWithEqualDistance)[0];
+    }
+
+    /**
+     * @return NamesGenerator
+     */
+    public static function names()
+    {
+        return self::defaultDataSet();
     }
 }

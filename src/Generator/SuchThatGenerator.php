@@ -12,25 +12,29 @@ use Traversable;
 
 /**
  * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
- * @return SuchThatGenerator
- */
-function filter($filter, Generator $generator, $maximumAttempts = 100)
-{
-    return suchThat($filter, $generator, $maximumAttempts);
-}
-
-/**
- * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+ * @param Generator $generator
+ * @param int $maximumAttempts
  * @return SuchThatGenerator
  */
 function suchThat($filter, Generator $generator, $maximumAttempts = 100)
 {
-    return new SuchThatGenerator($filter, $generator, $maximumAttempts);
+    return SuchThatGenerator::suchThat($filter, $generator, $maximumAttempts);
+}
+
+/**
+ * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+ * @param Generator $generator
+ * @param int $maximumAttempts
+ * @return SuchThatGenerator
+ */
+function filter($filter, Generator $generator, $maximumAttempts = 100)
+{
+    return SuchThatGenerator::filter($filter, $generator, $maximumAttempts);
 }
 
 class SuchThatGenerator implements Generator
 {
-    private $filter;
+    private $filterFn;
     private $generator;
     private $maximumAttempts;
     
@@ -39,7 +43,7 @@ class SuchThatGenerator implements Generator
      */
     public function __construct($filter, $generator, $maximumAttempts = 100)
     {
-        $this->filter = $filter;
+        $this->filterFn = $filter;
         $this->generator = $generator;
         $this->maximumAttempts = $maximumAttempts;
     }
@@ -88,9 +92,9 @@ class SuchThatGenerator implements Generator
 
     private function predicate(GeneratedValueSingle $value)
     {
-        if ($this->filter instanceof PHPUnit_Framework_Constraint || $this->filter instanceof Constraint) {
+        if ($this->filterFn instanceof PHPUnit_Framework_Constraint || $this->filterFn instanceof Constraint) {
             try {
-                $this->filter->evaluate($value->unbox());
+                $this->filterFn->evaluate($value->unbox());
                 return true;
             } catch (PHPUnit_Framework_ExpectationFailedException $e) {
                 return false;
@@ -99,10 +103,32 @@ class SuchThatGenerator implements Generator
             }
         }
 
-        if (is_callable($this->filter)) {
-            return call_user_func($this->filter, $value->unbox());
+        if (is_callable($this->filterFn)) {
+            return call_user_func($this->filterFn, $value->unbox());
         }
 
-        throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit\Framework\Constraint instead of " . var_export($this->filter, true));
+        throw new LogicException("Specified filter does not seem to be of the correct type. Please pass a callable or a PHPUnit\Framework\Constraint instead of " . var_export($this->filterFn, true));
+    }
+
+    /**
+     * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+     * @param Generator $generator
+     * @param int $maximumAttempts
+     * @return SuchThatGenerator
+     */
+    public static function suchThat($filter, Generator $generator, $maximumAttempts = 100)
+    {
+        return new self($filter, $generator, $maximumAttempts);
+    }
+
+    /**
+     * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+     * @param Generator $generator
+     * @param int $maximumAttempts
+     * @return SuchThatGenerator
+     */
+    public static function filter($filter, Generator $generator, $maximumAttempts = 100)
+    {
+        return self::suchThat($filter, $generator, $maximumAttempts);
     }
 }

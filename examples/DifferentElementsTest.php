@@ -1,5 +1,9 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\BindGenerator;
+use Eris\Generator\ConstantGenerator;
+use Eris\Generator\ElementsGenerator;
+use Eris\Generator\TupleGenerator;
 use Eris\TestTrait;
 
 class Type
@@ -55,12 +59,12 @@ class DifferentElementsTest extends \PHPUnit_Framework_TestCase
         };
 
         $this
-            ->forAll(Generator\bind(
+            ->forAll(BindGenerator::bind(
                 call_user_func_array('Eris\Generator\elements', $allTypes),
                 function ($first) use ($allTypes, $remove) {
-                    return Generator\tuple(
-                        Generator\constant($first),
-                        Generator\elements($remove($allTypes, $first))
+                    return TupleGenerator::tuple(
+                        ConstantGenerator::constant($first),
+                        ElementsGenerator::elements($remove($allTypes, $first))
                     );
                 }
             ))

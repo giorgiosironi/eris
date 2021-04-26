@@ -15,13 +15,13 @@ if (!defined('ERIS_PHP_INT_MIN')) {
  * The order of the parameters does not care since they are re-ordered by the
  * generator itself.
  *
- * @param $x int One of the 2 boundaries of the range
- * @param $y int The other boundary of the range
+ * @param $lowerLimit int One of the 2 boundaries of the range
+ * @param $upperLimit int The other boundary of the range
  * @return Generator\ChooseGenerator
  */
 function choose($lowerLimit, $upperLimit)
 {
-    return new ChooseGenerator($lowerLimit, $upperLimit);
+    return ChooseGenerator::choose($lowerLimit, $upperLimit);
 }
 
 class ChooseGenerator implements Generator
@@ -71,5 +71,20 @@ class ChooseGenerator implements Generator
                 'be Integers between ' . ERIS_PHP_INT_MIN . ' and ' . PHP_INT_MAX
             );
         }
+    }
+
+    /**
+     * Generates a number in the range from the lower bound to the upper bound,
+     * inclusive. The result shrinks towards smaller absolute values.
+     * The order of the parameters does not care since they are re-ordered by the
+     * generator itself.
+     *
+     * @param $lowerLimit int One of the 2 boundaries of the range
+     * @param $upperLimit int The other boundary of the range
+     * @return Generator\ChooseGenerator
+     */
+    public static function choose($lowerLimit, $upperLimit)
+    {
+        return new self($lowerLimit, $upperLimit);
     }
 }

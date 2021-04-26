@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\StringGenerator;
 
 function very_slow_concatenation($first, $second)
 {
@@ -19,8 +20,8 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
         $this
             ->shrinkingTimeLimit(2)
             ->forAll(
-                Generator\string(),
-                Generator\string()
+                StringGenerator::string(),
+                StringGenerator::string()
             )
             ->then(function ($first, $second) {
                 $result = very_slow_concatenation($first, $second);
@@ -39,8 +40,8 @@ class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\string(),
-                Generator\string()
+                StringGenerator::string(),
+                StringGenerator::string()
             )
             ->then(function ($first, $second) {
                 $result = very_slow_concatenation($first, $second);

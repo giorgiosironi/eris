@@ -9,17 +9,11 @@ use Eris\Random\RandomRange;
  * tuple(Generator, Generator, Generator...)
  * Or an array of generators:
  * tuple(array $generators)
- * @return Generator\TupleGenerator
+ * @return TupleGenerator
  */
 function tuple()
 {
-    $arguments = func_get_args();
-    if (is_array($arguments[0])) {
-        $generators = $arguments[0];
-    } else {
-        $generators = $arguments;
-    }
-    return new TupleGenerator($generators);
+    return TupleGenerator::tuple(func_get_args());
 }
 
 class TupleGenerator implements Generator
@@ -96,6 +90,24 @@ class TupleGenerator implements Generator
 
         return $this->optionsFromTheseGenerators($this->generators, $input)
             ->remove($tuple);
+    }
+
+    /**
+     * One Generator for each member of the Tuple:
+     * tuple(Generator, Generator, Generator...)
+     * Or an array of generators:
+     * tuple(array $generators)
+     * @return TupleGenerator
+     */
+    public static function tuple()
+    {
+        $arguments = func_get_args();
+        if (is_array($arguments[0])) {
+            $generators = $arguments[0];
+        } else {
+            $generators = $arguments;
+        }
+        return new self($generators);
     }
 
     private function ensureAreAllGenerators(array $generators)

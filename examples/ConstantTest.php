@@ -1,6 +1,8 @@
 <?php
 
-use Eris\Generator;
+
+use Eris\Generator\ConstantGenerator;
+use Eris\Generator\IntegerGenerator;
 
 class ConstantTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,8 +12,8 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\nat(),
-                Generator\constant(2)
+                IntegerGenerator::nat(),
+                ConstantGenerator::constant(2)
             )
             ->then(function ($number, $alwaysTwo) {
                 $this->assertTrue(($number * $alwaysTwo % 2) === 0);
@@ -22,7 +24,7 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\nat(),
+                IntegerGenerator::nat(),
                 2
             )
             ->then(function ($number, $alwaysTwo) {

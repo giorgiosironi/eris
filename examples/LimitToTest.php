@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\IntegerGenerator;
 use Eris\TestTrait;
 
 class LimitToTest extends PHPUnit_Framework_TestCase
@@ -12,7 +13,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     public function testNumberOfIterationsCanBeConfigured()
     {
         $this->forAll(
-            Generator\int()
+            IntegerGenerator::int()
         )
             ->then(function ($value) {
                 $this->assertInternalType('integer', $value);
@@ -26,7 +27,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
         $this->minimum(10)
              ->limitTo(new DateInterval("PT2S"))
              ->forAll(
-                Generator\int()
+                IntegerGenerator::int()
             )
             ->then(function($value) {
                 usleep(100 * 1000);
@@ -41,7 +42,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
             ->minimumEvaluationRatio(0)
             ->limitTo(new DateInterval('PT2S'))
             ->forAll(
-                Generator\int()
+                IntegerGenerator::int()
             )
             ->then(function ($value) {
                 usleep(100 * 1000);
@@ -56,7 +57,7 @@ class LimitToTest extends PHPUnit_Framework_TestCase
     public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation()
     {
         $this->forAll(
-            Generator\int()
+            IntegerGenerator::int()
         )
             ->then(function ($value) {
                 usleep(100 * 1000);

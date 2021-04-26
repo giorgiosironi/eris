@@ -1,5 +1,7 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generator\IntegerGenerator;
+use Eris\Generator\SetGenerator;
 use Eris\TestTrait;
 
 class SetTest extends PHPUnit_Framework_TestCase
@@ -9,7 +11,7 @@ class SetTest extends PHPUnit_Framework_TestCase
     public function testSetsOfAnotherGeneratorsDomain()
     {
         $this->forAll(
-            Generator\set(Generator\nat())
+            SetGenerator::set(IntegerGenerator::nat())
         )
             ->then(function ($set) {
                 $this->assertInternalType('array', $set);

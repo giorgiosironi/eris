@@ -1,6 +1,6 @@
 <?php
-use Eris\Generator;
 use Eris\Antecedent;
+use Eris\Generator\CharacterGenerator;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testLengthOfAsciiCharactersInPhp()
     {
         $this->forAll(
-            Generator\char(['basic-latin'])
+            CharacterGenerator::char(['basic-latin'])
         )
             ->then(function ($char) {
                 $this->assertLenghtIs1($char);
@@ -19,7 +19,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testLengthOfPrintableAsciiCharacters()
     {
         $this->forAll(
-            Generator\char(['basic-latin'])
+            CharacterGenerator::char(['basic-latin'])
         )
             ->when(Antecedent\printableCharacter())
             ->then(function ($char) {
@@ -32,8 +32,8 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this
             ->minimumEvaluationRatio(0.1)
             ->forAll(
-                Generator\char(['basic-latin']),
-                Generator\char(['basic-latin'])
+                CharacterGenerator::char(['basic-latin']),
+                CharacterGenerator::char(['basic-latin'])
             )
             ->when(Antecedent\printableCharacters())
             ->then(function ($first, $second) {
@@ -49,8 +49,8 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\char(['basic-latin']),
-                Generator\char(['basic-latin'])
+                CharacterGenerator::char(['basic-latin']),
+                CharacterGenerator::char(['basic-latin'])
             )
             ->when(Antecedent\printableCharacters())
             ->then(function ($first, $second) {

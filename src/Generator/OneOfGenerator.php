@@ -9,7 +9,7 @@ use Eris\Random\RandomRange;
  */
 function oneOf(/*$a, $b, ...*/)
 {
-    return new OneOfGenerator(func_get_args());
+    return OneOfGenerator::oneOf(func_get_args());
 }
 
 class OneOfGenerator implements Generator
@@ -34,10 +34,18 @@ class OneOfGenerator implements Generator
     private function allWithSameFrequency($generators)
     {
         return array_map(
-            function ($generator) {
+            static function ($generator) {
                 return [1, $generator];
             },
             $generators
         );
+    }
+
+    /**
+     * @return OneOfGenerator
+     */
+    public static function oneOf(/*$a, $b, ...*/)
+    {
+        return new OneOfGenerator(func_get_args());
     }
 }
