@@ -4,7 +4,11 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## Unreleased
 
-* Changed visibility of TestTrait's methods in Facade from protected to public (#110,#141). Thanks @bekh6ex.
+## 0.12.1
+### Changed
+* Visibility of TestTrait's methods in Facade is now public (#110,#141). Thanks, @bekh6ex.
+### Fixed
+* Compatibility with newer versions of PHPUnit: `getAnnotations` is removed (#143). Thanks, @aszenz.
 
 ## 0.12.0
 
