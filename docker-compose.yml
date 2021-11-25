@@ -1,0 +1,14 @@
+version: "3.8"
+
+# Start the dev container
+# $ docker-compose run php sh
+
+# Add a docker-compose.override.yml if you need to change one of the following (it won't be tracked)
+services:
+  php:
+    build:
+      context: .docker
+    volumes:
+      - .:/usr/src/eris
+    user: 1000:1000
+    working_dir: /usr/src/eris
