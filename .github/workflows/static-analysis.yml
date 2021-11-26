@@ -10,7 +10,7 @@ jobs:
           - description: Validate composer.json
             script: composer validate
           - description: Code style
-            script: vendor/bin/php-cs-fixer fix --config=.php_cs --verbose --diff --dry-run
+            script: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest
     steps:
