@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -10,7 +11,7 @@ use Eris\Random\RandomRange;
  */
 function int()
 {
-    return new IntegerGenerator();
+    return Generators::int();
 }
 
 /**
@@ -18,18 +19,12 @@ function int()
  */
 function pos()
 {
-    $mustBeStrictlyPositive = function ($n) {
-        return abs($n) + 1;
-    };
-    return new IntegerGenerator($mustBeStrictlyPositive);
+    return Generators::pos();
 }
 
 function nat()
 {
-    $mustBeNatural = function ($n) {
-        return abs($n);
-    };
-    return new IntegerGenerator($mustBeNatural);
+    return Generators::nat();
 }
 
 /**
@@ -37,15 +32,12 @@ function nat()
  */
 function neg()
 {
-    $mustBeStrictlyNegative = function ($n) {
-        return (-1) * (abs($n) + 1);
-    };
-    return new IntegerGenerator($mustBeStrictlyNegative);
+    return Generators::neg();
 }
 
 function byte()
 {
-    return new ChooseGenerator(0, 255);
+    return Generators::byte();
 }
 
 class IntegerGenerator implements Generator

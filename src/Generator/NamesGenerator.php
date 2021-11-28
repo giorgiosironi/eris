@@ -2,11 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function names()
 {
-    return NamesGenerator::defaultDataSet();
+    return Generators::names();
 }
 
 class NamesGenerator implements Generator

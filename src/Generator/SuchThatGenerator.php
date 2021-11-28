@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 use LogicException;
 use PHPUnit_Framework_Constraint;
@@ -16,7 +17,7 @@ use Traversable;
  */
 function filter($filter, Generator $generator, $maximumAttempts = 100)
 {
-    return suchThat($filter, $generator, $maximumAttempts);
+    return Generators::suchThat($filter, $generator, $maximumAttempts);
 }
 
 /**
@@ -25,7 +26,7 @@ function filter($filter, Generator $generator, $maximumAttempts = 100)
  */
 function suchThat($filter, Generator $generator, $maximumAttempts = 100)
 {
-    return new SuchThatGenerator($filter, $generator, $maximumAttempts);
+    return Generators::suchThat($filter, $generator, $maximumAttempts);
 }
 
 class SuchThatGenerator implements Generator

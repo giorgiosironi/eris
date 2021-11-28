@@ -2,12 +2,13 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 // TODO: support calls like ($function . $generator)
 function map(callable $function, Generator $generator)
 {
-    return new MapGenerator($function, $generator);
+    return Generators::map($function, $generator);
 }
 
 class MapGenerator implements Generator

@@ -2,15 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function seq(Generator $singleElementGenerator)
 {
-    // TODO: Generator::box($singleElementGenerator);
-    if (!($singleElementGenerator instanceof Generator)) {
-        $singleElementGenerator = new Constant($singleElementGenerator);
-    }
-    return new SequenceGenerator($singleElementGenerator);
+    return Generators::seq($singleElementGenerator);
 }
 
 class SequenceGenerator implements Generator

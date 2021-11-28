@@ -2,31 +2,13 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 use DateTime;
 
 function date($lowerLimit = null, $upperLimit = null)
 {
-    $box = function ($date) {
-        if ($date === null) {
-            return $date;
-        }
-        if ($date instanceof DateTime) {
-            return $date;
-        }
-        return new DateTime($date);
-    };
-    $withDefault = function ($value, $default) {
-        if ($value !== null) {
-            return $value;
-        }
-        return $default;
-    };
-    return new DateGenerator(
-        $withDefault($box($lowerLimit), new DateTime("@0")),
-        // uses a maximum which is conservative
-        $withDefault($box($upperLimit), new DateTime("@" . (pow(2, 31) - 1)))
-    );
+    return Generators::date($lowerLimit, $upperLimit);
 }
 
 class DateGenerator implements Generator

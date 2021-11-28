@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -10,7 +11,7 @@ use Eris\Random\RandomRange;
  */
 function constant($value)
 {
-    return ConstantGenerator::box($value);
+    return Generators::constant($value);
 }
 
 class ConstantGenerator implements Generator
