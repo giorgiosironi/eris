@@ -49,6 +49,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: Remove phpstan from dev dependecies for older php versions
+        if: ${{ matrix.php < 7.1 }}
         run: composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
