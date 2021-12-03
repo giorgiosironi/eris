@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use BadFunctionCallException;
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 use ReverseRegex\Lexer;
 use ReverseRegex\Random\SimpleRandom;
@@ -19,7 +20,7 @@ use ReverseRegex\Generator\Scope;
  */
 function regex($expression)
 {
-    return new RegexGenerator($expression);
+    return Generators::regex($expression);
 }
 
 class RegexGenerator implements Generator

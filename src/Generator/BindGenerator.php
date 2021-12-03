@@ -2,14 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
 {
-    return new BindGenerator(
-        $innerGenerator,
-        $outerGeneratorFactory
-    );
+    return Generators::bind($innerGenerator, $outerGeneratorFactory);
 }
 
 class BindGenerator implements Generator

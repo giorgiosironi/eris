@@ -13,6 +13,10 @@ class Multiple implements Shrinker
     private $assertion;
     private $goodShrinkConditions = [];
     private $onAttempt = [];
+    /**
+     * @var NoTimeLimit
+     */
+    private $timeLimit;
 
     public function __construct(array $generators, callable $assertion)
     {

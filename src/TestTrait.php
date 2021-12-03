@@ -129,6 +129,10 @@ trait TestTrait
      */
     private function dumpSeedForReproducing()
     {
+        if (! method_exists($this, 'hasFailed') || !method_exists($this, 'toString')) {
+            return;
+        }
+
         if (!$this->hasFailed()) {
             return;
         }
@@ -175,7 +179,7 @@ trait TestTrait
         } elseif (is_integer($limit)) {
             $this->iterations = $limit;
         } else {
-            throw new InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
+            throw new \InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
         }
         return $this;
     }

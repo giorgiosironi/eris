@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -13,13 +14,10 @@ use Eris\Random\RandomRange;
  */
 function tuple()
 {
-    $arguments = func_get_args();
-    if (is_array($arguments[0])) {
-        $generators = $arguments[0];
-    } else {
-        $generators = $arguments;
-    }
-    return new TupleGenerator($generators);
+    return call_user_func_array(
+        [Generators::class, 'tuple'],
+        func_get_args()
+    );
 }
 
 class TupleGenerator implements Generator
@@ -105,7 +103,7 @@ class TupleGenerator implements Generator
                 if ($generator instanceof Generator) {
                     return $generator;
                 }
-                return new Constant($generator);
+                return new ConstantGenerator($generator);
             },
             $generators
         );

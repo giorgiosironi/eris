@@ -1,0 +1,11 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 0
+    bootstrapFiles:
+        - test/bootstrap.php
+    paths:
+        - src
+        - test
+        - examples

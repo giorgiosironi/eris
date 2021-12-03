@@ -1,6 +1,6 @@
 name: Static analysis
 
-on: [pull_request, push]
+on: [pull_request]
 
 jobs:
   job:
@@ -11,6 +11,8 @@ jobs:
             script: composer validate
           - description: Code style
             script: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
+          - description: PHPStan
+            script: vendor/bin/phpstan analyse -c phpstan.neon
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest
     steps:

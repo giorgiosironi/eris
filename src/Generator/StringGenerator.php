@@ -2,11 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function string()
 {
-    return new StringGenerator();
+    return Generators::string();
 }
 
 class StringGenerator implements Generator

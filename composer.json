@@ -23,7 +23,8 @@
         "phpunit/phpunit": ">=4.1 <8",
         "sebastian/comparator": ">=1.2.4",
         "friendsofphp/php-cs-fixer": "^2.0",
-        "icomefromthenet/reverse-regex": "v0.0.6.3"
+        "icomefromthenet/reverse-regex": "v0.0.6.3",
+        "phpstan/phpstan": "^1.2"
     },
     "suggest":
     {
@@ -38,6 +39,11 @@
             "src/Generator/functions.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Eris\\": "test/"
+        }
+    },
     "scripts": {
         "cs": [
             "composer validate --no-check-lock",
@@ -48,6 +54,12 @@
             "composer validate --no-check-lock",
             "composer update",
             "vendor/bin/phpunit test"
+        ],
+        "phpstan": [
+            "vendor/bin/phpstan analyse -c phpstan.neon"
+        ],
+        "phpstan-baseline": [
+            "vendor/bin/phpstan analyse -c phpstan.neon --generate-baseline"
         ]
     }
 }

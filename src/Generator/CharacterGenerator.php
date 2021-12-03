@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -13,7 +14,7 @@ use Eris\Random\RandomRange;
  */
 function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
 {
-    return CharacterGenerator::ascii();
+    return Generators::char($characterSets, $encoding);
 }
 
 /**
@@ -24,7 +25,7 @@ function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
  */
 function charPrintableAscii()
 {
-    return CharacterGenerator::printableAscii();
+    return Generators::charPrintableAscii();
 }
 
 class CharacterGenerator implements Generator

@@ -59,7 +59,7 @@ class GeneratedValueOptions implements GeneratedValue
     
     public function derivedIn($generatorName)
     {
-        throw new RuntimeException("GeneratedValueOptions::derivedIn() is needed, uncomment it");
+        throw new \RuntimeException("GeneratedValueOptions::derivedIn() is needed, uncomment it");
     }
 
     /**

@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 // TODO: dependency on ForAll is bad,
 // maybe inject the relative size?
+use Eris\Generators;
 use Eris\Quantifier\ForAll;
 use Eris\Random\RandomRange;
 use Eris\Generator;
@@ -13,7 +14,7 @@ use Eris\Generator;
  */
 function subset($input)
 {
-    return new SubsetGenerator($input);
+    return Generators::subset($input);
 }
 
 class SubsetGenerator implements Generator

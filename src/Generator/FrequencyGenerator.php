@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use InvalidArgumentException;
 use Eris\Random\RandomRange;
 
@@ -10,7 +11,10 @@ use Eris\Random\RandomRange;
  */
 function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
 {
-    return new FrequencyGenerator(func_get_args());
+    return call_user_func_array(
+        [Generators::class, 'frequency'],
+        func_get_args()
+    );
 }
 
 class FrequencyGenerator implements Generator
@@ -87,7 +91,7 @@ class FrequencyGenerator implements Generator
                 return [$index, $generator['generator']];
             }
         }
-        throw new Exception(
+        throw new \Exception(
             'Unable to pick a generator with frequencies: ' . var_export($frequencies, true)
         );
     }

@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -9,7 +10,10 @@ use Eris\Random\RandomRange;
  */
 function oneOf(/*$a, $b, ...*/)
 {
-    return new OneOfGenerator(func_get_args());
+    return call_user_func_array(
+        [Generators::class, 'oneOf'],
+        func_get_args()
+    );
 }
 
 class OneOfGenerator implements Generator

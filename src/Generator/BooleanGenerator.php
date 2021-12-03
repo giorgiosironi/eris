@@ -2,11 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function bool()
 {
-    return new BooleanGenerator();
+    return Generators::bool();
 }
 
 class BooleanGenerator implements Generator

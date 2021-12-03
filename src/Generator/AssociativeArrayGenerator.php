@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
@@ -9,7 +10,7 @@ use Eris\Random\RandomRange;
  */
 function associative(array $generators)
 {
-    return new AssociativeArrayGenerator($generators);
+    return Generators::associative($generators);
 }
 
 class AssociativeArrayGenerator implements Generator

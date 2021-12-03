@@ -2,11 +2,12 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use Eris\Random\RandomRange;
 
 function vector($size, Generator $elementsGenerator)
 {
-    return new VectorGenerator($size, $elementsGenerator);
+    return Generators::vector($size, $elementsGenerator);
 }
 
 class VectorGenerator implements Generator

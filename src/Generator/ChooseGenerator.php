@@ -2,6 +2,7 @@
 namespace Eris\Generator;
 
 use Eris\Generator;
+use Eris\Generators;
 use InvalidArgumentException;
 use Eris\Random\RandomRange;
 
@@ -21,7 +22,7 @@ if (!defined('ERIS_PHP_INT_MIN')) {
  */
 function choose($lowerLimit, $upperLimit)
 {
-    return new ChooseGenerator($lowerLimit, $upperLimit);
+    return Generators::choose($lowerLimit, $upperLimit);
 }
 
 class ChooseGenerator implements Generator
