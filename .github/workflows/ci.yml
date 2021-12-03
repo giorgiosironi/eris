@@ -19,12 +19,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-      - name: Remove phpstan from dev dependecies for older php versions
+      - name: Remove dev dependecies for older php versions
         if: ${{ matrix.php < 7.1 }}
-        run: composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
-      - name: Remove psalm from dev dependecies for older php versions
-        if: ${{ matrix.php < 7.1 }}
-        run: composer remove --dev psalm/phar --ignore-platform-reqs --no-update
+        run: |
+          composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
+          composer remove --dev psalm/phar --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
         with:
@@ -51,12 +50,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-      - name: Remove phpstan from dev dependecies for older php versions
+      - name: Remove dev dependecies for older php versions
         if: ${{ matrix.php < 7.1 }}
-        run: composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
-      - name: Remove psalm from dev dependecies for older php versions
-        if: ${{ matrix.php < 7.1 }}
-        run: composer remove --dev psalm/phar --ignore-platform-reqs --no-update
+        run: |
+          composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
+          composer remove --dev psalm/phar --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
       - name: Download phpunit phar
