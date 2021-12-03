@@ -3,6 +3,10 @@
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## Unreleased
+### Added
+* `Eris\Generators` contains all the generator constructors as static methods.
+### Changed
+* The generator constructors implemented as simple function now call the static methods of `Eris\Generators`. They will be deprecated.
 
 ## 0.12.1
 ### Changed
