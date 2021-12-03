@@ -15,7 +15,7 @@ interface Shrinker
      * from shrinking $elements.
      * $elements contains an array of GeneratedValueSingle objects corresponding
      * to the elements that lead to the original failure of the assertion.
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function from(GeneratedValueSingle $elements, $exception);
 

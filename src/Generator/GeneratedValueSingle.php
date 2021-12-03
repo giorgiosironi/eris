@@ -7,9 +7,12 @@ use ArrayIterator;
 /**
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValueSingle instance.
+ *
+ * @template T
  */
 final class GeneratedValueSingle implements GeneratedValue // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
 {
+    /** @var T */
     private $value;
     private $input;
     private $generatorName;
@@ -22,7 +25,9 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * A value and the input that was used to derive it.
      * The input usually comes from another Generator.
      *
-     * @param T $value
+     * @template T
+     * @psalm-param T $value
+     * @param mixed $value
      * @param GeneratedValueSingle|mixed $input
      * @param string $generatorName  'tuple'
      * @return GeneratedValueSingle
@@ -35,7 +40,9 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     /**
      * Input will be copied from value.
      *
-     * @param T $value
+     * @template T
+     * @psalm-param T $value
+     * @param mixed $value
      * @param string $generatorName  'tuple'
      * @return GeneratedValueSingle
      */
@@ -64,7 +71,8 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     }
 
     /**
-     * @return T
+     * @psalm-return T
+     * @return mixed
      */
     public function unbox()
     {
