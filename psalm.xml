@@ -6,11 +6,13 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     cacheDirectory=".psalm-cache/"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="src" />
-        <directory name="test" />
-        <directory name="examples" />
+<!--        TODO enable other dirs-->
+<!--        <directory name="test" />-->
+<!--        <directory name="examples" />-->
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>

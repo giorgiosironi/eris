@@ -12,7 +12,9 @@ jobs:
           - description: Code style
             script: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
           - description: PHPStan
-            script: vendor/bin/phpstan analyse -c phpstan.neon
+            script: vendor/bin/phpstan
+          - description: Psalm
+            script: vendor/bin/psalm.phar
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest
     steps:
