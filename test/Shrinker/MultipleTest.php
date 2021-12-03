@@ -11,6 +11,15 @@ use Exception;
 
 class MultipleTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Multiple
+     */
+    private $shrinker;
+    /**
+     * @var array
+     */
+    private $attempts;
+
     public function setUp()
     {
         $this->shrinker = new Multiple(

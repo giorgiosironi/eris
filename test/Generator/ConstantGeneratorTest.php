@@ -6,6 +6,15 @@ use Eris\Random\RandSource;
 
 class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->size = 0;

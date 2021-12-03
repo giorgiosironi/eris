@@ -6,6 +6,19 @@ use Eris\Random\RandSource;
 
 class TupleGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ChooseGenerator
+     */
+    private $generatorForSingleElement;
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->generatorForSingleElement = new ChooseGenerator(0, 100);

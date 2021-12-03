@@ -7,6 +7,23 @@ use Eris\Quantifier\ForAll;
 
 class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string[]
+     */
+    private $universe;
+    /**
+     * @var SubsetGenerator
+     */
+    private $generator;
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->universe = ['a', 'b', 'c', 'd', 'e'];

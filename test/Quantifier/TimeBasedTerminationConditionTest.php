@@ -5,6 +5,19 @@ use DateInterval;
 
 class TimeBasedTerminationConditionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Closure
+     */
+    private $time;
+    /**
+     * @var int
+     */
+    private $currentTime;
+    /**
+     * @var TimeBasedTerminationCondition
+     */
+    private $condition;
+
     protected function setUp()
     {
         $this->time = function () {

@@ -6,6 +6,27 @@ use Eris\Random\RandSource;
 
 class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ElementsGenerator
+     */
+    private $letterGenerator;
+    /**
+     * @var ElementsGenerator
+     */
+    private $cipherGenerator;
+    /**
+     * @var ChooseGenerator
+     */
+    private $smallIntegerGenerator;
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->letterGenerator = ElementsGenerator::fromArray(['A', 'B', 'C']);

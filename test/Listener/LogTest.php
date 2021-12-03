@@ -4,6 +4,19 @@ namespace Eris\Listener;
 class LogTest extends \PHPUnit_Framework_TestCase
 {
     private $originalTimezone;
+    /**
+     * @var string
+     */
+    private $file;
+    /**
+     * @var \Closure
+     */
+    private $time;
+    /**
+     * @var Log
+     */
+    private $log;
+
     protected function setUp()
     {
         $this->originalTimezone = date_default_timezone_get();

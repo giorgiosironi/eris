@@ -6,6 +6,19 @@ use Eris\Random\RandSource;
 
 class SetGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var ChooseGenerator
+     */
+    private $singleElementGenerator;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->size = 100;

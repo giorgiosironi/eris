@@ -6,6 +6,31 @@ use Eris\Random\RandSource;
 
 class VectorGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var int
+     */
+    private $vectorSize;
+    /**
+     * @var int
+     */
+    private $size;
+    /**
+     * @var ChooseGenerator
+     */
+    private $elementGenerator;
+    /**
+     * @var VectorGenerator
+     */
+    private $vectorGenerator;
+    /**
+     * @var \Closure
+     */
+    private $sum;
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     protected function setUp()
     {
         $this->vectorSize = rand(5, 10);

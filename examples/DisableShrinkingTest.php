@@ -7,6 +7,11 @@ class DisableShrinkingTest extends \PHPUnit_Framework_TestCase
     use TestTrait;
 
     /**
+     * @var int
+     */
+    private $calls;
+
+    /**
      * Shrinking may be avoided when then() is slow or non-deterministic.
      */
     public function testThenIsNotCalledMultipleTime()

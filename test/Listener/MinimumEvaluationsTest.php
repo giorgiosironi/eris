@@ -6,6 +6,11 @@ use LogicException;
 
 class MinimumEvaluationsTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var MinimumEvaluations
+     */
+    private $listener;
+
     protected function setUp()
     {
         $this->listener = MinimumEvaluations::ratio(0.5);

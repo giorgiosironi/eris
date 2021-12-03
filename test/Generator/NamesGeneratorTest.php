@@ -6,6 +6,11 @@ use Eris\Random\RandSource;
 
 class NamesGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var RandomRange
+     */
+    private $rand;
+
     public function setUp()
     {
         $this->rand = new RandomRange(new RandSource());
