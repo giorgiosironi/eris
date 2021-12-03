@@ -13,7 +13,11 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     private $value;
     private $input;
     private $generatorName;
-    
+    /**
+     * @var array
+     */
+    private $annotations;
+
     /**
      * A value and the input that was used to derive it.
      * The input usually comes from another Generator.

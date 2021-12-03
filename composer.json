@@ -55,8 +55,11 @@
             "composer update",
             "vendor/bin/phpunit test"
         ],
-        "static-analysis": [
+        "phpstan": [
             "vendor/bin/phpstan analyse -c phpstan.neon"
+        ],
+        "phpstan-baseline": [
+            "vendor/bin/phpstan analyse -c phpstan.neon --generate-baseline"
         ]
     }
 }

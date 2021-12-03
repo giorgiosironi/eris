@@ -216,10 +216,6 @@ final class Generators
 
     public static function seq(Generator $singleElementGenerator)
     {
-        // TODO: Generator::box($singleElementGenerator);
-        if (!($singleElementGenerator instanceof Generator)) {
-            $singleElementGenerator = new Constant($singleElementGenerator);
-        }
         return new SequenceGenerator($singleElementGenerator);
     }
 

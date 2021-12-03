@@ -91,7 +91,7 @@ class FrequencyGenerator implements Generator
                 return [$index, $generator['generator']];
             }
         }
-        throw new Exception(
+        throw new \Exception(
             'Unable to pick a generator with frequencies: ' . var_export($frequencies, true)
         );
     }

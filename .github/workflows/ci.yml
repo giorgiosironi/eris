@@ -1,6 +1,6 @@
 name: CI
 
-on: [pull_request, push]
+on: [pull_request]
 
 jobs:
   tests:
@@ -19,6 +19,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+      - name: Remove phpstan from dev dependecies for older php versions
+        run: composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
         with:
@@ -45,6 +47,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+      - name: Remove phpstan from dev dependecies for older php versions
+        run: composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
       - name: Download phpunit phar
