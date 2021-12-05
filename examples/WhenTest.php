@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class WhenTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +9,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenWithAnAnonymousFunctionWithGherkinSyntax()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->when(function ($n) {
                 return $n > 42;
@@ -24,8 +25,8 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenWithAnAnonymousFunctionForMultipleArguments()
     {
         $this->forAll(
-            Generator\choose(0, 1000),
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000),
+            Generators::choose(0, 1000)
         )
             ->when(function ($first, $second) {
                 return $first > 42 && $second > 23;
@@ -41,7 +42,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenWithOnePHPUnitConstraint()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->when($this->greaterThan(42))
             ->then(function ($number) {
@@ -55,8 +56,8 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenWithMultiplePHPUnitConstraints()
     {
         $this->forAll(
-            Generator\choose(0, 1000),
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000),
+            Generators::choose(0, 1000)
         )
             ->when($this->greaterThan(42), $this->greaterThan(23))
             ->then(function ($first, $second) {
@@ -70,7 +71,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testMultipleWhenClausesWithGherkinSyntax()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->when($this->greaterThan(42))
             ->and($this->lessThan(900))
@@ -85,7 +86,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenWhichSkipsTooManyValues()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->when($this->greaterThan(800))
             ->then(function ($number) {
@@ -103,7 +104,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testWhenFailingWillNaturallyHaveALowEvaluationRatioSoWeDontWantThatErrorToObscureTheTrueOne()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->when($this->greaterThan(100))
             ->then(function ($number) {
@@ -117,7 +118,7 @@ class WhenTest extends \PHPUnit_Framework_TestCase
     public function testSizeIncreasesEvenIfEvaluationsAreSkippedDueToAntecedentsNotBeingSatisfied()
     {
         $this->forAll(
-            Generator\seq(Generator\elements(1, 2, 3))
+            Generators::seq(Generators::elements(1, 2, 3))
         )
             ->when(function ($seq) {
                 return count($seq) > 0;

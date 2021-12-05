@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class VectorTest extends PHPUnit_Framework_TestCase
 {
@@ -8,8 +9,8 @@ class VectorTest extends PHPUnit_Framework_TestCase
     public function testConcatenationMaintainsLength()
     {
         $this->forAll(
-            Generator\vector(10, Generator\nat(1000)),
-            Generator\vector(10, Generator\nat(1000))
+            Generators::vector(10, Generators::nat(1000)),
+            Generators::vector(10, Generators::nat(1000))
         )
             ->then(function ($first, $second) {
                 $concatenated = array_merge($first, $second);

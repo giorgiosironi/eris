@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class SequenceTest extends PHPUnit_Framework_TestCase
 {
@@ -9,7 +10,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(Generator\nat())
+                Generators::seq(Generators::nat())
             )
             ->then(function ($array) {
                 $this->assertEquals(count($array), count(array_reverse($array)));
@@ -20,7 +21,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(Generator\nat())
+                Generators::seq(Generators::nat())
             )
             ->then(function ($array) {
                 $this->assertEquals($array, array_reverse(array_reverse($array)));
@@ -31,7 +32,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(Generator\nat())
+                Generators::seq(Generators::nat())
             )
             ->then(function ($array) {
                 sort($array);

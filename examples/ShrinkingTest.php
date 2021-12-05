@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\TestTrait;
 
 class ShrinkingTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +10,7 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingAString()
     {
         $this->forAll(
-            Generator\string()
+            Generators::string()
         )
             ->then(function ($string) {
                 var_dump($string);
@@ -20,7 +21,7 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
     public function testShrinkingRespectsAntecedents()
     {
         $this->forAll(
-            Generator\choose(0, 20)
+            Generators::choose(0, 20)
         )
             ->when(function ($number) {
                 return $number > 10;

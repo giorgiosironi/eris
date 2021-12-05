@@ -20,11 +20,6 @@
       <code>callable|PHPUnit_Framework_Constraint|Constraint</code>
     </UndefinedDocblockClass>
   </file>
-  <file src="src/Quantifier/Evaluation.php">
-    <UndefinedClass occurrences="1">
-      <code>PHPUnit_Framework_AssertionFailedError</code>
-    </UndefinedClass>
-  </file>
   <file src="src/Quantifier/ForAll.php">
     <UndefinedClass occurrences="1">
       <code>PHPUnit_Framework_Constraint</code>

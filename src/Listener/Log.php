@@ -2,12 +2,15 @@
 namespace Eris\Listener;
 
 use Eris\Listener;
-use Eris\Listener\EmptyListener;
+use Eris\Listeners;
 use Exception;
 
+/**
+ * @see Listeners::log()
+ */
 function log($file)
 {
-    return new Log($file, 'time', getmypid());
+    return Listeners::log($file);
 }
 
 class Log extends EmptyListener implements Listener

@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\Random;
 use Eris\TestTrait;
 
@@ -12,7 +13,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
         $this
             ->withRand('rand')
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->withMaxSize(1000 * 1000* 1000)
             ->then($this->isInteger());
@@ -25,7 +26,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->withMaxSize(1000 * 1000* 1000)
             ->then($this->isInteger());
@@ -36,7 +37,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
         $this
             ->withRand('mt_rand')
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->then($this->isInteger());
     }
@@ -49,7 +50,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->then($this->isInteger());
     }
@@ -63,7 +64,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
         $this
             ->withRand(Random\purePhpMtRand())
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->then($this->isInteger());
     }

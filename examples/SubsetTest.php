@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\TestTrait;
 
 class SubsetTest extends PHPUnit_Framework_TestCase
@@ -9,7 +10,7 @@ class SubsetTest extends PHPUnit_Framework_TestCase
     public function testSubsetsOfASet()
     {
         $this->forAll(
-            Generator\subset([
+            Generators::subset([
                 2, 4, 6, 8, 10
             ])
         )

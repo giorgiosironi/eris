@@ -10,9 +10,8 @@
 >
     <projectFiles>
         <directory name="src" />
-<!--        TODO enable other dirs-->
-<!--        <directory name="test" />-->
-<!--        <directory name="examples" />-->
+        <directory name="test" />
+        <directory name="examples" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>

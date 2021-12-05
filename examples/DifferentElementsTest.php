@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\TestTrait;
 
 class Type
@@ -55,12 +56,12 @@ class DifferentElementsTest extends \PHPUnit_Framework_TestCase
         };
 
         $this
-            ->forAll(Generator\bind(
+            ->forAll(Generators::bind(
                 call_user_func_array('Eris\Generator\elements', $allTypes),
                 function ($first) use ($allTypes, $remove) {
-                    return Generator\tuple(
-                        Generator\constant($first),
-                        Generator\elements($remove($allTypes, $first))
+                    return Generators::tuple(
+                        Generators::constant($first),
+                        Generators::elements($remove($allTypes, $first))
                     );
                 }
             ))

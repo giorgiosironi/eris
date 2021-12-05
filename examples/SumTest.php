@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 function my_sum($first, $second)
 {
@@ -16,7 +17,7 @@ class SumTest extends PHPUnit_Framework_TestCase
     public function testRightIdentityElement()
     {
         $this->forAll(
-            Generator\nat(1000)
+            Generators::nat(1000)
         )
             ->then(function ($number) {
                 $this->assertEquals(
@@ -30,7 +31,7 @@ class SumTest extends PHPUnit_Framework_TestCase
     public function testLeftIdentityElement()
     {
         $this->forAll(
-            Generator\nat(1000)
+            Generators::nat(1000)
         )
             ->then(function ($number) {
                 $this->assertEquals(
@@ -44,8 +45,8 @@ class SumTest extends PHPUnit_Framework_TestCase
     public function testEqualToReferencePhpImplementation()
     {
         $this->forAll(
-            Generator\nat(1000),
-            Generator\nat(1000)
+            Generators::nat(1000),
+            Generators::nat(1000)
         )
             ->then(function ($first, $second) {
                 $this->assertEquals(
@@ -59,8 +60,8 @@ class SumTest extends PHPUnit_Framework_TestCase
     public function testPropertyNeverSatisfied()
     {
         $this->forAll(
-            Generator\nat(1000),
-            Generator\nat(1000)
+            Generators::nat(1000),
+            Generators::nat(1000)
         )
             ->then(function ($first, $second) {
                 $this->assertEquals(

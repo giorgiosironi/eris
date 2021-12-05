@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class OneOfTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,9 +10,9 @@ class OneOfTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\oneOf(
-                    Generator\pos(),
-                    Generator\neg()
+                Generators::oneOf(
+                    Generators::pos(),
+                    Generators::neg()
                 )
             )
             ->then(function ($number) {
