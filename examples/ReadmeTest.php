@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class ReadmeTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +9,7 @@ class ReadmeTest extends \PHPUnit_Framework_TestCase
     public function testNaturalNumbersMagnitude()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->then(function ($number) {
                 $this->assertTrue(

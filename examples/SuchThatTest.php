@@ -1,6 +1,7 @@
 <?php
-use Eris\Generator;
-use Eris\Listener;
+
+use Eris\Generators;
+use Eris\Listeners;
 
 class SuchThatTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,13 +11,13 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                Generators::vector(
                     5,
-                    Generator\suchThat(
+                    Generators::suchThat(
                         function ($n) {
                             return $n > 42;
                         },
-                        Generator\choose(0, 1000)
+                        Generators::choose(0, 1000)
                     )
                 )
             )
@@ -27,13 +28,13 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                Generators::vector(
                     5,
-                    Generator\filter(
+                    Generators::filter(
                         function ($n) {
                             return $n > 42;
                         },
-                        Generator\choose(0, 1000)
+                        Generators::choose(0, 1000)
                     )
                 )
             )
@@ -44,18 +45,18 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(
+                Generators::vector(
                     5,
-                    Generator\suchThat(
+                    Generators::suchThat(
                         $this->isType('integer'),
-                        Generator\oneOf(
-                            Generator\choose(0, 1000),
-                            Generator\string()
+                        Generators::oneOf(
+                            Generators::choose(0, 1000),
+                            Generators::string()
                         )
                     )
                 )
             )
-            ->hook(Listener\log(sys_get_temp_dir().'/eris-such-that.log'))
+            ->hook(Listeners::log(sys_get_temp_dir().'/eris-such-that.log'))
             ->then($this->allNumbersAreBiggerThan(42));
     }
 
@@ -64,11 +65,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                Generators::suchThat(
                     function ($n) {
                         return $n > 42;
                     },
-                    Generator\choose(0, 1000)
+                    Generators::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
@@ -78,11 +79,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                Generators::suchThat(
                     function ($n) {
                         return $n <> 42;
                     },
-                    Generator\choose(0, 1000)
+                    Generators::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
@@ -92,11 +93,11 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\suchThat(
+                Generators::suchThat(
                     function (array $ints) {
                         return count($ints) > 0;
                     },
-                    Generator\seq(Generator\int())
+                    Generators::seq(Generators::int())
                 )
             )
             ->then(function (array $ints) use (&$i) {

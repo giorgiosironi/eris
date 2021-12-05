@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\TestTrait;
 
 class IntegerTest extends PHPUnit_Framework_TestCase
@@ -9,8 +10,8 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     public function testSumIsCommutative()
     {
         $this->forAll(
-            Generator\int(),
-            Generator\int()
+            Generators::int(),
+            Generators::int()
         )
             ->then(function ($first, $second) {
                 $x = $first + $second;
@@ -26,9 +27,9 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     public function testSumIsAssociative()
     {
         $this->forAll(
-            Generator\int(),
-            Generator\neg(),
-            Generator\pos()
+            Generators::int(),
+            Generators::neg(),
+            Generators::pos()
         )
             ->then(function ($first, $second, $third) {
                 $x = $first + ($second + $third);
@@ -44,7 +45,7 @@ class IntegerTest extends PHPUnit_Framework_TestCase
     public function testByteData()
     {
         $this->forAll(
-            Generator\byte()
+            Generators::byte()
         )
             ->then(function ($byte) {
                 $this->assertTrue(

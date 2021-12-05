@@ -1,7 +1,8 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
+use Eris\Listeners;
 use Eris\TestTrait;
-use Eris\Listener;
 
 class CollectTest extends PHPUnit_Framework_TestCase
 {
@@ -10,8 +11,8 @@ class CollectTest extends PHPUnit_Framework_TestCase
     public function testGeneratedDataCollectionOnScalars()
     {
         $this
-            ->forAll(Generator\neg())
-            ->hook(Listener\collectFrequencies())
+            ->forAll(Generators::neg())
+            ->hook(Listeners::collectFrequencies())
             ->then(function ($x) {
                 $this->assertTrue($x < $x + 1);
             });
@@ -21,10 +22,10 @@ class CollectTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\vector(2, Generator\int()),
-                Generator\char()
+                Generators::vector(2, Generators::int()),
+                Generators::char()
             )
-            ->hook(Listener\collectFrequencies())
+            ->hook(Listeners::collectFrequencies())
             ->then(function ($vector) {
                 $this->assertEquals(2, count($vector));
             });
@@ -34,10 +35,10 @@ class CollectTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\seq(Generator\nat())
+                Generators::seq(Generators::nat())
             )
             ->withMaxSize(10)
-            ->hook(Listener\collectFrequencies(function ($array) {
+            ->hook(Listeners::collectFrequencies(function ($array) {
                 return count($array);
             }))
             ->then(function ($array) {

@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 use Eris\TestTrait;
 
 class SizeTest extends PHPUnit_Framework_TestCase
@@ -14,7 +15,7 @@ class SizeTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->withMaxSize(1000 * 1000)
             ->then(function ($number) {

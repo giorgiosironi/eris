@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class ElementsTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +9,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testElementsOnlyProducesElementsFromTheGivenArguments()
     {
         $this->forAll(
-            Generator\elements(1, 2, 3)
+            Generators::elements(1, 2, 3)
         )
             ->then(function ($number) {
                 $this->assertContains(
@@ -26,7 +27,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testElementsOnlyProducesElementsFromTheGivenArrayDomain()
     {
         $this->forAll(
-            Generator\elements([1, 2, 3])
+            Generators::elements([1, 2, 3])
         )
             ->then(function ($number) {
                 $this->assertContains(
@@ -40,9 +41,9 @@ class ElementsTest extends \PHPUnit_Framework_TestCase
     public function testVectorOfElementsGenerators()
     {
         $this->forAll(
-            Generator\vector(
+            Generators::vector(
                 4,
-                Generator\elements([2, 4, 6, 8, 10, 12])
+                Generators::elements([2, 4, 6, 8, 10, 12])
             )
         )
             ->then(function ($vector) {

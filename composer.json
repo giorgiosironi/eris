@@ -24,7 +24,8 @@
         "sebastian/comparator": ">=1.2.4",
         "friendsofphp/php-cs-fixer": "^2.0",
         "icomefromthenet/reverse-regex": "v0.0.6.3",
-        "phpstan/phpstan": "^1.2"
+        "phpstan/phpstan": "^1.2",
+        "psalm/phar": "^4.13"
     },
     "suggest":
     {
@@ -55,8 +56,9 @@
             "composer update",
             "vendor/bin/phpunit test"
         ],
-        "phpstan": [
-            "vendor/bin/phpstan analyse -c phpstan.neon"
+        "static": [
+            "vendor/bin/phpstan",
+            "vendor/bin/psalm.phar"
         ],
         "phpstan-baseline": [
             "vendor/bin/phpstan analyse -c phpstan.neon --generate-baseline"

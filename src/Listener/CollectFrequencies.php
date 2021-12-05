@@ -2,12 +2,16 @@
 namespace Eris\Listener;
 
 use Eris\Listener;
-use InvalidArgumentException;
+use Eris\Listeners;
 use Exception;
+use InvalidArgumentException;
 
+/**
+ * @see Listeners::collectFrequencies()
+ */
 function collectFrequencies(callable $collectFunction = null)
 {
-    return new CollectFrequencies($collectFunction);
+    return Listeners::collectFrequencies($collectFunction);
 }
 
 class CollectFrequencies extends EmptyListener implements Listener

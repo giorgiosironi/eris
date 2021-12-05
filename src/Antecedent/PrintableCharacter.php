@@ -2,15 +2,22 @@
 namespace Eris\Antecedent;
 
 use Eris\Antecedent;
+use Eris\Antecedents;
 
+/**
+ * @see Antecedents::printableCharacter()
+ */
 function printableCharacter()
 {
-    return new PrintableCharacter();
+    return Antecedents::printableCharacter();
 }
 
+/**
+ * @see Antecedents::printableCharacters()
+ */
 function printableCharacters()
 {
-    return new PrintableCharacter();
+    return Antecedents::printableCharacters();
 }
 
 class PrintableCharacter implements Antecedent

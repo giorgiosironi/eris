@@ -1,5 +1,6 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
 
 class DateTest extends PHPUnit_Framework_TestCase
 {
@@ -8,7 +9,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testYearOfADate()
     {
         $this->forAll(
-            Generator\date("2014-01-01T00:00:00", "2014-12-31T23:59:59")
+            Generators::date("2014-01-01T00:00:00", "2014-12-31T23:59:59")
         )
             ->then(function (DateTime $date) {
                 $this->assertEquals(
@@ -21,7 +22,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testDefaultValuesForTheInterval()
     {
         $this->forAll(
-            Generator\date()
+            Generators::date()
         )
             ->then(function (DateTime $date) {
                 $this->assertGreaterThanOrEqual(
@@ -38,9 +39,9 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testFromDayOfYearFactoryMethodRespectsDistanceBetweenDays()
     {
         $this->forAll(
-            Generator\choose(2000, 2020),
-            Generator\choose(0, 364),
-            Generator\choose(0, 364)
+            Generators::choose(2000, 2020),
+            Generators::choose(0, 364),
+            Generators::choose(0, 364)
         )
         ->then(function ($year, $dayOfYear, $anotherDayOfYear) {
             $day = fromZeroBasedDayOfYear($year, $dayOfYear);

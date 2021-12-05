@@ -1,7 +1,8 @@
 <?php
-use Eris\Generator;
+
+use Eris\Generators;
+use Eris\Listeners;
 use Eris\TestTrait;
-use Eris\Listener;
 
 class LogFileTest extends PHPUnit_Framework_TestCase
 {
@@ -11,9 +12,9 @@ class LogFileTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
-            ->hook(Listener\log(sys_get_temp_dir().'/eris-log-file-test.log'))
+            ->hook(Listeners::log(sys_get_temp_dir().'/eris-log-file-test.log'))
             ->then(function ($number) {
                 $this->assertInternalType('integer', $number);
             });
@@ -23,9 +24,9 @@ class LogFileTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
-            ->hook(Listener\log(sys_get_temp_dir().'/eris-log-file-shrinking.log'))
+            ->hook(Listeners::log(sys_get_temp_dir().'/eris-log-file-shrinking.log'))
             ->then(function ($number) {
                 $this->assertLessThanOrEqual(42, $number);
             });

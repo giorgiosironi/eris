@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.x-dev@">
+  <file src="src/Antecedent/IndependentConstraintsAntecedent.php">
+    <UndefinedClass occurrences="1">
+      <code>PHPUnit_Framework_ExpectationFailedException</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Generator/SuchThatGenerator.php">
+    <UndefinedClass occurrences="1">
+      <code>PHPUnit_Framework_Constraint</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>callable|PHPUnit_Framework_Constraint|Constraint</code>
+      <code>callable|PHPUnit_Framework_Constraint|Constraint</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Generators.php">
+    <UndefinedDocblockClass occurrences="2">
+      <code>callable|PHPUnit_Framework_Constraint|Constraint</code>
+      <code>callable|PHPUnit_Framework_Constraint|Constraint</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Quantifier/ForAll.php">
+    <UndefinedClass occurrences="1">
+      <code>PHPUnit_Framework_Constraint</code>
+    </UndefinedClass>
+  </file>
+</files>
