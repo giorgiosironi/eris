@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class ErrorTest extends \PHPUnit_Framework_TestCase
+class ErrorTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

@@ -3,7 +3,7 @@ namespace Eris;
 
 use SimpleXMLElement;
 
-class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
+class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
 {
     private $testFile;
     private $testsByName;

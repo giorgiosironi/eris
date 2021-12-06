@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Quantifier;
 
-class SizeTest extends \PHPUnit_Framework_TestCase
+class SizeTest extends \PHPUnit\Framework\TestCase
 {
     public function testProducesAListOfSizesIncreasingThemTriangularly()
     {

@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\Listeners;
 
-class SuchThatTest extends \PHPUnit_Framework_TestCase
+class SuchThatTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
@@ -48,7 +48,7 @@ class SuchThatTest extends \PHPUnit_Framework_TestCase
                 Generators::vector(
                     5,
                     Generators::suchThat(
-                        $this->isType('integer'),
+                        $this->isType('int'),
                         Generators::oneOf(
                             Generators::choose(0, 1000),
                             Generators::string()

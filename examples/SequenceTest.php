@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class SequenceTest extends PHPUnit_Framework_TestCase
+class SequenceTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

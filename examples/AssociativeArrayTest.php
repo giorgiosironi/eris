@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class AssociativeArrayTest extends PHPUnit_Framework_TestCase
+class AssociativeArrayTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
@@ -15,7 +15,7 @@ class AssociativeArrayTest extends PHPUnit_Framework_TestCase
             ])
         )
             ->then(function ($array) {
-                $this->assertEquals(2, count($array));
+                $this->assertCount(2, $array);
                 $letter = $array['letter'];
                 $this->assertInternalType('string', $letter);
                 $cipher = $array['cipher'];

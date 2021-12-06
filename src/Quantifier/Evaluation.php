@@ -2,7 +2,6 @@
 namespace Eris\Quantifier;
 
 use Eris\Generator\GeneratedValueSingle;
-use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit\Framework\AssertionFailedError;
 
 /**
@@ -54,9 +53,6 @@ final class Evaluation
                 $this->assertion,
                 $this->values->unbox()
             );
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
-            call_user_func($this->onFailure, $this->values, $e);
-            return;
         } catch (AssertionFailedError $e) {
             call_user_func($this->onFailure, $this->values, $e);
             return;

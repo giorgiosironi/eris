@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
+class ConstantGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,13 +15,13 @@ class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 0;
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testPicksAlwaysTheValue()
+    public function testPicksAlwaysTheValue(): void
     {
         $generator = new ConstantGenerator(true);
         for ($i = 0; $i < 50; $i++) {
@@ -29,7 +29,7 @@ class ConstantGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShrinkAlwaysToTheValue()
+    public function testShrinkAlwaysToTheValue(): void
     {
         $generator = new ConstantGenerator(true);
         $element = $generator($this->size, $this->rand);

@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class SortTest extends PHPUnit_Framework_TestCase
+class SortTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

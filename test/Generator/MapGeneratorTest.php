@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class MapGeneratorTest extends \PHPUnit_Framework_TestCase
+class MapGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,7 +15,7 @@ class MapGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 10;
         $this->rand = new RandomRange(new RandSource());

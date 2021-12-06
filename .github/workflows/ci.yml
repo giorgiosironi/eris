@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4]
+        php: [7.1, 7.2, 7.3, 7.4, 8.0]
         dependencies:
           - "lowest"
           - "highest"
@@ -19,11 +19,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-      - name: Remove dev dependecies for older php versions
-        if: ${{ matrix.php < 7.1 }}
-        run: |
-          composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
-          composer remove --dev psalm/phar --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
         with:
@@ -37,12 +32,11 @@ jobs:
     strategy:
       matrix:
         include:
+          - { phpunit: 9, php: 8.1 }
           - { phpunit: 9, php: 8.0 }
           - { phpunit: 8, php: 7.4 }
           - { phpunit: 7, php: 7.3 }
-          - { phpunit: 6, php: 7.2 }
-          - { phpunit: 5, php: 7.1 }
-          - { phpunit: 4, php: 5.6 }
+          - { phpunit: 6, php: 7.1 }
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -50,11 +44,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-      - name: Remove dev dependecies for older php versions
-        if: ${{ matrix.php < 7.1 }}
-        run: |
-          composer remove --dev phpstan/phpstan --ignore-platform-reqs --no-update
-          composer remove --dev psalm/phar --ignore-platform-reqs --no-update
       - name: Install dependencies
         uses: ramsey/composer-install@v1
       - name: Download phpunit phar

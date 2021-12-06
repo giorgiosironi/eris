@@ -4,11 +4,11 @@ use Eris\Generators;
 use Eris\Listeners;
 use Eris\TestTrait;
 
-class LogFileTest extends PHPUnit_Framework_TestCase
+class LogFileTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    public function testWritingIterationsOnALogFile()
+    public function testWritingIterationsOnALogFile(): void
     {
         $this
             ->forAll(
@@ -20,7 +20,7 @@ class LogFileTest extends PHPUnit_Framework_TestCase
             });
     }
 
-    public function testLogOfFailuresAndShrinking()
+    public function testLogOfFailuresAndShrinking(): void
     {
         $this
             ->forAll(

@@ -4,14 +4,14 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class StringGeneratorTest extends \PHPUnit_Framework_TestCase
+class StringGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var RandomRange
      */
     private $rand;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->rand = new RandomRange(new RandSource());
     }

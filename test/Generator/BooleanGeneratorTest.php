@@ -4,19 +4,19 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
+class BooleanGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var RandomRange
      */
     private $rand;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->rand = new RandomRange(new RandSource());
     }
     
-    public function testRandomlyPicksTrueOrFalse()
+    public function testRandomlyPicksTrueOrFalse(): void
     {
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
@@ -25,7 +25,7 @@ class BooleanGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShrinksToFalse()
+    public function testShrinksToFalse(): void
     {
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {

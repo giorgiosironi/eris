@@ -2,7 +2,7 @@
 namespace Eris\Generator;
 
 // TODO: complete *unit* test coverage
-class GeneratedValueOptionsTest extends \PHPUnit_Framework_TestCase
+class GeneratedValueOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testMapsOverAllTheOptions()
     {

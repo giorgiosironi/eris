@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class BindGeneratorTest extends \PHPUnit_Framework_TestCase
+class BindGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,19 +15,19 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 10;
         $this->rand = new RandomRange(new RandSource());
     }
-    
-    public function testGeneratesAGeneratedValueObject()
+
+    public function testGeneratesAGeneratedValueObject(): void
     {
         $generator = new BindGenerator(
-            // TODO: order of parameters should be consistent with map, or not?
+        // TODO: order of parameters should be consistent with map, or not?
             ConstantGenerator::box(4),
             function ($n) {
-                return new ChooseGenerator($n, $n+10);
+                return new ChooseGenerator($n, $n + 10);
             }
         );
         $this->assertInternalType(
@@ -36,7 +36,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testShrinksTheOuterGenerator()
+    public function testShrinksTheOuterGenerator(): void
     {
         $generator = new BindGenerator(
             new ChooseGenerator(0, 5),
@@ -55,7 +55,7 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(5, $value->unbox());
     }
 
-    public function testAssociativeProperty()
+    public function testAssociativeProperty(): void
     {
         $firstGenerator = new BindGenerator(
             new BindGenerator(
@@ -85,27 +85,25 @@ class BindGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShrinkBindGeneratorWithCompositeValue()
+    public function testShrinkBindGeneratorWithCompositeValue(): void
     {
-        $bindGenerator     = new BindGenerator(
+        $bindGenerator = new BindGenerator(
             new ChooseGenerator(0, 5),
             function ($n) {
                 return new TupleGenerator([$n]);
             }
         );
-        $generatedValue    = $bindGenerator->__invoke($this->size, $this->rand);
-        $firstShrunkValue  = $bindGenerator->shrink($generatedValue);
+        $generatedValue = $bindGenerator->__invoke($this->size, $this->rand);
+        $firstShrunkValue = $bindGenerator->shrink($generatedValue);
         $secondShrunkValue = $bindGenerator->shrink($firstShrunkValue);
-        $this->assertInstanceOf('\Eris\Generator\GeneratedValue', $secondShrunkValue);
+        $this->assertInstanceOf(GeneratedValue::class, $secondShrunkValue);
     }
 
-    private function assertIsAnArrayOfX0OrX1Elements(array $value)
+    private function assertIsAnArrayOfX0OrX1Elements(array $value): void
     {
-        $this->assertTrue(
-            in_array(
-                count($value) % 10,
-                [0, 1]
-            ),
+        $this->assertContains(
+            count($value) % 10,
+            [0, 1],
             "The array has " . count($value) . " elements"
         );
     }

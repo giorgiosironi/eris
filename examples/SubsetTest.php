@@ -2,8 +2,9 @@
 
 use Eris\Generators;
 use Eris\TestTrait;
+use PHPUnit\Framework\TestCase;
 
-class SubsetTest extends PHPUnit_Framework_TestCase
+class SubsetTest extends TestCase
 {
     use TestTrait;
 

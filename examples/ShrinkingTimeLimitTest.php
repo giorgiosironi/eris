@@ -12,7 +12,7 @@ function very_slow_concatenation($first, $second)
     return $first . $second;
 }
 
-class ShrinkingTimeLimitTest extends PHPUnit_Framework_TestCase
+class ShrinkingTimeLimitTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

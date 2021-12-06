@@ -3,8 +3,9 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use PHPUnit\Framework\TestCase;
 
-class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
+class AssociativeArrayGeneratorTest extends TestCase
 {
     /**
      * @var ElementsGenerator
@@ -27,7 +28,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->letterGenerator = ElementsGenerator::fromArray(['A', 'B', 'C']);
         $this->cipherGenerator = ElementsGenerator::fromArray([0, 1, 2]);
@@ -36,7 +37,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testConstructWithAnAssociativeArrayOfGenerators()
+    public function testConstructWithAnAssociativeArrayOfGenerators(): void
     {
         $generator = new AssociativeArrayGenerator([
             'letter' => $this->letterGenerator,
@@ -46,7 +47,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $generated = $generator($this->size, $this->rand);
 
         $array = $generated->unbox();
-        $this->assertEquals(2, count($array));
+        $this->assertCount(2, $array);
         $letter = $array['letter'];
         $this->assertInternalType('string', $letter);
         $this->assertEquals(1, strlen($letter));
@@ -54,10 +55,10 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('integer', $cipher);
         $this->assertGreaterThanOrEqual(0, $cipher);
         $this->assertLessThanOrEqual(9, $cipher);
-        $this->assertSame(2, count($generated->unbox()));
+        $this->assertCount(2, $generated->unbox());
     }
 
-    public function testShrinksTheGeneratorsButKeepsAllTheKeysPresent()
+    public function testShrinksTheGeneratorsButKeepsAllTheKeysPresent(): void
     {
         $generator = new AssociativeArrayGenerator([
             'former' => $this->smallIntegerGenerator,
@@ -70,7 +71,7 @@ class AssociativeArrayGeneratorTest extends \PHPUnit_Framework_TestCase
             $value = GeneratedValueOptions::mostPessimisticChoice($value);
             $value = $generator->shrink($value);
             $array = $value->unbox();
-            $this->assertEquals(2, count($array));
+            $this->assertCount(2, $array);
             $this->assertEquals(
                 ['former', 'latter'],
                 array_keys($array)

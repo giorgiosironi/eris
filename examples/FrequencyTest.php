@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class FrequencyTest extends \PHPUnit_Framework_TestCase
+class FrequencyTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

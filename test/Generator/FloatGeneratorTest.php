@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
+class FloatGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,13 +15,13 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 300;
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testPicksUniformelyPositiveAndNegativeFloatNumbers()
+    public function testPicksUniformelyPositiveAndNegativeFloatNumbers(): void
     {
         $generator = new FloatGenerator();
         $sum = 0;
@@ -36,14 +36,14 @@ class FloatGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThan(10, abs($mean));
     }
 
-    public function testShrinksLinearly()
+    public function testShrinksLinearly(): void
     {
         $generator = new FloatGenerator();
         $this->assertSame(3.5, $generator->shrink(GeneratedValueSingle::fromJustValue(4.5))->unbox());
         $this->assertSame(-2.5, $generator->shrink(GeneratedValueSingle::fromJustValue(-3.5))->unbox());
     }
 
-    public function testWhenBothSignsArePossibleCannotShrinkBelowZero()
+    public function testWhenBothSignsArePossibleCannotShrinkBelowZero(): void
     {
         $generator = new FloatGenerator();
         $this->assertSame(0.0, $generator->shrink(GeneratedValueSingle::fromJustValue(0.0))->unbox());

@@ -43,7 +43,7 @@ class AssociativeArrayGenerator implements Generator
             function ($value) {
                 $associativeArray = [];
                 $keys = array_keys($this->generators);
-                for ($i = 0; $i < count($value); $i++) {
+                for ($i = 0, $iMax = count($value); $i < $iMax; $i++) {
                     $key = $keys[$i];
                     $associativeArray[$key] = $value[$i];
                 }

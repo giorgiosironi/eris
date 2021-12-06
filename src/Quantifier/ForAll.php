@@ -7,7 +7,6 @@ use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\SkipValueException;
 use BadMethodCallException;
-use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
 use Exception;
 use RuntimeException;
@@ -99,8 +98,6 @@ class ForAll
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
             $antecedent = $arguments[0];
-        } elseif ($arguments[0] instanceof PHPUnit_Framework_Constraint) {
-            $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
         } elseif ($arguments[0] instanceof Constraint) {
             $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
         } elseif ($arguments && count($arguments) == 1) {

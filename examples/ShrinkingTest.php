@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\TestTrait;
 
-class ShrinkingTest extends \PHPUnit_Framework_TestCase
+class ShrinkingTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 

@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\TestTrait;
 
-class LimitToTest extends PHPUnit_Framework_TestCase
+class LimitToTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
