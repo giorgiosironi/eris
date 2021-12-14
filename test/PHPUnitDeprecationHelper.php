@@ -3,7 +3,6 @@
 namespace Eris;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\Test;
 
 final class PHPUnitDeprecationHelper
 {
