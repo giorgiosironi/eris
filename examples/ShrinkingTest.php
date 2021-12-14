@@ -14,7 +14,7 @@ class ShrinkingTest extends \PHPUnit\Framework\TestCase
         )
             ->then(function ($string) {
                 var_dump($string);
-                $this->assertNotContains('B', $string);
+                self::assertStringNotContainsString('B', $string);
             });
     }
 

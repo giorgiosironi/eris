@@ -33,7 +33,7 @@ class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = NamesGenerator::defaultDataSet();
         for ($i = 0; $i < 50; $i++) {
             $value = $generator($_size = 10, $this->rand);
-            $this->assertInternalType('string', $value->unbox());
+            \Eris\PHPUnitDeprecationHelper::assertIsString($value->unbox());
         }
     }
 

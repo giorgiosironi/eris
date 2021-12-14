@@ -72,7 +72,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
     private function isInteger()
     {
         return function ($number) {
-            $this->assertInternalType('integer', $number);
+            \Eris\PHPUnitDeprecationHelper::assertIsInt($number);
         };
     }
 }

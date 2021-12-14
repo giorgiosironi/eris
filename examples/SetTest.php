@@ -13,7 +13,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
             Generators::set(Generators::nat())
         )
             ->then(function ($set) {
-                $this->assertInternalType('array', $set);
+                \Eris\PHPUnitDeprecationHelper::assertIsArray($set);
                 foreach ($set as $element) {
                     $this->assertGreaterThanOrEqual(0, $element);
                 }

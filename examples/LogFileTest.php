@@ -16,7 +16,7 @@ class LogFileTest extends \PHPUnit\Framework\TestCase
             )
             ->hook(Listeners::log(sys_get_temp_dir().'/eris-log-file-test.log'))
             ->then(function ($number) {
-                $this->assertInternalType('integer', $number);
+                \Eris\PHPUnitDeprecationHelper::assertIsInt($number);
             });
     }
 

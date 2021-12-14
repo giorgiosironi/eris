@@ -16,7 +16,7 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
             Generators::int()
         )
             ->then(function ($value) {
-                $this->assertInternalType('integer', $value);
+                \Eris\PHPUnitDeprecationHelper::assertIsInt($value);
             });
     }
 

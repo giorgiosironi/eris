@@ -34,7 +34,7 @@ class OneOfGeneratorTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $element = $generator($this->size, $this->rand);
-        $this->assertInternalType('integer', $element->unbox());
+        \Eris\PHPUnitDeprecationHelper::assertIsInt($element->unbox());
     }
 
     public function testConstructWithNonGenerators(): void

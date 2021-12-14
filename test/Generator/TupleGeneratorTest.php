@@ -28,7 +28,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 
     private function assertInSingleElementGenerator($value): void
     {
-        $this->assertInternalType('integer', $value);
+        \Eris\PHPUnitDeprecationHelper::assertIsInt($value);
         $this->assertGreaterThanOrEqual(0, $value);
         $this->assertLessThanOrEqual(100, $value);
     }
@@ -118,7 +118,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            $this->assertInternalType('array', $optionValue);
+            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
             $this->assertCount(1, $optionValue);
         }
     }
@@ -146,7 +146,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            $this->assertInternalType('array', $optionValue);
+            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
             $this->assertEquals(2, count($optionValue));
             $elementsBeingShrunk =
                 (strlen($optionValue[0]) < 5 ? 1 : 0)
@@ -177,7 +177,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            $this->assertInternalType('array', $optionValue);
+            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
             $this->assertCount(2, $optionValue);
             $this->assertNotEquals([100, 200], $optionValue);
             $elementsBeingShrunk =
