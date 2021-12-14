@@ -13,7 +13,7 @@ class SequenceTest extends \PHPUnit\Framework\TestCase
                 Generators::seq(Generators::nat())
             )
             ->then(function ($array) {
-                $this->assertEquals(count($array), count(array_reverse($array)));
+                self::assertCount(count($array), array_reverse($array));
             });
     }
 

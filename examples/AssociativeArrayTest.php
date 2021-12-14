@@ -17,9 +17,9 @@ class AssociativeArrayTest extends \PHPUnit\Framework\TestCase
             ->then(function ($array) {
                 $this->assertCount(2, $array);
                 $letter = $array['letter'];
-                $this->assertInternalType('string', $letter);
+                \Eris\PHPUnitDeprecationHelper::assertIsString($letter);
                 $cipher = $array['cipher'];
-                $this->assertInternalType('integer', $cipher);
+                \Eris\PHPUnitDeprecationHelper::assertIsInt($cipher);
             });
     }
 }
