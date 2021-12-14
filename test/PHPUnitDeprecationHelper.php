@@ -82,8 +82,8 @@ final class PHPUnitDeprecationHelper
     {
         if (method_exists(TestCase::class, 'assertStringNotContainsString')) {
             TestCase::assertStringNotContainsString($needle, $haystack, $message);
-        } elseif (method_exists(TestCase::class, 'assertContains')) {
-            TestCase::assertContains($needle, $haystack, $message);
+        } elseif (method_exists(TestCase::class, 'assertNotContains')) {
+            TestCase::assertNotContains($needle, $haystack, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
         }
