@@ -81,7 +81,7 @@ class Size implements Countable
         return new self($uniformSample);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->list);
     }

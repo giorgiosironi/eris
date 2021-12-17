@@ -116,12 +116,12 @@ class GeneratedValueOptions implements GeneratedValue
         return $this->last()->generatorName();
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->generatedValues);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->generatedValues);
     }

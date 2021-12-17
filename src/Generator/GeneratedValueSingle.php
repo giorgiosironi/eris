@@ -127,14 +127,14 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
         );
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator([
             $this
         ]);
     }
 
-    public function count()
+    public function count(): int
     {
         return 1;
     }
