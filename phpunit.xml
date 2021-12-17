@@ -13,6 +13,7 @@
         </testsuite>
         <testsuite name="EndToEnd">
             <file>./test/ExampleEnd2EndTest.php</file>
+            <file>./test/PHPUnitDeprecationHelper.php</file>
         </testsuite>
     </testsuites>
     <php>
