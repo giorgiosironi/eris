@@ -6,7 +6,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## [Unreleased]
 
-## [0.13.0]
+## [0.13.0] - 2021-12-17
 ### Added
 * `Eris\Generators` contains all the generator constructors as static methods.
 * Support for PHP 8.1
