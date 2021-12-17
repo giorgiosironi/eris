@@ -10,8 +10,8 @@ In property-based testing, several properties that the System Under Test must re
 
 ## Compatibility
 
-- PHP 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4
-- PHPUnit 5.x, 6.x, 7.x, 8.x, 9.x
+- PHP 7.1, 7.2, 7.3, 7.4, 8.0, 8.1
+- PHPUnit 6.x, 7.x, 8.x, 9.x
 
 ## Installation
 
@@ -92,9 +92,9 @@ Eris also tries to shrink the input after a failure, giving you the simplest inp
 
 On ReadTheDocs you can find [the reference documentation for the Eris project](http://eris.readthedocs.org/en/latest/).
 
-## ChangeLog
+## Changelog
 
-Consult [the ChangeLog file](https://github.com/giorgiosironi/eris/blob/master/ChangeLog.md) to know the latest new features.
+Consult [the Changelog file](https://github.com/giorgiosironi/eris/blob/master/CHANGELOG.md) to know the latest new features.
 
 ## Support and contributing
 

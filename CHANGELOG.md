@@ -1,8 +1,12 @@
-# ChangeLog
+# Changelog
+
+All notable changes to this project will be documented in this file.
 
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
-## Unreleased
+## [Unreleased]
+
+## [0.13.0]
 ### Added
 * `Eris\Generators` contains all the generator constructors as static methods.
 * Support for PHP 8.1
@@ -10,14 +14,15 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * The generator constructors implemented as simple function now call the static methods of `Eris\Generators`. They will be deprecated.
 ### Removed
 * Support for PHP < 7.1
+* Support for PHPUnit < 6
 
-## 0.12.1
+## [0.12.1] - 2021-07-27
 ### Changed
 * Visibility of TestTrait's methods in Facade is now public (#110,#141). Thanks, @bekh6ex.
 ### Fixed
 * Compatibility with newer versions of PHPUnit: `getAnnotations` is removed (#143). Thanks, @aszenz.
 
-## 0.12.0
+## [0.12.0] - 2021-03-25
 
 * PHP 7.3 support (#120).
 * PHP 7.4 support (#125).
@@ -27,12 +32,12 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Fix `BooleanGenerator::shrink()` to return a GeneratedValueSingle (#131)
 * Drop support for HHVM 3.30
 
-## 0.11.0
+## [0.11.0] - 2018-09-16
 
 * PHP 7.2 support (#116, #114).
 * Annotations support: `@eris-method`, `@eris-shrink`, `@eris-ratio`, `@eris-repeat`, `@eris-duration`
 
-## 0.10.0
+## [0.10.0] - 2018-03-23
 
 * Allowing use outside of PHPUnit through `Eris\Facade`.
 * Fixed bug: `suchThat()` fails to generated good values when all those from generator size 0 are exclude (#100).
@@ -40,7 +45,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * BC: dropped the deprecated `Shrinker\Random`.
 * BC: dropped the unused `Generator::contains()`.
 
-## 0.9.0
+## [0.9.0] - 2017-03-12
 
 * Using new `multiple` deterministic shrinking instead of `random`, being abandoned (#87).
 * Supporting PHPUnit 6.x (#96).
@@ -55,7 +60,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * BC: `GeneratedValue` is now an interface and not a class.
 * BC: extended `Listener::endPropertyVerification()` with additional parameters `$iterations` and optional `$exception`.
 
-## 0.8.0
+## [0.8.0] - 2016-04-15
 
 * Updated dependency on `icomefromthenet/reverse-regex` to solve warnings on PHP 7.
 * `bind` Generator.
@@ -72,7 +77,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * BC: removed `strictlyPos` and `strictlyNeg` Generators as duplicated of `pos` and `neg` ones.
 * BC: removed `andAlso`, `theCondition`, `andTheCondition`, `implies`, `imply` aliases which no one uses. Added `and` for multiple preconditions.
 
-## 0.7.0
+## [0.7.0] - 2016-03-04
 
 * `associative`, `map`, `subSet`, `suchThat` Generators.
 * Optionally limiting the number of generations with `limitTo()`.
@@ -81,13 +86,10 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * BC: changed Generators API to use `GeneratedValue` objects.
 * BC: requiring PHP 5.5 or newer.
 * BC: dropped array single parameter in `forAll()`.
-
-## 0.6.0
-
 * PHP 7 compatibility.
 * Renaming all Generator classes to *Generator.
 
-## 0.5.0
+## [0.5.0] - 2015-11-05
 
 * Generators are now based on size, an increasing random parameter.
 * `choose()` new Generator to get integers inside a fixed range.
@@ -96,7 +98,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Differentiating `pos`, `nat`, `neg` Generators.
 * GeneratorSampleTest to get sample output from Generators.
 
-## 0.4.0
+## [0.4.0] - 2015-05-27
 
 * Showing generated input with `ERIS_ORIGINAL_INPUT=1`.
 * `names` and `date` (DateTime) new Generators.
@@ -104,12 +106,12 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Shrinking respects `when()` clauses.
 * Dates and sorting examples.
 
-## 0.3.1
+## [0.3.1] - 2015-01-07
 
 * `forAll()` accepts multiple arguments instead of an array.
 * `byte` Generator.
 
-## 0.3.0
+## [0.3.0] - 2014-12-28
 
 * `frequency` and `oneOf` Generators that combine other Generators. 
 * `sequence` Generator for lists of constant type and variable size.
@@ -118,17 +120,33 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * `regex` Generator to build strings satisfying a regular expression.
 * Shrinking respects an optional maximum time limit (`$this->shrinkingtimeLimit`).
 
-## 0.2.0
+## [0.2.0] - 2014-12-13
 
 * Generators now use the Generator\nat(...) syntax.
 * Added `bool`, `constant`, `elements`, `string`, `tuple` Generators.
 * Improved shrinking by performing it on all involved Generators.
 * Reproducibility with ERIS_SEED.
 
-## 0.1.0
+## [0.1.0] - 2014-12-08
 
 * `forAll()` and `then()` syntax.
 * `natural` and `vector` Generators.
 * `when()` for constraints.
 * Basic best-effort shrinking.
 * `sample()` and `sampleShrink()` for Generators.
+
+[Unreleased]: https://github.com/giorgiosironi/eris/compare/0.13.0...HEAD
+[0.13.0]: https://github.com/giorgiosironi/eris/compare/0.12.1...0.13.0
+[0.12.1]: https://github.com/giorgiosironi/eris/compare/0.12.0...0.12.1
+[0.12.0]: https://github.com/giorgiosironi/eris/compare/0.11.0...0.12.0
+[0.11.0]: https://github.com/giorgiosironi/eris/compare/0.10.0...0.11.0
+[0.10.0]: https://github.com/giorgiosironi/eris/compare/0.9.0...0.10.0
+[0.9.0]: https://github.com/giorgiosironi/eris/compare/0.8.0...0.9.0
+[0.8.0]: https://github.com/giorgiosironi/eris/compare/0.7.0...0.8.0
+[0.7.0]: https://github.com/giorgiosironi/eris/compare/0.5.0...0.7.0
+[0.5.0]: https://github.com/giorgiosironi/eris/compare/0.4.0...0.5.0
+[0.4.0]: https://github.com/giorgiosironi/eris/compare/0.3.1...0.4.0
+[0.3.1]: https://github.com/giorgiosironi/eris/compare/0.3.0...0.3.1
+[0.3.0]: https://github.com/giorgiosironi/eris/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/giorgiosironi/eris/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/giorgiosironi/eris/releases/0.1.0
