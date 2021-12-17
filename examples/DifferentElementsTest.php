@@ -32,7 +32,7 @@ class Type
     }
 }
 
-class DifferentElementsTest extends \PHPUnit_Framework_TestCase
+class DifferentElementsTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 

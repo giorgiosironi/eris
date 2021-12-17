@@ -3,7 +3,7 @@ namespace Eris;
 
 use SimpleXMLElement;
 
-class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
+class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
 {
     private $testFile;
     private $testsByName;
@@ -63,7 +63,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('StringTest.php');
         $this->assertTestsAreFailing(1);
         $errorMessage = (string) $this->theTest('testLengthPreservation')->failure;
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Concatenating '' to '.{6}' gives '.{6}ERROR'/",
             $errorMessage,
             "It seems there is a problem with shrinking: we were expecting a minimal error message but instead the one for StringTest::testLengthPreservation() didn't match"
@@ -74,11 +74,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('ShrinkingTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Failed asserting that .* does not contain \"B\"/",
             (string) $this->theTest('testShrinkingAString')->failure
         );
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/The number 11 is not multiple of 29/",
             (string) $this->theTest('testShrinkingRespectsAntecedents')->failure,
             "It seems there is a problem with shrinking: we were expecting an error message containing '11' since it's the lowest value in the domain that satisfies the antecedents."
@@ -90,7 +90,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('ShrinkingTimeLimitTest.php');
         $this->assertTestsAreFailing(2);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/Eris has reached the time limit for shrinking/',
             (string) $this->theTest('testLengthPreservation')->error,
             var_export($this->theTest('testLengthPreservation'), true)
@@ -103,7 +103,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('DisableShrinkingTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/Total calls: 1\n/',
             (string) $this->theTest('testThenIsNotCalledMultipleTime')->failure
         );
@@ -132,7 +132,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
         $this->runExample('ErrorTest.php');
         $this->assertTestsAreFailing(1);
         $errorMessage = (string) $this->theTest('testGenericExceptionsDoNotShrinkButStillShowTheInput')->error;
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Original input:/",
             $errorMessage
         );
@@ -160,7 +160,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('FrequencyTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/Failed asserting that (1|100|200) matches expected 0./',
             (string) $this->theTest('testAlwaysFails')->failure
         );
@@ -170,15 +170,15 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('SuchThatTest.php');
         $this->assertTestsAreFailing(3);
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/number was asserted to be more than 100, but it\'s 43/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheCondition')->failure
         );
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/number was asserted to be more than 42, but it\'s 0/',
             (string) $this->theTest('testSuchThatAcceptsPHPUnitConstraints')->failure
         );
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             '/number was asserted to be more than 100, but it\'s 0/',
             (string) $this->theTest('testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet')->failure
         );
@@ -188,11 +188,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('WhenTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/should be less or equal to 100, but/",
             (string) $this->theTest('testWhenFailingWillNaturallyHaveALowEvaluationRatioSoWeDontWantThatErrorToObscureTheTrueOne')->failure
         );
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Evaluation ratio .* is under the threshold/",
             (string) $this->theTest('testWhenWhichSkipsTooManyValues')->error
         );
@@ -202,11 +202,11 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('MapTest.php');
         $this->assertTestsAreFailing(2);
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/number is not less than 100/",
             (string) $this->theTest('testShrinkingJustMappedValues')->failure
         );
-        $this->assertRegExp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/triple sum array/",
             (string) $this->theTest('testShrinkingMappedValuesInsideOtherGenerators')->failure
         );
@@ -216,7 +216,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('LogFileTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/asserting that 43 is equal to 42 or is less than 42/",
             (string) $this->theTest('testLogOfFailuresAndShrinking')->failure
         );
@@ -243,7 +243,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('SizeTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Failed asserting that 100000 is less than 100000/",
             (string) $this->theTest('testMaxSizeCanBeIncreased')->failure
         );
@@ -253,7 +253,7 @@ class ExampleEnd2EndTest extends \PHPUnit_Framework_TestCase
     {
         $this->runExample('MinimumEvaluationsTest.php');
         $this->assertTestsAreFailing(1);
-        $this->assertRegexp(
+        PHPUnitDeprecationHelper::assertMatchesRegularExpression(
             "/Evaluation ratio 0\..* is under the threshold 0\.5/",
             (string) $this->theTest('testFailsBecauseOfTheLowEvaluationRatio')->error
         );

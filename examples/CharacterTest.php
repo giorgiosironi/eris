@@ -3,7 +3,7 @@
 use Eris\Antecedents;
 use Eris\Generators;
 
-class CharacterTest extends PHPUnit_Framework_TestCase
+class CharacterTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

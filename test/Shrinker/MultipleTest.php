@@ -1,15 +1,13 @@
 <?php
 namespace Eris\Shrinker;
 
-use Eris\Generator\IntegerGenerator;
 use Eris\Generator\GeneratedValueSingle;
-use Eris\Generator\GeneratedValueOptions;
-use RuntimeException;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit_Framework_AssertionFailedError;
+use Eris\Generator\IntegerGenerator;
 use Exception;
+use PHPUnit\Framework\AssertionFailedError;
+use RuntimeException;
 
-class MultipleTest extends \PHPUnit_Framework_TestCase
+class MultipleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Multiple
@@ -20,7 +18,7 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
      */
     private $attempts;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->shrinker = new Multiple(
             [
@@ -64,8 +62,6 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
                 new RuntimeException()
             );
         } catch (AssertionFailedError $e) {
-            $this->verifyAssertionFailure($e, $startingPoint);
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
             $this->verifyAssertionFailure($e, $startingPoint);
         }
     }

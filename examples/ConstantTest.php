@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class ConstantTest extends \PHPUnit_Framework_TestCase
+class ConstantTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

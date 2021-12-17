@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
+class CharacterGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,13 +15,13 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 0;
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testBasicAsciiCharacterGenerators()
+    public function testBasicAsciiCharacterGenerators(): void
     {
         $generator = CharacterGenerator::ascii();
         for ($i = 0; $i < 100; $i++) {
@@ -33,7 +33,7 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testPrintableAsciiCharacterGenerators()
+    public function testPrintableAsciiCharacterGenerators(): void
     {
         $generator = CharacterGenerator::printableAscii();
         for ($i = 0; $i < 100; $i++) {
@@ -45,13 +45,13 @@ class CharacterGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testCharacterGeneratorsShrinkByConventionToTheLowestCodePoint()
+    public function testCharacterGeneratorsShrinkByConventionToTheLowestCodePoint(): void
     {
         $generator = CharacterGenerator::ascii();
         $this->assertEquals('@', $generator->shrink(GeneratedValueSingle::fromJustValue('A', 'character'))->unbox());
     }
 
-    public function testTheLowestCodePointCannotBeShrunk()
+    public function testTheLowestCodePointCannotBeShrunk(): void
     {
         $generator = new CharacterGenerator(65, 90);
         $lowest = GeneratedValueSingle::fromJustValue('A', 'character');

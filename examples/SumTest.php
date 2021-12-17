@@ -10,7 +10,7 @@ function my_sum($first, $second)
     return $first + $second;
 }
 
-class SumTest extends PHPUnit_Framework_TestCase
+class SumTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

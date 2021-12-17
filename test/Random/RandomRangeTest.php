@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Random;
 
-class RandomRangeTest extends \PHPUnit_Framework_TestCase
+class RandomRangeTest extends \PHPUnit\Framework\TestCase
 {
     public function testTheRange()
     {

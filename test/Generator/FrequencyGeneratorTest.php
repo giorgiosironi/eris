@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
+class FrequencyGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,13 +15,13 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 10;
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testEqualProbability()
+    public function testEqualProbability(): void
     {
         $generator = new FrequencyGenerator([
             [1, 42],
@@ -36,7 +36,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testMoreFrequentGeneratorIsChosenMoreOften()
+    public function testMoreFrequentGeneratorIsChosenMoreOften(): void
     {
         $generator = new FrequencyGenerator([
             [10, 42],
@@ -50,7 +50,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testZeroFrequencyMeansItWillNotBeChosen()
+    public function testZeroFrequencyMeansItWillNotBeChosen(): void
     {
         $generator = new FrequencyGenerator([
             [0, 42],
@@ -62,26 +62,22 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1000, $countOf[21]);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testConstructWithNoArguments()
+    public function testConstructWithNoArguments(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new FrequencyGenerator([]);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testFrequenciesMustBeNaturals()
+    public function testFrequenciesMustBeNaturals(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new FrequencyGenerator([
             [10, 42],
             [false, 21],
         ]);
     }
 
-    public function testShrinking()
+    public function testShrinking(): void
     {
         $generator = new FrequencyGenerator([
             [10, 42],
@@ -101,7 +97,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShrinkIntersectingDomainsOnlyShrinkInTheDomainThatOriginallyProducedTheValue()
+    public function testShrinkIntersectingDomainsOnlyShrinkInTheDomainThatOriginallyProducedTheValue(): void
     {
         $generator = new FrequencyGenerator([
             [5, new ChooseGenerator(1, 100)],
@@ -119,7 +115,7 @@ class FrequencyGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1 => true, 10 => true], $shrinkedTable);
     }
 
-    private function distribute($generator)
+    private function distribute($generator): array
     {
         $countOf = [];
         for ($i = 0; $i < 1000; $i++) {

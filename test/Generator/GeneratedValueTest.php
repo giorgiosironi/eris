@@ -1,9 +1,9 @@
 <?php
 namespace Eris\Generator;
 
-class GeneratedValueTest extends \PHPUnit_Framework_TestCase
+class GeneratedValueTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCanBeMappedToDeriveValues()
+    public function testCanBeMappedToDeriveValues(): void
     {
         $initialValue = GeneratedValueSingle::fromJustValue(
             3,
@@ -24,7 +24,7 @@ class GeneratedValueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDerivedValueCanBeAnnotatedWithNewGeneratorNameWithoutBeingChanged()
+    public function testDerivedValueCanBeAnnotatedWithNewGeneratorNameWithoutBeingChanged(): void
     {
         $initialValue = GeneratedValueSingle::fromJustValue(
             3,
@@ -40,20 +40,20 @@ class GeneratedValueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCanBeRepresentedOnOutput()
+    public function testCanBeRepresentedOnOutput(): void
     {
         $generatedValue = GeneratedValueSingle::fromValueAndInput(
             422,
             GeneratedValueSingle::fromJustValue(211),
             'map'
         );
-        $this->assertInternalType('string', $generatedValue->__toString());
-        $this->assertRegExp('/value.*422/', $generatedValue->__toString());
-        $this->assertRegExp('/211/', $generatedValue->__toString());
-        $this->assertRegExp('/generator.*map/', $generatedValue->__toString());
+        \Eris\PHPUnitDeprecationHelper::assertIsString($generatedValue->__toString());
+        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/value.*422/', $generatedValue->__toString());
+        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/211/', $generatedValue->__toString());
+        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/generator.*map/', $generatedValue->__toString());
     }
 
-    public function testCanBeIteratedUponAsASingleOption()
+    public function testCanBeIteratedUponAsASingleOption(): void
     {
         $generatedValue = GeneratedValueSingle::fromValueAndInput(
             422,

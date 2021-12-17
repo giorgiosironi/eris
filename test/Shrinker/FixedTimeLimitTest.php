@@ -1,7 +1,7 @@
 <?php
 namespace Eris\Shrinker;
 
-class FixedTimeLimitTest extends \PHPUnit_Framework_TestCase
+class FixedTimeLimitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int

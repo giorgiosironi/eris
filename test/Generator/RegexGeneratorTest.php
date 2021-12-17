@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
+class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -27,7 +27,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 10;
         $this->rand = new RandomRange(new RandSource());
@@ -41,7 +41,7 @@ class RegexGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
-            $this->assertRegexp("/{$expression}/", $value);
+            \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression("/{$expression}/", $value);
         }
     }
 

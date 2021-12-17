@@ -1,9 +1,9 @@
 <?php
 namespace Eris\Random;
 
-class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
+class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('MersenneTwister class does not support HHVM');
@@ -11,7 +11,7 @@ class MersenneTwisterTest extends \PHPUnit_Framework_TestCase
         $this->enableAssertions();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->disableAssertions();
     }

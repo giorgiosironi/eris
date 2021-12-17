@@ -1,11 +1,11 @@
 <?php
 namespace Eris\Generator;
 
+use Eris\Quantifier\ForAll;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
-use Eris\Quantifier\ForAll;
 
-class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
+class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string[]
@@ -24,7 +24,7 @@ class SubsetGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->universe = ['a', 'b', 'c', 'd', 'e'];
         $this->generator = new SubsetGenerator($this->universe);

@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class SequenceTest extends PHPUnit_Framework_TestCase
+class SequenceTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
@@ -13,7 +13,7 @@ class SequenceTest extends PHPUnit_Framework_TestCase
                 Generators::seq(Generators::nat())
             )
             ->then(function ($array) {
-                $this->assertEquals(count($array), count(array_reverse($array)));
+                self::assertCount(count($array), array_reverse($array));
             });
     }
 

@@ -4,7 +4,7 @@ use Eris\Generators;
 use Eris\Listeners;
 use Eris\TestTrait;
 
-class CollectTest extends PHPUnit_Framework_TestCase
+class CollectTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 

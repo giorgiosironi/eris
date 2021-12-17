@@ -1,22 +1,17 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Caught class PHPUnit_Framework_ExpectationFailedException not found\\.$#"
+			message: "#^Anonymous function has an unused use \\$i\\.$#"
 			count: 1
-			path: src/Antecedent/IndependentConstraintsAntecedent.php
+			path: examples/SuchThatTest.php
 
 		-
-			message: "#^Caught class PHPUnit_Framework_ExpectationFailedException not found\\.$#"
-			count: 1
-			path: src/Generator/SuchThatGenerator.php
+			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 6
+			path: examples/SumTest.php
 
 		-
-			message: "#^Class PHPUnit_Framework_Constraint not found\\.$#"
-			count: 1
-			path: src/Generator/SuchThatGenerator.php
-
-		-
-			message: "#^Class PHPUnit_Framework_Constraint not found\\.$#"
-			count: 1
-			path: src/Quantifier/ForAll.php
+			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 2
+			path: examples/VectorTest.php
 

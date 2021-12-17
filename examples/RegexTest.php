@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-class RegexTest extends \PHPUnit_Framework_TestCase
+class RegexTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 

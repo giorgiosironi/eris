@@ -4,7 +4,7 @@ use Eris\Generators;
 use Eris\Random;
 use Eris\TestTrait;
 
-class RandConfigurationTest extends PHPUnit_Framework_TestCase
+class RandConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
@@ -72,7 +72,7 @@ class RandConfigurationTest extends PHPUnit_Framework_TestCase
     private function isInteger()
     {
         return function ($number) {
-            $this->assertInternalType('integer', $number);
+            \Eris\PHPUnitDeprecationHelper::assertIsInt($number);
         };
     }
 }

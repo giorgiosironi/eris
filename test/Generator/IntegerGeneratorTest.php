@@ -4,7 +4,7 @@ namespace Eris\Generator;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
-class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
+class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var int
@@ -15,7 +15,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     private $rand;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->size = 10;
         $this->rand = new RandomRange(new RandSource());
@@ -25,7 +25,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
-            $this->assertInternalType('integer', $generator($this->size, $this->rand)->unbox());
+            \Eris\PHPUnitDeprecationHelper::assertIsInt($generator($this->size, $this->rand)->unbox());
         }
     }
 

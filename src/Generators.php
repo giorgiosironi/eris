@@ -243,7 +243,7 @@ final class Generators
     }
 
     /**
-     * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+     * @param callable|Constraint $filter
      * @return SuchThatGenerator
      */
     public static function filter($filter, Generator $generator, $maximumAttempts = 100)
@@ -252,7 +252,7 @@ final class Generators
     }
 
     /**
-     * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+     * @param callable|Constraint $filter
      * @return SuchThatGenerator
      */
     public static function suchThat($filter, Generator $generator, $maximumAttempts = 100)

@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\TestTrait;
 
-class ShrinkingTest extends \PHPUnit_Framework_TestCase
+class ShrinkingTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
@@ -14,7 +14,7 @@ class ShrinkingTest extends \PHPUnit_Framework_TestCase
         )
             ->then(function ($string) {
                 var_dump($string);
-                $this->assertNotContains('B', $string);
+                \Eris\PHPUnitDeprecationHelper::assertStringNotContainsString('B', $string);
             });
     }
 

@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\TestTrait;
 
-class AlwaysFailsTest extends \PHPUnit_Framework_TestCase
+class AlwaysFailsTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 

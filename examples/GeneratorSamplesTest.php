@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\TestTrait;
 
-class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
+class GeneratorSamplesTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
@@ -36,7 +36,7 @@ class GeneratorSamplesTest extends PHPUnit_Framework_TestCase
         echo PHP_EOL;
         echo $description . " with size 10";
         $sample = $this->sample($generator);
-        $this->assertInternalType('array', $sample->collected());
+        \Eris\PHPUnitDeprecationHelper::assertIsArray($sample->collected());
         $this->prettyPrint($sample->collected());
     }
 

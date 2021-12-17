@@ -5,14 +5,12 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 use LogicException;
-use PHPUnit_Framework_Constraint;
 use PHPUnit\Framework\Constraint\Constraint;
-use PHPUnit_Framework_ExpectationFailedException;
 use PHPUnit\Framework\ExpectationFailedException;
 use Traversable;
 
 /**
- * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+ * @param callable|Constraint $filter
  * @return SuchThatGenerator
  */
 function filter($filter, Generator $generator, $maximumAttempts = 100)
@@ -21,7 +19,7 @@ function filter($filter, Generator $generator, $maximumAttempts = 100)
 }
 
 /**
- * @param callable|PHPUnit_Framework_Constraint|Constraint $filter
+ * @param callable|Constraint $filter
  * @return SuchThatGenerator
  */
 function suchThat($filter, Generator $generator, $maximumAttempts = 100)
@@ -36,7 +34,7 @@ class SuchThatGenerator implements Generator
     private $maximumAttempts;
     
     /**
-     * @param callable|PHPUnit_Framework_Constraint|Constraint
+     * @param callable|Constraint
      */
     public function __construct($filter, $generator, $maximumAttempts = 100)
     {
@@ -89,12 +87,10 @@ class SuchThatGenerator implements Generator
 
     private function predicate(GeneratedValueSingle $value)
     {
-        if ($this->filter instanceof PHPUnit_Framework_Constraint || $this->filter instanceof Constraint) {
+        if ($this->filter instanceof Constraint) {
             try {
                 $this->filter->evaluate($value->unbox());
                 return true;
-            } catch (PHPUnit_Framework_ExpectationFailedException $e) {
-                return false;
             } catch (ExpectationFailedException $e) {
                 return false;
             }

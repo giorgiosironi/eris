@@ -1,7 +1,7 @@
 <?php
 namespace Eris;
 
-class PHPUnitCommandTest extends \PHPUnit_Framework_TestCase
+class PHPUnitCommandTest extends \PHPUnit\Framework\TestCase
 {
     public static function commandExamples()
     {
