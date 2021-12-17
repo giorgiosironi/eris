@@ -33,7 +33,7 @@ This test tries to verify that natural numbers from 0 to 1000 are all smaller th
 
 ```php
 <?php
-use Eris\Generator;
+use Eris\Generators;
 
 class ReadmeTest extends \PHPUnit\Framework\TestCase
 {
@@ -42,7 +42,7 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
     public function testNaturalNumbersMagnitude()
     {
         $this->forAll(
-            Generator\choose(0, 1000)
+            Generators::choose(0, 1000)
         )
             ->then(function($number) {
                 $this->assertTrue(
