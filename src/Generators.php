@@ -112,7 +112,7 @@ final class Generators
         return new DateGenerator(
             $withDefault($box($lowerLimit), new \DateTime("@0")),
             // uses a maximum which is conservative
-            $withDefault($box($upperLimit), new \DateTime("@" . (pow(2, 31) - 1)))
+            $withDefault($box($upperLimit), new \DateTime("@" . ((2 ** 31) - 1)))
         );
     }
 
@@ -196,7 +196,7 @@ final class Generators
     /**
      * @return OneOfGenerator
      */
-    public static function oneOf(/*$a, $b, ...*/)
+    public static function oneOf(...$generators)
     {
         return new OneOfGenerator(func_get_args());
     }

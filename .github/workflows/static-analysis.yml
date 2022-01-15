@@ -14,7 +14,7 @@ jobs:
           - description: PHPStan
             script: vendor/bin/phpstan
           - description: Psalm
-            script: vendor/bin/psalm.phar
+            script: vendor/bin/psalm
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest
     steps:
