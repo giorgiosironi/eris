@@ -47,11 +47,11 @@ class GeneratedValueOptions implements GeneratedValue
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
-    public function map(callable $callable, $generatorName)
+    public function map(callable $applyToValue, $generatorName)
     {
         return new self(array_map(
-            function ($value) use ($callable, $generatorName) {
-                return $value->map($callable, $generatorName);
+            function ($value) use ($applyToValue, $generatorName) {
+                return $value->map($applyToValue, $generatorName);
             },
             $this->generatedValues
         ));

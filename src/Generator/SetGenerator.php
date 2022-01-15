@@ -41,13 +41,13 @@ class SetGenerator implements Generator
         return GeneratedValueSingle::fromValueAndInput($set, $input, 'set');
     }
 
-    public function shrink(GeneratedValue $set)
+    public function shrink(GeneratedValue $element)
     {
-        if (count($set->input()) === 0) {
-            return $set;
+        if (count($element->input()) === 0) {
+            return $element;
         }
 
-        $input = $set->input();
+        $input = $element->input();
         // TODO: make deterministic
         // TODO: shrink also the elements, not just the size of the set
         $indexOfElementToRemove = array_rand($input);

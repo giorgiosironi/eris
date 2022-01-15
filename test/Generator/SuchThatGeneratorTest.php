@@ -59,7 +59,9 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
         );
         $element = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 100; $i++) {
-            $element = $generator->shrink($element)->last();
+            /** @var GeneratedValueOptions $generatedValueOptions */
+            $generatedValueOptions = $generator->shrink($element);
+            $element = $generatedValueOptions->last();
             $this->assertSame(
                 $element->unbox() % 2,
                 0,

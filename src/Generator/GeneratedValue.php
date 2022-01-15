@@ -4,6 +4,9 @@ namespace Eris\Generator;
 use Countable;
 use IteratorAggregate;
 
+/**
+ * @template T
+ */
 interface GeneratedValue extends IteratorAggregate, Countable
 {
     /**
@@ -19,6 +22,7 @@ interface GeneratedValue extends IteratorAggregate, Countable
     public function input();
 
     /**
+     * @psalm-return T
      * @return mixed
      */
     public function unbox();

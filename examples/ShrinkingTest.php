@@ -13,6 +13,7 @@ class ShrinkingTest extends \PHPUnit\Framework\TestCase
             Generators::string()
         )
             ->then(function ($string) {
+                /** @psalm-suppress ForbiddenCode */
                 var_dump($string);
                 \Eris\PHPUnitDeprecationHelper::assertStringNotContainsString('B', $string);
             });

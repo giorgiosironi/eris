@@ -44,7 +44,7 @@ class RandomRange
         }
 
         if ($lower > $upper) {
-            list($lower, $upper) = [$upper, $lower];
+            [$lower, $upper] = [$upper, $lower];
         }
         $delta = $upper - $lower;
         $divisor = ($this->source->max()) / ($delta + 1);

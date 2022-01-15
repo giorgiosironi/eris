@@ -46,16 +46,16 @@ class NamesGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($candidateNames[$index], 'names');
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValue $element)
     {
         $candidateNames = $this->filterDataSet(
-            $this->lengthSlightlyLessThan(strlen($value->unbox()))
+            $this->lengthSlightlyLessThan(strlen($element->unbox()))
         );
 
         if (!$candidateNames) {
-            return $value;
+            return $element;
         }
-        $distances = $this->distancesBy($value->unbox(), $candidateNames);
+        $distances = $this->distancesBy($element->unbox(), $candidateNames);
         return GeneratedValueSingle::fromJustValue($this->minimumDistanceName($distances), 'names');
     }
 

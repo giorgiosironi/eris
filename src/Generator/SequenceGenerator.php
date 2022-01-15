@@ -25,15 +25,15 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $sequence)
+    public function shrink(GeneratedValue $element)
     {
         $options = [];
-        if (count($sequence->unbox()) > 0) {
-            $options[] = $this->shrinkInSize($sequence);
+        if (count($element->unbox()) > 0) {
+            $options[] = $this->shrinkInSize($element);
             // TODO: try to shrink the elements also of longer sequences
-            if (count($sequence->unbox()) < 10) {
+            if (count($element->unbox()) < 10) {
                 // a size which is computationally acceptable
-                $shrunkElements = $this->shrinkTheElements($sequence);
+                $shrunkElements = $this->shrinkTheElements($element);
                 foreach ($shrunkElements as $shrunkValue) {
                     $options[] = $shrunkValue;
                 }

@@ -4,14 +4,3 @@ parameters:
 			message: "#^Anonymous function has an unused use \\$i\\.$#"
 			count: 1
 			path: examples/SuchThatTest.php
-
-		-
-			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 6
-			path: examples/SumTest.php
-
-		-
-			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 2
-			path: examples/VectorTest.php
-

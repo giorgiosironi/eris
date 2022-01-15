@@ -20,6 +20,7 @@ class SubsetTest extends TestCase
                 foreach ($set as $element) {
                     $this->assertTrue($this->isEven($element), "Element $element is not even, where did it come from?");
                 }
+                /** @psalm-suppress ForbiddenCode */
                 var_dump($set);
             });
     }

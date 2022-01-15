@@ -47,8 +47,8 @@ class RegexGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($result, 'regex');
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValue $element)
     {
-        return $value;
+        return $element;
     }
 }

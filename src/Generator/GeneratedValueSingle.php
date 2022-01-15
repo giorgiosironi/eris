@@ -25,8 +25,8 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * A value and the input that was used to derive it.
      * The input usually comes from another Generator.
      *
-     * @template T
-     * @psalm-param T $value
+     * @template T1
+     * @psalm-param T1 $value
      * @param mixed $value
      * @param GeneratedValueSingle|mixed $input
      * @param string $generatorName  'tuple'
@@ -40,8 +40,8 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     /**
      * Input will be copied from value.
      *
-     * @template T
-     * @psalm-param T $value
+     * @template T1
+     * @psalm-param T1 $value
      * @param mixed $value
      * @param string $generatorName  'tuple'
      * @return GeneratedValueSingle

@@ -31,9 +31,9 @@ class FrequencyGenerator implements Generator
         $this->generators = array_reduce(
             $generatorsWithFrequency,
             function ($generators, $generatorWithFrequency) {
-                list($frequency, $generator) = $generatorWithFrequency;
-                $frequency = $this->ensureIsFrequency($generatorWithFrequency[0]);
-                $generator = ensureIsGenerator($generatorWithFrequency[1]);
+                [$frequency, $generator] = $generatorWithFrequency;
+                $frequency = $this->ensureIsFrequency($frequency);
+                $generator = ensureIsGenerator($generator);
                 if ($frequency > 0) {
                     $generators[] = [
                         'generator' => $generator,
@@ -84,7 +84,7 @@ class FrequencyGenerator implements Generator
     {
         $acc = 0;
         $frequencies = $this->frequenciesFrom($generators);
-        $random = $rand->rand(1, array_sum($frequencies));
+        $random = $rand->rand(1, (int)array_sum($frequencies));
         foreach ($generators as $index => $generator) {
             $acc += $generator['frequency'];
             if ($random <= $acc) {

@@ -79,6 +79,7 @@ class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
         $numberOfShrinks = 0;
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $value = $generator($this->size, $this->rand);
+        /** @var GeneratedValueOptions $options */
         $options = $generator->shrink($value);
         while (count($options) > 0) {
             if ($numberOfShrinks++ > 100) {

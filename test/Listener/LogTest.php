@@ -32,7 +32,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
 
     public function tearDown(): void
     {
-        $this->log->endPropertyVerification(null, null);
+        $this->log->endPropertyVerification(0, 0);
         date_default_timezone_set($this->originalTimezone);
     }
 
@@ -47,7 +47,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
 
     public function testWritesALineForTheFirstFailureOfATest()
     {
-        $this->log->failure([23], new AssertionFailedError("Failed asserting that..."));
+        $this->log->failure([23], new \LogicException("Failed asserting that..."));
         $this->assertEquals(
             "[2011-03-13T07:06:40+00:00][1234] failure: [23]. Failed asserting that..." . PHP_EOL,
             file_get_contents($this->file)
@@ -56,7 +56,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
 
     public function testWritesALineForEachShrinkingAttempt()
     {
-        $this->log->shrinking([22], new AssertionFailedError("Failed asserting that..."));
+        $this->log->shrinking([22]);
         $this->assertEquals(
             "[2011-03-13T07:06:40+00:00][1234] shrinking: [22]" . PHP_EOL,
             file_get_contents($this->file)

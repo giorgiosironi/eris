@@ -48,6 +48,10 @@ trait TestTrait
             return $this->getAnnotations();
         }
         //from TestCase of PHPunit
+        /**
+         * @psalm-suppress InternalMethod
+         * @psalm-suppress InternalClass
+         */
         return \PHPUnit\Util\Test::parseTestMethodAnnotations(
             get_class($this),
             $this->getName(false)

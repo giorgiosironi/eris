@@ -35,7 +35,7 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testScalesGenerationSizeToTouchAllPossibleSubsets()
     {
         $maxSize = ForAll::DEFAULT_MAX_SIZE;
-        /** @var array<int, list<int>> $subsetSizes */
+        /** @var array<int, int> $subsetSizes */
         $subsetSizes = [];
         for ($size = 0; $size < $maxSize; $size++) {
             $subsetSizes[] = count($this->generator->__invoke($size, $this->rand)->unbox());

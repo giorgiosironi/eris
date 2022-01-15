@@ -36,7 +36,7 @@ class DateGenerator implements Generator
     public function shrink(GeneratedValue $element)
     {
         $timeOffset = $element->unbox()->getTimestamp() - $this->lowerLimit->getTimestamp();
-        $halvedOffset = floor($timeOffset / 2);
+        $halvedOffset = (int)floor($timeOffset / 2);
         return GeneratedValueSingle::fromJustValue(
             $this->fromOffset($halvedOffset),
             'date'

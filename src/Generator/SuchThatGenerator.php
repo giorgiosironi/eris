@@ -34,7 +34,7 @@ class SuchThatGenerator implements Generator
     private $maximumAttempts;
     
     /**
-     * @param callable|Constraint
+     * @param callable|Constraint $filter
      */
     public function __construct($filter, $generator, $maximumAttempts = 100)
     {
@@ -57,13 +57,13 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValue $element)
     {
-        $shrunk = $this->generator->shrink($value);
+        $shrunk = $this->generator->shrink($element);
         $attempts = 0;
         while (!($filtered = $this->filterForPredicate($shrunk))) {
             if ($attempts >= $this->maximumAttempts) {
-                return $value;
+                return $element;
             }
             $shrunk = $this->generator->shrink($shrunk);
             $attempts++;

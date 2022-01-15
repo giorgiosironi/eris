@@ -29,11 +29,11 @@ class SubsetGenerator implements Generator
     public function __invoke($size, RandomRange $rand)
     {
         $relativeSize = $size / ForAll::DEFAULT_MAX_SIZE;
-        $maximumSubsetIndex = floor(pow(2, count($this->universe)) * $relativeSize);
-        $subsetIndex = $rand->rand(0, $maximumSubsetIndex);
+        $maximumSubsetIndex = floor((2 ** count($this->universe)) * $relativeSize);
+        $subsetIndex = $rand->rand(0, (int)$maximumSubsetIndex);
         $binaryDescription = str_pad(decbin($subsetIndex), count($this->universe), "0", STR_PAD_LEFT);
         $subset = [];
-        for ($i = 0; $i < strlen($binaryDescription); $i++) {
+        for ($i = 0, $iMax = strlen($binaryDescription); $i < $iMax; $i++) {
             $elementPresent = $binaryDescription[$i];
             if ($elementPresent == "1") {
                 $subset[] = $this->universe[$i];
@@ -43,14 +43,14 @@ class SubsetGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($subset, 'subset');
     }
 
-    public function shrink(GeneratedValue $set)
+    public function shrink(GeneratedValue $element)
     {
         // TODO: see SetGenerator::shrink()
-        if (count($set->unbox()) === 0) {
-            return $set;
+        if (count($element->unbox()) === 0) {
+            return $element;
         }
 
-        $input = $set->input();
+        $input = $element->input();
         // TODO: make deterministic by returning an array of GeneratedValues
         $indexOfElementToRemove = array_rand($input);
         unset($input[$indexOfElementToRemove]);

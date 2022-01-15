@@ -13,6 +13,7 @@ class NamesTest extends \PHPUnit\Framework\TestCase
             Generators::names()
         )->then(function ($name) {
             \Eris\PHPUnitDeprecationHelper::assertIsString($name);
+            /** @psalm-suppress ForbiddenCode */
             var_dump($name);
         });
     }
@@ -22,6 +23,7 @@ class NamesTest extends \PHPUnit\Framework\TestCase
         $generator = Generator\NamesGenerator::defaultDataSet();
         $sample = $this->sampleShrink($generator);
         \Eris\PHPUnitDeprecationHelper::assertIsArray($sample->collected());
+        /** @psalm-suppress ForbiddenCode */
         var_dump($sample->collected());
     }
 }

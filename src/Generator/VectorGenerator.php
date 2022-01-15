@@ -30,8 +30,8 @@ class VectorGenerator implements Generator
         return $this->generator->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $vector)
+    public function shrink(GeneratedValue $element)
     {
-        return $this->generator->shrink($vector);
+        return $this->generator->shrink($element);
     }
 }

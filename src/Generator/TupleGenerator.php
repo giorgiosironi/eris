@@ -88,12 +88,12 @@ class TupleGenerator implements Generator
         }
     }
 
-    public function shrink(GeneratedValue $tuple)
+    public function shrink(GeneratedValue $element)
     {
-        $input = $tuple->input();
+        $input = $element->input();
 
         return $this->optionsFromTheseGenerators($this->generators, $input)
-            ->remove($tuple);
+            ->remove($element);
     }
 
     private function ensureAreAllGenerators(array $generators)
