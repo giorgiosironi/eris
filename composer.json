@@ -23,7 +23,7 @@
         "phpunit/phpunit": ">=7",
         "sebastian/comparator": ">=1.2.4",
         "friendsofphp/php-cs-fixer": "^2.0",
-        "icomefromthenet/reverse-regex": "v0.0.6.3",
+        "icomefromthenet/reverse-regex": "v0.1.0.0",
         "phpstan/phpstan": "^1.2",
         "psalm/phar": "^5.4"
     },
