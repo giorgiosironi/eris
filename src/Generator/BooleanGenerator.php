@@ -10,6 +10,9 @@ function bool()
     return Generators::bool();
 }
 
+/**
+ * @template-implements Generator<bool>
+ */
 class BooleanGenerator implements Generator
 {
     public function __invoke($_size, RandomRange $rand)

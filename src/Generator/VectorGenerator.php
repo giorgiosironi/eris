@@ -10,6 +10,10 @@ function vector($size, Generator $elementsGenerator)
     return Generators::vector($size, $elementsGenerator);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<list<T>>
+ */
 class VectorGenerator implements Generator
 {
     private $generator;

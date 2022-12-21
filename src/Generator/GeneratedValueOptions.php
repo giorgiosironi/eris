@@ -16,6 +16,9 @@ use LogicException;
  * backwards compatibility. So it can be used in context where a single
  * value is expected. The last of the options is usually the more conservative
  * in shrinking, for example subtracting 1 for the IntegerGenerator.
+ *
+ * @psalm-template T
+ * @template-implements GeneratedValue<T>
  */
 class GeneratedValueOptions implements GeneratedValue
 {

@@ -14,6 +14,10 @@ function set($singleElementGenerator)
     return Generators::set($singleElementGenerator);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<list<T>>
+ */
 class SetGenerator implements Generator
 {
     private $singleElementGenerator;

@@ -10,6 +10,10 @@ function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
     return Generators::bind($innerGenerator, $outerGeneratorFactory);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<T>
+ */
 class BindGenerator implements Generator
 {
     private $innerGenerator;

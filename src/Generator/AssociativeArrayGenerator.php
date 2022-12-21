@@ -13,6 +13,9 @@ function associative(array $generators)
     return Generators::associative($generators);
 }
 
+/**
+ * @template-implements Generator<array<string, mixed>>
+ */
 class AssociativeArrayGenerator implements Generator
 {
     private $generators;

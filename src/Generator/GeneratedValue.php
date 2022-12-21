@@ -4,6 +4,10 @@ namespace Eris\Generator;
 use Countable;
 use IteratorAggregate;
 
+/**
+ * @psalm-template T
+ * @template-extends IteratorAggregate<integer,T>
+ */
 interface GeneratedValue extends IteratorAggregate, Countable
 {
     /**

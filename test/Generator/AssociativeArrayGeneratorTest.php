@@ -44,7 +44,9 @@ class AssociativeArrayGeneratorTest extends TestCase
             'cipher' => $this->cipherGenerator,
         ]);
 
+        /** @var GeneratedValue $generated */
         $generated = $generator($this->size, $this->rand);
+        self::assertInstanceOf(GeneratedValue::class, $generated);
 
         $array = $generated->unbox();
         $this->assertCount(2, $array);

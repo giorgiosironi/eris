@@ -20,6 +20,9 @@ function tuple()
     );
 }
 
+/**
+ * @template-implements Generator<list<mixed>>
+ */
 class TupleGenerator implements Generator
 {
     private $generators;

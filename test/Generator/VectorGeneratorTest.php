@@ -47,9 +47,11 @@ class VectorGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGeneratesVectorWithGivenSizeAndElementsFromGivenGenerator()
     {
         $generator = $this->vectorGenerator;
+        /** @var GeneratedValue $vector */
         $vector = $generator($this->size, $this->rand);
+        self::assertInstanceOf(GeneratedValue::class, $vector);
 
-        $this->assertSame($this->vectorSize, count($vector->unbox()));
+        $this->assertCount($this->vectorSize, $vector->unbox());
         foreach ($vector->unbox() as $element) {
             $this->assertGreaterThanOrEqual(1, $element);
             $this->assertLessThanOrEqual(10, $element);

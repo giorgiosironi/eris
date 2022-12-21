@@ -10,6 +10,10 @@ function seq(Generator $singleElementGenerator)
     return Generators::seq($singleElementGenerator);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<list<T>>
+ */
 class SequenceGenerator implements Generator
 {
     private $singleElementGenerator;

@@ -17,6 +17,10 @@ function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
     );
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<Generator<T>>
+ */
 class FrequencyGenerator implements Generator
 {
     private $generators;

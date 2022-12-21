@@ -9,6 +9,7 @@ use ArrayIterator;
  * Immutable object, modifiers return a new GeneratedValueSingle instance.
  *
  * @template T
+ * @template-implements GeneratedValue<T>
  */
 final class GeneratedValueSingle implements GeneratedValue // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
 {
