@@ -14,6 +14,10 @@ function constant($value)
     return Generators::constant($value);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<T>
+ */
 class ConstantGenerator implements Generator
 {
     private $value;

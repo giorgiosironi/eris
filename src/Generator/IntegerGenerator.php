@@ -40,6 +40,9 @@ function byte()
     return Generators::byte();
 }
 
+/**
+ * @template-implements Generator<int>
+ */
 class IntegerGenerator implements Generator
 {
     private $mapFn;

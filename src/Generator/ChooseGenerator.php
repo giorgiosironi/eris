@@ -25,6 +25,9 @@ function choose($lowerLimit, $upperLimit)
     return Generators::choose($lowerLimit, $upperLimit);
 }
 
+/**
+ * @template-implements Generator<int>
+ */
 class ChooseGenerator implements Generator
 {
     private $lowerLimit;

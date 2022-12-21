@@ -25,7 +25,7 @@
         "friendsofphp/php-cs-fixer": "^2.0",
         "icomefromthenet/reverse-regex": "v0.0.6.3",
         "phpstan/phpstan": "^1.2",
-        "psalm/phar": "^4.13"
+        "psalm/phar": "^5.4"
     },
     "suggest":
     {

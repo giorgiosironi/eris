@@ -23,6 +23,9 @@ function regex($expression)
     return Generators::regex($expression);
 }
 
+/**
+ * @template-implements Generator<string>
+ */
 class RegexGenerator implements Generator
 {
     private $expression;

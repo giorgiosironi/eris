@@ -5,3 +5,4 @@ docs/_build
 .phpunit.result.cache
 docker-compose.override.yml
 .psalm-cache/
+.idea

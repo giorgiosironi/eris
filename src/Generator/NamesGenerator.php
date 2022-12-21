@@ -10,6 +10,9 @@ function names()
     return Generators::names();
 }
 
+/**
+ * @template-implements Generator<string>
+ */
 class NamesGenerator implements Generator
 {
     private $list;

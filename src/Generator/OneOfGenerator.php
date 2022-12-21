@@ -16,6 +16,10 @@ function oneOf(/*$a, $b, ...*/)
     );
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<Generator<T>>
+ */
 class OneOfGenerator implements Generator
 {
     private $generator;

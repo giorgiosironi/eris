@@ -10,6 +10,9 @@ function string()
     return Generators::string();
 }
 
+/**
+ * @template-implements Generator<string>
+ */
 class StringGenerator implements Generator
 {
     public function __invoke($size, RandomRange $rand)

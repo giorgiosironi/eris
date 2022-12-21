@@ -13,7 +13,10 @@ function elements(/*$a, $b, ...*/)
     );
 }
 
-
+/**
+ * @psalm-template T
+ * @template-implements Generator<T>
+ */
 class ElementsGenerator implements Generator
 {
     private $domain;

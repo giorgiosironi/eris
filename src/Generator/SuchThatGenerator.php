@@ -27,6 +27,10 @@ function suchThat($filter, Generator $generator, $maximumAttempts = 100)
     return Generators::suchThat($filter, $generator, $maximumAttempts);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<T>
+ */
 class SuchThatGenerator implements Generator
 {
     private $filter;

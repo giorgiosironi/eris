@@ -6,6 +6,7 @@ use Eris\Generator\GeneratedValueSingle;
 
 /**
  * Generic interface for a type <T>.
+ * @psalm-template T
  */
 interface Generator
 {

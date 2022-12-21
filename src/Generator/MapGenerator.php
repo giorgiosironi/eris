@@ -11,6 +11,10 @@ function map(callable $function, Generator $generator)
     return Generators::map($function, $generator);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<T>
+ */
 class MapGenerator implements Generator
 {
     private $map;

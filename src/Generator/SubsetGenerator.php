@@ -17,6 +17,10 @@ function subset($input)
     return Generators::subset($input);
 }
 
+/**
+ * @psalm-template T
+ * @template-implements Generator<list<T>>
+ */
 class SubsetGenerator implements Generator
 {
     private $universe;

@@ -28,6 +28,9 @@ function charPrintableAscii()
     return Generators::charPrintableAscii();
 }
 
+/**
+ * @template-implements Generator<string>
+ */
 class CharacterGenerator implements Generator
 {
     private $lowerLimit;

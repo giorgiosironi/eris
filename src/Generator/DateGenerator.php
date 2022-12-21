@@ -11,6 +11,9 @@ function date($lowerLimit = null, $upperLimit = null)
     return Generators::date($lowerLimit, $upperLimit);
 }
 
+/**
+ * @template-implements Generator<\DateTime>
+ */
 class DateGenerator implements Generator
 {
     private $lowerLimit;

@@ -10,6 +10,9 @@ function float()
     return Generators::float();
 }
 
+/**
+ * @template-implements Generator<float>
+ */
 class FloatGenerator implements Generator
 {
     public function __construct()

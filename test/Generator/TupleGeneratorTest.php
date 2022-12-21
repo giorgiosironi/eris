@@ -40,7 +40,9 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
             $this->generatorForSingleElement,
         ]);
 
+        /** @var GeneratedValue $generated */
         $generated = $generator($this->size, $this->rand);
+        self::assertInstanceOf(GeneratedValue::class, $generated);
 
         $this->assertCount(2, $generated->unbox());
         foreach ($generated->unbox() as $element) {
@@ -53,7 +55,9 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         $aNonGenerator = 42;
         $generator = new TupleGenerator([$aNonGenerator]);
 
+        /** @var GeneratedValue $generated */
         $generated = $generator($this->size, $this->rand);
+        self::assertInstanceOf(GeneratedValue::class, $generated);
 
         foreach ($generated->unbox() as $element) {
             $this->assertEquals(42, $element);
@@ -75,7 +79,9 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $elements = $generator->__invoke($this->size, $this->rand);
+        /** @var GeneratedValue $elementsAfterShrink */
         $elementsAfterShrink = $generator->shrink($elements);
+        self::assertInstanceOf(GeneratedValue::class, $elementsAfterShrink);
 
         $this->assertInSingleElementGenerator($elementsAfterShrink->unbox()[0]);
         $this->assertInSingleElementGenerator($elementsAfterShrink->unbox()[1]);
@@ -147,7 +153,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
             \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
-            $this->assertEquals(2, count($optionValue));
+            $this->assertCount(2, $optionValue);
             $elementsBeingShrunk =
                 (strlen($optionValue[0]) < 5 ? 1 : 0)
                 + (strlen($optionValue[1]) < 5 ? 1 : 0);
