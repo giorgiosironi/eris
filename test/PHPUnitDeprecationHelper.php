@@ -11,7 +11,6 @@ final class PHPUnitDeprecationHelper
         if (method_exists(TestCase::class, 'assertIsString')) {
             TestCase::assertIsString($actual, $message);
         } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            // @phpstan-ignore-next-line
             TestCase::assertInternalType('string', $actual, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
@@ -23,7 +22,6 @@ final class PHPUnitDeprecationHelper
         if (method_exists(TestCase::class, 'assertIsInt')) {
             TestCase::assertIsInt($actual, $message);
         } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            // @phpstan-ignore-next-line
             TestCase::assertInternalType('int', $actual, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
@@ -35,7 +33,6 @@ final class PHPUnitDeprecationHelper
         if (method_exists(TestCase::class, 'assertIsArray')) {
             TestCase::assertIsArray($actual, $message);
         } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            // @phpstan-ignore-next-line
             TestCase::assertInternalType('array', $actual, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
@@ -47,7 +44,6 @@ final class PHPUnitDeprecationHelper
         if (method_exists(TestCase::class, 'assertIsBool')) {
             TestCase::assertIsBool($actual, $message);
         } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            // @phpstan-ignore-next-line
             TestCase::assertInternalType('bool', $actual, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
@@ -59,7 +55,6 @@ final class PHPUnitDeprecationHelper
         if (method_exists(TestCase::class, 'assertIsFloat')) {
             TestCase::assertIsFloat($actual, $message);
         } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            // @phpstan-ignore-next-line
             TestCase::assertInternalType('float', $actual, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
