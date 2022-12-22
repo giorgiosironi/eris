@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.4, 8.0, 8.1, 8.2]
+        php: [7.4, 8.0]
         dependencies:
           - "lowest"
           - "highest"
-#        include:
-#          - { php: 8.1, dependencies: "highest" }
-#          - { php: 8.2, dependencies: "highest" }
+        include:
+          - { php: 8.1, dependencies: "highest" }
+          - { php: 8.2, dependencies: "highest" }
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,6 +35,7 @@ jobs:
     strategy:
       matrix:
         include:
+          - { phpunit: 9, php: 8.2 }
           - { phpunit: 9, php: 8.1 }
           - { phpunit: 9, php: 8.0 }
           - { phpunit: 8, php: 7.4 }
