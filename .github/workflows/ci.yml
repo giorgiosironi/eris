@@ -14,6 +14,7 @@ jobs:
           - "highest"
         include:
           - { php: 8.1, dependencies: "highest" }
+          - { php: 8.2, dependencies: "highest" }
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,7 +23,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: Install dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
         with:
           dependency-versions: ${{ matrix.dependencies }}
       - name: Run tests
@@ -47,7 +48,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: Install dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
       - name: Download phpunit phar
         run: |
           wget -O phpunit https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar
