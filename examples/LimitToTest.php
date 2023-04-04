@@ -1,5 +1,8 @@
 <?php
 
+use Eris\Attributes\ErisDuration;
+use Eris\Attributes\ErisRatio;
+use Eris\Attributes\ErisRepeat;
 use Eris\Generators;
 use Eris\TestTrait;
 
@@ -7,9 +10,7 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    /**
-     * @eris-repeat 5
-     */
+    #[ErisRepeat(repeat: 5)]
     public function testNumberOfIterationsCanBeConfigured()
     {
         $this->forAll(
@@ -50,10 +51,8 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    /**
-     * @eris-ratio 0
-     * @eris-duration PT2S
-     */
+    #[ErisRatio(ratio: 0)]
+    #[ErisDuration(duration: 'PT2S')]
     public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation()
     {
         $this->forAll(

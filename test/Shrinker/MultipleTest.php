@@ -34,7 +34,7 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
         });
     }
     
-    public function originallyFailedTests()
+    public static function originallyFailedTests()
     {
         return [
             ['startingPoint' => 5500],
