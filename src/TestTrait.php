@@ -16,6 +16,7 @@ use Eris\Random\MtRandSource;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 use Eris\Shrinker\ShrinkerFactory;
+use Throwable;
 
 trait TestTrait
 {
@@ -138,28 +139,15 @@ trait TestTrait
     }
 
     /**
-     * @after
-     */
-    public function erisTeardown()
-    {
-        $this->dumpSeedForReproducing();
-    }
-
-    /**
      * Maybe: we could add --filter options to the command here,
      * since now the original command is printed.
      */
-    private function dumpSeedForReproducing()
+    protected function onNotSuccessfulTest(Throwable $t): never
     {
-        if (! method_exists($this, 'hasFailed') || !method_exists($this, 'toString')) {
-            return;
-        }
-
-        if (!$this->hasFailed()) {
-            return;
-        }
         $command = PHPUnitCommand::fromSeedAndName($this->seed, $this->toString());
         echo PHP_EOL."Reproduce with:".PHP_EOL.$command.PHP_EOL;
+
+        parent::onNotSuccessfulTest($t);
     }
 
     /**
