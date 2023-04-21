@@ -9,7 +9,8 @@ class ErisShrink implements ErisAttribute
 {
     public function __construct(
         public int $shrink
-    ){}
+    ) {
+    }
 
     public function getValue()
     {

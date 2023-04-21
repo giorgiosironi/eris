@@ -9,7 +9,8 @@ class ErisMethod implements ErisAttribute
 {
     public function __construct(
         public string $method
-    ){}
+    ) {
+    }
 
     public function getValue()
     {

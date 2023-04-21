@@ -9,7 +9,8 @@ class ErisRepeat implements ErisAttribute
 {
     public function __construct(
         public int $repeat
-    ){}
+    ) {
+    }
 
     public function getValue()
     {

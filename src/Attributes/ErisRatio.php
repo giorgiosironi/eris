@@ -9,7 +9,8 @@ class ErisRatio implements ErisAttribute
 {
     public function __construct(
         public int $ratio
-    ){}
+    ) {
+    }
 
     public function getValue()
     {

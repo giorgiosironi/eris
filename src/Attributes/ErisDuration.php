@@ -9,7 +9,8 @@ class ErisDuration implements ErisAttribute
 {
     public function __construct(
         public string $duration
-    ){}
+    ) {
+    }
 
 
     public function getValue()

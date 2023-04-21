@@ -25,7 +25,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGeneratesAGeneratedValueObject(): void
     {
         $generator = new BindGenerator(
-        // TODO: order of parameters should be consistent with map, or not?
+            // TODO: order of parameters should be consistent with map, or not?
             ConstantGenerator::box(4),
             function ($n) {
                 return new ChooseGenerator($n, $n + 10);
