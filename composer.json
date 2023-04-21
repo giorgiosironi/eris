@@ -20,7 +20,7 @@
         "php": ">=7.4"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=7",
+        "phpunit/phpunit": "^8 || ^9",
         "sebastian/comparator": ">=2.1.3",
         "friendsofphp/php-cs-fixer": "^3.0",
         "ilario-pierbattista/reverse-regex": "dev-doctrine_lexer",
