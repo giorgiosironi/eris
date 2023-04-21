@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Added
+* `ilario-pierbattista/reverse-regex` as substitute peer dependency of `icomefromthenet/reverse-regex`.
+* Support for PHP 8.2
+### Removed
+* Support for PHP < 7.4
+* Support for PHPUnit < 8
 
 ## [0.13.0] - 2021-12-17
 ### Added

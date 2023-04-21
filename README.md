@@ -10,8 +10,8 @@ In property-based testing, several properties that the System Under Test must re
 
 ## Compatibility
 
-- PHP 7.1, 7.2, 7.3, 7.4, 8.0, 8.1
-- PHPUnit 6.x, 7.x, 8.x, 9.x
+- PHP 7.4, 8.0, 8.1, 8.2
+- PHPUnit 8.x, 9.x
 
 ## Installation
 
