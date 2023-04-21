@@ -14,3 +14,12 @@ services:
       - .:/usr/src/eris
     user: 1000:1000
     working_dir: /usr/src/eris
+  php-8.2:
+    build:
+      context: .docker
+      args:
+        BASE_IMAGE: php:8.2-cli-alpine3.16
+    volumes:
+      - .:/usr/src/eris
+    user: 1000:1000
+    working_dir: /usr/src/eris
