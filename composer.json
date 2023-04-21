@@ -64,6 +64,9 @@
         ],
         "phpstan-baseline": [
             "vendor/bin/phpstan analyse -c phpstan.neon --generate-baseline"
+        ],
+        "rector": [
+            "vendor/bin/rector"
         ]
     }
 }
