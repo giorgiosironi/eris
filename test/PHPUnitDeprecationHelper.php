@@ -65,8 +65,6 @@ final class PHPUnitDeprecationHelper
     {
         if (method_exists(TestCase::class, 'assertMatchesRegularExpression')) {
             TestCase::assertMatchesRegularExpression($pattern, $string, $message);
-        } elseif (method_exists(TestCase::class, 'assertInternalType')) {
-            TestCase::assertRegExp($pattern, $string, $message);
         } else {
             TestCase::fail('Unable to find the assertion method');
         }

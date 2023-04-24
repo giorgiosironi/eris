@@ -1,6 +1,8 @@
 <?php
 namespace Eris;
 
+use Throwable;
+
 class Facade
 {
     use TestTrait {
@@ -23,5 +25,15 @@ class Facade
     protected function getTestCaseAttributes()
     {
         return array();
+    }
+
+    protected function toString(): string
+    {
+        return '';
+    }
+
+    protected function onNotSuccessfulTest(Throwable $t): never
+    {
+        throw $t;
     }
 }
