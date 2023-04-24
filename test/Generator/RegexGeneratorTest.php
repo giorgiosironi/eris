@@ -41,7 +41,7 @@ class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
-            \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression("/{$expression}/", $value);
+            static::assertMatchesRegularExpression("/{$expression}/", $value);
         }
     }
 

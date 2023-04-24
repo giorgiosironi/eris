@@ -1,7 +1,6 @@
 <?php
 namespace Eris\Generator;
 
-use Eris\PHPUnitDeprecationHelper;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
@@ -31,7 +30,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
                 return new ChooseGenerator($n, $n + 10);
             }
         );
-        PHPUnitDeprecationHelper::assertIsInt(
+        static::assertIsInt(
             $generator->__invoke($this->size, $this->rand)->unbox()
         );
     }
@@ -46,7 +45,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
         );
         $value = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
-            PHPUnitDeprecationHelper::assertIsInt(
+            static::assertIsInt(
                 $value->unbox()
             );
             $value = $generator->shrink($value);

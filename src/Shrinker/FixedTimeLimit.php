@@ -21,18 +21,18 @@ class FixedTimeLimit implements TimeLimit
         $this->clock = $clock;
     }
 
-    public function start()
+    public function start(): void
     {
         $this->startOfTheInterval = call_user_func($this->clock);
     }
 
-    public function hasBeenReached()
+    public function hasBeenReached(): bool
     {
         $actualIntervalLength = call_user_func($this->clock) - $this->startOfTheInterval;
         return $actualIntervalLength >= $this->maximumIntervalLength;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $actualIntervalLength = call_user_func($this->clock) - $this->startOfTheInterval;
         return "{$actualIntervalLength}s elapsed of {$this->maximumIntervalLength}s";

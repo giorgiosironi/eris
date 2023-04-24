@@ -105,7 +105,7 @@ class GeneratedValueOptions implements GeneratedValue
     /**
      * @override
      */
-    public function __toString()
+    public function __toString(): string
     {
         return var_export($this, true);
     }

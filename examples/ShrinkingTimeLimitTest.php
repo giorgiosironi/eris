@@ -1,5 +1,6 @@
 <?php
 
+use Eris\Attributes\ErisShrink;
 use Eris\Generator;
 use Eris\Generators;
 
@@ -34,9 +35,7 @@ class ShrinkingTimeLimitTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    /**
-     * @eris-shrink 2
-     */
+    #[ErisShrink(shrink: 2)]
     public function testLengthPreservationFromAnnotation()
     {
         $this

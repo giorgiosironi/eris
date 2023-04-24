@@ -25,7 +25,7 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
     {
         $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
-            \Eris\PHPUnitDeprecationHelper::assertIsInt($generator($this->size, $this->rand)->unbox());
+            static::assertIsInt($generator($this->size, $this->rand)->unbox());
         }
     }
 
