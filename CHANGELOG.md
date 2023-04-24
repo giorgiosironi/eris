@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+
+### Fixed
+- #153 `oneOf` check failure with PSalm 
+
 ## [0.14.0] - 2023-04-21
 ### Added
 * `ilario-pierbattista/reverse-regex` as substitute peer dependency of `icomefromthenet/reverse-regex`.

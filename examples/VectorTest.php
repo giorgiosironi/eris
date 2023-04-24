@@ -9,8 +9,8 @@ class VectorTest extends \PHPUnit\Framework\TestCase
     public function testConcatenationMaintainsLength()
     {
         $this->forAll(
-            Generators::vector(10, Generators::nat(1000)),
-            Generators::vector(10, Generators::nat(1000))
+            Generators::vector(10, Generators::nat()),
+            Generators::vector(10, Generators::nat())
         )
             ->then(function ($first, $second) {
                 $concatenated = array_merge($first, $second);

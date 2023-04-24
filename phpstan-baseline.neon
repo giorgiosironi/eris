@@ -1,17 +1,482 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Anonymous function has an unused use \\$i\\.$#"
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/AlwaysFailsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/AlwaysFailsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/AssociativeArrayTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/AssociativeArrayTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/BindTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/BindTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/BooleanTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/BooleanTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/CharacterTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/CharacterTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ChooseTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ChooseTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/CollectTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/CollectTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ConstantTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ConstantTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/DateTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/DateTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/DifferentElementsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/DifferentElementsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/DisableShrinkingTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/DisableShrinkingTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ElementsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ElementsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ErrorTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ErrorTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/FloatTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/FloatTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/FrequencyTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/FrequencyTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/GeneratorSamplesTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/GeneratorSamplesTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/IntegerTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/IntegerTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/LimitToTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/LimitToTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/LogFileTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/LogFileTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/MapTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/MapTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/MinimumEvaluationsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/MinimumEvaluationsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/NamesTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/NamesTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/OneOfTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/OneOfTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/RandConfigurationTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/RandConfigurationTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ReadmeTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ReadmeTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/RegexTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/RegexTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/SequenceTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SequenceTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/SetTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SetTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ShrinkingTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ShrinkingTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/ShrinkingTimeLimitTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/ShrinkingTimeLimitTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/SizeTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SizeTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/SortTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SortTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/StringTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/StringTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/SubsetTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SubsetTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
 			count: 1
 			path: examples/SuchThatTest.php
 
 		-
-			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 6
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SuchThatTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
 			path: examples/SumTest.php
 
 		-
-			message: "#^Static method Eris\\\\Generators\\:\\:nat\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 2
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/SumTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/TupleTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/TupleTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
 			path: examples/VectorTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/VectorTest.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between \\(array\\|float\\|int\\) and 65 results in an error\\.$#"
+			count: 2
+			path: examples/WhenTest.php
+
+		-
+			message: "#^Method Eris\\\\Quantifier\\\\ForAll\\:\\:and\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: examples/WhenTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: examples/WhenTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: examples/WhenTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: src/Facade.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: src/Facade.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(GeneratedValue\\<T\\>\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 201$#"
+			count: 1
+			path: src/Generator.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(Random\\\\RandomRange\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 74$#"
+			count: 1
+			path: src/Generator.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(int The generation size\\)\\: Unexpected token \"The\", expected variable at offset 22$#"
+			count: 1
+			path: src/Generator.php
+
+		-
+			message: "#^PHPDoc tag @template T for method Eris\\\\Generator\\\\GeneratedValueSingle\\:\\:fromJustValue\\(\\) shadows @template T for class Eris\\\\Generator\\\\GeneratedValueSingle\\.$#"
+			count: 1
+			path: src/Generator/GeneratedValueSingle.php
+
+		-
+			message: "#^PHPDoc tag @template T for method Eris\\\\Generator\\\\GeneratedValueSingle\\:\\:fromValueAndInput\\(\\) shadows @template T for class Eris\\\\Generator\\\\GeneratedValueSingle\\.$#"
+			count: 1
+			path: src/Generator/GeneratedValueSingle.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(callable\\|Constraint\\)\\: Unexpected token \"\\\\n     \", expected variable at offset 37$#"
+			count: 1
+			path: src/Generator/SuchThatGenerator.php
+
+		-
+			message: "#^Call to an undefined method Eris\\\\Generator\\\\GeneratedValue\\<array\\<int, mixed\\>\\>\\:\\:first\\(\\)\\.$#"
+			count: 1
+			path: test/Generator/SequenceGeneratorTest.php
+
+		-
+			message: "#^Call to an undefined method Eris\\\\Generator\\\\GeneratedValue\\<mixed\\>\\:\\:last\\(\\)\\.$#"
+			count: 1
+			path: test/Generator/SuchThatGeneratorTest.php
+
+		-
+			message: "#^Cannot call method generatorName\\(\\) on array\\<int, mixed\\>\\.$#"
+			count: 3
+			path: test/Generator/TupleGeneratorTest.php
+
+		-
+			message: "#^Cannot call method unbox\\(\\) on array\\<int, mixed\\>\\.$#"
+			count: 3
+			path: test/Generator/TupleGeneratorTest.php
+
+		-
+			message: "#^Method Eris\\\\Listener\\\\Log\\:\\:shrinking\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: test/Listener/LogTest.php
+
+		-
+			message: "#^Result of method Eris\\\\Listener\\\\MinimumEvaluations\\:\\:endPropertyVerification\\(\\) \\(void\\) is used\\.$#"
+			count: 2
+			path: test/Listener/MinimumEvaluationsTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(float from 0\\.0 to 1\\.0\\)\\: Unexpected token \"from\", expected variable at offset 24$#"
+			count: 1
+			path: test/SampleTest.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(integer  in seconds\\)\\: Unexpected token \"in\", expected variable at offset 147$#"
+			count: 1
+			path: test/SampleTest.php
 

@@ -100,7 +100,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
                     Generators::seq(Generators::int())
                 )
             )
-            ->then(function (array $ints) use (&$i) {
+            ->then(function (array $ints) {
                 $this->assertGreaterThanOrEqual(1, count($ints));
             })
         ;

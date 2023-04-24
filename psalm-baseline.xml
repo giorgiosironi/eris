@@ -1,2 +1,329 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="dev-master@"/>
+<files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
+  <file src="examples/NamesTest.php">
+    <ForbiddenCode>
+      <code>var_dump($name)</code>
+      <code><![CDATA[var_dump($sample->collected())]]></code>
+    </ForbiddenCode>
+  </file>
+  <file src="examples/ShrinkingTest.php">
+    <ForbiddenCode>
+      <code>var_dump($string)</code>
+    </ForbiddenCode>
+  </file>
+  <file src="examples/SubsetTest.php">
+    <ForbiddenCode>
+      <code>var_dump($set)</code>
+    </ForbiddenCode>
+  </file>
+  <file src="src/Generator.php">
+    <InvalidDocblock>
+      <code>public function __invoke($size, Random\RandomRange $rand);</code>
+      <code>public function shrink(GeneratedValue $element);</code>
+    </InvalidDocblock>
+  </file>
+  <file src="src/Generator/AssociativeArrayGenerator.php">
+    <InvalidArrayOffset>
+      <code>$associativeArray[$key]</code>
+    </InvalidArrayOffset>
+  </file>
+  <file src="src/Generator/DateGenerator.php">
+    <InvalidArgument>
+      <code>$halvedOffset</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Generator/GeneratedValueOptions.php">
+    <ParamNameMismatch>
+      <code>$callable</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/GeneratedValueSingle.php">
+    <InvalidDocblock>
+      <code>public static function fromJustValue($value, $generatorName = null)</code>
+      <code>public static function fromValueAndInput($value, $input, $generatorName = null)</code>
+    </InvalidDocblock>
+    <InvalidReturnStatement>
+      <code>new ArrayIterator([
+            $this
+        ])</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code>\Traversable</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Generator/MapGenerator.php">
+    <ParamNameMismatch>
+      <code>$value</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/NamesGenerator.php">
+    <ParamNameMismatch>
+      <code>$value</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/RegexGenerator.php">
+    <ParamNameMismatch>
+      <code>$value</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/SequenceGenerator.php">
+    <InvalidMethodCall>
+      <code>unbox</code>
+    </InvalidMethodCall>
+    <ParamNameMismatch>
+      <code>$sequence</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/SetGenerator.php">
+    <InvalidMethodCall>
+      <code>unbox</code>
+    </InvalidMethodCall>
+    <ParamNameMismatch>
+      <code>$set</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/SubsetGenerator.php">
+    <InvalidArgument>
+      <code>$maximumSubsetIndex</code>
+    </InvalidArgument>
+    <ParamNameMismatch>
+      <code>$set</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/SuchThatGenerator.php">
+    <InvalidDocblock>
+      <code>public function __construct($filter, $generator, $maximumAttempts = 100)</code>
+    </InvalidDocblock>
+    <ParamNameMismatch>
+      <code>$value</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/TupleGenerator.php">
+    <ParamNameMismatch>
+      <code>$tuple</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Generator/VectorGenerator.php">
+    <ParamNameMismatch>
+      <code>$vector</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/TestTrait.php">
+    <InternalClass>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+    </InternalClass>
+    <InternalMethod>
+      <code><![CDATA[\PHPUnit\Util\Test::parseTestMethodAnnotations(
+            get_class($this),
+            $this->getName(false)
+        )]]></code>
+      <code>getName</code>
+    </InternalMethod>
+  </file>
+  <file src="test/Generator/SequenceGeneratorTest.php">
+    <UndefinedInterfaceMethod>
+      <code>first</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="test/Generator/SubsetGeneratorTest.php">
+    <InvalidArgument>
+      <code>$subsetSizes</code>
+    </InvalidArgument>
+  </file>
+  <file src="test/Generator/SuchThatGeneratorTest.php">
+    <UndefinedInterfaceMethod>
+      <code>last</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="test/Generator/TupleGeneratorTest.php">
+    <InvalidMethodCall>
+      <code>generatorName</code>
+      <code>generatorName</code>
+      <code>generatorName</code>
+      <code>unbox</code>
+      <code>unbox</code>
+      <code>unbox</code>
+    </InvalidMethodCall>
+  </file>
+  <file src="test/Listener/LogTest.php">
+    <InternalClass>
+      <code><![CDATA[new AssertionFailedError("Failed asserting that...")]]></code>
+      <code><![CDATA[new AssertionFailedError("Failed asserting that...")]]></code>
+    </InternalClass>
+    <InternalMethod>
+      <code><![CDATA[new AssertionFailedError("Failed asserting that...")]]></code>
+      <code><![CDATA[new AssertionFailedError("Failed asserting that...")]]></code>
+    </InternalMethod>
+    <NullArgument>
+      <code>null</code>
+      <code>null</code>
+    </NullArgument>
+    <TooManyArguments>
+      <code>shrinking</code>
+    </TooManyArguments>
+  </file>
+  <file src="test/PHPUnitDeprecationHelper.php">
+    <InvalidArgument>
+      <code>$haystack</code>
+    </InvalidArgument>
+  </file>
+</files>
