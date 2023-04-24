@@ -65,6 +65,9 @@
         "phpstan-baseline": [
             "vendor/bin/phpstan analyse -c phpstan.neon --generate-baseline"
         ],
+        "psalm-baseline": [
+            "vendor/bin/psalm.phar --set-baseline=psalm-baseline.xml"
+        ],
         "rector": [
             "vendor/bin/rector"
         ]
