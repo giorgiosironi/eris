@@ -6,4 +6,3 @@ docs/_build
 docker-compose.override.yml
 .psalm-cache/
 .idea
-.php-cs-fixer.cache
