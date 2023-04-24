@@ -7,6 +7,8 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     cacheDirectory=".psalm-cache/"
     errorBaseline="psalm-baseline.xml"
+    findUnusedCode="false"
+    findUnusedBaselineEntry="true"
 >
     <projectFiles>
         <directory name="src" />

@@ -17,7 +17,7 @@ class SumTest extends \PHPUnit\Framework\TestCase
     public function testRightIdentityElement()
     {
         $this->forAll(
-            Generators::nat(1000)
+            Generators::nat()
         )
             ->then(function ($number) {
                 $this->assertEquals(
@@ -31,7 +31,7 @@ class SumTest extends \PHPUnit\Framework\TestCase
     public function testLeftIdentityElement()
     {
         $this->forAll(
-            Generators::nat(1000)
+            Generators::nat()
         )
             ->then(function ($number) {
                 $this->assertEquals(
@@ -45,8 +45,8 @@ class SumTest extends \PHPUnit\Framework\TestCase
     public function testEqualToReferencePhpImplementation()
     {
         $this->forAll(
-            Generators::nat(1000),
-            Generators::nat(1000)
+            Generators::nat(),
+            Generators::nat()
         )
             ->then(function ($first, $second) {
                 $this->assertEquals(
@@ -60,8 +60,8 @@ class SumTest extends \PHPUnit\Framework\TestCase
     public function testPropertyNeverSatisfied()
     {
         $this->forAll(
-            Generators::nat(1000),
-            Generators::nat(1000)
+            Generators::nat(),
+            Generators::nat()
         )
             ->then(function ($first, $second) {
                 $this->assertEquals(
