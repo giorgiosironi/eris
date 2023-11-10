@@ -96,7 +96,7 @@ Shrinking time limit
 
 You can set a time limit for shrinking if you prefer to be presented with more complex examples with respect to spending test suite running time:
 
-.. literalinclude:: ../examples/ShrinkingTest.php
+.. literalinclude:: ../examples/ShrinkingTimeLimitTest.php
    :language: php
 
 The shrinking for this test will not run for more than 2 seconds (although the test as a whole may take more):
