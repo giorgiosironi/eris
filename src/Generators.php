@@ -196,7 +196,7 @@ final class Generators
     /**
      * @return OneOfGenerator
      */
-    public static function oneOf(/*$a, $b, ...*/)
+    public static function oneOf(...$_generators)
     {
         return new OneOfGenerator(func_get_args());
     }
