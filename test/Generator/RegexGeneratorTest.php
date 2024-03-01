@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,9 +34,7 @@ class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    /**
-     * @dataProvider supportedRegexes
-     */
+    #[DataProvider('supportedRegexes')]
     public function testGeneratesOnlyValuesThatMatchTheRegex($expression)
     {
         $generator = new RegexGenerator($expression);

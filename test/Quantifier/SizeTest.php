@@ -1,6 +1,8 @@
 <?php
 namespace Eris\Quantifier;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class SizeTest extends \PHPUnit\Framework\TestCase
 {
     public function testProducesAListOfSizesIncreasingThemTriangularly()
@@ -41,9 +43,7 @@ class SizeTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider limits
-     */
+    #[DataProvider('limits')]
     public function testCoversAUniformSubsetWhenLimitedToTheNumberOfIterations($limit)
     {
         $size = Size::withTriangleGrowth(1000)

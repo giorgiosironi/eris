@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -54,9 +55,7 @@ class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider namesToShrink
-     */
+    #[DataProvider('namesToShrink')]
     public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance($shrunk, $original): void
     {
         $generator = NamesGenerator::defaultDataSet();
