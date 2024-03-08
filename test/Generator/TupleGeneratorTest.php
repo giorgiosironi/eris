@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use PHPUnit\Framework\Attributes\Depends;
 
 class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -129,9 +130,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testShrinkingMultipleOptionsOfOneGenerator
-     */
+    #[Depends('testShrinkingMultipleOptionsOfOneGenerator')]
     public function testShrinkingMultipleOptionsOfMoreThanOneSingleShrinkingGenerator(): void
     {
         $generator = new TupleGenerator([
@@ -161,9 +160,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testShrinkingMultipleOptionsOfOneGenerator
-     */
+    #[Depends('testShrinkingMultipleOptionsOfOneGenerator')]
     public function testShrinkingMultipleOptionsOfMoreThanOneMultipleShrinkingGenerator(): void
     {
         $generator = new TupleGenerator([

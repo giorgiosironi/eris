@@ -1,6 +1,7 @@
 <?php
 namespace Eris;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use SimpleXMLElement;
 
 class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
@@ -37,9 +38,7 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider fullyGreenTestFiles
-     */
+    #[DataProvider('fullyGreenTestFiles')]
     public function testAllTestClassesWhichAreFullyGreen($testCaseFileName)
     {
         $this->runExample($testCaseFileName);

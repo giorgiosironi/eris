@@ -3,7 +3,6 @@ namespace Eris;
 
 use BadMethodCallException;
 use DateInterval;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Eris\Attributes\ErisDuration;
 use Eris\Attributes\ErisMethod;
 use Eris\Attributes\ErisRatio;
@@ -16,6 +15,8 @@ use Eris\Random\MtRandSource;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 use Eris\Shrinker\ShrinkerFactory;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\BeforeClass;
 use Throwable;
 
 trait TestTrait
@@ -34,9 +35,7 @@ trait TestTrait
     protected $seed;
     protected $shrinkingTimeLimit;
 
-    /**
-     * @beforeClass
-     */
+    #[BeforeClass]
     public static function erisSetupBeforeClass()
     {
         foreach (['Generator', 'Antecedent', 'Listener', 'Random'] as $namespace) {
@@ -77,9 +76,7 @@ trait TestTrait
         ];
     }
 
-    /**
-     * @before
-     */
+    #[Before]
     public function erisSetup()
     {
         $this->seedingRandomNumberGeneration();

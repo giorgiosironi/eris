@@ -36,9 +36,9 @@ class SuchThatGenerator implements Generator
     private $filter;
     private $generator;
     private $maximumAttempts;
-    
+
     /**
-     * @param callable|Constraint
+     * @param callable|Constraint $filter
      */
     public function __construct($filter, $generator, $maximumAttempts = 100)
     {

@@ -1,6 +1,8 @@
 <?php
 namespace Eris;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class PHPUnitCommandTest extends \PHPUnit\Framework\TestCase
 {
     public static function commandExamples()
@@ -17,9 +19,7 @@ class PHPUnitCommandTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider commandExamples
-     */
+    #[DataProvider('commandExamples')]
     public function testItCanComposeFrom($name, $fullString)
     {
         $command = PHPUnitCommand::fromSeedAndName(42, $name);
