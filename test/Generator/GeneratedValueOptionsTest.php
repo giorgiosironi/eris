@@ -66,7 +66,7 @@ class GeneratedValueOptionsTest extends \PHPUnit\Framework\TestCase
         });
         $this->assertEquals(6, count($product));
         foreach ($product as $value) {
-            \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/^[ab][123]$/', $value->unbox());
+            static::assertMatchesRegularExpression('/^[ab][123]$/', $value->unbox());
         }
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Eris\Random;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp(): void
@@ -8,12 +10,6 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('MersenneTwister class does not support HHVM');
         }
-        $this->enableAssertions();
-    }
-
-    public function tearDown(): void
-    {
-        $this->disableAssertions();
     }
 
     public static function sequences()
@@ -25,10 +21,8 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
             [0xfffffffffffffff, 100],
         ];
     }
-    
-    /**
-     * @dataProvider sequences
-     */
+
+    #[DataProvider('sequences')]
     public function testGeneratesTheSameSequenceAsThePythonOracle($seed, $sample)
     {
         $twister = new MersenneTwister();
@@ -56,18 +50,5 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
         foreach ($bins as $count) {
             $this->assertGreaterThan(400, $count);
         }
-    }
-
-    private function enableAssertions()
-    {
-        assert_options(ASSERT_ACTIVE, 1);
-        assert_options(ASSERT_CALLBACK, function ($file, $line, $code) {
-            throw new \LogicException($code);
-        });
-    }
-
-    private function disableAssertions()
-    {
-        assert_options(ASSERT_ACTIVE, 0);
     }
 }

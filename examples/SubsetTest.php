@@ -16,7 +16,7 @@ class SubsetTest extends TestCase
             ])
         )
             ->then(function ($set) {
-                \Eris\PHPUnitDeprecationHelper::assertIsArray($set);
+                static::assertIsArray($set);
                 foreach ($set as $element) {
                     $this->assertTrue($this->isEven($element), "Element $element is not even, where did it come from?");
                 }

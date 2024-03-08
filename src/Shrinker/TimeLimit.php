@@ -5,18 +5,8 @@ interface TimeLimit
 {
     /**
      * Call to start measuring the time interval.
-     *
-     * @return void
      */
-    public function start();
-
-    /**
-     * @return bool
-     */
-    public function hasBeenReached();
-
-    /**
-     * @return string
-     */
-    public function __toString();
+    public function start(): void;
+    public function hasBeenReached(): bool;
+    public function __toString(): string;
 }

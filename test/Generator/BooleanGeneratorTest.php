@@ -1,7 +1,6 @@
 <?php
 namespace Eris\Generator;
 
-use Eris\PHPUnitDeprecationHelper;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
@@ -22,7 +21,7 @@ class BooleanGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 0, $this->rand);
-            PHPUnitDeprecationHelper::assertIsBool($generatedValue->unbox());
+            static::assertIsBool($generatedValue->unbox());
         }
     }
 

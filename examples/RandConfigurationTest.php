@@ -1,5 +1,6 @@
 <?php
 
+use Eris\Attributes\ErisMethod;
 use Eris\Generators;
 use Eris\Random;
 use Eris\TestTrait;
@@ -19,9 +20,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
             ->then($this->isInteger());
     }
 
-    /**
-     * @eris-method rand
-     */
+    #[ErisMethod(method: 'rand')]
     public function testUsingTheDefaultRandFunctionFromAnnotation()
     {
         $this
@@ -42,10 +41,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
             ->then($this->isInteger());
     }
 
-
-    /**
-     * @eris-method mt_rand
-     */
+    #[ErisMethod(method: 'mt_rand')]
     public function testUsingTheDefaultMtRandFunctionFromAnnotation()
     {
         $this
@@ -72,7 +68,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
     private function isInteger()
     {
         return function ($number) {
-            \Eris\PHPUnitDeprecationHelper::assertIsInt($number);
+            static::assertIsInt($number);
         };
     }
 }

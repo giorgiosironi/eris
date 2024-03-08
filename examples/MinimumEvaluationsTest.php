@@ -1,5 +1,6 @@
 <?php
 
+use Eris\Attributes\ErisRatio;
 use Eris\Generators;
 
 class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
@@ -35,9 +36,7 @@ class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    /**
-     * @eris-ratio 1
-     */
+    #[ErisRatio(ratio: 1)]
     public function testPassesBecauseOfTheArtificiallyLowMinimumEvaluationRatioFromAnnotation()
     {
         $this

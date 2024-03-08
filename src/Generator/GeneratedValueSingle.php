@@ -80,7 +80,7 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
         return $this->value;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return var_export($this, true);
     }

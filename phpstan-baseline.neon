@@ -436,11 +436,6 @@ parameters:
 			path: src/Generator/GeneratedValueSingle.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(callable\\|Constraint\\)\\: Unexpected token \"\\\\n     \", expected variable at offset 37$#"
-			count: 1
-			path: src/Generator/SuchThatGenerator.php
-
-		-
 			message: "#^Call to an undefined method Eris\\\\Generator\\\\GeneratedValue\\<array\\<int, mixed\\>\\>\\:\\:first\\(\\)\\.$#"
 			count: 1
 			path: test/Generator/SequenceGeneratorTest.php

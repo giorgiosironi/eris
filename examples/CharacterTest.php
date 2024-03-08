@@ -1,6 +1,7 @@
 <?php
 
 use Eris\Antecedents;
+use Eris\Attributes\ErisRatio;
 use Eris\Generators;
 
 class CharacterTest extends \PHPUnit\Framework\TestCase
@@ -43,9 +44,7 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    /**
-     * @eris-ratio 10
-     */
+    #[ErisRatio(ratio: 10)]
     public function testMultiplePrintableCharactersFromAnnotation()
     {
         $this

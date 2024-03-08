@@ -14,7 +14,7 @@ class ShrinkingTest extends \PHPUnit\Framework\TestCase
         )
             ->then(function ($string) {
                 var_dump($string);
-                \Eris\PHPUnitDeprecationHelper::assertStringNotContainsString('B', $string);
+                static::assertStringNotContainsString('B', $string);
             });
     }
 

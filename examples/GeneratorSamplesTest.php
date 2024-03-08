@@ -36,7 +36,7 @@ class GeneratorSamplesTest extends \PHPUnit\Framework\TestCase
         echo PHP_EOL;
         echo $description . " with size 10";
         $sample = $this->sample($generator);
-        \Eris\PHPUnitDeprecationHelper::assertIsArray($sample->collected());
+        static::assertIsArray($sample->collected());
         $this->prettyPrint($sample->collected());
     }
 

@@ -12,7 +12,7 @@ class NamesTest extends \PHPUnit\Framework\TestCase
         $this->forAll(
             Generators::names()
         )->then(function ($name) {
-            \Eris\PHPUnitDeprecationHelper::assertIsString($name);
+            static::assertIsString($name);
             var_dump($name);
         });
     }
@@ -21,7 +21,7 @@ class NamesTest extends \PHPUnit\Framework\TestCase
     {
         $generator = Generator\NamesGenerator::defaultDataSet();
         $sample = $this->sampleShrink($generator);
-        \Eris\PHPUnitDeprecationHelper::assertIsArray($sample->collected());
+        static::assertIsArray($sample->collected());
         var_dump($sample->collected());
     }
 }
