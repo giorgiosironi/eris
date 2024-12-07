@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
-
 ### Added
 * Support for PHP 8.2
 ### Removed
 * Support for PHP < 8.1
 * Support for PHPUnit < 10
+
+## [0.14.1] - 2024-12-07
 ### Fixed
 - #153 `oneOf` check failure with PSalm 
 
@@ -152,7 +153,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Basic best-effort shrinking.
 * `sample()` and `sampleShrink()` for Generators.
 
-[Unreleased]: https://github.com/giorgiosironi/eris/compare/0.14.0...HEAD
+[Unreleased]: https://github.com/giorgiosironi/eris/compare/0.14.1...HEAD
+[0.14.1]: https://github.com/giorgiosironi/eris/compare/0.14.0...0.14.1
 [0.14.0]: https://github.com/giorgiosironi/eris/compare/0.13.0...0.14.0
 [0.13.0]: https://github.com/giorgiosironi/eris/compare/0.12.1...0.13.0
 [0.12.1]: https://github.com/giorgiosironi/eris/compare/0.12.0...0.12.1
