@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * @see Listeners::collectFrequencies()
  */
-function collectFrequencies(callable $collectFunction = null)
+function collectFrequencies(?callable $collectFunction = null)
 {
     return Listeners::collectFrequencies($collectFunction);
 }
@@ -40,7 +40,7 @@ class CollectFrequencies extends EmptyListener implements Listener
         $this->collectFunction = $collectFunction;
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null)
     {
         arsort($this->collectedValues, SORT_NUMERIC);
         echo PHP_EOL;
