@@ -47,7 +47,7 @@ class IntegerGenerator implements Generator
 {
     private $mapFn;
 
-    public function __construct(callable $mapFn = null)
+    public function __construct(?callable $mapFn = null)
     {
         if (is_null($mapFn)) {
             $this->mapFn = $this->identity();

@@ -23,7 +23,7 @@ class MinimumEvaluations extends EmptyListener implements Listener
         $this->threshold = $threshold;
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null)
     {
         if ($exception) {
             return;

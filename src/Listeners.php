@@ -7,7 +7,7 @@ use Eris\Listener\Log;
 
 final class Listeners
 {
-    public static function collectFrequencies(callable $collectFunction = null)
+    public static function collectFrequencies(?callable $collectFunction = null)
     {
         return new CollectFrequencies($collectFunction);
     }

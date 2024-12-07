@@ -57,13 +57,13 @@ trait TestTrait
         }
 
         $methodAttributes = [];
-        foreach($reflectionClass->getMethods() as $method) {
-            if($method->getName() !== $this->name()) {
+        foreach ($reflectionClass->getMethods() as $method) {
+            if ($method->getName() !== $this->name()) {
                 continue;
             }
             $attributes = $method->getAttributes();
 
-            if(!empty($attributes)) {
+            if (!empty($attributes)) {
                 foreach ($attributes as $attribute) {
                     $methodAttributes[$attribute->getName()] = ($attribute)->newInstance();
                 }

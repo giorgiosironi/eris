@@ -40,7 +40,7 @@ class Log extends EmptyListener implements Listener
         ));
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null)
     {
         fclose($this->fp);
     }
