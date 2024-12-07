@@ -20,7 +20,7 @@ final class PHPUnitCommand
         );
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return "ERIS_SEED={$this->seed} vendor/bin/phpunit --filter '{$this->name}'";
     }

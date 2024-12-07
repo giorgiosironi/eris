@@ -18,7 +18,7 @@ interface Listener
      * @param null|Exception $exception  tells if the test has failed and specifies the exact exception
      * @return void
      */
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, Exception $exception = null);
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null);
 
     /**
      * @param array $generation  of mixed values

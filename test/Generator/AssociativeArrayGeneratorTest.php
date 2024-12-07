@@ -51,10 +51,10 @@ class AssociativeArrayGeneratorTest extends TestCase
         $array = $generated->unbox();
         $this->assertCount(2, $array);
         $letter = $array['letter'];
-        \Eris\PHPUnitDeprecationHelper::assertIsString($letter);
+        static::assertIsString($letter);
         $this->assertEquals(1, strlen($letter));
         $cipher = $array['cipher'];
-        \Eris\PHPUnitDeprecationHelper::assertIsInt($cipher);
+        static::assertIsInt($cipher);
         $this->assertGreaterThanOrEqual(0, $cipher);
         $this->assertLessThanOrEqual(9, $cipher);
         $this->assertCount(2, $generated->unbox());
@@ -78,8 +78,8 @@ class AssociativeArrayGeneratorTest extends TestCase
                 ['former', 'latter'],
                 array_keys($array)
             );
-            \Eris\PHPUnitDeprecationHelper::assertIsInt($array['former']);
-            \Eris\PHPUnitDeprecationHelper::assertIsInt($array['latter']);
+            static::assertIsInt($array['former']);
+            static::assertIsInt($array['latter']);
         }
     }
 }

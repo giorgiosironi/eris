@@ -3,6 +3,11 @@ namespace Eris;
 
 use BadMethodCallException;
 use DateInterval;
+use Eris\Attributes\ErisDuration;
+use Eris\Attributes\ErisMethod;
+use Eris\Attributes\ErisRatio;
+use Eris\Attributes\ErisRepeat;
+use Eris\Attributes\ErisShrink;
 use Eris\Listener\MinimumEvaluations;
 use Eris\Quantifier\ForAll;
 use Eris\Quantifier\TimeBasedTerminationCondition;
@@ -10,6 +15,9 @@ use Eris\Random\MtRandSource;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 use Eris\Shrinker\ShrinkerFactory;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\BeforeClass;
+use Throwable;
 
 trait TestTrait
 {
@@ -27,9 +35,7 @@ trait TestTrait
     protected $seed;
     protected $shrinkingTimeLimit;
 
-    /**
-     * @beforeClass
-     */
+    #[BeforeClass]
     public static function erisSetupBeforeClass()
     {
         foreach (['Generator', 'Antecedent', 'Listener', 'Random'] as $namespace) {
@@ -42,21 +48,35 @@ trait TestTrait
     /**
      * @return array
      */
-    public function getTestCaseAnnotations()
+    public function getTestCaseAttributes()
     {
-        if (\method_exists($this, 'getAnnotations')) {
-            return $this->getAnnotations();
+        $reflectionClass = new \ReflectionClass($this);
+        $classAttributes = [];
+        foreach ($reflectionClass->getAttributes() as $attribute) {
+            $classAttributes[$attribute->getName()] = ($attribute)->newInstance();
         }
-        //from TestCase of PHPunit
-        return \PHPUnit\Util\Test::parseTestMethodAnnotations(
-            get_class($this),
-            $this->getName(false)
-        );
+
+        $methodAttributes = [];
+        foreach ($reflectionClass->getMethods() as $method) {
+            if ($method->getName() !== $this->name()) {
+                continue;
+            }
+            $attributes = $method->getAttributes();
+
+            if (!empty($attributes)) {
+                foreach ($attributes as $attribute) {
+                    $methodAttributes[$attribute->getName()] = ($attribute)->newInstance();
+                }
+            }
+        }
+
+        return [
+            'method' => $methodAttributes,
+            'class' => $classAttributes
+        ];
     }
 
-    /**
-     * @before
-     */
+    #[Before]
     public function erisSetup()
     {
         $this->seedingRandomNumberGeneration();
@@ -66,12 +86,12 @@ trait TestTrait
                 return !($listener instanceof MinimumEvaluations);
             }
         );
-        $tags = $this->getTestCaseAnnotations();
-        $this->withRand($this->getAnnotationValue($tags, 'eris-method', 'rand', 'strval'));
-        $this->iterations = $this->getAnnotationValue($tags, 'eris-repeat', 100, 'intval');
-        $this->shrinkingTimeLimit = $this->getAnnotationValue($tags, 'eris-shrink', null, 'intval');
-        $this->listeners[] = MinimumEvaluations::ratio($this->getAnnotationValue($tags, 'eris-ratio', 50, 'floatval')/100);
-        $duration = $this->getAnnotationValue($tags, 'eris-duration', false, 'strval');
+        $tags = $this->getTestCaseAttributes();
+        $this->withRand($this->getAttributeValue($tags, ErisMethod::class, 'rand', 'strval'));
+        $this->iterations = $this->getAttributeValue($tags, ErisRepeat::class, 100, 'intval');
+        $this->shrinkingTimeLimit = $this->getAttributeValue($tags, ErisShrink::class, null, 'intval');
+        $this->listeners[] = MinimumEvaluations::ratio($this->getAttributeValue($tags, ErisRatio::class, 50, 'floatval')/100);
+        $duration = $this->getAttributeValue($tags, ErisDuration::class, false, 'strval');
         if ($duration) {
             $this->limitTo(new DateInterval($duration));
         }
@@ -91,53 +111,40 @@ trait TestTrait
     }
 
     /**
-     * @param array $annotations
+     * @param array $attributes
      * @param string $key
      * @param mixed $default
      * @return mixed
      */
-    private function getAnnotationValue(array $annotations, $key, $default, $cast)
+    private function getAttributeValue(array $attributes, $key, $default, $cast)
     {
-        $annotation = $this->getAnnotation($annotations, $key);
-        return isset($annotation[0])?$cast($annotation[0]):$default;
+        $attribute = $this->getAttribute($attributes, $key);
+        return $attribute !== null ? $cast($attribute) : $default;
     }
 
     /**
-     * @param array $annotations
+     * @param array $attributes
      * @param string $key
-     * @return array
+     * @return int|string|null
      */
-    private function getAnnotation(array $annotations, $key)
+    private function getAttribute(array $attributes, $key)
     {
-        if (isset($annotations['method'][$key])) {
-            return $annotations['method'][$key];
+        if (isset($attributes['method'][$key])) {
+            return ($attributes['method'][$key])->getValue();
         }
-        return isset($annotations['class'][$key])?$annotations['class'][$key]:[];
-    }
-
-    /**
-     * @after
-     */
-    public function erisTeardown()
-    {
-        $this->dumpSeedForReproducing();
+        return isset($attributes['class'][$key]) ? ($attributes['class'][$key])->getValue() : null;
     }
 
     /**
      * Maybe: we could add --filter options to the command here,
      * since now the original command is printed.
      */
-    private function dumpSeedForReproducing()
+    protected function onNotSuccessfulTest(Throwable $t): never
     {
-        if (! method_exists($this, 'hasFailed') || !method_exists($this, 'toString')) {
-            return;
-        }
-
-        if (!$this->hasFailed()) {
-            return;
-        }
         $command = PHPUnitCommand::fromSeedAndName($this->seed, $this->toString());
         echo PHP_EOL."Reproduce with:".PHP_EOL.$command.PHP_EOL;
+
+        parent::onNotSuccessfulTest($t);
     }
 
     /**

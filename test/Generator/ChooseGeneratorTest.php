@@ -26,7 +26,7 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new ChooseGenerator(-10, 10);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
-            \Eris\PHPUnitDeprecationHelper::assertIsInt($value);
+            static::assertIsInt($value);
             $this->assertGreaterThanOrEqual(-10, $value);
             $this->assertLessThanOrEqual(10, $value);
         }

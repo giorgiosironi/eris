@@ -1,7 +1,6 @@
 <?php
 namespace Eris\Generator;
 
-use Eris\PHPUnitDeprecationHelper;
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
 
@@ -29,7 +28,7 @@ class FloatGeneratorTest extends \PHPUnit\Framework\TestCase
         $trials = 500;
         for ($i = 0; $i < $trials; $i++) {
             $value = $generator($this->size, $this->rand);
-            PHPUnitDeprecationHelper::assertIsFloat($value->unbox());
+            static::assertIsFloat($value->unbox());
             $sum += $value->unbox();
         }
         $mean = $sum / $trials;

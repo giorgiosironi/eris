@@ -47,10 +47,10 @@ class GeneratedValueTest extends \PHPUnit\Framework\TestCase
             GeneratedValueSingle::fromJustValue(211),
             'map'
         );
-        \Eris\PHPUnitDeprecationHelper::assertIsString($generatedValue->__toString());
-        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/value.*422/', $generatedValue->__toString());
-        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/211/', $generatedValue->__toString());
-        \Eris\PHPUnitDeprecationHelper::assertMatchesRegularExpression('/generator.*map/', $generatedValue->__toString());
+        static::assertIsString($generatedValue->__toString());
+        static::assertMatchesRegularExpression('/value.*422/', $generatedValue->__toString());
+        static::assertMatchesRegularExpression('/211/', $generatedValue->__toString());
+        static::assertMatchesRegularExpression('/generator.*map/', $generatedValue->__toString());
     }
 
     public function testCanBeIteratedUponAsASingleOption(): void

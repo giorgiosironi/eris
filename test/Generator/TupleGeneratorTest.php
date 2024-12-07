@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use PHPUnit\Framework\Attributes\Depends;
 
 class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -28,7 +29,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 
     private function assertInSingleElementGenerator($value): void
     {
-        \Eris\PHPUnitDeprecationHelper::assertIsInt($value);
+        static::assertIsInt($value);
         $this->assertGreaterThanOrEqual(0, $value);
         $this->assertLessThanOrEqual(100, $value);
     }
@@ -124,14 +125,12 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
+            static::assertIsArray($optionValue);
             $this->assertCount(1, $optionValue);
         }
     }
 
-    /**
-     * @depends testShrinkingMultipleOptionsOfOneGenerator
-     */
+    #[Depends('testShrinkingMultipleOptionsOfOneGenerator')]
     public function testShrinkingMultipleOptionsOfMoreThanOneSingleShrinkingGenerator(): void
     {
         $generator = new TupleGenerator([
@@ -152,7 +151,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
+            static::assertIsArray($optionValue);
             $this->assertCount(2, $optionValue);
             $elementsBeingShrunk =
                 (strlen($optionValue[0]) < 5 ? 1 : 0)
@@ -161,9 +160,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testShrinkingMultipleOptionsOfOneGenerator
-     */
+    #[Depends('testShrinkingMultipleOptionsOfOneGenerator')]
     public function testShrinkingMultipleOptionsOfMoreThanOneMultipleShrinkingGenerator(): void
     {
         $generator = new TupleGenerator([
@@ -183,7 +180,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            \Eris\PHPUnitDeprecationHelper::assertIsArray($optionValue);
+            static::assertIsArray($optionValue);
             $this->assertCount(2, $optionValue);
             $this->assertNotEquals([100, 200], $optionValue);
             $elementsBeingShrunk =

@@ -5,6 +5,7 @@ use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\IntegerGenerator;
 use Exception;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use RuntimeException;
 
 class MultipleTest extends \PHPUnit\Framework\TestCase
@@ -34,7 +35,7 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
         });
     }
     
-    public function originallyFailedTests()
+    public static function originallyFailedTests()
     {
         return [
             ['startingPoint' => 5500],
@@ -43,10 +44,8 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
             ['startingPoint' => 100000],
         ];
     }
-    
-    /**
-     * @dataProvider originallyFailedTests
-     */
+
+    #[DataProvider('originallyFailedTests')]
     public function testMultipleBranchesConvergeFasterThanLinearShrinking($startingPoint)
     {
         try {

@@ -5,20 +5,11 @@ version: "3.8"
 
 # Add a docker-compose.override.yml if you need to change one of the following (it won't be tracked)
 services:
-  php-7.4:
-    build:
-      context: .docker
-      args:
-        BASE_IMAGE: php:7.4-cli-alpine3.14
-    volumes:
-      - .:/usr/src/eris
-    user: 1000:1000
-    working_dir: /usr/src/eris
   php-8.1:
     build:
       context: .docker
       args:
-        BASE_IMAGE: php:8.1-cli-alpine3.14
+        BASE_IMAGE: php:8.1-cli-alpine
     volumes:
       - .:/usr/src/eris
     user: 1000:1000
@@ -27,7 +18,25 @@ services:
     build:
       context: .docker
       args:
-        BASE_IMAGE: php:8.2-cli-alpine3.16
+        BASE_IMAGE: php:8.2-cli-alpine
+    volumes:
+      - .:/usr/src/eris
+    user: 1000:1000
+    working_dir: /usr/src/eris
+  php-8.3:
+    build:
+      context: .docker
+      args:
+        BASE_IMAGE: php:8.3-cli-alpine
+    volumes:
+      - .:/usr/src/eris
+    user: 1000:1000
+    working_dir: /usr/src/eris
+  php-8.4:
+    build:
+      context: .docker
+      args:
+        BASE_IMAGE: php:8.4-cli-alpine
     volumes:
       - .:/usr/src/eris
     user: 1000:1000
