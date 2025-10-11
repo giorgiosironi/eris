@@ -6,8 +6,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 
 ## [Unreleased]
 ### Changed
-* Updated PHPStan to v2.1.31
-* Updated Rector to v2.2.2
+* Updated PHPStan to v2
+* Updated Rector to v2
 ### Removed
 * Support for `icomefromthenet/reverse-regex` dependency. Only `ilario-pierbattista/reverse-regex` is now supported for the `regex()` generator (other forks are welcome).
 
