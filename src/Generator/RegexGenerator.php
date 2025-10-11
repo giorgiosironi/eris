@@ -33,7 +33,7 @@ class RegexGenerator implements Generator
     public function __construct($expression)
     {
         if (!class_exists("ReverseRegex\Parser")) {
-            throw new BadFunctionCallException("Please install the suggested dependency icomefromthenet/reverse-regex to run this Generator.");
+            throw new BadFunctionCallException("Please install the suggested dependency ilario-pierbattista/reverse-regex to run this Generator.");
         }
         $this->expression = $expression;
     }
