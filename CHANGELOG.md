@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Removed
+* Support for `icomefromthenet/reverse-regex` dependency. Only `ilario-pierbattista/reverse-regex` is now supported for the `regex()` generator (other forks are welcome).
+
 ## [1.0.0] - 2024-12-07
 ### Added
 * Support for PHP 8.2, 8.3, 8.4

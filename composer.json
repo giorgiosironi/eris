@@ -31,8 +31,7 @@
     "suggest":
     {
         "phpunit/phpunit": "Standard way to run generated test cases",
-        "icomefromthenet/reverse-regex": "v0.0.6.3 for the regex() Generator",
-        "ilario-pierbattista/reverse-regex": "0.3.1 for the regex() Generator (alternative to icomefromthenet/reverse-regex) "
+        "ilario-pierbattista/reverse-regex": "0.5.0 for the regex() Generator"
     },
     "autoload": {
         "psr-4": {
