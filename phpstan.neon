@@ -10,3 +10,4 @@ parameters:
         - src
         - test
         - examples
+    reportUnmatchedIgnoredErrors: false
