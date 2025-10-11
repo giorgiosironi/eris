@@ -3,6 +3,9 @@ includes:
 
 parameters:
     level: 2
+    phpVersion:
+        min: 80100  # PHP 8.1.0
+        max: 80400  # PHP 8.4.0
     paths:
         - src
         - test
