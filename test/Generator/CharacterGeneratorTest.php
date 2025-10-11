@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class CharacterGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {

@@ -18,12 +18,10 @@ function map(callable $function, Generator $generator)
 class MapGenerator implements Generator
 {
     private $map;
-    private $generator;
     
-    public function __construct(callable $map, $generator)
+    public function __construct(callable $map, private $generator)
     {
         $this->map = $map;
-        $this->generator = $generator;
     }
 
     public function __invoke($_size, RandomRange $rand)

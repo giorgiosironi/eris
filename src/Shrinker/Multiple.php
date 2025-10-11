@@ -11,12 +11,9 @@ class Multiple implements Shrinker
 {
     private $generator;
     private $assertion;
-    private $goodShrinkConditions = [];
-    private $onAttempt = [];
-    /**
-     * @var NoTimeLimit
-     */
-    private $timeLimit;
+    private array $goodShrinkConditions = [];
+    private array $onAttempt = [];
+    private \Eris\Shrinker\NoTimeLimit|\Eris\Shrinker\TimeLimit $timeLimit;
 
     public function __construct(array $generators, callable $assertion)
     {
@@ -25,19 +22,19 @@ class Multiple implements Shrinker
         $this->timeLimit = new NoTimeLimit();
     }
 
-    public function setTimeLimit(TimeLimit $timeLimit)
+    public function setTimeLimit(TimeLimit $timeLimit): static
     {
         $this->timeLimit = $timeLimit;
         return $this;
     }
 
-    public function addGoodShrinkCondition(callable $condition)
+    public function addGoodShrinkCondition(callable $condition): static
     {
         $this->goodShrinkConditions[] = $condition;
         return $this;
     }
     
-    public function onAttempt(callable $listener)
+    public function onAttempt(callable $listener): static
     {
         $this->onAttempt[] = $listener;
         return $this;
@@ -46,7 +43,7 @@ class Multiple implements Shrinker
     /**
      * Precondition: $values should fail $this->assertion
      */
-    public function from(GeneratedValueSingle $elements, $exception)
+    public function from(GeneratedValueSingle $elements, $exception): void
     {
         $branches = [];
 
@@ -63,7 +60,7 @@ class Multiple implements Shrinker
             return $branches;
         };
 
-        $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception, &$branches, $shrink) {
+        $onGoodShrink = function ($elementsAfterShrink, $exceptionAfterShrink) use (&$elements, &$exception, &$branches, $shrink): void {
             $elements = $elementsAfterShrink;
             $exception = $exceptionAfterShrink;
             $branches = $shrink($elements);
@@ -105,7 +102,7 @@ class Multiple implements Shrinker
         throw $exception;
     }
 
-    private function checkGoodShrinkConditions(GeneratedValueSingle $values)
+    private function checkGoodShrinkConditions(GeneratedValueSingle $values): bool
     {
         foreach ($this->goodShrinkConditions as $condition) {
             if (!$condition($values)) {

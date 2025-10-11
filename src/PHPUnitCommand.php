@@ -1,18 +1,13 @@
 <?php
 namespace Eris;
 
-final class PHPUnitCommand
+final class PHPUnitCommand implements \Stringable
 {
-    private $seed;
-    private $name;
-
-    private function __construct($seed, $name)
+    private function __construct(private $seed, private $name)
     {
-        $this->seed = $seed;
-        $this->name = $name;
     }
 
-    public static function fromSeedAndName($seed, $name)
+    public static function fromSeedAndName($seed, $name): self
     {
         return new self(
             $seed,

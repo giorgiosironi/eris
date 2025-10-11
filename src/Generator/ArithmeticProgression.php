@@ -10,16 +10,13 @@ namespace Eris\Generator;
  */
 class ArithmeticProgression
 {
-    private $lowerLimit;
-    
-    public static function discrete($lowerLimit)
+    public static function discrete($lowerLimit): self
     {
         return new self($lowerLimit);
     }
     
-    private function __construct($lowerLimit)
+    private function __construct(private $lowerLimit)
     {
-        $this->lowerLimit = $lowerLimit;
     }
 
     public function next($currentValue)

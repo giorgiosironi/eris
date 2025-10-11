@@ -8,10 +8,10 @@ use Eris\Random\RandomRange;
 /**
  * @return OneOfGenerator
  */
-function oneOf(/*$a, $b, ...*/)
+function oneOf(/*$a, $b, ...*/): mixed
 {
     return call_user_func_array(
-        [Generators::class, 'oneOf'],
+        Generators::oneOf(...),
         func_get_args()
     );
 }
@@ -39,12 +39,10 @@ class OneOfGenerator implements Generator
         return $this->generator->shrink($element);
     }
 
-    private function allWithSameFrequency($generators)
+    private function allWithSameFrequency($generators): array
     {
         return array_map(
-            function ($generator) {
-                return [1, $generator];
-            },
+            fn($generator): array => [1, $generator],
             $generators
         );
     }

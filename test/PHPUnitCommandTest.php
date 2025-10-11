@@ -5,7 +5,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class PHPUnitCommandTest extends \PHPUnit\Framework\TestCase
 {
-    public static function commandExamples()
+    public static function commandExamples(): array
     {
         return [
             [
@@ -20,7 +20,7 @@ class PHPUnitCommandTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('commandExamples')]
-    public function testItCanComposeFrom($name, $fullString)
+    public function testItCanComposeFrom(string $name, string $fullString): void
     {
         $command = PHPUnitCommand::fromSeedAndName(42, $name);
 

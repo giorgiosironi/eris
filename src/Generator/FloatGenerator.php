@@ -15,10 +15,6 @@ function float()
  */
 class FloatGenerator implements Generator
 {
-    public function __construct()
-    {
-    }
-
     public function __invoke($size, RandomRange $rand)
     {
         $denominator = $rand->rand(1, $size) ?: 1;

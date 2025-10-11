@@ -6,7 +6,7 @@ class FrequencyTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testFalsyValues()
+    public function testFalsyValues(): void
     {
         $this
             ->forAll(
@@ -16,12 +16,12 @@ class FrequencyTest extends \PHPUnit\Framework\TestCase
                     [4, '']
                 )
             )
-            ->then(function ($falsyValue) {
+            ->then(function ($falsyValue): void {
                 $this->assertFalse((bool) $falsyValue);
             });
     }
 
-    public function testAlwaysFails()
+    public function testAlwaysFails(): void
     {
         $this
             ->forAll(
@@ -31,7 +31,7 @@ class FrequencyTest extends \PHPUnit\Framework\TestCase
                     [4, Generators::choose(200, 300)]
                 )
             )
-            ->then(function ($element) {
+            ->then(function ($element): void {
                 $this->assertEquals(0, $element);
             });
     }

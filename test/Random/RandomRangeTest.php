@@ -3,7 +3,7 @@ namespace Eris\Random;
 
 class RandomRangeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTheRange()
+    public function testTheRange(): void
     {
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('MersenneTwister class does not support HHVM');

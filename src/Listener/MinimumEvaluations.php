@@ -8,24 +8,21 @@ use Exception;
 
 class MinimumEvaluations extends EmptyListener implements Listener
 {
-    private $threshold;
-    
     /**
      * @param float $threshold  from 0.0 to 1.0
      */
-    public static function ratio($threshold)
+    public static function ratio($threshold): self
     {
         return new self($threshold);
     }
 
-    private function __construct($threshold)
+    private function __construct(private $threshold)
     {
-        $this->threshold = $threshold;
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null): void
     {
-        if ($exception) {
+        if ($exception instanceof \Exception) {
             return;
         }
         $evaluationRatio = $ordinaryEvaluations / $iterations;

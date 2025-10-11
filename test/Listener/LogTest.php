@@ -5,27 +5,16 @@ use PHPUnit\Framework\AssertionFailedError;
 
 class LogTest extends \PHPUnit\Framework\TestCase
 {
-    private $originalTimezone;
-    /**
-     * @var string
-     */
-    private $file;
-    /**
-     * @var \Closure
-     */
-    private $time;
-    /**
-     * @var Log
-     */
-    private $log;
+    private string $originalTimezone;
+    private string $file;
+    private \Closure $time;
+    private \Eris\Listener\Log $log;
 
     protected function setUp(): void
     {
         $this->originalTimezone = date_default_timezone_get();
         $this->file = sys_get_temp_dir().'/eris-log-unit-test.log';
-        $this->time = function () {
-            return 1300000000;
-        };
+        $this->time = (fn(): int => 1300000000);
         $this->log = new Log($this->file, $this->time, 1234);
         date_default_timezone_set('UTC');
     }
@@ -36,7 +25,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
         date_default_timezone_set($this->originalTimezone);
     }
 
-    public function testWritesALineForEachIterationShowingItsIndex()
+    public function testWritesALineForEachIterationShowingItsIndex(): void
     {
         $this->log->newGeneration([23], 42);
         $this->assertEquals(
@@ -45,7 +34,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWritesALineForTheFirstFailureOfATest()
+    public function testWritesALineForTheFirstFailureOfATest(): void
     {
         $this->log->failure([23], new AssertionFailedError("Failed asserting that..."));
         $this->assertEquals(
@@ -54,16 +43,16 @@ class LogTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWritesALineForEachShrinkingAttempt()
+    public function testWritesALineForEachShrinkingAttempt(): void
     {
-        $this->log->shrinking([22], new AssertionFailedError("Failed asserting that..."));
+        $this->log->shrinking([22]);
         $this->assertEquals(
             "[2011-03-13T07:06:40+00:00][1234] shrinking: [22]" . PHP_EOL,
             file_get_contents($this->file)
         );
     }
 
-    public function testCleansTheFile()
+    public function testCleansTheFile(): void
     {
         $this->log->newGeneration([], 42);
         $this->log = new Log($this->file, $this->time, 1234);

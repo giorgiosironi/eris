@@ -4,7 +4,7 @@ use Eris\Attributes\ErisShrink;
 use Eris\Generator;
 use Eris\Generators;
 
-function very_slow_concatenation($first, $second)
+function very_slow_concatenation(string $first, string $second): string
 {
     if (strlen($second) > 10) {
         sleep(2);
@@ -17,7 +17,7 @@ class ShrinkingTimeLimitTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testLengthPreservation()
+    public function testLengthPreservation(): void
     {
         $this
             ->shrinkingTimeLimit(2)
@@ -25,7 +25,7 @@ class ShrinkingTimeLimitTest extends \PHPUnit\Framework\TestCase
                 Generators::string(),
                 Generators::string()
             )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $result = very_slow_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),
@@ -36,14 +36,14 @@ class ShrinkingTimeLimitTest extends \PHPUnit\Framework\TestCase
     }
 
     #[ErisShrink(shrink: 2)]
-    public function testLengthPreservationFromAnnotation()
+    public function testLengthPreservationFromAnnotation(): void
     {
         $this
             ->forAll(
                 Generator\string(),
                 Generator\string()
             )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $result = very_slow_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),

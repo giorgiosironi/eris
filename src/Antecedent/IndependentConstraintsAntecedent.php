@@ -6,25 +6,22 @@ use PHPUnit\Framework\ExpectationFailedException;
 
 class IndependentConstraintsAntecedent implements Antecedent
 {
-    private $constraints;
-    
-    public static function fromAll($constraints)
+    public static function fromAll($constraints): self
     {
         return new self($constraints);
     }
 
-    private function __construct($constraints)
+    private function __construct(private $constraints)
     {
-        $this->constraints = $constraints;
     }
     
-    public function evaluate(array $values)
+    public function evaluate(array $values): bool
     {
         for ($i = 0, $iMax = count($this->constraints); $i < $iMax; $i++) {
             // TODO: use Evaluation object?
             try {
                 $this->constraints[$i]->evaluate($values[$i]);
-            } catch (ExpectationFailedException $e) {
+            } catch (ExpectationFailedException) {
                 return false;
             }
         }

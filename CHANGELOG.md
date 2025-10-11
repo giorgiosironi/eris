@@ -8,6 +8,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 ### Changed
 * Updated PHPStan to v2
 * Updated Rector to v2
+* Modernized codebase with Rector: applied PHP 8.1 features including constructor property promotion, typed properties, return types, and other quality improvements across 90 files in src/ and 40 files in examples/
+* Configured Rector with comprehensive rule sets for PHP 8.1-8.4 compatibility (LevelSetList::UP_TO_PHP_81, CODE_QUALITY, DEAD_CODE, EARLY_RETURN, TYPE_DECLARATION, PRIVATIZATION)
 ### Removed
 * Support for `icomefromthenet/reverse-regex` dependency. Only `ilario-pierbattista/reverse-regex` is now supported for the `regex()` generator (other forks are welcome).
 

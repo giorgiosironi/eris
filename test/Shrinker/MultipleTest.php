@@ -10,14 +10,8 @@ use RuntimeException;
 
 class MultipleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Multiple
-     */
-    private $shrinker;
-    /**
-     * @var array
-     */
-    private $attempts;
+    private \Eris\Shrinker\Multiple $shrinker;
+    private array $attempts;
 
     public function setUp(): void
     {
@@ -25,17 +19,17 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
             [
                 new IntegerGenerator()
             ],
-            function ($number) {
+            function ($number): void {
                 $this->assertLessThanOrEqual(5000, $number);
             }
         );
         $this->attempts = [];
-        $this->shrinker->onAttempt(function ($attempt) {
+        $this->shrinker->onAttempt(function ($attempt): void {
             $this->attempts[] = $attempt;
         });
     }
     
-    public static function originallyFailedTests()
+    public static function originallyFailedTests(): array
     {
         return [
             ['startingPoint' => 5500],
@@ -46,7 +40,7 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('originallyFailedTests')]
-    public function testMultipleBranchesConvergeFasterThanLinearShrinking($startingPoint)
+    public function testMultipleBranchesConvergeFasterThanLinearShrinking(int $startingPoint): void
     {
         try {
             $this->shrinker->from(
@@ -65,12 +59,10 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    private function verifyAssertionFailure(Exception $e, $startingPoint)
+    private function verifyAssertionFailure(Exception $e, int $startingPoint): void
     {
         $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
-        $allValues = array_map(function ($generatedValue) {
-            return $generatedValue->unbox();
-        }, $this->attempts);
+        $allValues = array_map(fn($generatedValue) => $generatedValue->unbox(), $this->attempts);
         $linearShrinkingAttempts = $startingPoint - 5000;
         $this->assertLessThan(0.2 * $linearShrinkingAttempts, count($allValues));
     }

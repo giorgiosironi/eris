@@ -7,13 +7,13 @@ class ChooseTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    public function testSumOfTwoIntegersFromBoundedRangesIsCommutative()
+    public function testSumOfTwoIntegersFromBoundedRangesIsCommutative(): void
     {
         $this->forAll(
             Generators::choose(-1000, 430),
             Generators::choose(230, -30000)
         )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $x = $first + $second;
                 $y = $second + $first;
                 $this->assertEquals(

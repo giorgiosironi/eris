@@ -17,7 +17,6 @@ function vector($size, Generator $elementsGenerator)
 class VectorGenerator implements Generator
 {
     private $generator;
-    private $elementsGeneratorClass;
 
     public function __construct($size, Generator $generator)
     {
@@ -26,7 +25,6 @@ class VectorGenerator implements Generator
                 array_fill(0, $size, $generator) :
                 []
         );
-        $this->elementsGeneratorClass = get_class($generator);
     }
 
     public function __invoke($size, RandomRange $rand)

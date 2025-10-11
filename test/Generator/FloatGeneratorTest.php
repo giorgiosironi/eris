@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class FloatGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -28,7 +22,7 @@ class FloatGeneratorTest extends \PHPUnit\Framework\TestCase
         $trials = 500;
         for ($i = 0; $i < $trials; $i++) {
             $value = $generator($this->size, $this->rand);
-            static::assertIsFloat($value->unbox());
+            self::assertIsFloat($value->unbox());
             $sum += $value->unbox();
         }
         $mean = $sum / $trials;

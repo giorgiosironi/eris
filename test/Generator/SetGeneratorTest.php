@@ -6,18 +6,9 @@ use Eris\Random\RandSource;
 
 class SetGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var ChooseGenerator
-     */
-    private $singleElementGenerator;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Generator\ChooseGenerator $singleElementGenerator;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -26,7 +17,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testRespectsGenerationSize()
+    public function testRespectsGenerationSize(): void
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         $countLessThanSize = 0;
@@ -52,7 +43,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testNoRepeatedElementsAreInTheSet()
+    public function testNoRepeatedElementsAreInTheSet(): void
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         for ($size = 0; $size < 10; $size++) {
@@ -61,7 +52,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testStopsBeforeInfiniteLoopsInTryingToExtractNewElementsToPutInTheSt()
+    public function testStopsBeforeInfiniteLoopsInTryingToExtractNewElementsToPutInTheSt(): void
     {
         $generator = new SetGenerator(new ConstantGenerator(42));
         for ($size = 0; $size < 5; $size++) {
@@ -70,7 +61,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions()
+    public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions(): void
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         $elements = $generator($this->size, $this->rand);
@@ -80,7 +71,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertNoRepeatedElements($elementsAfterShrink->unbox());
     }
 
-    public function testShrinkEmptySet()
+    public function testShrinkEmptySet(): void
     {
         $generator = new SetGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0, $this->rand);
@@ -88,7 +79,7 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, count($generator->shrink($elements)->unbox()));
     }
 
-    private function assertNoRepeatedElements(array $generated)
+    private function assertNoRepeatedElements(array $generated): void
     {
         sort($generated);
         $this->assertTrue(

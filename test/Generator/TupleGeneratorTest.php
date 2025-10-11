@@ -7,18 +7,9 @@ use PHPUnit\Framework\Attributes\Depends;
 
 class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var ChooseGenerator
-     */
-    private $generatorForSingleElement;
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Generator\ChooseGenerator $generatorForSingleElement;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -29,7 +20,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
 
     private function assertInSingleElementGenerator($value): void
     {
-        static::assertIsInt($value);
+        self::assertIsInt($value);
         $this->assertGreaterThanOrEqual(0, $value);
         $this->assertLessThanOrEqual(100, $value);
     }
@@ -125,7 +116,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            static::assertIsArray($optionValue);
+            self::assertIsArray($optionValue);
             $this->assertCount(1, $optionValue);
         }
     }
@@ -151,11 +142,11 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            static::assertIsArray($optionValue);
+            self::assertIsArray($optionValue);
             $this->assertCount(2, $optionValue);
             $elementsBeingShrunk =
-                (strlen($optionValue[0]) < 5 ? 1 : 0)
-                + (strlen($optionValue[1]) < 5 ? 1 : 0);
+                (strlen((string) $optionValue[0]) < 5 ? 1 : 0)
+                + (strlen((string) $optionValue[1]) < 5 ? 1 : 0);
             $this->assertGreaterThanOrEqual(1, $elementsBeingShrunk);
         }
     }
@@ -180,7 +171,7 @@ class TupleGeneratorTest extends \PHPUnit\Framework\TestCase
         foreach ($shrunk as $option) {
             $this->assertEquals('tuple', $option->generatorName());
             $optionValue = $option->unbox();
-            static::assertIsArray($optionValue);
+            self::assertIsArray($optionValue);
             $this->assertCount(2, $optionValue);
             $this->assertNotEquals([100, 200], $optionValue);
             $elementsBeingShrunk =

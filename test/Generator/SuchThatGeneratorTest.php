@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -24,9 +18,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGeneratesAGeneratedValueObject(): void
     {
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n % 2 == 0;
-            },
+            fn($n): bool => $n % 2 === 0,
             ConstantGenerator::box(10)
         );
         $this->assertSame(
@@ -38,9 +30,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testAcceptsPHPUnitConstraints(): void
     {
         $generator = new SuchThatGenerator(
-            $this->callback(function ($n) {
-                return $n % 2 == 0;
-            }),
+            $this->callback(fn($n): bool => $n % 2 === 0),
             ConstantGenerator::box(10)
         );
         $this->assertSame(
@@ -52,9 +42,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testShrinksTheOriginalInput(): void
     {
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n % 2 == 0;
-            },
+            fn($n): bool => $n % 2 === 0,
             new ChooseGenerator(0, 100)
         );
         $element = $generator->__invoke($this->size, $this->rand);
@@ -72,9 +60,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\Eris\Generator\SkipValueException::class);
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n % 2 == 0;
-            },
+            fn($n): bool => $n % 2 === 0,
             ConstantGenerator::box(11)
         );
         $generator->__invoke($this->size, $this->rand);
@@ -83,9 +69,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGivesUpShrinkingIfTheFilterIsNotSatisfiedTooManyTimes(): void
     {
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n % 250 == 0;
-            },
+            fn($n): bool => $n % 250 === 0,
             new ChooseGenerator(0, 1000)
         );
         $unshrinkable = GeneratedValueSingle::fromJustValue(470);
@@ -98,9 +82,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testShrinksMultipleOptionsButFiltersTheOnesThatSatisfyTheCondition(): void
     {
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n % 2 == 0;
-            },
+            fn($n): bool => $n % 2 === 0,
             new IntegerGenerator()
         );
         $element = GeneratedValueSingle::fromJustValue(100);
@@ -117,9 +99,7 @@ class SuchThatGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testThanksToMultipleShrinkingItCanBeLikelyToFindShrunkValuesWithRespectToOnlyFollowingThePessimistRoute(): void
     {
         $generator = new SuchThatGenerator(
-            function ($n) {
-                return $n < 250;
-            },
+            fn($n): bool => $n < 250,
             new IntegerGenerator()
         );
         $unshrinkable = GeneratedValueSingle::fromJustValue(470);

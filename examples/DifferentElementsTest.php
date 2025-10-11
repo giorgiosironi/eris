@@ -9,24 +9,21 @@ class Type
     const TYPE_B = 2;
     const TYPE_C = 3;
 
-    private $type;
-
-    private function __construct($type)
+    private function __construct()
     {
-        $this->type = $type;
     }
 
-    public static function A()
+    public static function A(): self
     {
         return new self(self::TYPE_A);
     }
 
-    public static function B()
+    public static function B(): self
     {
         return new self(self::TYPE_B);
     }
 
-    public static function C()
+    public static function C(): self
     {
         return new self(self::TYPE_C);
     }
@@ -39,33 +36,27 @@ class DifferentElementsTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function a_type_is_different_than_another_one()
+    public function a_type_is_different_than_another_one(): void
     {
         $allTypes = [
             Type::A(),
             Type::B(),
             Type::C(),
         ];
-        $remove = function ($array, $whatToRemove) {
-            return array_values(array_filter(
-                $array,
-                function ($candidate) use ($whatToRemove) {
-                    return $candidate != $whatToRemove;
-                }
-            ));
-        };
+        $remove = (fn($array, $whatToRemove) => array_values(array_filter(
+            $array,
+            fn($candidate): bool => $candidate != $whatToRemove
+        )));
 
         $this
             ->forAll(Generators::bind(
                 call_user_func_array('Eris\Generator\elements', $allTypes),
-                function ($first) use ($allTypes, $remove) {
-                    return Generators::tuple(
-                        Generators::constant($first),
-                        Generators::elements($remove($allTypes, $first))
-                    );
-                }
+                fn($first): \Eris\Generator\TupleGenerator => Generators::tuple(
+                    Generators::constant($first),
+                    Generators::elements($remove($allTypes, $first))
+                )
             ))
-            ->then(function ($differentElements) {
+            ->then(function ($differentElements): void {
                 $this->assertNotEquals($differentElements[0], $differentElements[1], "Several discussion types are equals");
             });
     }

@@ -3,12 +3,12 @@ namespace Eris\Generator;
 
 use Eris\Generator;
 
-function ensureAreAllGenerators(array $generators)
+function ensureAreAllGenerators(array $generators): array
 {
     return array_map('Eris\Generator\ensureIsGenerator', $generators);
 }
 
-function ensureIsGenerator($generator)
+function ensureIsGenerator($generator): \Eris\Generator|\Eris\Generator\ConstantGenerator
 {
     if ($generator instanceof Generator) {
         return $generator;

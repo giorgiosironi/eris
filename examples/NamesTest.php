@@ -7,21 +7,21 @@ class NamesTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testGeneratingNames()
+    public function testGeneratingNames(): void
     {
         $this->forAll(
             Generators::names()
-        )->then(function ($name) {
-            static::assertIsString($name);
+        )->then(function ($name): void {
+            self::assertIsString($name);
             var_dump($name);
         });
     }
 
-    public function testSamplingShrinkingOfNames()
+    public function testSamplingShrinkingOfNames(): void
     {
         $generator = Generator\NamesGenerator::defaultDataSet();
         $sample = $this->sampleShrink($generator);
-        static::assertIsArray($sample->collected());
+        self::assertIsArray($sample->collected());
         var_dump($sample->collected());
     }
 }

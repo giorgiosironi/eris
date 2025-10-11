@@ -6,25 +6,20 @@ use Eris\Generator\GeneratedValueOptions;
 class Sample
 {
     const DEFAULT_SIZE = 10;
+    private readonly int $size;
+    private array $collected = [];
 
-    private $generator;
-    private $rand;
-    private $size;
-    private $collected = [];
-
-    public static function of($generator, $rand, $size = null)
+    public static function of($generator, $rand, $size = null): self
     {
         return new self($generator, $rand, $size);
     }
 
-    private function __construct($generator, $rand, $size = null)
+    private function __construct(private $generator, private $rand, $size = null)
     {
         $this->size = isset($size) ? (int) $size : self::DEFAULT_SIZE;
-        $this->generator = $generator;
-        $this->rand = $rand;
     }
 
-    public function repeat($times)
+    public function repeat($times): static
     {
         for ($i = 0; $i < $times; $i++) {
             $this->collected[] = $this->generator->__invoke($this->size, $this->rand)->unbox();
@@ -32,7 +27,7 @@ class Sample
         return $this;
     }
 
-    public function shrink($nextValue = null)
+    public function shrink($nextValue = null): static
     {
         if ($nextValue === null) {
             $nextValue = $this->generator->__invoke($this->size, $this->rand);

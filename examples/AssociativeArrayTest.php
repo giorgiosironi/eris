@@ -6,7 +6,7 @@ class AssociativeArrayTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testAssociativeArraysGeneratedOnStandardKeys()
+    public function testAssociativeArraysGeneratedOnStandardKeys(): void
     {
         $this->forAll(
             Generators::associative([
@@ -14,12 +14,12 @@ class AssociativeArrayTest extends \PHPUnit\Framework\TestCase
                 'cipher' => Generators::choose(0, 9),
             ])
         )
-            ->then(function ($array) {
+            ->then(function (array $array): void {
                 $this->assertCount(2, $array);
                 $letter = $array['letter'];
-                static::assertIsString($letter);
+                self::assertIsString($letter);
                 $cipher = $array['cipher'];
-                static::assertIsInt($cipher);
+                self::assertIsInt($cipher);
             });
     }
 }

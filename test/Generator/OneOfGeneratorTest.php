@@ -6,18 +6,9 @@ use Eris\Random\RandSource;
 
 class OneOfGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var ChooseGenerator
-     */
-    private $singleElementGenerator;
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Generator\ChooseGenerator $singleElementGenerator;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -34,7 +25,7 @@ class OneOfGeneratorTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $element = $generator($this->size, $this->rand);
-        static::assertIsInt($element->unbox());
+        self::assertIsInt($element->unbox());
     }
 
     public function testConstructWithNonGenerators(): void
@@ -44,10 +35,10 @@ class OneOfGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(42, $element);
     }
 
-    public function testConstructWithNoArguments()
+    public function testConstructWithNoArguments(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $generator = new OneOfGenerator([]);
-        $element = $generator($this->size, $this->rand);
+        $generator($this->size, $this->rand);
     }
 }

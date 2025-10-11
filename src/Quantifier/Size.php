@@ -5,19 +5,17 @@ use Countable;
 
 class Size implements Countable
 {
-    private $list;
-    
     public static function withTriangleGrowth($maximum)
     {
-        return self::generateList($maximum, __CLASS__ . '::triangleNumber');
+        return self::generateList($maximum, [self::class, 'triangleNumber']);
     }
 
     public static function withLinearGrowth($maximum)
     {
-        return self::generateList($maximum, __CLASS__ . '::linearGrowth');
+        return self::generateList($maximum, [self::class, 'linearGrowth']);
     }
 
-    private static function generateList($maximum, callable $growth)
+    private static function generateList($maximum, callable $growth): self
     {
         $sizes = [];
         for ($x = 0; $x <= $maximum; $x++) {
@@ -54,9 +52,8 @@ class Size implements Countable
         return ($n * ($n + 1)) / 2;
     }
     
-    private function __construct(array $list)
+    private function __construct(private array $list)
     {
-        $this->list = $list;
     }
 
     public function at($position)
@@ -65,12 +62,12 @@ class Size implements Countable
         return $this->list[$index];
     }
 
-    public function max()
+    public function max(): mixed
     {
         return max($this->list);
     }
 
-    public function limit($maximumNumber)
+    public function limit($maximumNumber): self
     {
         $uniformSample = [];
         $factor = count($this->list) / ($maximumNumber - 1);

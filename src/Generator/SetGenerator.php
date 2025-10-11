@@ -29,7 +29,7 @@ class SetGenerator implements Generator
 
     public function __invoke($size, RandomRange $rand)
     {
-        $setSize = rand(0, $size);
+        $setSize = random_int(0, $size);
         $set = [];
         $input = [];
         $trials = 0;
@@ -58,9 +58,7 @@ class SetGenerator implements Generator
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
         return GeneratedValueSingle::fromValueAndInput(
-            array_map(function ($element) {
-                return $element->unbox();
-            }, $input),
+            array_map(fn($element) => $element->unbox(), $input),
             array_values($input),
             'set'
         );

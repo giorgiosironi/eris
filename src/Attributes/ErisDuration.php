@@ -13,7 +13,7 @@ class ErisDuration implements ErisAttribute
     }
 
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->duration;
     }

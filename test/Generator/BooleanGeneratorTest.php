@@ -6,10 +6,7 @@ use Eris\Random\RandSource;
 
 class BooleanGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Random\RandomRange $rand;
 
     public function setUp(): void
     {
@@ -21,7 +18,7 @@ class BooleanGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new BooleanGenerator();
         for ($i = 0; $i < 10; $i++) {
             $generatedValue = $generator($_size = 0, $this->rand);
-            static::assertIsBool($generatedValue->unbox());
+            self::assertIsBool($generatedValue->unbox());
         }
     }
 

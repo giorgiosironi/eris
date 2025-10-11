@@ -28,14 +28,11 @@ function regex($expression)
  */
 class RegexGenerator implements Generator
 {
-    private $expression;
-
-    public function __construct($expression)
+    public function __construct(private $expression)
     {
-        if (!class_exists("ReverseRegex\Parser")) {
+        if (!class_exists(\ReverseRegex\Parser::class)) {
             throw new BadFunctionCallException("Please install the suggested dependency ilario-pierbattista/reverse-regex to run this Generator.");
         }
-        $this->expression = $expression;
     }
 
     public function __invoke($_size, RandomRange $rand)
@@ -50,7 +47,7 @@ class RegexGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($result, 'regex');
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValue $value): GeneratedValue
     {
         return $value;
     }

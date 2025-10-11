@@ -6,12 +6,12 @@ use Eris\Antecedent\PrintableCharacter;
 
 final class Antecedents
 {
-    public static function printableCharacter()
+    public static function printableCharacter(): \Eris\Antecedent\PrintableCharacter
     {
         return new PrintableCharacter();
     }
 
-    public static function printableCharacters()
+    public static function printableCharacters(): \Eris\Antecedent\PrintableCharacter
     {
         return new PrintableCharacter();
     }

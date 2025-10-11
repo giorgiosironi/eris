@@ -6,40 +6,36 @@ class MapTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testApplyingAFunctionToGeneratedValues()
+    public function testApplyingAFunctionToGeneratedValues(): void
     {
         $this->forAll(
             Generators::vector(
                 3,
                 Generators::map(
-                    function ($n) {
-                        return $n * 2;
-                    },
+                    fn($n): int|float => $n * 2,
                     Generators::nat()
                 )
             )
         )
-            ->then(function ($tripleOfEvenNumbers) {
+            ->then(function ($tripleOfEvenNumbers): void {
                 foreach ($tripleOfEvenNumbers as $number) {
                     $this->assertTrue(
-                        $number % 2 == 0,
+                        $number % 2 === 0,
                         "The element of the vector $number is not even"
                     );
                 }
             });
     }
 
-    public function testShrinkingJustMappedValues()
+    public function testShrinkingJustMappedValues(): void
     {
         $this->forAll(
             Generators::map(
-                function ($n) {
-                    return $n * 2;
-                },
+                fn($n): int|float => $n * 2,
                 Generators::nat()
             )
         )
-            ->then(function ($evenNumber) {
+            ->then(function ($evenNumber): void {
                 $this->assertLessThanOrEqual(
                     100,
                     $evenNumber,
@@ -48,20 +44,18 @@ class MapTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testShrinkingMappedValuesInsideOtherGenerators()
+    public function testShrinkingMappedValuesInsideOtherGenerators(): void
     {
         $this->forAll(
             Generators::vector(
                 3,
                 Generators::map(
-                    function ($n) {
-                        return $n * 2;
-                    },
+                    fn($n): int|float => $n * 2,
                     Generators::nat()
                 )
             )
         )
-            ->then(function ($tripleOfEvenNumbers) {
+            ->then(function ($tripleOfEvenNumbers): void {
                 $this->assertLessThanOrEqual(
                     100,
                     array_sum($tripleOfEvenNumbers),

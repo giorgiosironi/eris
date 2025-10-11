@@ -12,7 +12,7 @@ class ErisRatio implements ErisAttribute
     ) {
     }
 
-    public function getValue()
+    public function getValue(): int
     {
         return $this->ratio;
     }

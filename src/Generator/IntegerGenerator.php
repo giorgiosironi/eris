@@ -49,11 +49,7 @@ class IntegerGenerator implements Generator
 
     public function __construct(?callable $mapFn = null)
     {
-        if (is_null($mapFn)) {
-            $this->mapFn = $this->identity();
-        } else {
-            $this->mapFn = $mapFn;
-        }
+        $this->mapFn = is_null($mapFn) ? $this->identity() : $mapFn;
     }
 
     public function __invoke($size, RandomRange $rand)
@@ -85,11 +81,10 @@ class IntegerGenerator implements Generator
                 );
             }
             $options = array_unique($options, SORT_REGULAR);
-            if ($options) {
+            if ($options !== []) {
                 return new GeneratedValueOptions($options);
-            } else {
-                return GeneratedValueSingle::fromJustValue($mapFn($element - 1), 'integer');
             }
+            return GeneratedValueSingle::fromJustValue($mapFn($element - 1), 'integer');
         }
         if ($element < 0) {
             // TODO: shrink with options also negative values
@@ -101,8 +96,6 @@ class IntegerGenerator implements Generator
 
     private function identity()
     {
-        return function ($n) {
-            return $n;
-        };
+        return fn($n) => $n;
     }
 }

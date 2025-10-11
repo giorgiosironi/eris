@@ -7,15 +7,12 @@ class DisableShrinkingTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    /**
-     * @var int
-     */
-    private $calls;
+    private ?int $calls = null;
 
     /**
      * Shrinking may be avoided when then() is slow or non-deterministic.
      */
-    public function testThenIsNotCalledMultipleTime()
+    public function testThenIsNotCalledMultipleTime(): void
     {
         $this->calls = 0;
         $this
@@ -23,7 +20,7 @@ class DisableShrinkingTest extends \PHPUnit\Framework\TestCase
                 Generators::nat()
             )
             ->disableShrinking()
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->calls++;
                 $this->assertTrue(false, "Total calls: {$this->calls}");
             });

@@ -6,17 +6,14 @@ use Eris\Random\RandSource;
 
 class StringGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Random\RandomRange $rand;
 
     public function setUp(): void
     {
         $this->rand = new RandomRange(new RandSource());
     }
     
-    public function testRandomlyPicksLengthAndCharacters()
+    public function testRandomlyPicksLengthAndCharacters(): void
     {
         $size = 10;
         $generator = new StringGenerator();
@@ -34,7 +31,7 @@ class StringGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(126 - 32, count($usedChars));
     }
 
-    public function testRespectsTheGenerationSize()
+    public function testRespectsTheGenerationSize(): void
     {
         $generationSize = 100;
         $generator = new StringGenerator();
@@ -43,21 +40,21 @@ class StringGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThanOrEqual($generationSize, strlen($value));
     }
 
-    public function testShrinksByChoppingOffChars()
+    public function testShrinksByChoppingOffChars(): void
     {
         $generator = new StringGenerator();
-        $lastValue = $generator($size = 10, $this->rand);
+        $generator($size = 10, $this->rand);
         $this->assertSame('abcde', $generator->shrink(GeneratedValueSingle::fromJustValue('abcdef'))->unbox());
     }
 
-    public function testCannotShrinkTheEmptyString()
+    public function testCannotShrinkTheEmptyString(): void
     {
         $generator = new StringGenerator();
         $minimumValue = GeneratedValueSingle::fromJustValue('');
         $this->assertEquals($minimumValue, $generator->shrink($minimumValue));
     }
 
-    private function accumulateLengths(array $lengths, $length)
+    private function accumulateLengths(array $lengths, int $length): array
     {
         if (!isset($lengths[$length])) {
             $lengths[$length] = 0;
@@ -66,9 +63,9 @@ class StringGeneratorTest extends \PHPUnit\Framework\TestCase
         return $lengths;
     }
 
-    private function accumulateUsedChars(array $usedChars, $value)
+    private function accumulateUsedChars(array $usedChars, $value): array
     {
-        for ($j = 0; $j < strlen($value); $j++) {
+        for ($j = 0; $j < strlen((string) $value); $j++) {
             $char = $value[$j];
             if (!isset($usedChars[$char])) {
                 $usedChars[$char] = 0;

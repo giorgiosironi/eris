@@ -9,10 +9,10 @@ use Eris\Random\RandomRange;
 /**
  * @return FrequencyGenerator
  */
-function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
+function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/): mixed
 {
     return call_user_func_array(
-        [Generators::class, 'frequency'],
+        Generators::frequency(...),
         func_get_args()
     );
 }
@@ -27,7 +27,7 @@ class FrequencyGenerator implements Generator
 
     public function __construct(array $generatorsWithFrequency)
     {
-        if (empty($generatorsWithFrequency)) {
+        if ($generatorsWithFrequency === []) {
             throw new InvalidArgumentException(
                 'Cannot choose from an empty array of generators'
             );
@@ -35,7 +35,7 @@ class FrequencyGenerator implements Generator
         $this->generators = array_reduce(
             $generatorsWithFrequency,
             function ($generators, $generatorWithFrequency) {
-                list($frequency, $generator) = $generatorWithFrequency;
+                [$frequency, $generator] = $generatorWithFrequency;
                 $frequency = $this->ensureIsFrequency($generatorWithFrequency[0]);
                 $generator = ensureIsGenerator($generatorWithFrequency[1]);
                 if ($frequency > 0) {
@@ -52,7 +52,7 @@ class FrequencyGenerator implements Generator
 
     public function __invoke($size, RandomRange $rand)
     {
-        list($index, $generator) = $this->pickFrom($this->generators, $rand);
+        [$index, $generator] = $this->pickFrom($this->generators, $rand);
         $originalValue = $generator->__invoke($size, $rand);
         return GeneratedValueSingle::fromValueAndInput(
             $originalValue->unbox(),
@@ -100,17 +100,15 @@ class FrequencyGenerator implements Generator
         );
     }
 
-    private function frequenciesFrom($generators)
+    private function frequenciesFrom($generators): array
     {
         return array_map(
-            function ($generatorWithFrequency) {
-                return $generatorWithFrequency['frequency'];
-            },
+            fn(array $generatorWithFrequency) => $generatorWithFrequency['frequency'],
             $generators
         );
     }
 
-    private function ensureIsFrequency($frequency)
+    private function ensureIsFrequency($frequency): int
     {
         if (!is_int($frequency) || $frequency < 0) {
             throw new InvalidArgumentException(

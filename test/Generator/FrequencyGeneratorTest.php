@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class FrequencyGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -115,7 +109,7 @@ class FrequencyGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([1 => true, 10 => true], $shrinkedTable);
     }
 
-    private function distribute($generator): array
+    private function distribute(\Eris\Generator\FrequencyGenerator $generator): array
     {
         $countOf = [];
         for ($i = 0; $i < 1000; $i++) {

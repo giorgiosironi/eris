@@ -10,19 +10,10 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
     /**
      * @var string[]
      */
-    private $universe;
-    /**
-     * @var SubsetGenerator
-     */
-    private $generator;
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private array $universe;
+    private \Eris\Generator\SubsetGenerator $generator;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -32,7 +23,7 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
     
-    public function testScalesGenerationSizeToTouchAllPossibleSubsets()
+    public function testScalesGenerationSizeToTouchAllPossibleSubsets(): void
     {
         $maxSize = ForAll::DEFAULT_MAX_SIZE;
         /** @var array<int, list<int>> $subsetSizes */
@@ -53,7 +44,7 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testNoRepeatedElementsAreInTheSet()
+    public function testNoRepeatedElementsAreInTheSet(): void
     {
         for ($size = 0; $size < ForAll::DEFAULT_MAX_SIZE; $size++) {
             $generated = $this->generator->__invoke($size, $this->rand)->unbox();
@@ -61,7 +52,7 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions()
+    public function testShrinksOnlyInSizeBecauseShrinkingElementsMayCauseCollisions(): void
     {
         $elements = $this->generator->__invoke($this->size, $this->rand);
         $elementsAfterShrink = $this->generator->shrink($elements);
@@ -73,14 +64,14 @@ class SubsetGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertNoRepeatedElements($elementsAfterShrink->unbox());
     }
 
-    public function testShrinkEmptySet()
+    public function testShrinkEmptySet(): void
     {
         $elements = $this->generator->__invoke($size = 0, $this->rand);
         $this->assertCount(0, $elements->unbox());
         $this->assertCount(0, $this->generator->shrink($elements)->unbox());
     }
 
-    private function assertNoRepeatedElements($generated)
+    private function assertNoRepeatedElements($generated): void
     {
         sort($generated);
         $this->assertSame(

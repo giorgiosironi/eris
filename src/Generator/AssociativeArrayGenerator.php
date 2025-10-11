@@ -18,13 +18,11 @@ function associative(array $generators)
  */
 class AssociativeArrayGenerator implements Generator
 {
-    private $generators;
     private $tupleGenerator;
 
-    public function __construct(array $generators)
+    public function __construct(private readonly array $generators)
     {
-        $this->generators = $generators;
-        $this->tupleGenerator = new TupleGenerator(array_values($generators));
+        $this->tupleGenerator = new TupleGenerator(array_values($this->generators));
     }
 
     public function __invoke($size, RandomRange $rand)
@@ -43,7 +41,7 @@ class AssociativeArrayGenerator implements Generator
     private function mapToAssociativeArray(GeneratedValue $tuple)
     {
         return $tuple->map(
-            function ($value) {
+            function ($value): array {
                 $associativeArray = [];
                 $keys = array_keys($this->generators);
                 for ($i = 0, $iMax = count($value); $i < $iMax; $i++) {

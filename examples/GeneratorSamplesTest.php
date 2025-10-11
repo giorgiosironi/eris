@@ -7,7 +7,7 @@ class GeneratorSamplesTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    public function testGenerators()
+    public function testGenerators(): void
     {
         $generators = [
             //"Gen\\int" => Generator\int(),
@@ -31,16 +31,16 @@ class GeneratorSamplesTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    private function generateSample($description, $generator)
+    private function generateSample(string $description, \Eris\Generator\IntegerGenerator $generator): void
     {
         echo PHP_EOL;
         echo $description . " with size 10";
         $sample = $this->sample($generator);
-        static::assertIsArray($sample->collected());
+        self::assertIsArray($sample->collected());
         $this->prettyPrint($sample->collected());
     }
 
-    private function prettyPrint(array $samples)
+    private function prettyPrint(array $samples): void
     {
         echo PHP_EOL;
         foreach ($samples as $sample) {

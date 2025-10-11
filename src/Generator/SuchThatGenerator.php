@@ -34,17 +34,13 @@ function suchThat($filter, Generator $generator, $maximumAttempts = 100)
 class SuchThatGenerator implements Generator
 {
     private $filter;
-    private $generator;
-    private $maximumAttempts;
 
     /**
      * @param callable|Constraint $filter
      */
-    public function __construct($filter, $generator, $maximumAttempts = 100)
+    public function __construct($filter, private $generator, private $maximumAttempts = 100)
     {
         $this->filter = $filter;
-        $this->generator = $generator;
-        $this->maximumAttempts = $maximumAttempts;
     }
 
     public function __invoke($size, RandomRange $rand)
@@ -61,7 +57,7 @@ class SuchThatGenerator implements Generator
         return $value;
     }
 
-    public function shrink(GeneratedValue $value)
+    public function shrink(GeneratedValue $value): \Eris\Generator\GeneratedValue|\Eris\Generator\GeneratedValueOptions
     {
         $shrunk = $this->generator->shrink($value);
         $attempts = 0;
@@ -78,7 +74,7 @@ class SuchThatGenerator implements Generator
     /**
      * @return array  of GeneratedValueSingle
      */
-    private function filterForPredicate(Traversable $options)
+    private function filterForPredicate(Traversable $options): array
     {
         $goodOnes = [];
         foreach ($options as $option) {
@@ -95,7 +91,7 @@ class SuchThatGenerator implements Generator
             try {
                 $this->filter->evaluate($value->unbox());
                 return true;
-            } catch (ExpectationFailedException $e) {
+            } catch (ExpectationFailedException) {
                 return false;
             }
         }

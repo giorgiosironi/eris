@@ -8,60 +8,60 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testLengthOfAsciiCharactersInPhp()
+    public function testLengthOfAsciiCharactersInPhp(): void
     {
         $this->forAll(
-            Generators::char(['basic-latin'])
+            Generators::char()
         )
-            ->then(function ($char) {
+            ->then(function ($char): void {
                 $this->assertLenghtIs1($char);
             });
     }
 
-    public function testLengthOfPrintableAsciiCharacters()
+    public function testLengthOfPrintableAsciiCharacters(): void
     {
         $this->forAll(
-            Generators::char(['basic-latin'])
+            Generators::char()
         )
             ->when(Antecedents::printableCharacter())
-            ->then(function ($char) {
+            ->then(function ($char): void {
                 $this->assertFalse(ord($char) < 32);
             });
     }
 
-    public function testMultiplePrintableCharacters()
+    public function testMultiplePrintableCharacters(): void
     {
         $this
             ->minimumEvaluationRatio(0.1)
             ->forAll(
-                Generators::char(['basic-latin']),
-                Generators::char(['basic-latin'])
+                Generators::char(),
+                Generators::char()
             )
             ->when(Antecedents::printableCharacters())
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $this->assertFalse(ord($first) < 32);
                 $this->assertFalse(ord($second) < 32);
             });
     }
 
     #[ErisRatio(ratio: 10)]
-    public function testMultiplePrintableCharactersFromAnnotation()
+    public function testMultiplePrintableCharactersFromAnnotation(): void
     {
         $this
             ->forAll(
-                Generators::char(['basic-latin']),
-                Generators::char(['basic-latin'])
+                Generators::char(),
+                Generators::char()
             )
             ->when(Antecedents::printableCharacters())
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $this->assertFalse(ord($first) < 32);
                 $this->assertFalse(ord($second) < 32);
             });
     }
 
-    private function assertLenghtIs1($char)
+    private function assertLenghtIs1($char): void
     {
-        $length = strlen($char);
+        $length = strlen((string) $char);
         $this->assertEquals(
             1,
             $length,

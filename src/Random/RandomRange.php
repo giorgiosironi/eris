@@ -1,10 +1,7 @@
 <?php
 namespace Eris\Random;
 
-/**
- * @return RandomRange
- */
-function purePhpMtRand()
+function purePhpMtRand(): \Eris\Random\RandomRange
 {
     return new RandomRange(new MersenneTwister());
 }
@@ -12,17 +9,11 @@ function purePhpMtRand()
 // TODO: Extract Interface
 class RandomRange
 {
-    private $source;
-    
-    public function __construct($source)
+    public function __construct(private $source)
     {
-        $this->source = $source;
     }
 
-    /**
-     * @return void
-     */
-    public function seed($seed)
+    public function seed($seed): void
     {
         $this->source->seed($seed);
     }
@@ -44,7 +35,7 @@ class RandomRange
         }
 
         if ($lower > $upper) {
-            list($lower, $upper) = [$upper, $lower];
+            [$lower, $upper] = [$upper, $lower];
         }
         $delta = $upper - $lower;
         $divisor = ($this->source->max()) / ($delta + 1);

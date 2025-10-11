@@ -6,10 +6,10 @@ class FloatTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testAPropertyHoldingForAllNumbers()
+    public function testAPropertyHoldingForAllNumbers(): void
     {
         $this->forAll(Generators::float())
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertEquals(
                     0.0,
                     abs($number) - abs($number)
@@ -17,10 +17,10 @@ class FloatTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testAPropertyHoldingOnlyForPositiveNumbers()
+    public function testAPropertyHoldingOnlyForPositiveNumbers(): void
     {
         $this->forAll(Generators::float())
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertTrue(
                     $number >= 0,
                     "$number is not a (loosely) positive number"

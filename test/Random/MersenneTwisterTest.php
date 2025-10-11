@@ -12,7 +12,7 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public static function sequences()
+    public static function sequences(): array
     {
         return [
             [424242, 100],
@@ -23,7 +23,7 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('sequences')]
-    public function testGeneratesTheSameSequenceAsThePythonOracle($seed, $sample)
+    public function testGeneratesTheSameSequenceAsThePythonOracle(int $seed, int $sample): void
     {
         $twister = new MersenneTwister();
         $twister->seed($seed);
@@ -37,14 +37,14 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($oracleOutput, $numbers);
     }
 
-    public function testDistribution()
+    public function testDistribution(): void
     {
         $twister = new MersenneTwister();
         $twister->seed(424242);
         $bins = array_fill(0, 2, 0);
         for ($i = 0; $i < 1000; $i++) {
             $number = $twister->extractNumber();
-            $bin = (int) floor($number / pow(2, 31));
+            $bin = (int) floor($number / 2 ** 31);
             $bins[$bin]++;
         }
         foreach ($bins as $count) {

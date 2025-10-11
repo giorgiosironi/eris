@@ -15,26 +15,21 @@ function names()
  */
 class NamesGenerator implements Generator
 {
-    private $list;
-
     /**
      * @link http://data.bfontaine.net/names/firstnames.txt
      */
-    public static function defaultDataSet()
+    public static function defaultDataSet(): self
     {
         return new self(
             array_map(
-                function ($line) {
-                    return trim($line, " \n");
-                },
+                fn($line): string => trim((string) $line, " \n"),
                 file(__DIR__ . "/first_names.txt")
             )
         );
     }
 
-    public function __construct(array $list)
+    public function __construct(private readonly array $list)
     {
-        $this->list = $list;
     }
 
     public function __invoke($size, RandomRange $rand)
@@ -52,7 +47,7 @@ class NamesGenerator implements Generator
     public function shrink(GeneratedValue $value)
     {
         $candidateNames = $this->filterDataSet(
-            $this->lengthSlightlyLessThan(strlen($value->unbox()))
+            $this->lengthSlightlyLessThan(strlen((string) $value->unbox()))
         );
 
         if (!$candidateNames) {
@@ -72,20 +67,19 @@ class NamesGenerator implements Generator
 
     private function lengthLessThanOrEqualTo($size)
     {
-        return function ($name) use ($size) {
-            return strlen($name) <= $size;
-        };
+        return fn($name): bool => strlen((string) $name) <= $size;
     }
 
-    private function lengthSlightlyLessThan($size)
+    private function lengthSlightlyLessThan(int $size)
     {
         $lowerLength = $size - 1;
-        return function ($name) use ($lowerLength) {
-            return strlen($name) === $lowerLength;
-        };
+        return fn($name): bool => strlen((string) $name) === $lowerLength;
     }
 
-    private function distancesBy($value, array $candidateNames)
+    /**
+     * @return int[]
+     */
+    private function distancesBy($value, array $candidateNames): array
     {
         $distances = [];
         foreach ($candidateNames as $name) {
@@ -94,14 +88,12 @@ class NamesGenerator implements Generator
         return $distances;
     }
 
-    private function minimumDistanceName($distances)
+    private function minimumDistanceName($distances): int|string
     {
         $minimumDistance = min($distances);
         $candidatesWithEqualDistance = array_filter(
             $distances,
-            function ($distance) use ($minimumDistance) {
-                return $distance == $minimumDistance;
-            }
+            fn($distance): bool => $distance == $minimumDistance
         );
         return array_keys($candidatesWithEqualDistance)[0];
     }

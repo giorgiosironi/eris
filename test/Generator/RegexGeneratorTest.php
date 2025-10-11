@@ -7,16 +7,10 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
-    public static function supportedRegexes()
+    public static function supportedRegexes(): array
     {
         return [
             // [".{0,100}"] sometimes generates NULL
@@ -35,16 +29,16 @@ class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('supportedRegexes')]
-    public function testGeneratesOnlyValuesThatMatchTheRegex($expression)
+    public function testGeneratesOnlyValuesThatMatchTheRegex(string $expression): void
     {
         $generator = new RegexGenerator($expression);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
-            static::assertMatchesRegularExpression("/{$expression}/", $value);
+            self::assertMatchesRegularExpression("/{$expression}/", $value);
         }
     }
 
-    public function testShrinkingIsNotImplementedYet()
+    public function testShrinkingIsNotImplementedYet(): void
     {
         $generator = new RegexGenerator(".*");
         $word = GeneratedValueSingle::fromJustValue("something");

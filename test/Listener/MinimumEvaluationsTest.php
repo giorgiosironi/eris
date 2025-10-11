@@ -5,10 +5,7 @@ use LogicException;
 
 class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var MinimumEvaluations
-     */
-    private $listener;
+    private \Eris\Listener\MinimumEvaluations $listener;
 
     protected function setUp(): void
     {

@@ -29,7 +29,7 @@ class SequenceGenerator implements Generator
         return $this->vector($sequenceLength)->__invoke($size, $rand);
     }
 
-    public function shrink(GeneratedValue $sequence)
+    public function shrink(GeneratedValue $sequence): \Eris\Generator\GeneratedValueOptions
     {
         $options = [];
         if (count($sequence->unbox()) > 0) {
@@ -47,7 +47,7 @@ class SequenceGenerator implements Generator
         return new GeneratedValueOptions($options);
     }
 
-    private function shrinkInSize($sequence)
+    private function shrinkInSize(\Eris\Generator\GeneratedValue $sequence)
     {
         if (count($sequence->unbox()) === 0) {
             return $sequence;
@@ -59,9 +59,7 @@ class SequenceGenerator implements Generator
         $input = array_values($input);
         return GeneratedValueSingle::fromValueAndInput(
             array_map(
-                function ($element) {
-                    return $element->unbox();
-                },
+                fn($element) => $element->unbox(),
                 $input
             ),
             $input,
@@ -72,12 +70,12 @@ class SequenceGenerator implements Generator
     /**
      * @return GeneratedValueOptions
      */
-    private function shrinkTheElements($sequence)
+    private function shrinkTheElements(\Eris\Generator\GeneratedValue $sequence)
     {
         return $this->vector(count($sequence->unbox()))->shrink($sequence);
     }
 
-    private function vector($size)
+    private function vector($size): \Eris\Generator\VectorGenerator
     {
         return new VectorGenerator($size, $this->singleElementGenerator);
     }

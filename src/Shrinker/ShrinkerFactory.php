@@ -3,16 +3,13 @@ namespace Eris\Shrinker;
 
 class ShrinkerFactory
 {
-    private $options;
-    
     /**
      * @param array $options
      *  'timeLimit' => null|integer  in seconds. The maximum time that should
      *                               be allocated to a Shrinker before giving up
      */
-    public function __construct(array $options)
+    public function __construct(private array $options)
     {
-        $this->options = $options;
     }
 
     public function multiple(array $generators, callable $assertion)
@@ -20,7 +17,7 @@ class ShrinkerFactory
         return $this->configureShrinker(new Multiple($generators, $assertion));
     }
 
-    private function configureShrinker($shrinker)
+    private function configureShrinker(\Eris\Shrinker\Multiple $shrinker): \Eris\Shrinker\Multiple
     {
         if ($this->options['timeLimit'] !== null) {
             $shrinker->setTimeLimit(FixedTimeLimit::realTime($this->options['timeLimit']));

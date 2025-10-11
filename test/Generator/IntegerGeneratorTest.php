@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -21,15 +15,15 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testPicksRandomlyAnInteger()
+    public function testPicksRandomlyAnInteger(): void
     {
         $generator = new IntegerGenerator();
         for ($i = 0; $i < 100; $i++) {
-            static::assertIsInt($generator($this->size, $this->rand)->unbox());
+            self::assertIsInt($generator($this->size, $this->rand)->unbox());
         }
     }
 
-    public function testShrinksLinearlyTowardsZero()
+    public function testShrinksLinearlyTowardsZero(): void
     {
         $generator = new IntegerGenerator();
         $value = $generator($this->size, $this->rand);
@@ -40,7 +34,7 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(0, $value->unbox());
     }
 
-    public function testOffersMultiplePossibilitiesForShrinkingProgressivelySubtracting()
+    public function testOffersMultiplePossibilitiesForShrinkingProgressivelySubtracting(): void
     {
         $generator = new IntegerGenerator();
         $value = GeneratedValueSingle::fromJustValue(100, 'integer');
@@ -58,7 +52,7 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testUniformity()
+    public function testUniformity(): void
     {
         $generator = new IntegerGenerator();
         $values = [];
@@ -67,27 +61,25 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         }
         $this->assertGreaterThan(
             400,
-            count(array_filter($values, function ($n) {
-                return $n->unbox() > 0;
-            })),
+            count(array_filter($values, fn($n): bool => $n->unbox() > 0)),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
     }
 
-    public function testShrinkingStopsToZero()
+    public function testShrinkingStopsToZero(): void
     {
         $generator = new IntegerGenerator();
         $lastValue = $generator($size = 0, $this->rand);
         $this->assertSame(0, $generator->shrink($lastValue)->unbox());
     }
 
-    public function testPosAlreadyStartsFromStrictlyPositiveValues()
+    public function testPosAlreadyStartsFromStrictlyPositiveValues(): void
     {
         $generator = pos();
         $this->assertGreaterThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
-    public function testPosNeverShrinksToZero()
+    public function testPosNeverShrinksToZero(): void
     {
         $generator = pos();
         $value = $generator->__invoke(10, $this->rand);
@@ -97,13 +89,13 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testNegAlreadyStartsFromStrictlyNegativeValues()
+    public function testNegAlreadyStartsFromStrictlyNegativeValues(): void
     {
         $generator = neg();
         $this->assertLessThan(0, $generator->__invoke(0, $this->rand)->unbox());
     }
 
-    public function testNegNeverShrinksToZero()
+    public function testNegNeverShrinksToZero(): void
     {
         $generator = neg();
         $value = $generator->__invoke(10, $this->rand);
@@ -113,7 +105,7 @@ class IntegerGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testNatStartsFromZero()
+    public function testNatStartsFromZero(): void
     {
         $generator = nat();
         $this->assertEquals(0, $generator->__invoke(0, $this->rand)->unbox());

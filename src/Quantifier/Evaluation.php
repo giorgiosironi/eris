@@ -9,44 +9,42 @@ use PHPUnit\Framework\AssertionFailedError;
  */
 final class Evaluation
 {
-    private $assertion;
     private $onFailure;
     private $onSuccess;
-    private $values;
+    private ?\Eris\Generator\GeneratedValueSingle $values = null;
 
-    public static function of($assertion)
+    public static function of($assertion): self
     {
         return new self($assertion);
     }
 
-    private function __construct($assertion)
+    private function __construct(private $assertion)
     {
-        $this->assertion = $assertion;
-        $this->onFailure = function () {
+        $this->onFailure = function (): void {
         };
-        $this->onSuccess = function () {
+        $this->onSuccess = function (): void {
         };
     }
 
-    public function with(GeneratedValueSingle $values)
+    public function with(GeneratedValueSingle $values): self
     {
         $this->values = $values;
         return $this;
     }
 
-    public function onFailure(callable $action)
+    public function onFailure(callable $action): self
     {
         $this->onFailure = $action;
         return $this;
     }
 
-    public function onSuccess(callable $action)
+    public function onSuccess(callable $action): self
     {
         $this->onSuccess = $action;
         return $this;
     }
 
-    public function execute()
+    public function execute(): void
     {
         try {
             call_user_func_array(

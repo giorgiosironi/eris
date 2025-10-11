@@ -6,7 +6,7 @@ class OneOfTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testPositiveOrNegativeNumberButNotZero()
+    public function testPositiveOrNegativeNumberButNotZero(): void
     {
         $this
             ->forAll(
@@ -15,7 +15,7 @@ class OneOfTest extends \PHPUnit\Framework\TestCase
                     Generators::neg()
                 )
             )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertNotEquals(0, $number);
             });
     }

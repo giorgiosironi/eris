@@ -6,21 +6,19 @@ class BindTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testCreatingABrandNewGeneratorFromAGeneratedValueSingle()
+    public function testCreatingABrandNewGeneratorFromAGeneratedValueSingle(): void
     {
         $this->forAll(
             Generators::bind(
                 Generators::vector(4, Generators::nat()),
-                function ($vector) {
-                    return Generators::tuple(
-                        Generators::elements($vector),
-                        Generators::constant($vector)
-                    );
-                }
+                fn($vector): \Eris\Generator\TupleGenerator => Generators::tuple(
+                    Generators::elements($vector),
+                    Generators::constant($vector)
+                )
             )
         )
-            ->then(function ($tuple) {
-                list($element, $vector) = $tuple;
+            ->then(function ($tuple): void {
+                [$element, $vector] = $tuple;
                 $this->assertContains($element, $vector);
             });
     }

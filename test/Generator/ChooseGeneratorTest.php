@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -26,7 +20,7 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new ChooseGenerator(-10, 10);
         for ($i = 0; $i < 100; $i++) {
             $value = $generator($this->size, $this->rand)->unbox();
-            static::assertIsInt($value);
+            self::assertIsInt($value);
             $this->assertGreaterThanOrEqual(-10, $value);
             $this->assertLessThanOrEqual(10, $value);
         }
@@ -64,9 +58,7 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
         }
         $this->assertGreaterThan(
             40,
-            count(array_filter($values, function ($n) {
-                return $n->unbox() > 0;
-            })),
+            count(array_filter($values, fn($n): bool => $n->unbox() > 0)),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
     }
@@ -81,7 +73,7 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testExceptionWhenDomainBoundariesAreNotIntegers(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $generator = new ChooseGenerator("zero", "twenty");
+        new ChooseGenerator("zero", "twenty");
     }
 
     public function testCanGenerateSingleInteger(): void

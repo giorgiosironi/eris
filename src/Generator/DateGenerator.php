@@ -16,15 +16,11 @@ function date($lowerLimit = null, $upperLimit = null)
  */
 class DateGenerator implements Generator
 {
-    private $lowerLimit;
-    private $upperLimit;
-    private $intervalInSeconds;
+    private readonly float|int $intervalInSeconds;
 
-    public function __construct(DateTime $lowerLimit, DateTime $upperLimit)
+    public function __construct(private readonly DateTime $lowerLimit, private readonly DateTime $upperLimit)
     {
-        $this->lowerLimit = $lowerLimit;
-        $this->upperLimit = $upperLimit;
-        $this->intervalInSeconds = $upperLimit->getTimestamp() - $lowerLimit->getTimestamp();
+        $this->intervalInSeconds = $this->upperLimit->getTimestamp() - $this->lowerLimit->getTimestamp();
     }
 
     public function __invoke($_size, RandomRange $rand)
@@ -48,9 +44,8 @@ class DateGenerator implements Generator
 
     /**
      * @param integer $offset  seconds to be added to lower limit
-     * @return DateTime
      */
-    private function fromOffset($offset)
+    private function fromOffset($offset): \DateTime
     {
         $chosenTimestamp = $this->lowerLimit->getTimestamp() + $offset;
         $element = new DateTime();

@@ -12,7 +12,7 @@ class ErisRepeat implements ErisAttribute
     ) {
     }
 
-    public function getValue()
+    public function getValue(): int
     {
         return $this->repeat;
     }

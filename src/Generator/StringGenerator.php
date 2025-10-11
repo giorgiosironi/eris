@@ -32,7 +32,7 @@ class StringGenerator implements Generator
             return $element;
         }
         return GeneratedValueSingle::fromJustValue(
-            substr($element->unbox(), 0, -1),
+            substr((string) $element->unbox(), 0, -1),
             'string'
         );
     }

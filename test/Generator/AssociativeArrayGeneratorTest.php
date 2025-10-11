@@ -7,26 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class AssociativeArrayGeneratorTest extends TestCase
 {
-    /**
-     * @var ElementsGenerator
-     */
-    private $letterGenerator;
-    /**
-     * @var ElementsGenerator
-     */
-    private $cipherGenerator;
-    /**
-     * @var ChooseGenerator
-     */
-    private $smallIntegerGenerator;
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Generator\ElementsGenerator $letterGenerator;
+    private \Eris\Generator\ElementsGenerator $cipherGenerator;
+    private \Eris\Generator\ChooseGenerator $smallIntegerGenerator;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -51,10 +36,10 @@ class AssociativeArrayGeneratorTest extends TestCase
         $array = $generated->unbox();
         $this->assertCount(2, $array);
         $letter = $array['letter'];
-        static::assertIsString($letter);
+        self::assertIsString($letter);
         $this->assertEquals(1, strlen($letter));
         $cipher = $array['cipher'];
-        static::assertIsInt($cipher);
+        self::assertIsInt($cipher);
         $this->assertGreaterThanOrEqual(0, $cipher);
         $this->assertLessThanOrEqual(9, $cipher);
         $this->assertCount(2, $generated->unbox());
@@ -78,8 +63,8 @@ class AssociativeArrayGeneratorTest extends TestCase
                 ['former', 'latter'],
                 array_keys($array)
             );
-            static::assertIsInt($array['former']);
-            static::assertIsInt($array['latter']);
+            self::assertIsInt($array['former']);
+            self::assertIsInt($array['latter']);
         }
     }
 }

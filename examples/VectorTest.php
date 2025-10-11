@@ -6,13 +6,13 @@ class VectorTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testConcatenationMaintainsLength()
+    public function testConcatenationMaintainsLength(): void
     {
         $this->forAll(
             Generators::vector(10, Generators::nat()),
             Generators::vector(10, Generators::nat())
         )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $concatenated = array_merge($first, $second);
                 $this->assertEquals(
                     count($concatenated),

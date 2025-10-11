@@ -7,16 +7,14 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testSuchThatBuildsANewGeneratorFilteringTheInnerOne()
+    public function testSuchThatBuildsANewGeneratorFilteringTheInnerOne(): void
     {
         $this
             ->forAll(
                 Generators::vector(
                     5,
                     Generators::suchThat(
-                        function ($n) {
-                            return $n > 42;
-                        },
+                        fn($n): bool => $n > 42,
                         Generators::choose(0, 1000)
                     )
                 )
@@ -24,16 +22,14 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
             ->then($this->allNumbersAreBiggerThan(42));
     }
 
-    public function testFilterSyntax()
+    public function testFilterSyntax(): void
     {
         $this
             ->forAll(
                 Generators::vector(
                     5,
                     Generators::filter(
-                        function ($n) {
-                            return $n > 42;
-                        },
+                        fn($n): bool => $n > 42,
                         Generators::choose(0, 1000)
                     )
                 )
@@ -41,7 +37,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
             ->then($this->allNumbersAreBiggerThan(42));
     }
 
-    public function testSuchThatAcceptsPHPUnitConstraints()
+    public function testSuchThatAcceptsPHPUnitConstraints(): void
     {
         $this
             ->forAll(
@@ -61,46 +57,40 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function testSuchThatShrinkingRespectsTheCondition()
+    public function testSuchThatShrinkingRespectsTheCondition(): void
     {
         $this
             ->forAll(
                 Generators::suchThat(
-                    function ($n) {
-                        return $n > 42;
-                    },
+                    fn($n): bool => $n > 42,
                     Generators::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
     }
 
-    public function testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet()
+    public function testSuchThatShrinkingRespectsTheConditionButTriesToSkipOverTheNotAllowedSet(): void
     {
         $this
             ->forAll(
                 Generators::suchThat(
-                    function ($n) {
-                        return $n <> 42;
-                    },
+                    fn($n): bool => $n != 42,
                     Generators::choose(0, 1000)
                 )
             )
             ->then($this->numberIsBiggerThan(100));
     }
 
-    public function testSuchThatAvoidingTheEmptyListDoesNotGetStuckOnASmallGeneratorSize()
+    public function testSuchThatAvoidingTheEmptyListDoesNotGetStuckOnASmallGeneratorSize(): void
     {
         $this
             ->forAll(
                 Generators::suchThat(
-                    function (array $ints) {
-                        return count($ints) > 0;
-                    },
+                    fn(array $ints): bool => count($ints) > 0,
                     Generators::seq(Generators::int())
                 )
             )
-            ->then(function (array $ints) {
+            ->then(function (array $ints): void {
                 $this->assertGreaterThanOrEqual(1, count($ints));
             })
         ;
@@ -108,7 +98,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
 
     public function allNumbersAreBiggerThan($lowerLimit)
     {
-        return function ($vector) use ($lowerLimit) {
+        return function ($vector) use ($lowerLimit): void {
             foreach ($vector as $number) {
                 $this->assertTrue(
                     $number > $lowerLimit,
@@ -120,7 +110,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
 
     public function numberIsBiggerThan($lowerLimit)
     {
-        return function ($number) use ($lowerLimit) {
+        return function ($number) use ($lowerLimit): void {
             $this->assertTrue(
                 $number > $lowerLimit,
                 "\$number was asserted to be more than $lowerLimit, but it's $number"

@@ -5,19 +5,16 @@ use Eris\Antecedent;
 
 class SingleCallbackAntecedent implements Antecedent
 {
-    private $callback;
-
-    public static function from($callback)
+    public static function from($callback): self
     {
         return new self($callback);
     }
 
-    private function __construct($callback)
+    private function __construct(private $callback)
     {
-        $this->callback = $callback;
     }
 
-    public function evaluate(array $values)
+    public function evaluate(array $values): mixed
     {
         return call_user_func_array($this->callback, $values);
     }

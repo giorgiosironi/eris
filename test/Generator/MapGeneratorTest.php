@@ -6,14 +6,8 @@ use Eris\Random\RandSource;
 
 class MapGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -21,12 +15,10 @@ class MapGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
     
-    public function testGeneratesAGeneratedValueObject()
+    public function testGeneratesAGeneratedValueObject(): void
     {
         $generator = new MapGenerator(
-            function ($n) {
-                return $n * 2;
-            },
+            fn($n): int|float => $n * 2,
             ConstantGenerator::box(1)
         );
         $this->assertEquals(
@@ -35,12 +27,10 @@ class MapGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testShrinksTheOriginalInput()
+    public function testShrinksTheOriginalInput(): void
     {
         $generator = new MapGenerator(
-            function ($n) {
-                return $n * 2;
-            },
+            fn($n): int|float => $n * 2,
             new ChooseGenerator(1, 100)
         );
         $element = $generator->__invoke($this->size, $this->rand);

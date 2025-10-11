@@ -3,7 +3,7 @@
 use Eris\Generators;
 use Eris\Listeners;
 
-function string_concatenation($first, $second)
+function string_concatenation(string $first, string $second): string
 {
     if (strlen($second) > 5) {
         $second .= 'ERROR';
@@ -15,13 +15,13 @@ class StringTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testRightIdentityElement()
+    public function testRightIdentityElement(): void
     {
         $this
             ->forAll(
                 Generators::string()
             )
-            ->then(function ($string) {
+            ->then(function ($string): void {
                 $this->assertEquals(
                     $string,
                     string_concatenation($string, ''),
@@ -30,7 +30,7 @@ class StringTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testLengthPreservation()
+    public function testLengthPreservation(): void
     {
         $this
             ->forAll(
@@ -38,7 +38,7 @@ class StringTest extends \PHPUnit\Framework\TestCase
                 Generators::string()
             )
             ->hook(Listeners::log(sys_get_temp_dir().'/eris-string-shrinking.log'))
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $result = string_concatenation($first, $second);
                 $this->assertEquals(
                     strlen($first) + strlen($second),

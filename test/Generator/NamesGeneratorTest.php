@@ -7,10 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private \Eris\Random\RandomRange $rand;
 
     public function setUp(): void
     {
@@ -34,7 +31,7 @@ class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = NamesGenerator::defaultDataSet();
         for ($i = 0; $i < 50; $i++) {
             $value = $generator($_size = 10, $this->rand);
-            static::assertIsString($value->unbox());
+            self::assertIsString($value->unbox());
         }
     }
 
@@ -56,7 +53,7 @@ class NamesGeneratorTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('namesToShrink')]
-    public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance($shrunk, $original): void
+    public function testShrinksToTheNameWithTheImmediatelyLowerLengthWhichHasTheMinimumDistance(string $shrunk, string $original): void
     {
         $generator = NamesGenerator::defaultDataSet();
         $this->assertEquals(

@@ -16,13 +16,8 @@ function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
  */
 class BindGenerator implements Generator
 {
-    private $innerGenerator;
-    private $outerGeneratorFactory;
-    
-    public function __construct($innerGenerator, $outerGeneratorFactory)
+    public function __construct(private $innerGenerator, private $outerGeneratorFactory)
     {
-        $this->innerGenerator = $innerGenerator;
-        $this->outerGeneratorFactory = $outerGeneratorFactory;
     }
 
     public function __invoke($size, RandomRange $rand)
@@ -38,7 +33,7 @@ class BindGenerator implements Generator
 
     public function shrink(GeneratedValue $element)
     {
-        list($outerGeneratorValue, $innerGeneratorValue) = $element->input();
+        [$outerGeneratorValue, $innerGeneratorValue] = $element->input();
         // TODO: shrink also the second generator
         $outerGenerator = call_user_func($this->outerGeneratorFactory, $innerGeneratorValue->unbox());
         $shrinkedOuterGeneratorValue = $outerGenerator->shrink($outerGeneratorValue);

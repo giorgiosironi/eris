@@ -25,7 +25,7 @@ class PrintableCharacter implements Antecedent
     /**
      * Assumes utf-8.
      */
-    public function evaluate(array $values)
+    public function evaluate(array $values): bool
     {
         foreach ($values as $char) {
             if (ord($char) < 32) {

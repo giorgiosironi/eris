@@ -33,24 +33,20 @@ function charPrintableAscii()
  */
 class CharacterGenerator implements Generator
 {
-    private $lowerLimit;
-    private $upperLimit;
     private $shrinkingProgression;
 
-    public static function ascii()
+    public static function ascii(): self
     {
         return new self($lowerLimit = 0, $upperLimit = 127);
     }
 
-    public static function printableAscii()
+    public static function printableAscii(): self
     {
         return new self($lowerLimit = 32, $upperLimit = 126);
     }
 
-    public function __construct($lowerLimit, $upperLimit)
+    public function __construct(private $lowerLimit, private $upperLimit)
     {
-        $this->lowerLimit = $lowerLimit;
-        $this->upperLimit = $upperLimit;
         $this->shrinkingProgression = ArithmeticProgression::discrete($this->lowerLimit);
     }
 

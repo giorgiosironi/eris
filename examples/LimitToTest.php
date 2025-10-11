@@ -11,13 +11,13 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
     use TestTrait;
 
     #[ErisRepeat(repeat: 5)]
-    public function testNumberOfIterationsCanBeConfigured()
+    public function testNumberOfIterationsCanBeConfigured(): void
     {
         $this->forAll(
             Generators::int()
         )
-            ->then(function ($value) {
-                static::assertIsInt($value);
+            ->then(function ($value): void {
+                self::assertIsInt($value);
             });
     }
 
@@ -37,7 +37,7 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
     }
      */
 
-    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored()
+    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored(): void
     {
         $this
             ->minimumEvaluationRatio(0)
@@ -45,7 +45,7 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
             ->forAll(
                 Generators::int()
             )
-            ->then(function ($value) {
+            ->then(function ($value): void {
                 usleep(100 * 1000);
                 $this->assertTrue(true);
             });
@@ -53,12 +53,12 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
 
     #[ErisRatio(ratio: 0)]
     #[ErisDuration(duration: 'PT2S')]
-    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation()
+    public function testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnoredFromAnnotation(): void
     {
         $this->forAll(
             Generators::int()
         )
-            ->then(function ($value) {
+            ->then(function ($value): void {
                 usleep(100 * 1000);
                 $this->assertTrue(true);
             });

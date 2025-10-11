@@ -20,13 +20,10 @@ use LogicException;
  * @psalm-template T
  * @template-implements GeneratedValue<T>
  */
-class GeneratedValueOptions implements GeneratedValue
+class GeneratedValueOptions implements GeneratedValue, \Stringable
 {
-    private $generatedValues;
-    
-    public function __construct(array $generatedValues)
+    public function __construct(private array $generatedValues)
     {
-        $this->generatedValues = $generatedValues;
     }
 
     public static function mostPessimisticChoice(GeneratedValue $value)
@@ -44,31 +41,26 @@ class GeneratedValueOptions implements GeneratedValue
 
     public function last()
     {
-        if (count($this->generatedValues) == 0) {
+        if (count($this->generatedValues) === 0) {
             throw new LogicException("This GeneratedValueOptions is empty");
         }
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
-    public function map(callable $callable, $generatorName)
+    public function map(callable $callable, $generatorName): self
     {
         return new self(array_map(
-            function ($value) use ($callable, $generatorName) {
-                return $value->map($callable, $generatorName);
-            },
+            fn($value) => $value->map($callable, $generatorName),
             $this->generatedValues
         ));
     }
     
-    public function derivedIn($generatorName)
+    public function derivedIn($generatorName): never
     {
         throw new \RuntimeException("GeneratedValueOptions::derivedIn() is needed, uncomment it");
     }
 
-    /**
-     * @return self
-     */
-    public function add(GeneratedValueSingle $value)
+    public function add(GeneratedValueSingle $value): self
     {
         return new self(array_merge(
             $this->generatedValues,
@@ -76,7 +68,7 @@ class GeneratedValueOptions implements GeneratedValue
         ));
     }
 
-    public function remove(GeneratedValue $value)
+    public function remove(GeneratedValue $value): self
     {
         $generatedValues = $this->generatedValues;
         $index = array_search($value, $generatedValues);
@@ -129,7 +121,7 @@ class GeneratedValueOptions implements GeneratedValue
         return count($this->generatedValues);
     }
 
-    public function cartesianProduct($generatedValueOptions, callable $merge)
+    public function cartesianProduct($generatedValueOptions, callable $merge): self
     {
         $options = [];
         foreach ($this as $firstPart) {

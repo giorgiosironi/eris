@@ -15,8 +15,8 @@ class LogFileTest extends \PHPUnit\Framework\TestCase
                 Generators::int()
             )
             ->hook(Listeners::log(sys_get_temp_dir().'/eris-log-file-test.log'))
-            ->then(function ($number) {
-                static::assertIsInt($number);
+            ->then(function ($number): void {
+                self::assertIsInt($number);
             });
     }
 
@@ -27,7 +27,7 @@ class LogFileTest extends \PHPUnit\Framework\TestCase
                 Generators::int()
             )
             ->hook(Listeners::log(sys_get_temp_dir().'/eris-log-file-shrinking.log'))
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertLessThanOrEqual(42, $number);
             });
     }

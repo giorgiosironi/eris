@@ -3,11 +3,10 @@ namespace Eris\Shrinker;
 
 class FixedTimeLimit implements TimeLimit
 {
-    private $maximumIntervalLength;
     private $clock;
     private $startOfTheInterval;
 
-    public static function realTime($maximumIntervalLength)
+    public static function realTime($maximumIntervalLength): self
     {
         return new self($maximumIntervalLength, 'time');
     }
@@ -15,9 +14,8 @@ class FixedTimeLimit implements TimeLimit
     /**
      * @param int $maximumIntervalLength  in seconds
      */
-    public function __construct($maximumIntervalLength, callable $clock)
+    public function __construct(private $maximumIntervalLength, callable $clock)
     {
-        $this->maximumIntervalLength = $maximumIntervalLength;
         $this->clock = $clock;
     }
 

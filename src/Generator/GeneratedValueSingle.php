@@ -11,16 +11,10 @@ use ArrayIterator;
  * @template T
  * @template-implements GeneratedValue<T>
  */
-final class GeneratedValueSingle implements GeneratedValue // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
+final class GeneratedValueSingle implements GeneratedValue, \Stringable // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
 {
     /** @var T */
     private $value;
-    private $input;
-    private $generatorName;
-    /**
-     * @var array
-     */
-    private $annotations;
 
     /**
      * A value and the input that was used to derive it.
@@ -31,9 +25,8 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * @param mixed $value
      * @param GeneratedValueSingle|mixed $input
      * @param string $generatorName  'tuple'
-     * @return GeneratedValueSingle
      */
-    public static function fromValueAndInput($value, $input, $generatorName = null)
+    public static function fromValueAndInput($value, $input, $generatorName = null): self
     {
         return new self($value, $input, $generatorName);
     }
@@ -45,22 +38,18 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * @psalm-param T $value
      * @param mixed $value
      * @param string $generatorName  'tuple'
-     * @return GeneratedValueSingle
      */
-    public static function fromJustValue($value, $generatorName = null)
+    public static function fromJustValue($value, $generatorName = null): self
     {
         return new self($value, $value, $generatorName);
     }
     
-    private function __construct($value, $input, $generatorName, array $annotations = [])
+    private function __construct($value, private $input, private $generatorName)
     {
         if ($value instanceof self) {
             throw new InvalidArgumentException("It looks like you are trying to build a GeneratedValueSingle whose value is another GeneratedValueSingle. This is almost always an error as values will be passed as-is to properties and GeneratedValueSingle should be hidden from them.");
         }
         $this->value = $value;
-        $this->input = $input;
-        $this->generatorName = $generatorName;
-        $this->annotations = $annotations;
     }
 
     /**
@@ -98,10 +87,8 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * and that is labelled with $generatorName.
      * $applyToValue is mapped over the value
      * to build the outer GeneratedValueSingle object $this->value field.
-     *
-     * @return GeneratedValueSingle
      */
-    public function map(callable $applyToValue, $generatorName)
+    public function map(callable $applyToValue, $generatorName): self
     {
         return new self(
             $applyToValue($this->value),
@@ -121,9 +108,7 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     public function derivedIn($generatorName)
     {
         return $this->map(
-            function ($value) {
-                return $value;
-            },
+            fn($value) => $value,
             $generatorName
         );
     }
@@ -146,13 +131,13 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
             throw new InvalidArgumentException("Trying to merge a {$this->generatorName} GeneratedValueSingle with a {$another->generatorName} GeneratedValueSingle");
         }
         return self::fromValueAndInput(
-            $merge($this->unbox(), $another->unbox()),
-            $merge($this->input(), $another->input()),
+            $merge($this->value, $another->unbox()),
+            $merge($this->input, $another->input()),
             $this->generatorName
         );
     }
 
-    public function add(GeneratedValueSingle $value)
+    public function add(GeneratedValueSingle $value): \Eris\Generator\GeneratedValueOptions
     {
         return new GeneratedValueOptions([
             $this,

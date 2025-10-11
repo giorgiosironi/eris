@@ -5,10 +5,10 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
-function elements(/*$a, $b, ...*/)
+function elements(/*$a, $b, ...*/): mixed
 {
     return call_user_func_array(
-        [Generators::class, 'elements'],
+        Generators::elements(...),
         func_get_args()
     );
 }
@@ -19,16 +19,13 @@ function elements(/*$a, $b, ...*/)
  */
 class ElementsGenerator implements Generator
 {
-    private $domain;
-
-    public static function fromArray(array $domain)
+    public static function fromArray(array $domain): self
     {
         return new self($domain);
     }
 
-    private function __construct($domain)
+    private function __construct(private $domain)
     {
-        $this->domain = $domain;
     }
 
     public function __invoke($_size, RandomRange $rand)
@@ -37,7 +34,7 @@ class ElementsGenerator implements Generator
         return GeneratedValueSingle::fromJustValue($this->domain[$index], 'elements');
     }
 
-    public function shrink(GeneratedValue $element)
+    public function shrink(GeneratedValue $element): GeneratedValue
     {
         return $element;
     }

@@ -7,13 +7,13 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    public function testSumIsCommutative()
+    public function testSumIsCommutative(): void
     {
         $this->forAll(
             Generators::int(),
             Generators::int()
         )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $x = $first + $second;
                 $y = $second + $first;
                 $this->assertEquals(
@@ -24,14 +24,14 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testSumIsAssociative()
+    public function testSumIsAssociative(): void
     {
         $this->forAll(
             Generators::int(),
             Generators::neg(),
             Generators::pos()
         )
-            ->then(function ($first, $second, $third) {
+            ->then(function ($first, $second, $third): void {
                 $x = $first + ($second + $third);
                 $y = ($first + $second) + $third;
                 $this->assertEquals(
@@ -42,12 +42,12 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testByteData()
+    public function testByteData(): void
     {
         $this->forAll(
             Generators::byte()
         )
-            ->then(function ($byte) {
+            ->then(function ($byte): void {
                 $this->assertTrue(
                     $byte >= 0 && $byte <= 255,
                     "$byte is not a valid value for a byte"

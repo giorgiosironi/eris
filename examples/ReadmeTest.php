@@ -6,12 +6,12 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testNaturalNumbersMagnitude()
+    public function testNaturalNumbersMagnitude(): void
     {
         $this->forAll(
             Generators::choose(0, 1000)
         )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertTrue(
                     $number < 42,
                     "$number is not less than 42 apparently"

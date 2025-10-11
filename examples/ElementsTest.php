@@ -6,12 +6,12 @@ class ElementsTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testElementsOnlyProducesElementsFromTheGivenArguments()
+    public function testElementsOnlyProducesElementsFromTheGivenArguments(): void
     {
         $this->forAll(
             Generators::elements(1, 2, 3)
         )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertContains(
                     $number,
                     [1, 2, 3]
@@ -24,12 +24,12 @@ class ElementsTest extends \PHPUnit\Framework\TestCase
      * which is perfectly fine as if you have a single element this generator
      * is useless. Use Constant Generator instead
      */
-    public function testElementsOnlyProducesElementsFromTheGivenArrayDomain()
+    public function testElementsOnlyProducesElementsFromTheGivenArrayDomain(): void
     {
         $this->forAll(
             Generators::elements([1, 2, 3])
         )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertContains(
                     $number,
                     [1, 2, 3]
@@ -38,7 +38,7 @@ class ElementsTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function testVectorOfElementsGenerators()
+    public function testVectorOfElementsGenerators(): void
     {
         $this->forAll(
             Generators::vector(
@@ -46,11 +46,9 @@ class ElementsTest extends \PHPUnit\Framework\TestCase
                 Generators::elements([2, 4, 6, 8, 10, 12])
             )
         )
-            ->then(function ($vector) {
+            ->then(function ($vector): void {
                 $sum = array_sum($vector);
-                $isEven = function ($number) {
-                    return $number % 2 == 0;
-                };
+                $isEven = (fn($number): bool => $number % 2 === 0);
                 $this->assertTrue(
                     $isEven($sum),
                     "$sum is not even, but it's the sum of the vector " . var_export($vector, true)

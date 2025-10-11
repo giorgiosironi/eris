@@ -36,7 +36,7 @@ trait TestTrait
     protected $shrinkingTimeLimit;
 
     #[BeforeClass]
-    public static function erisSetupBeforeClass()
+    public static function erisSetupBeforeClass(): void
     {
         foreach (['Generator', 'Antecedent', 'Listener', 'Random'] as $namespace) {
             foreach (glob(__DIR__ . '/' . $namespace . '/*.php') as $filename) {
@@ -45,10 +45,7 @@ trait TestTrait
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getTestCaseAttributes()
+    public function getTestCaseAttributes(): array
     {
         $reflectionClass = new \ReflectionClass($this);
         $classAttributes = [];
@@ -77,14 +74,12 @@ trait TestTrait
     }
 
     #[Before]
-    public function erisSetup()
+    public function erisSetup(): void
     {
         $this->seedingRandomNumberGeneration();
         $this->listeners = array_filter(
             $this->listeners,
-            function ($listener) {
-                return !($listener instanceof MinimumEvaluations);
-            }
+            fn($listener): bool => !($listener instanceof MinimumEvaluations)
         );
         $tags = $this->getTestCaseAttributes();
         $this->withRand($this->getAttributeValue($tags, ErisMethod::class, 'rand', 'strval'));
@@ -99,9 +94,8 @@ trait TestTrait
 
     /**
      * @internal
-     * @return void
      */
-    private function seedingRandomNumberGeneration()
+    private function seedingRandomNumberGeneration(): void
     {
         $seed = intval(getenv('ERIS_SEED') ?: (microtime(true)*1000000));
         if ($seed < 0) {
@@ -111,7 +105,6 @@ trait TestTrait
     }
 
     /**
-     * @param array $attributes
      * @param string $key
      * @param mixed $default
      * @return mixed
@@ -123,7 +116,6 @@ trait TestTrait
     }
 
     /**
-     * @param array $attributes
      * @param string $key
      * @return int|string|null
      */
@@ -153,22 +145,19 @@ trait TestTrait
      */
     protected function minimumEvaluationRatio($ratio)
     {
-        $this->filterOutListenersOfClass('Eris\\Listener\\MinimumEvaluations');
+        $this->filterOutListenersOfClass(\Eris\Listener\MinimumEvaluations::class);
         $this->listeners[] = MinimumEvaluations::ratio($ratio);
         return $this;
     }
 
     /**
      * @param string $className
-     * @return void
      */
-    private function filterOutListenersOfClass($className)
+    private function filterOutListenersOfClass($className): void
     {
         $this->listeners = array_filter(
             $this->listeners,
-            function ($listener) use ($className) {
-                return !($listener instanceof $className);
-            }
+            fn($listener): bool => !($listener instanceof $className)
         );
     }
 
@@ -183,7 +172,7 @@ trait TestTrait
             $terminationCondition = new TimeBasedTerminationCondition('time', $interval);
             $this->listeners[] = $terminationCondition;
             $this->terminationConditions[] = $terminationCondition;
-        } elseif (is_integer($limit)) {
+        } elseif (is_int($limit)) {
             $this->iterations = $limit;
         } else {
             throw new \InvalidArgumentException("The limit " . var_export($limit, true) . " is not valid. Please pass an integer or DateInterval.");
@@ -227,9 +216,8 @@ trait TestTrait
 
     /**
      * forAll($generator1, $generator2, ...)
-     * @return ForAll
      */
-    public function forAll()
+    public function forAll(): \Eris\Quantifier\ForAll
     {
         $this->randRange->seed($this->seed);
         $generators = func_get_args();

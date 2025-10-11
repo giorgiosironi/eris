@@ -5,7 +5,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class SizeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testProducesAListOfSizesIncreasingThemTriangularly()
+    public function testProducesAListOfSizesIncreasingThemTriangularly(): void
     {
         $size = Size::withTriangleGrowth(1000);
         $this->assertEquals(0, $size->at(0));
@@ -15,13 +15,13 @@ class SizeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(10, $size->at(4));
     }
 
-    public function testCyclesThroughAvailableSizesWhenTheyAreFinished()
+    public function testCyclesThroughAvailableSizesWhenTheyAreFinished(): void
     {
         $size = Size::withTriangleGrowth(1000);
-        static::assertIsInt($size->at(42000));
+        self::assertIsInt($size->at(42000));
     }
 
-    public function testAllowsLinearGrowth()
+    public function testAllowsLinearGrowth(): void
     {
         $size = Size::withLinearGrowth(1000);
         $this->assertEquals(0, $size->at(0));
@@ -31,7 +31,7 @@ class SizeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(4, $size->at(4));
     }
 
-    public static function limits()
+    public static function limits(): array
     {
         return [
             [2],
@@ -44,7 +44,7 @@ class SizeTest extends \PHPUnit\Framework\TestCase
     }
 
     #[DataProvider('limits')]
-    public function testCoversAUniformSubsetWhenLimitedToTheNumberOfIterations($limit)
+    public function testCoversAUniformSubsetWhenLimitedToTheNumberOfIterations(int $limit): void
     {
         $size = Size::withTriangleGrowth(1000)
             ->limit($limit);

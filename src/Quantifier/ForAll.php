@@ -21,66 +21,43 @@ class ForAll
     const DEFAULT_MAX_SIZE = 200;
 
     private $generators;
-    private $iterations;
-    private $maxSize;
-    private $shrinkerFactory;
-    private $antecedents = [];
-    private $ordinaryEvaluations = 0;
-    private $aliases = [
+    private $maxSize = self::DEFAULT_MAX_SIZE;
+    private array $antecedents = [];
+    private int $ordinaryEvaluations = 0;
+    private array $aliases = [
         'and' => 'when',
     ];
-    private $terminationConditions = [];
-    private $listeners = [];
-    private $shrinkerFactoryMethod;
+    private array $terminationConditions = [];
+    private array $listeners = [];
+    private bool $shrinkingEnabled = true;
 
-    /**
-     * @var RandomRange
-     */
-    private $rand;
-    private $shrinkingEnabled = true;
-
-    public function __construct(array $generators, $iterations, $shrinkerFactory, $shrinkerFactoryMethod, RandomRange $rand)
+    public function __construct(array $generators, private $iterations, private $shrinkerFactory, private $shrinkerFactoryMethod, private readonly RandomRange $rand)
     {
         $this->generators = $this->generatorsFrom($generators);
-        $this->iterations = $iterations;
-        $this->shrinkerFactory = $shrinkerFactory;
-        $this->shrinkerFactoryMethod = $shrinkerFactoryMethod;
-        $this->rand = $rand;
-        $this->maxSize = self::DEFAULT_MAX_SIZE;
     }
 
     /**
      * @param integer $maxSize
-     * @return self
      */
-    public function withMaxSize($maxSize)
+    public function withMaxSize($maxSize): static
     {
         $this->maxSize = $maxSize;
         return $this;
     }
 
-    /**
-     * @return self
-     */
-    public function hook(Listener $listener)
+    public function hook(Listener $listener): static
     {
         $this->listeners[] = $listener;
         return $this;
     }
 
-    /**
-     * @return self
-     */
-    public function stopOn(TerminationCondition $terminationCondition)
+    public function stopOn(TerminationCondition $terminationCondition): static
     {
         $this->terminationConditions[] = $terminationCondition;
         return $this;
     }
 
-    /**
-     * @return self
-     */
-    public function disableShrinking()
+    public function disableShrinking(): static
     {
         $this->shrinkingEnabled = false;
         return $this;
@@ -91,16 +68,15 @@ class ForAll
      * when($constraint1, $constraint2, ..., $constraintN)
      * when(callable $takesNArguments)
      * when(Antecedent $antecedent)
-     * @return self
      */
-    public function when(/* see docblock */)
+    public function when(/* see docblock */): static
     {
         $arguments = func_get_args();
         if ($arguments[0] instanceof Antecedent) {
             $antecedent = $arguments[0];
         } elseif ($arguments[0] instanceof Constraint) {
             $antecedent = Antecedent\IndependentConstraintsAntecedent::fromAll($arguments);
-        } elseif ($arguments && count($arguments) == 1) {
+        } elseif ($arguments && count($arguments) === 1) {
             $antecedent = Antecedent\SingleCallbackAntecedent::from($arguments[0]);
         } else {
             throw new \InvalidArgumentException("Invalid call to when(): " . var_export($arguments, true));
@@ -109,7 +85,7 @@ class ForAll
         return $this;
     }
 
-    public function __invoke(callable $assertion)
+    public function __invoke(callable $assertion): void
     {
         $sizes = Size::withTriangleGrowth($this->maxSize)
             ->limit($this->iterations);
@@ -125,7 +101,7 @@ class ForAll
                 $generatedValues = [];
                 $values = [];
                 try {
-                    foreach ($this->generators as $name => $generator) {
+                    foreach ($this->generators as $generator) {
                         $value = $generator($sizes->at($iteration), $this->rand);
                         if (!($value instanceof GeneratedValueSingle)) {
                             throw new RuntimeException("The value returned by a generator should be an instance of GeneratedValueSingle, but it is " . var_export($value, true));
@@ -133,7 +109,7 @@ class ForAll
                         $generatedValues[] = $value;
                         $values[] = $value->unbox();
                     }
-                } catch (SkipValueException $e) {
+                } catch (SkipValueException) {
                     continue;
                 }
                 $generation = GeneratedValueSingle::fromValueAndInput(
@@ -151,7 +127,7 @@ class ForAll
                 Evaluation::of($assertion)
                     // TODO: coupling between here and the TupleGenerator used inside?
                     ->with($generation)
-                    ->onFailure(function ($generatedValues, $exception) use ($assertion) {
+                    ->onFailure(function ($generatedValues, $exception) use ($assertion): void {
                         $this->notifyListeners('failure', $generatedValues->unbox(), $exception);
                         if (!$this->shrinkingEnabled) {
                             throw $exception;
@@ -160,10 +136,8 @@ class ForAll
                         $shrinking = $this->shrinkerFactory->$shrinkerFactoryMethod($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
-                            ->addGoodShrinkCondition(function (GeneratedValueSingle $generatedValues) {
-                                return $this->antecedentsAreSatisfied($generatedValues->unbox());
-                            })
-                            ->onAttempt(function (GeneratedValueSingle $generatedValues) {
+                            ->addGoodShrinkCondition(fn(GeneratedValueSingle $generatedValues) => $this->antecedentsAreSatisfied($generatedValues->unbox()))
+                            ->onAttempt(function (GeneratedValueSingle $generatedValues): void {
                                 $this->notifyListeners('shrinking', $generatedValues->unbox());
                             })
                             ->from($generatedValues, $exception);
@@ -176,9 +150,8 @@ class ForAll
                 $message = "Original input: " . var_export($values, true) . PHP_EOL
                     . "Possibly shrinked input follows." . PHP_EOL;
                 throw new RuntimeException($message, -1, $e);
-            } else {
-                throw $e;
             }
+            throw $e;
         } finally {
             $this->notifyListeners(
                 'endPropertyVerification',
@@ -189,7 +162,7 @@ class ForAll
         }
     }
     
-    public function then(callable $assertion)
+    public function then(callable $assertion): void
     {
         $this->__invoke($assertion);
     }
@@ -200,7 +173,7 @@ class ForAll
      * @method implies($assertion)
      * @method imply($assertion)
      */
-    public function __call($method, $arguments)
+    public function __call(string $method, array $arguments)
     {
         if (isset($this->aliases[$method])) {
             return call_user_func_array(
@@ -208,10 +181,13 @@ class ForAll
                 $arguments
             );
         }
-        throw new BadMethodCallException("Method " . __CLASS__ . "::{$method} does not exist");
+        throw new BadMethodCallException("Method " . self::class . "::{$method} does not exist");
     }
 
-    private function generatorsFrom($supposedToBeGenerators)
+    /**
+     * @return list<\Eris\Generator>
+     */
+    private function generatorsFrom(array $supposedToBeGenerators): array
     {
         $generators = [];
         foreach ($supposedToBeGenerators as $supposedToBeGenerator) {
@@ -224,7 +200,7 @@ class ForAll
         return $generators;
     }
 
-    private function notifyListeners(/*$event, [$parameterA[, $parameterB[, ...]]]*/)
+    private function notifyListeners(/*$event, [$parameterA[, $parameterB[, ...]]]*/): void
     {
         $arguments = func_get_args();
         $event = array_shift($arguments);
@@ -236,7 +212,7 @@ class ForAll
         }
     }
 
-    private function antecedentsAreSatisfied(array $values)
+    private function antecedentsAreSatisfied(array $values): bool
     {
         foreach ($this->antecedents as $antecedentToVerify) {
             if (!call_user_func(
@@ -249,7 +225,7 @@ class ForAll
         return true;
     }
 
-    private function terminationConditionsAreSatisfied()
+    private function terminationConditionsAreSatisfied(): bool
     {
         foreach ($this->terminationConditions as $terminationCondition) {
             if ($terminationCondition->shouldTerminate()) {

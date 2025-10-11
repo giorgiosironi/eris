@@ -8,15 +8,15 @@ class SubsetTest extends TestCase
 {
     use TestTrait;
 
-    public function testSubsetsOfASet()
+    public function testSubsetsOfASet(): void
     {
         $this->forAll(
             Generators::subset([
                 2, 4, 6, 8, 10
             ])
         )
-            ->then(function ($set) {
-                static::assertIsArray($set);
+            ->then(function ($set): void {
+                self::assertIsArray($set);
                 foreach ($set as $element) {
                     $this->assertTrue($this->isEven($element), "Element $element is not even, where did it come from?");
                 }
@@ -24,8 +24,8 @@ class SubsetTest extends TestCase
             });
     }
 
-    private function isEven($number)
+    private function isEven($number): bool
     {
-        return $number % 2 == 0;
+        return $number % 2 === 0;
     }
 }

@@ -6,18 +6,9 @@ use Eris\Random\RandSource;
 
 class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var ChooseGenerator
-     */
-    private $singleElementGenerator;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Generator\ChooseGenerator $singleElementGenerator;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -26,7 +17,7 @@ class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testRespectsGenerationSize()
+    public function testRespectsGenerationSize(): void
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $countLessThanSize = 0;
@@ -52,12 +43,12 @@ class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testShrink()
+    public function testShrink(): void
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($this->size, $this->rand);
         $elementsAfterShrink = $generator->shrink($elements);
-        if ($elementsAfterShrink->count() == 0) {
+        if ($elementsAfterShrink->count() === 0) {
             // the generated value couldn't be shrunk
             return;
         }
@@ -66,7 +57,7 @@ class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThanOrEqual(array_sum($elements->unbox()), array_sum($elementsAfterShrink->unbox()));
     }
 
-    public function testShrinkEmptySequence()
+    public function testShrinkEmptySequence(): void
     {
         $generator = new SequenceGenerator($this->singleElementGenerator);
         $elements = $generator($size = 0, $this->rand);
@@ -74,7 +65,7 @@ class SequenceGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, count($generator->shrink($elements)));
     }
 
-    public function testShrinkEventuallyEndsUpWithNoOptions()
+    public function testShrinkEventuallyEndsUpWithNoOptions(): void
     {
         $numberOfShrinks = 0;
         $generator = new SequenceGenerator($this->singleElementGenerator);

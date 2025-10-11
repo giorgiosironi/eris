@@ -12,10 +12,10 @@ use Eris\Random\RandomRange;
  * tuple(array $generators)
  * @return Generator\TupleGenerator
  */
-function tuple()
+function tuple(): mixed
 {
     return call_user_func_array(
-        [Generators::class, 'tuple'],
+        Generators::tuple(...),
         func_get_args()
     );
 }
@@ -26,27 +26,21 @@ function tuple()
 class TupleGenerator implements Generator
 {
     private $generators;
-    private $numberOfGenerators;
 
     public function __construct(array $generators)
     {
         $this->generators = ensureAreAllGenerators($generators);
-        $this->numberOfGenerators = count($generators);
     }
 
     public function __invoke($size, RandomRange $rand)
     {
         $input = array_map(
-            function ($generator) use ($size, $rand) {
-                return $generator($size, $rand);
-            },
+            fn($generator) => $generator($size, $rand),
             $this->generators
         );
         return GeneratedValueSingle::fromValueAndInput(
             array_map(
-                function ($value) {
-                    return $value->unbox();
-                },
+                fn($value) => $value->unbox(),
                 $input
             ),
             $input,
@@ -76,19 +70,16 @@ class TupleGenerator implements Generator
             );
         }
         $options = new GeneratedValueOptions($options);
-        if (count($generators) == 1) {
+        if (count($generators) === 1) {
             return $options;
-        } else {
-            return $options->cartesianProduct(
-                $this->optionsFromTheseGenerators(
-                    array_slice($generators, 1),
-                    array_slice($inputSubset, 1)
-                ),
-                function ($first, $second) {
-                    return array_merge($first, $second);
-                }
-            );
         }
+        return $options->cartesianProduct(
+            $this->optionsFromTheseGenerators(
+                array_slice($generators, 1),
+                array_slice($inputSubset, 1)
+            ),
+            fn($first, $second): array => array_merge($first, $second)
+        );
     }
 
     public function shrink(GeneratedValue $tuple)
@@ -97,28 +88,5 @@ class TupleGenerator implements Generator
 
         return $this->optionsFromTheseGenerators($this->generators, $input)
             ->remove($tuple);
-    }
-
-    private function ensureAreAllGenerators(array $generators)
-    {
-        return array_map(
-            function ($generator) {
-                if ($generator instanceof Generator) {
-                    return $generator;
-                }
-                return new ConstantGenerator($generator);
-            },
-            $generators
-        );
-    }
-
-    private function domainsTupleAsString()
-    {
-        $domainOfElements = '(';
-        foreach ($this->generators as $generator) {
-            $domainOfElements .= get_class($generator);
-            $domainOfElements .= ',';
-        }
-        return substr($domainOfElements, 0, -1) . ')';
     }
 }

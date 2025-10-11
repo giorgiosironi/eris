@@ -9,7 +9,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     use TestTrait;
 
-    public function testUsingTheDefaultRandFunction()
+    public function testUsingTheDefaultRandFunction(): void
     {
         $this
             ->withRand('rand')
@@ -21,7 +21,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
     }
 
     #[ErisMethod(method: 'rand')]
-    public function testUsingTheDefaultRandFunctionFromAnnotation()
+    public function testUsingTheDefaultRandFunctionFromAnnotation(): void
     {
         $this
             ->forAll(
@@ -31,7 +31,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
             ->then($this->isInteger());
     }
 
-    public function testUsingTheDefaultMtRandFunction()
+    public function testUsingTheDefaultMtRandFunction(): void
     {
         $this
             ->withRand('mt_rand')
@@ -42,7 +42,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
     }
 
     #[ErisMethod(method: 'mt_rand')]
-    public function testUsingTheDefaultMtRandFunctionFromAnnotation()
+    public function testUsingTheDefaultMtRandFunctionFromAnnotation(): void
     {
         $this
             ->forAll(
@@ -51,7 +51,7 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
             ->then($this->isInteger());
     }
 
-    public function testUsingThePurePhpMtRandFunction()
+    public function testUsingThePurePhpMtRandFunction(): void
     {
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('MersenneTwister class does not support HHVM');
@@ -67,8 +67,8 @@ class RandConfigurationTest extends \PHPUnit\Framework\TestCase
 
     private function isInteger()
     {
-        return function ($number) {
-            static::assertIsInt($number);
+        return function ($number): void {
+            self::assertIsInt($number);
         };
     }
 }

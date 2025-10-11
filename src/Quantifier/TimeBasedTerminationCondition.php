@@ -10,27 +10,25 @@ class TimeBasedTerminationCondition extends EmptyListener implements Termination
 {
     private $limitTime;
     private $time;
-    private $maximumInterval;
 
-    public function __construct(callable $time, DateInterval $maximumInterval)
+    public function __construct(callable $time, private readonly DateInterval $maximumInterval)
     {
         $this->time = $time;
-        $this->maximumInterval = $maximumInterval;
     }
 
-    public function startPropertyVerification()
+    public function startPropertyVerification(): void
     {
         $this->limitTime = $this
             ->currentDateTime()
             ->add($this->maximumInterval);
     }
 
-    public function shouldTerminate()
+    public function shouldTerminate(): bool
     {
         return $this->currentDateTime() >= $this->limitTime;
     }
 
-    private function currentDateTime()
+    private function currentDateTime(): \DateTime
     {
         return new DateTime("@" . call_user_func($this->time));
     }

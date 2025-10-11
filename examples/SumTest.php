@@ -2,7 +2,7 @@
 
 use Eris\Generators;
 
-function my_sum($first, $second)
+function my_sum($first, $second): float|int|array
 {
     if ($first >= 42) {
         return $first + $second + 1;
@@ -14,12 +14,12 @@ class SumTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testRightIdentityElement()
+    public function testRightIdentityElement(): void
     {
         $this->forAll(
             Generators::nat()
         )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertEquals(
                     $number,
                     my_sum($number, 0),
@@ -28,12 +28,12 @@ class SumTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testLeftIdentityElement()
+    public function testLeftIdentityElement(): void
     {
         $this->forAll(
             Generators::nat()
         )
-            ->then(function ($number) {
+            ->then(function ($number): void {
                 $this->assertEquals(
                     $number,
                     my_sum(0, $number),
@@ -42,13 +42,13 @@ class SumTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testEqualToReferencePhpImplementation()
+    public function testEqualToReferencePhpImplementation(): void
     {
         $this->forAll(
             Generators::nat(),
             Generators::nat()
         )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $this->assertEquals(
                     $first + $second,
                     my_sum($first, $second),
@@ -57,13 +57,13 @@ class SumTest extends \PHPUnit\Framework\TestCase
             });
     }
 
-    public function testPropertyNeverSatisfied()
+    public function testPropertyNeverSatisfied(): void
     {
         $this->forAll(
             Generators::nat(),
             Generators::nat()
         )
-            ->then(function ($first, $second) {
+            ->then(function ($first, $second): void {
                 $this->assertEquals(
                     -1,
                     my_sum($first, $second),

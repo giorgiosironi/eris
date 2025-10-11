@@ -20,16 +20,13 @@ function constant($value)
  */
 class ConstantGenerator implements Generator
 {
-    private $value;
-
-    public static function box($value)
+    public static function box($value): self
     {
         return new self($value);
     }
 
-    public function __construct($value)
+    public function __construct(private $value)
     {
-        $this->value = $value;
     }
 
     public function __invoke($_size, RandomRange $rand)

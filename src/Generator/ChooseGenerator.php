@@ -32,7 +32,7 @@ class ChooseGenerator implements Generator
 {
     private $lowerLimit;
     private $upperLimit;
-    private $shrinkTarget;
+    private readonly float|int $shrinkTarget;
 
     public function __construct($x, $y)
     {
@@ -65,7 +65,7 @@ class ChooseGenerator implements Generator
         return $element;
     }
 
-    private function checkLimits($lowerLimit, $upperLimit)
+    private function checkLimits($lowerLimit, $upperLimit): void
     {
         // TODO: the problem with the random number generator is still here.
         if ((!is_int($lowerLimit)) || (!is_int($upperLimit))) {

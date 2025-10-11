@@ -20,11 +20,10 @@ class Facade
 
     /**
      * sadly this facade has no option to retrieve annotations of testcases
-     * @return array
      */
-    protected function getTestCaseAttributes()
+    protected function getTestCaseAttributes(): array
     {
-        return array();
+        return [];
     }
 
     protected function toString(): string

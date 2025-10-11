@@ -5,24 +5,13 @@ use DateInterval;
 
 class TimeBasedTerminationConditionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var \Closure
-     */
-    private $time;
-    /**
-     * @var int
-     */
-    private $currentTime;
-    /**
-     * @var TimeBasedTerminationCondition
-     */
-    private $condition;
+    private \Closure $time;
+    private int $currentTime;
+    private \Eris\Quantifier\TimeBasedTerminationCondition $condition;
 
     protected function setUp(): void
     {
-        $this->time = function () {
-            return $this->currentTime;
-        };
+        $this->time = (fn() => $this->currentTime);
         $this->currentTime = 1300000000;
         $this->condition = new TimeBasedTerminationCondition(
             $this->time,
@@ -30,7 +19,7 @@ class TimeBasedTerminationConditionTest extends \PHPUnit\Framework\TestCase
         );
     }
     
-    public function testDefaultsToNotTerminateAtStartup()
+    public function testDefaultsToNotTerminateAtStartup(): void
     {
         $this->condition->startPropertyVerification();
         $this->assertFalse(
@@ -38,7 +27,7 @@ class TimeBasedTerminationConditionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWhenAnIntervalShorterThanTheMaximumIntervalIsElapsedChoosesNotToTerminate()
+    public function testWhenAnIntervalShorterThanTheMaximumIntervalIsElapsedChoosesNotToTerminate(): void
     {
         $this->condition->startPropertyVerification();
         $this->currentTime = 1300001000;
@@ -47,7 +36,7 @@ class TimeBasedTerminationConditionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWhenTheMaximumIntervalIsElapsedChoosesToTerminate()
+    public function testWhenTheMaximumIntervalIsElapsedChoosesToTerminate(): void
     {
         $this->condition->startPropertyVerification();
         $this->currentTime = 1300002000;

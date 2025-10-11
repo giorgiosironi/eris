@@ -7,14 +7,8 @@ use Eris\Random\RandSource;
 
 class DateGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $size;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
@@ -22,7 +16,7 @@ class DateGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testGenerateDateTimeObjectsInTheGivenInterval()
+    public function testGenerateDateTimeObjectsInTheGivenInterval(): void
     {
         $generator = new DateGenerator(
             new DateTime("2014-01-01T00:00:00"),
@@ -32,7 +26,7 @@ class DateGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('DateTime', $value->unbox());
     }
 
-    public function testDateTimeShrinkGeometrically()
+    public function testDateTimeShrinkGeometrically(): void
     {
         $generator = new DateGenerator(
             new DateTime("2014-01-01T00:00:00"),
@@ -47,7 +41,7 @@ class DateGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testTheLowerLimitIsTheFixedPointOfShrinking()
+    public function testTheLowerLimitIsTheFixedPointOfShrinking(): void
     {
         $generator = new DateGenerator(
             $lowerLimit = new DateTime("2014-01-01T00:00:00"),

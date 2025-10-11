@@ -16,9 +16,7 @@ class GeneratedValueTest extends \PHPUnit\Framework\TestCase
                 'derived-generator'
             ),
             $initialValue->map(
-                function ($value) {
-                    return $value * 2;
-                },
+                fn($value): int|float => $value * 2,
                 'derived-generator'
             )
         );
@@ -47,10 +45,10 @@ class GeneratedValueTest extends \PHPUnit\Framework\TestCase
             GeneratedValueSingle::fromJustValue(211),
             'map'
         );
-        static::assertIsString($generatedValue->__toString());
-        static::assertMatchesRegularExpression('/value.*422/', $generatedValue->__toString());
-        static::assertMatchesRegularExpression('/211/', $generatedValue->__toString());
-        static::assertMatchesRegularExpression('/generator.*map/', $generatedValue->__toString());
+        self::assertIsString($generatedValue->__toString());
+        self::assertMatchesRegularExpression('/value.*422/', $generatedValue->__toString());
+        self::assertMatchesRegularExpression('/211/', $generatedValue->__toString());
+        self::assertMatchesRegularExpression('/generator.*map/', $generatedValue->__toString());
     }
 
     public function testCanBeIteratedUponAsASingleOption(): void

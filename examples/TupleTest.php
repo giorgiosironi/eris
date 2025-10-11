@@ -6,7 +6,7 @@ class TupleTest extends \PHPUnit\Framework\TestCase
 {
     use Eris\TestTrait;
 
-    public function testConcatenationMaintainsLength()
+    public function testConcatenationMaintainsLength(): void
     {
         $this->forAll(
             Generators::tuple(
@@ -14,7 +14,7 @@ class TupleTest extends \PHPUnit\Framework\TestCase
                 Generators::choose(0, 9)
             )
         )
-            ->then(function ($tuple) {
+            ->then(function ($tuple): void {
                 $letter = $tuple[0];
                 $cipher = $tuple[1];
                 $this->assertEquals(

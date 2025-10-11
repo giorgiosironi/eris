@@ -27,12 +27,12 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 final class Generators
 {
-    public static function associative(array $generators)
+    public static function associative(array $generators): \Eris\Generator\AssociativeArrayGenerator
     {
         return new AssociativeArrayGenerator($generators);
     }
 
-    public static function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
+    public static function bind(Generator $innerGenerator, callable $outerGeneratorFactory): \Eris\Generator\BindGenerator
     {
         return new BindGenerator(
             $innerGenerator,
@@ -40,19 +40,15 @@ final class Generators
         );
     }
 
-    public static function bool()
+    public static function bool(): \Eris\Generator\BooleanGenerator
     {
         return new BooleanGenerator();
     }
 
     /**
      * Generates character in the ASCII 0-127 range.
-     *
-     * @param array $characterSets Only supported charset: "basic-latin"
-     * @param string $encoding Only supported encoding: "utf-8"
-     * @return Generator\CharacterGenerator
      */
-    public static function char(array $characterSets = ['basic-latin'], $encoding = 'utf-8')
+    public static function char(): \Eris\Generator\CharacterGenerator
     {
         return CharacterGenerator::ascii();
     }
@@ -60,10 +56,8 @@ final class Generators
     /**
      * Generates character in the ASCII 32-127 range, excluding non-printable ones
      * or modifiers such as CR, LF and Tab.
-     *
-     * @return Generator\CharacterGenerator
      */
-    public static function charPrintableAscii()
+    public static function charPrintableAscii(): \Eris\Generator\CharacterGenerator
     {
         return CharacterGenerator::printableAscii();
     }
@@ -76,25 +70,23 @@ final class Generators
      *
      * @param $x int One of the 2 boundaries of the range
      * @param $y int The other boundary of the range
-     * @return Generator\ChooseGenerator
      */
-    public static function choose($lowerLimit, $upperLimit)
+    public static function choose($lowerLimit, $upperLimit): \Eris\Generator\ChooseGenerator
     {
         return new ChooseGenerator($lowerLimit, $upperLimit);
     }
 
     /**
      * @param mixed $value the only value to generate
-     * @return ConstantGenerator
      */
-    public static function constant($value)
+    public static function constant($value): \Eris\Generator\ConstantGenerator
     {
         return ConstantGenerator::box($value);
     }
 
-    public static function date($lowerLimit = null, $upperLimit = null)
+    public static function date($lowerLimit = null, $upperLimit = null): \Eris\Generator\DateGenerator
     {
-        $box = function ($date) {
+        $box = function ($date): ?\DateTime {
             if ($date === null) {
                 return $date;
             }
@@ -112,29 +104,25 @@ final class Generators
         return new DateGenerator(
             $withDefault($box($lowerLimit), new \DateTime("@0")),
             // uses a maximum which is conservative
-            $withDefault($box($upperLimit), new \DateTime("@" . (pow(2, 31) - 1)))
+            $withDefault($box($upperLimit), new \DateTime("@" . (2 ** 31 - 1)))
         );
     }
 
-    public static function elements(/*$a, $b, ...*/)
+    public static function elements(/*$a, $b, ...*/): \Eris\Generator\ElementsGenerator
     {
         $arguments = func_get_args();
-        if (count($arguments) == 1) {
+        if (count($arguments) === 1) {
             return Generator\ElementsGenerator::fromArray($arguments[0]);
-        } else {
-            return Generator\ElementsGenerator::fromArray($arguments);
         }
+        return Generator\ElementsGenerator::fromArray($arguments);
     }
 
-    public static function float()
+    public static function float(): \Eris\Generator\FloatGenerator
     {
         return new FloatGenerator();
     }
 
-    /**
-     * @return FrequencyGenerator
-     */
-    public static function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
+    public static function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/): \Eris\Generator\FrequencyGenerator
     {
         return new FrequencyGenerator(func_get_args());
     }
@@ -143,7 +131,7 @@ final class Generators
      * Generates a positive or negative integer (with absolute value bounded by
      * the generation size).
      */
-    public static function int()
+    public static function int(): \Eris\Generator\IntegerGenerator
     {
         return new IntegerGenerator();
     }
@@ -151,39 +139,33 @@ final class Generators
     /**
      * Generates a positive integer (bounded by the generation size).
      */
-    public static function pos()
+    public static function pos(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeStrictlyPositive = function ($n) {
-            return abs($n) + 1;
-        };
+        $mustBeStrictlyPositive = (fn($n): float|int => abs($n) + 1);
         return new IntegerGenerator($mustBeStrictlyPositive);
     }
 
-    public static function nat()
+    public static function nat(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeNatural = function ($n) {
-            return abs($n);
-        };
+        $mustBeNatural = (fn($n): float|int => abs($n));
         return new IntegerGenerator($mustBeNatural);
     }
 
     /**
      * Generates a negative integer (bounded by the generation size).
      */
-    public static function neg()
+    public static function neg(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeStrictlyNegative = function ($n) {
-            return (-1) * (abs($n) + 1);
-        };
+        $mustBeStrictlyNegative = (fn($n): float|int => (-1) * (abs($n) + 1));
         return new IntegerGenerator($mustBeStrictlyNegative);
     }
 
-    public static function byte()
+    public static function byte(): \Eris\Generator\ChooseGenerator
     {
         return new ChooseGenerator(0, 255);
     }
 
-    public static function map(callable $function, Generator $generator)
+    public static function map(callable $function, Generator $generator): \Eris\Generator\MapGenerator
     {
         return new MapGenerator($function, $generator);
     }
@@ -193,10 +175,7 @@ final class Generators
         return NamesGenerator::defaultDataSet();
     }
 
-    /**
-     * @return OneOfGenerator
-     */
-    public static function oneOf(...$_generators)
+    public static function oneOf(...$_generators): \Eris\Generator\OneOfGenerator
     {
         return new OneOfGenerator(func_get_args());
     }
@@ -207,37 +186,34 @@ final class Generators
      * Please use {1,N} and {0,N} instead of + and *.
      *
      * @param string $expression
-     * @return Generator\RegexGenerator
      */
-    public static function regex($expression)
+    public static function regex($expression): \Eris\Generator\RegexGenerator
     {
         return new RegexGenerator($expression);
     }
 
-    public static function seq(Generator $singleElementGenerator)
+    public static function seq(Generator $singleElementGenerator): \Eris\Generator\SequenceGenerator
     {
         return new SequenceGenerator($singleElementGenerator);
     }
 
     /**
      * @param Generator $singleElementGenerator
-     * @return SetGenerator
      */
-    public static function set($singleElementGenerator)
+    public static function set($singleElementGenerator): \Eris\Generator\SetGenerator
     {
         return new SetGenerator($singleElementGenerator);
     }
 
-    public static function string()
+    public static function string(): \Eris\Generator\StringGenerator
     {
         return new StringGenerator();
     }
 
     /**
      * @param array $input
-     * @return SubsetGenerator
      */
-    public static function subset($input)
+    public static function subset($input): \Eris\Generator\SubsetGenerator
     {
         return new SubsetGenerator($input);
     }
@@ -253,9 +229,8 @@ final class Generators
 
     /**
      * @param callable|Constraint $filter
-     * @return SuchThatGenerator
      */
-    public static function suchThat($filter, Generator $generator, $maximumAttempts = 100)
+    public static function suchThat($filter, Generator $generator, $maximumAttempts = 100): \Eris\Generator\SuchThatGenerator
     {
         return new SuchThatGenerator($filter, $generator, $maximumAttempts);
     }
@@ -265,20 +240,15 @@ final class Generators
      * tuple(Generator, Generator, Generator...)
      * Or an array of generators:
      * tuple(array $generators)
-     * @return Generator\TupleGenerator
      */
-    public static function tuple()
+    public static function tuple(): \Eris\Generator\TupleGenerator
     {
         $arguments = func_get_args();
-        if (is_array($arguments[0])) {
-            $generators = $arguments[0];
-        } else {
-            $generators = $arguments;
-        }
+        $generators = is_array($arguments[0]) ? $arguments[0] : $arguments;
         return new TupleGenerator($generators);
     }
 
-    public static function vector($size, Generator $elementsGenerator)
+    public static function vector($size, Generator $elementsGenerator): \Eris\Generator\VectorGenerator
     {
         return new VectorGenerator($size, $elementsGenerator);
     }

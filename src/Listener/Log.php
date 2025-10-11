@@ -15,20 +15,14 @@ function log($file)
 
 class Log extends EmptyListener implements Listener
 {
-    private $file;
     private $fp;
-    private $time;
-    private $pid;
 
-    public function __construct($file, $time, $pid)
+    public function __construct(private $file, private $time, private $pid)
     {
-        $this->file = $file;
-        $this->fp = fopen($file, 'w');
-        $this->time = $time;
-        $this->pid = $pid;
+        $this->fp = fopen($this->file, 'w');
     }
 
-    public function newGeneration(array $generation, $iteration)
+    public function newGeneration(array $generation, $iteration): void
     {
         $this->log(sprintf(
             "iteration %d: %s",
@@ -40,12 +34,12 @@ class Log extends EmptyListener implements Listener
         ));
     }
 
-    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null)
+    public function endPropertyVerification($ordinaryEvaluations, $iterations, ?Exception $exception = null): void
     {
         fclose($this->fp);
     }
 
-    public function failure(array $generation, Exception $exception)
+    public function failure(array $generation, Exception $exception): void
     {
         $this->log(sprintf(
             "failure: %s. %s",
@@ -55,7 +49,7 @@ class Log extends EmptyListener implements Listener
         ));
     }
 
-    public function shrinking(array $generation)
+    public function shrinking(array $generation): void
     {
         $this->log(sprintf(
             "shrinking: %s",
@@ -64,7 +58,7 @@ class Log extends EmptyListener implements Listener
         ));
     }
 
-    private function log($text)
+    private function log(string $text): void
     {
         fwrite(
             $this->fp,

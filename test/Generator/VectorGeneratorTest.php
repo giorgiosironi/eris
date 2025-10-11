@@ -6,45 +6,24 @@ use Eris\Random\RandSource;
 
 class VectorGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var int
-     */
-    private $vectorSize;
-    /**
-     * @var int
-     */
-    private $size;
-    /**
-     * @var ChooseGenerator
-     */
-    private $elementGenerator;
-    /**
-     * @var VectorGenerator
-     */
-    private $vectorGenerator;
-    /**
-     * @var \Closure
-     */
-    private $sum;
-    /**
-     * @var RandomRange
-     */
-    private $rand;
+    private int $vectorSize;
+    private int $size;
+    private \Eris\Generator\ChooseGenerator $elementGenerator;
+    private \Eris\Generator\VectorGenerator $vectorGenerator;
+    private \Closure $sum;
+    private \Eris\Random\RandomRange $rand;
 
     protected function setUp(): void
     {
-        $this->vectorSize = rand(5, 10);
+        $this->vectorSize = random_int(5, 10);
         $this->size = 10;
         $this->elementGenerator = new ChooseGenerator(1, 10);
         $this->vectorGenerator = new VectorGenerator($this->vectorSize, $this->elementGenerator);
-        $this->sum = function ($acc, $item) {
-            $acc = $acc + $item;
-            return $acc;
-        };
+        $this->sum = (fn($acc, $item): float|int|array => $acc + $item);
         $this->rand = new RandomRange(new RandSource());
     }
 
-    public function testGeneratesVectorWithGivenSizeAndElementsFromGivenGenerator()
+    public function testGeneratesVectorWithGivenSizeAndElementsFromGivenGenerator(): void
     {
         $generator = $this->vectorGenerator;
         /** @var GeneratedValue $vector */
@@ -58,7 +37,7 @@ class VectorGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testShrinksElementsOfTheVector()
+    public function testShrinksElementsOfTheVector(): void
     {
         $generator = $this->vectorGenerator;
         $vector = $generator($this->size, $this->rand);
