@@ -1,5 +1,3 @@
-version: "3.8"
-
 # Start the dev container
 # $ docker-compose run php sh
 
