@@ -6,7 +6,7 @@ use Eris\Generator\TupleGenerator;
 use Eris\Shrinker\TimeLimit;
 
 /**
- * @private  this interface is not stable yet and may change in the future
+ * @private  this interface is internal and may change in future versions
  */
 interface Shrinker
 {

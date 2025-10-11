@@ -11,6 +11,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 ## [1.0.0] - 2024-12-07
 ### Added
 * Support for PHP 8.2, 8.3, 8.4
+* **Project maturity milestone**: Eris has reached version 1.0.0 and is now considered stable for production use. The API is stable and follows semantic versioning.
 ### Removed
 * Support for PHP < 8.1
 * Support for PHPUnit < 10

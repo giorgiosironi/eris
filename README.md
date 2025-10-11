@@ -25,8 +25,6 @@ You can run some of Eris example tests with `vendor/bin/phpunit vendor/giorgiosi
 
 Here is an [empty sample project](https://github.com/giorgiosironi/eris-example) installing Eris.
 
-Please note the project is in alpha stage and the API may change at any time.
-
 ## Example usage within PHPUnit
 
 This test tries to verify that natural numbers from 0 to 1000 are all smaller than 42. It's a failing test designed to show you an example of error message.
