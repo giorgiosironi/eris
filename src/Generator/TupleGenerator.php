@@ -35,12 +35,12 @@ class TupleGenerator implements Generator
     public function __invoke($size, RandomRange $rand)
     {
         $input = array_map(
-            fn($generator) => $generator($size, $rand),
+            fn ($generator) => $generator($size, $rand),
             $this->generators
         );
         return GeneratedValueSingle::fromValueAndInput(
             array_map(
-                fn($value) => $value->unbox(),
+                fn ($value) => $value->unbox(),
                 $input
             ),
             $input,
@@ -78,7 +78,7 @@ class TupleGenerator implements Generator
                 array_slice($generators, 1),
                 array_slice($inputSubset, 1)
             ),
-            fn($first, $second): array => array_merge($first, $second)
+            fn ($first, $second): array => array_merge($first, $second)
         );
     }
 

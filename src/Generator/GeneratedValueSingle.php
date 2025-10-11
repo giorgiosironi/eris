@@ -108,7 +108,7 @@ final class GeneratedValueSingle implements GeneratedValue, \Stringable // TODO?
     public function derivedIn($generatorName)
     {
         return $this->map(
-            fn($value) => $value,
+            fn ($value) => $value,
             $generatorName
         );
     }

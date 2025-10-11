@@ -58,7 +58,7 @@ class SetGenerator implements Generator
         unset($input[$indexOfElementToRemove]);
         $input = array_values($input);
         return GeneratedValueSingle::fromValueAndInput(
-            array_map(fn($element) => $element->unbox(), $input),
+            array_map(fn ($element) => $element->unbox(), $input),
             array_values($input),
             'set'
         );

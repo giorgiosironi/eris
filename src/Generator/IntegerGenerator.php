@@ -96,6 +96,6 @@ class IntegerGenerator implements Generator
 
     private function identity()
     {
-        return fn($n) => $n;
+        return fn ($n) => $n;
     }
 }

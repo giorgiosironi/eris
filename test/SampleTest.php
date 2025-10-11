@@ -10,7 +10,7 @@ class SampleTest extends \PHPUnit\Framework\TestCase
     {
         $times         = 100;
         $generatorSize = 100;
-        $generator     = Generators::suchThat(fn($n): bool => $n > 10, Generators::nat());
+        $generator     = Generators::suchThat(fn ($n): bool => $n > 10, Generators::nat());
         $sample        = $this->sample($generator, $times, $generatorSize);
         $this->assertNotEmpty(count($sample->collected()));
     }

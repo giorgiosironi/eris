@@ -10,7 +10,7 @@ class FixedTimeLimitTest extends \PHPUnit\Framework\TestCase
         $this->time = 1000000000;
         $limit = new FixedTimeLimit(
             30,
-            fn(): int => $this->time
+            fn (): int => $this->time
         );
         $limit->start();
 

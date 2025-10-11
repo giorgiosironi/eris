@@ -22,7 +22,7 @@ class NamesGenerator implements Generator
     {
         return new self(
             array_map(
-                fn($line): string => trim((string) $line, " \n"),
+                fn ($line): string => trim((string) $line, " \n"),
                 file(__DIR__ . "/first_names.txt")
             )
         );
@@ -67,13 +67,13 @@ class NamesGenerator implements Generator
 
     private function lengthLessThanOrEqualTo($size)
     {
-        return fn($name): bool => strlen((string) $name) <= $size;
+        return fn ($name): bool => strlen((string) $name) <= $size;
     }
 
     private function lengthSlightlyLessThan(int $size)
     {
         $lowerLength = $size - 1;
-        return fn($name): bool => strlen((string) $name) === $lowerLength;
+        return fn ($name): bool => strlen((string) $name) === $lowerLength;
     }
 
     /**
@@ -93,7 +93,7 @@ class NamesGenerator implements Generator
         $minimumDistance = min($distances);
         $candidatesWithEqualDistance = array_filter(
             $distances,
-            fn($distance): bool => $distance == $minimumDistance
+            fn ($distance): bool => $distance == $minimumDistance
         );
         return array_keys($candidatesWithEqualDistance)[0];
     }

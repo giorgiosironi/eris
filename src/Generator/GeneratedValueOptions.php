@@ -50,7 +50,7 @@ class GeneratedValueOptions implements GeneratedValue, \Stringable
     public function map(callable $callable, $generatorName): self
     {
         return new self(array_map(
-            fn($value) => $value->map($callable, $generatorName),
+            fn ($value) => $value->map($callable, $generatorName),
             $this->generatedValues
         ));
     }

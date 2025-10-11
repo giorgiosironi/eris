@@ -12,7 +12,7 @@ class MapTest extends \PHPUnit\Framework\TestCase
             Generators::vector(
                 3,
                 Generators::map(
-                    fn($n): int|float => $n * 2,
+                    fn ($n): int|float => $n * 2,
                     Generators::nat()
                 )
             )
@@ -31,7 +31,7 @@ class MapTest extends \PHPUnit\Framework\TestCase
     {
         $this->forAll(
             Generators::map(
-                fn($n): int|float => $n * 2,
+                fn ($n): int|float => $n * 2,
                 Generators::nat()
             )
         )
@@ -50,7 +50,7 @@ class MapTest extends \PHPUnit\Framework\TestCase
             Generators::vector(
                 3,
                 Generators::map(
-                    fn($n): int|float => $n * 2,
+                    fn ($n): int|float => $n * 2,
                     Generators::nat()
                 )
             )

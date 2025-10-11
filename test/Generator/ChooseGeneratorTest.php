@@ -58,7 +58,7 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
         }
         $this->assertGreaterThan(
             40,
-            count(array_filter($values, fn($n): bool => $n->unbox() > 0)),
+            count(array_filter($values, fn ($n): bool => $n->unbox() > 0)),
             "The positive numbers should be a vast majority given the interval [-10, 10000]"
         );
     }

@@ -11,7 +11,7 @@ class BindTest extends \PHPUnit\Framework\TestCase
         $this->forAll(
             Generators::bind(
                 Generators::vector(4, Generators::nat()),
-                fn($vector): \Eris\Generator\TupleGenerator => Generators::tuple(
+                fn ($vector): \Eris\Generator\TupleGenerator => Generators::tuple(
                     Generators::elements($vector),
                     Generators::constant($vector)
                 )

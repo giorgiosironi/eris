@@ -16,7 +16,7 @@ class GeneratedValueTest extends \PHPUnit\Framework\TestCase
                 'derived-generator'
             ),
             $initialValue->map(
-                fn($value): int|float => $value * 2,
+                fn ($value): int|float => $value * 2,
                 'derived-generator'
             )
         );

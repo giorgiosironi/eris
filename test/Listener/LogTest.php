@@ -14,7 +14,7 @@ class LogTest extends \PHPUnit\Framework\TestCase
     {
         $this->originalTimezone = date_default_timezone_get();
         $this->file = sys_get_temp_dir().'/eris-log-unit-test.log';
-        $this->time = (fn(): int => 1300000000);
+        $this->time = (fn (): int => 1300000000);
         $this->log = new Log($this->file, $this->time, 1234);
         date_default_timezone_set('UTC');
     }

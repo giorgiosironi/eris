@@ -11,7 +11,7 @@ class WhenTest extends \PHPUnit\Framework\TestCase
         $this->forAll(
             Generators::choose(0, 1000)
         )
-            ->when(fn($n): bool => $n > 42)
+            ->when(fn ($n): bool => $n > 42)
             ->then(function ($number): void {
                 $this->assertTrue(
                     $number > 42,
@@ -26,7 +26,7 @@ class WhenTest extends \PHPUnit\Framework\TestCase
             Generators::choose(0, 1000),
             Generators::choose(0, 1000)
         )
-            ->when(fn($first, $second): bool => $first > 42 && $second > 23)
+            ->when(fn ($first, $second): bool => $first > 42 && $second > 23)
             ->then(function ($first, $second): void {
                 $this->assertTrue(
                     $first + $second > 42 + 23,
@@ -116,7 +116,7 @@ class WhenTest extends \PHPUnit\Framework\TestCase
         $this->forAll(
             Generators::seq(Generators::elements(1, 2, 3))
         )
-            ->when(fn($seq): bool => count($seq) > 0)
+            ->when(fn ($seq): bool => count($seq) > 0)
             ->then(function ($seq): void {
                 $this->assertGreaterThan(0, count($seq));
             });

@@ -8,7 +8,7 @@ class GeneratedValueOptionsTest extends \PHPUnit\Framework\TestCase
     {
         $value = GeneratedValueSingle::fromJustValue(42);
         $options = new GeneratedValueOptions([$value]);
-        $double = (fn($n): int|float => $n * 2);
+        $double = (fn ($n): int|float => $n * 2);
         $this->assertEquals(
             new GeneratedValueOptions([$value->map($double, 'doubler')]),
             $options->map($double, 'doubler')
@@ -59,7 +59,7 @@ class GeneratedValueOptionsTest extends \PHPUnit\Framework\TestCase
             GeneratedValueSingle::fromJustValue('2'),
             GeneratedValueSingle::fromJustValue('3'),
         ]);
-        $product = $former->cartesianProduct($latter, fn($first, $second): string => $first . $second);
+        $product = $former->cartesianProduct($latter, fn ($first, $second): string => $first . $second);
         $this->assertEquals(6, count($product));
         foreach ($product as $value) {
             self::assertMatchesRegularExpression('/^[ab][123]$/', $value->unbox());

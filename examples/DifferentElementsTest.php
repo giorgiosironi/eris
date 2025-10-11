@@ -43,15 +43,15 @@ class DifferentElementsTest extends \PHPUnit\Framework\TestCase
             Type::B(),
             Type::C(),
         ];
-        $remove = (fn($array, $whatToRemove) => array_values(array_filter(
+        $remove = (fn ($array, $whatToRemove) => array_values(array_filter(
             $array,
-            fn($candidate): bool => $candidate != $whatToRemove
+            fn ($candidate): bool => $candidate != $whatToRemove
         )));
 
         $this
             ->forAll(Generators::bind(
                 call_user_func_array('Eris\Generator\elements', $allTypes),
-                fn($first): \Eris\Generator\TupleGenerator => Generators::tuple(
+                fn ($first): \Eris\Generator\TupleGenerator => Generators::tuple(
                     Generators::constant($first),
                     Generators::elements($remove($allTypes, $first))
                 )

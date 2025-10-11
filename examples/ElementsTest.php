@@ -48,7 +48,7 @@ class ElementsTest extends \PHPUnit\Framework\TestCase
         )
             ->then(function ($vector): void {
                 $sum = array_sum($vector);
-                $isEven = (fn($number): bool => $number % 2 === 0);
+                $isEven = (fn ($number): bool => $number % 2 === 0);
                 $this->assertTrue(
                     $isEven($sum),
                     "$sum is not even, but it's the sum of the vector " . var_export($vector, true)

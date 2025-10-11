@@ -13,7 +13,7 @@ class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
             ->forAll(
                 Generators::choose(0, 100)
             )
-            ->when(fn($n): bool => $n > 90)
+            ->when(fn ($n): bool => $n > 90)
             ->then(function ($number): void {
                 $this->assertTrue($number * 2 > 90 * 2);
             });
@@ -26,7 +26,7 @@ class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
             ->forAll(
                 Generators::choose(0, 100)
             )
-            ->when(fn($n): bool => $n > 90)
+            ->when(fn ($n): bool => $n > 90)
             ->then(function ($number): void {
                 $this->assertTrue($number * 2 > 90 * 2);
             });
@@ -39,7 +39,7 @@ class MinimumEvaluationsTest extends \PHPUnit\Framework\TestCase
             ->forAll(
                 Generators::choose(0, 100)
             )
-            ->when(fn($n): bool => $n > 90)
+            ->when(fn ($n): bool => $n > 90)
             ->then(function ($number): void {
                 $this->assertTrue($number * 2 > 90 * 2);
             });

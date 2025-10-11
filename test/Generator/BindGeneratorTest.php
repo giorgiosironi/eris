@@ -20,7 +20,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new BindGenerator(
             // TODO: order of parameters should be consistent with map, or not?
             ConstantGenerator::box(4),
-            fn($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n, $n + 10)
+            fn ($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n, $n + 10)
         );
         self::assertIsInt(
             $generator->__invoke($this->size, $this->rand)->unbox()
@@ -31,7 +31,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
     {
         $generator = new BindGenerator(
             new ChooseGenerator(0, 5),
-            fn($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n, $n + 10)
+            fn ($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n, $n + 10)
         );
         $value = $generator->__invoke($this->size, $this->rand);
         for ($i = 0; $i < 20; $i++) {
@@ -48,15 +48,15 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
         $firstGenerator = new BindGenerator(
             new BindGenerator(
                 new ChooseGenerator(0, 5),
-                fn($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n * 10, $n * 10 + 1)
+                fn ($n): \Eris\Generator\ChooseGenerator => new ChooseGenerator($n * 10, $n * 10 + 1)
             ),
-            fn($m): \Eris\Generator\VectorGenerator => new VectorGenerator($m, new IntegerGenerator())
+            fn ($m): \Eris\Generator\VectorGenerator => new VectorGenerator($m, new IntegerGenerator())
         );
         $secondGenerator = new BindGenerator(
             new ChooseGenerator(0, 5),
-            fn($n): \Eris\Generator\BindGenerator => new BindGenerator(
+            fn ($n): \Eris\Generator\BindGenerator => new BindGenerator(
                 new ChooseGenerator($n * 10, $n * 10 + 1),
-                fn($m): \Eris\Generator\VectorGenerator => new VectorGenerator($m, new IntegerGenerator())
+                fn ($m): \Eris\Generator\VectorGenerator => new VectorGenerator($m, new IntegerGenerator())
             )
         );
         for ($i = 0; $i < 100; $i++) {
@@ -69,7 +69,7 @@ class BindGeneratorTest extends \PHPUnit\Framework\TestCase
     {
         $bindGenerator = new BindGenerator(
             new ChooseGenerator(0, 5),
-            fn($n): \Eris\Generator\TupleGenerator => new TupleGenerator([$n])
+            fn ($n): \Eris\Generator\TupleGenerator => new TupleGenerator([$n])
         );
         $generatedValue = $bindGenerator->__invoke($this->size, $this->rand);
         $firstShrunkValue = $bindGenerator->shrink($generatedValue);

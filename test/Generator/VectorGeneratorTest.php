@@ -19,7 +19,7 @@ class VectorGeneratorTest extends \PHPUnit\Framework\TestCase
         $this->size = 10;
         $this->elementGenerator = new ChooseGenerator(1, 10);
         $this->vectorGenerator = new VectorGenerator($this->vectorSize, $this->elementGenerator);
-        $this->sum = (fn($acc, $item): float|int|array => $acc + $item);
+        $this->sum = (fn ($acc, $item): float|int|array => $acc + $item);
         $this->rand = new RandomRange(new RandSource());
     }
 

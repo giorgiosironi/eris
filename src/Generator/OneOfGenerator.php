@@ -42,7 +42,7 @@ class OneOfGenerator implements Generator
     private function allWithSameFrequency($generators): array
     {
         return array_map(
-            fn($generator): array => [1, $generator],
+            fn ($generator): array => [1, $generator],
             $generators
         );
     }

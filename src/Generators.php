@@ -141,13 +141,13 @@ final class Generators
      */
     public static function pos(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeStrictlyPositive = (fn($n): float|int => abs($n) + 1);
+        $mustBeStrictlyPositive = (fn ($n): float|int => abs($n) + 1);
         return new IntegerGenerator($mustBeStrictlyPositive);
     }
 
     public static function nat(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeNatural = (fn($n): float|int => abs($n));
+        $mustBeNatural = (fn ($n): float|int => abs($n));
         return new IntegerGenerator($mustBeNatural);
     }
 
@@ -156,7 +156,7 @@ final class Generators
      */
     public static function neg(): \Eris\Generator\IntegerGenerator
     {
-        $mustBeStrictlyNegative = (fn($n): float|int => (-1) * (abs($n) + 1));
+        $mustBeStrictlyNegative = (fn ($n): float|int => (-1) * (abs($n) + 1));
         return new IntegerGenerator($mustBeStrictlyNegative);
     }
 

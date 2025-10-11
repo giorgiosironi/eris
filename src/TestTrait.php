@@ -79,7 +79,7 @@ trait TestTrait
         $this->seedingRandomNumberGeneration();
         $this->listeners = array_filter(
             $this->listeners,
-            fn($listener): bool => !($listener instanceof MinimumEvaluations)
+            fn ($listener): bool => !($listener instanceof MinimumEvaluations)
         );
         $tags = $this->getTestCaseAttributes();
         $this->withRand($this->getAttributeValue($tags, ErisMethod::class, 'rand', 'strval'));
@@ -157,7 +157,7 @@ trait TestTrait
     {
         $this->listeners = array_filter(
             $this->listeners,
-            fn($listener): bool => !($listener instanceof $className)
+            fn ($listener): bool => !($listener instanceof $className)
         );
     }
 

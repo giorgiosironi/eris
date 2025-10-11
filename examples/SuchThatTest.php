@@ -14,7 +14,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
                 Generators::vector(
                     5,
                     Generators::suchThat(
-                        fn($n): bool => $n > 42,
+                        fn ($n): bool => $n > 42,
                         Generators::choose(0, 1000)
                     )
                 )
@@ -29,7 +29,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
                 Generators::vector(
                     5,
                     Generators::filter(
-                        fn($n): bool => $n > 42,
+                        fn ($n): bool => $n > 42,
                         Generators::choose(0, 1000)
                     )
                 )
@@ -62,7 +62,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
         $this
             ->forAll(
                 Generators::suchThat(
-                    fn($n): bool => $n > 42,
+                    fn ($n): bool => $n > 42,
                     Generators::choose(0, 1000)
                 )
             )
@@ -74,7 +74,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
         $this
             ->forAll(
                 Generators::suchThat(
-                    fn($n): bool => $n != 42,
+                    fn ($n): bool => $n != 42,
                     Generators::choose(0, 1000)
                 )
             )
@@ -86,7 +86,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
         $this
             ->forAll(
                 Generators::suchThat(
-                    fn(array $ints): bool => count($ints) > 0,
+                    fn (array $ints): bool => count($ints) > 0,
                     Generators::seq(Generators::int())
                 )
             )

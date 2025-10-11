@@ -23,7 +23,7 @@ class ShrinkingTest extends \PHPUnit\Framework\TestCase
         $this->forAll(
             Generators::choose(0, 20)
         )
-            ->when(fn($number): bool => $number > 10)
+            ->when(fn ($number): bool => $number > 10)
             ->then(function ($number): void {
                 $this->assertTrue($number % 29 === 0, "The number $number is not multiple of 29");
             });

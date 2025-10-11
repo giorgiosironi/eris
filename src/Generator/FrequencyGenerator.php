@@ -103,7 +103,7 @@ class FrequencyGenerator implements Generator
     private function frequenciesFrom($generators): array
     {
         return array_map(
-            fn(array $generatorWithFrequency) => $generatorWithFrequency['frequency'],
+            fn (array $generatorWithFrequency) => $generatorWithFrequency['frequency'],
             $generators
         );
     }

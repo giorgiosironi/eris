@@ -11,7 +11,7 @@ class TimeBasedTerminationConditionTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->time = (fn() => $this->currentTime);
+        $this->time = (fn () => $this->currentTime);
         $this->currentTime = 1300000000;
         $this->condition = new TimeBasedTerminationCondition(
             $this->time,

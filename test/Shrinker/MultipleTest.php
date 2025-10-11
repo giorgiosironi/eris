@@ -62,7 +62,7 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
     private function verifyAssertionFailure(Exception $e, int $startingPoint): void
     {
         $this->assertEquals("Failed asserting that 5001 is equal to 5000 or is less than 5000.", $e->getMessage());
-        $allValues = array_map(fn($generatedValue) => $generatedValue->unbox(), $this->attempts);
+        $allValues = array_map(fn ($generatedValue) => $generatedValue->unbox(), $this->attempts);
         $linearShrinkingAttempts = $startingPoint - 5000;
         $this->assertLessThan(0.2 * $linearShrinkingAttempts, count($allValues));
     }

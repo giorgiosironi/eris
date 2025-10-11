@@ -136,7 +136,7 @@ class ForAll
                         $shrinking = $this->shrinkerFactory->$shrinkerFactoryMethod($this->generators, $assertion);
                         // MAYBE: put into ShrinkerFactory?
                         $shrinking
-                            ->addGoodShrinkCondition(fn(GeneratedValueSingle $generatedValues) => $this->antecedentsAreSatisfied($generatedValues->unbox()))
+                            ->addGoodShrinkCondition(fn (GeneratedValueSingle $generatedValues) => $this->antecedentsAreSatisfied($generatedValues->unbox()))
                             ->onAttempt(function (GeneratedValueSingle $generatedValues): void {
                                 $this->notifyListeners('shrinking', $generatedValues->unbox());
                             })

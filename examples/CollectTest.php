@@ -38,7 +38,7 @@ class CollectTest extends \PHPUnit\Framework\TestCase
                 Generators::seq(Generators::nat())
             )
             ->withMaxSize(10)
-            ->hook(Listeners::collectFrequencies(fn($array): int => count($array)))
+            ->hook(Listeners::collectFrequencies(fn ($array): int => count($array)))
             ->then(function ($array): void {
                 $this->assertEquals(count($array), count(array_reverse($array)));
             });
