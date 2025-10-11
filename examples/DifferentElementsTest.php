@@ -9,7 +9,7 @@ class Type
     const TYPE_B = 2;
     const TYPE_C = 3;
 
-    private function __construct()
+    private function __construct(private readonly int $type)
     {
     }
 
@@ -50,7 +50,7 @@ class DifferentElementsTest extends \PHPUnit\Framework\TestCase
 
         $this
             ->forAll(Generators::bind(
-                call_user_func_array('Eris\Generator\elements', $allTypes),
+                Generators::elements($allTypes),
                 fn ($first): \Eris\Generator\TupleGenerator => Generators::tuple(
                     Generators::constant($first),
                     Generators::elements($remove($allTypes, $first))
