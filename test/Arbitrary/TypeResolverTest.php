@@ -2,6 +2,7 @@
 
 namespace Eris\Arbitrary;
 
+use Eris\Arbitrary\ArrayOf;
 use Eris\Arbitrary\Fixtures\Color;
 use Eris\Arbitrary\Fixtures\Priority;
 use Eris\Arbitrary\Fixtures\Status;
@@ -12,6 +13,7 @@ use Eris\Generator\MapGenerator;
 use Eris\Generator\FloatGenerator;
 use Eris\Generator\FrequencyGenerator;
 use Eris\Generator\IntegerGenerator;
+use Eris\Generator\SequenceGenerator;
 use Eris\Generator\StringGenerator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -94,11 +96,29 @@ class TypeResolverTest extends TestCase
         $this->resolver->resolveProperty($this->propertyOf('untyped'));
     }
 
-    public function testThrowsForArrayType(): void
+    public function testThrowsForArrayWithoutArrayOfAttribute(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('array');
         $this->resolver->resolveProperty($this->propertyOf('array'));
+    }
+
+    public function testResolvesArrayWithArrayOfAttribute(): void
+    {
+        $generator = $this->resolver->resolveProperty($this->propertyOf('intArray'));
+        $this->assertInstanceOf(SequenceGenerator::class, $generator);
+    }
+
+    public function testResolvesArrayOfClassType(): void
+    {
+        $generator = $this->resolver->resolveProperty($this->propertyOf('nestedArray'));
+        $this->assertInstanceOf(SequenceGenerator::class, $generator);
+    }
+
+    public function testResolvesBoundedArrayWithBindGenerator(): void
+    {
+        $generator = $this->resolver->resolveProperty($this->propertyOf('boundedArray'));
+        $this->assertInstanceOf(\Eris\Generator\BindGenerator::class, $generator);
     }
 
     public function testThrowsForMixedType(): void
@@ -216,6 +236,15 @@ class TypeResolverTestFixture
 
     #[Choose(10, 20)]
     public ?int $nullableAttributed;
+
+    #[ArrayOf('int')]
+    public array $intArray;
+
+    #[ArrayOf(TypeResolverNestedFixture::class)]
+    public array $nestedArray;
+
+    #[ArrayOf('string', min: 1, max: 3)]
+    public array $boundedArray;
 }
 
 abstract class TypeResolverAbstractFixture

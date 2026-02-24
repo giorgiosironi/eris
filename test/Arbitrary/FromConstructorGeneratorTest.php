@@ -2,6 +2,7 @@
 
 namespace Eris\Arbitrary;
 
+use Eris\Arbitrary\ArrayOf;
 use Eris\Arbitrary\Fixtures\Order;
 use Eris\Arbitrary\Fixtures\OrderWithAttributes;
 use Eris\Arbitrary\Fixtures\OrderWithNullable;
@@ -91,6 +92,20 @@ class FromConstructorGeneratorTest extends TestCase
         $this->assertLessThanOrEqual(10, $value->quantity);
     }
 
+    public function testConstructorWithArrayParameter(): void
+    {
+        $generator = new FromConstructorGenerator(ConstructorWithArray::class);
+        $generated = $generator($this->size, $this->rand);
+
+        $value = $generated->unbox();
+        $this->assertInstanceOf(ConstructorWithArray::class, $value);
+        $this->assertIsString($value->name);
+        $this->assertIsArray($value->values);
+        foreach ($value->values as $v) {
+            $this->assertIsInt($v);
+        }
+    }
+
     public function testConstructorWithNullableParameters(): void
     {
         $generator = new FromConstructorGenerator(OrderWithNullable::class);
@@ -117,4 +132,14 @@ class FromConstructorGeneratorTest extends TestCase
 class NoConstructor
 {
     public string $value;
+}
+
+class ConstructorWithArray
+{
+    public function __construct(
+        public readonly string $name,
+        #[ArrayOf('int')]
+        public readonly array $values,
+    ) {
+    }
 }

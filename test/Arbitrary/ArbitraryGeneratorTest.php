@@ -17,7 +17,9 @@ use Eris\Arbitrary\Fixtures\WithDateTimeImmutable;
 use Eris\Arbitrary\Fixtures\WithBackedEnums;
 use Eris\Arbitrary\Fixtures\WithEnum;
 use Eris\Arbitrary\Fixtures\WithExplicitTypeAttributes;
+use Eris\Arbitrary\Fixtures\WithArrays;
 use Eris\Arbitrary\Fixtures\WithNullable;
+use Eris\Arbitrary\Fixtures\WithObjectArray;
 use Eris\Generator\ChooseGenerator;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generators;
@@ -207,5 +209,51 @@ class ArbitraryGeneratorTest extends TestCase
         $value = $generated->unbox();
         $this->assertInstanceOf(WithDateTimeImmutable::class, $value);
         $this->assertInstanceOf(\DateTimeImmutable::class, $value->date);
+    }
+
+    public function testGeneratesWithPrimitiveArrayProperty(): void
+    {
+        $generator = new ArbitraryGenerator(WithArrays::class);
+        $generated = $generator($this->size, $this->rand);
+
+        $value = $generated->unbox();
+        $this->assertInstanceOf(WithArrays::class, $value);
+        $this->assertIsArray($value->numbers);
+        $this->assertIsArray($value->names);
+        foreach ($value->numbers as $number) {
+            $this->assertIsInt($number);
+        }
+        foreach ($value->names as $name) {
+            $this->assertIsString($name);
+        }
+    }
+
+    public function testGeneratesWithBoundedArrayProperty(): void
+    {
+        $generator = new ArbitraryGenerator(WithArrays::class);
+
+        for ($i = 0; $i < 50; $i++) {
+            $generated = $generator($this->size, $this->rand);
+            $value = $generated->unbox();
+            $this->assertGreaterThanOrEqual(2, count($value->bounded));
+            $this->assertLessThanOrEqual(5, count($value->bounded));
+            foreach ($value->bounded as $item) {
+                $this->assertIsInt($item);
+            }
+        }
+    }
+
+    public function testGeneratesWithObjectArrayProperty(): void
+    {
+        $generator = new ArbitraryGenerator(WithObjectArray::class);
+        $generated = $generator($this->size, $this->rand);
+
+        $value = $generated->unbox();
+        $this->assertInstanceOf(WithObjectArray::class, $value);
+        $this->assertIsString($value->id);
+        $this->assertIsArray($value->items);
+        foreach ($value->items as $item) {
+            $this->assertInstanceOf(SimpleValue::class, $item);
+        }
     }
 }

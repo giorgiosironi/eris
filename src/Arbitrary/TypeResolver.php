@@ -11,7 +11,11 @@ use Eris\Generator\FloatGenerator;
 use Eris\Generator\FrequencyGenerator;
 use Eris\Generator\IntegerGenerator;
 use Eris\Generator\MapGenerator;
+use Eris\Generator\BindGenerator;
+use Eris\Generator\ChooseGenerator;
+use Eris\Generator\SequenceGenerator;
 use Eris\Generator\StringGenerator;
+use Eris\Generator\VectorGenerator;
 use InvalidArgumentException;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -73,15 +77,24 @@ class TypeResolver
             throw new InvalidArgumentException("Cannot resolve generator for union/intersection type on '{$name}'");
         }
 
-        $generator = $this->generatorForNamedType($type, $name);
+        $generator = $this->generatorForNamedType($type, $attributes, $name);
 
         return $this->wrapNullable($type, $attributes, $generator);
     }
 
-    private function generatorForNamedType(ReflectionNamedType $type, string $name): Generator
+    private function generatorForNamedType(ReflectionNamedType $type, array $attributes, string $name): Generator
     {
         $typeName = $type->getName();
 
+        if ($typeName === 'array') {
+            return $this->resolveArrayType($attributes, $name);
+        }
+
+        return $this->generatorForTypeName($typeName, $name);
+    }
+
+    private function generatorForTypeName(string $typeName, string $name): Generator
+    {
         return match ($typeName) {
             'int' => new IntegerGenerator(),
             'string' => new StringGenerator(),
@@ -91,9 +104,33 @@ class TypeResolver
         };
     }
 
+    /**
+     * @param \ReflectionAttribute[] $attributes
+     */
+    private function resolveArrayType(array $attributes, string $name): Generator
+    {
+        foreach ($attributes as $attribute) {
+            $instance = $attribute->newInstance();
+            if ($instance instanceof ArrayOf) {
+                $elementGenerator = $this->generatorForTypeName($instance->type, $name);
+                if ($instance->min !== null || $instance->max !== null) {
+                    $min = $instance->min ?? 0;
+                    $max = $instance->max ?? $min;
+                    return new BindGenerator(
+                        new ChooseGenerator($min, $max),
+                        fn(int $length) => new VectorGenerator($length, $elementGenerator),
+                    );
+                }
+                return new SequenceGenerator($elementGenerator);
+            }
+        }
+
+        throw new InvalidArgumentException("Cannot resolve generator for type 'array' on '{$name}' — use #[ArrayOf] to specify the element type");
+    }
+
     private function resolveClassType(string $typeName, string $name): Generator
     {
-        if ($typeName === 'array' || $typeName === 'mixed') {
+        if ($typeName === 'mixed') {
             throw new InvalidArgumentException("Cannot resolve generator for type '{$typeName}' on '{$name}'");
         }
 
