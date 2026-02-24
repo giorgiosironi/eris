@@ -2,6 +2,8 @@
 
 namespace Eris;
 
+use Eris\Arbitrary\ArbitraryGenerator;
+use Eris\Arbitrary\FromConstructorGenerator;
 use Eris\Generator\AssociativeArrayGenerator;
 use Eris\Generator\BindGenerator;
 use Eris\Generator\BooleanGenerator;
@@ -281,5 +283,23 @@ final class Generators
     public static function vector($size, Generator $elementsGenerator)
     {
         return new VectorGenerator($size, $elementsGenerator);
+    }
+
+    /**
+     * @param class-string $className
+     * @param array<string, Generator> $overrides
+     */
+    public static function arbitrary(string $className, array $overrides = []): ArbitraryGenerator
+    {
+        return new ArbitraryGenerator($className, $overrides);
+    }
+
+    /**
+     * @param class-string $className
+     * @param array<string, Generator> $overrides
+     */
+    public static function fromConstructor(string $className, array $overrides = []): FromConstructorGenerator
+    {
+        return new FromConstructorGenerator($className, $overrides);
     }
 }
