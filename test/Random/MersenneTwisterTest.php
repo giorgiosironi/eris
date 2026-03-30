@@ -5,11 +5,29 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
 {
+    private static string $pythonBin;
+
     public function setUp(): void
     {
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('MersenneTwister class does not support HHVM');
         }
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        // Prefer python3, fall back to python
+        exec('python3 --version 2>&1', $output, $code);
+        if ($code === 0) {
+            self::$pythonBin = 'python3';
+            return;
+        }
+        exec('python --version 2>&1', $output, $code);
+        if ($code === 0) {
+            self::$pythonBin = 'python';
+            return;
+        }
+        self::markTestSkipped('No python interpreter available');
     }
 
     public static function sequences()
@@ -31,7 +49,7 @@ class MersenneTwisterTest extends \PHPUnit\Framework\TestCase
         for ($i = 0; $i < $sample; $i++) {
             $numbers[$i] = $twister->extractNumber();
         }
-        $oracle = "python " . __DIR__ . "/mt.py $seed $sample";
+        $oracle = self::$pythonBin . " " . __DIR__ . "/mt.py $seed $sample";
         exec($oracle, $oracleOutput, $returnCode);
         $this->assertEquals(0, $returnCode);
         $this->assertEquals($oracleOutput, $numbers);
