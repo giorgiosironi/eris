@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Added
+* Support for PHPUnit 11, 12, and 13
 ### Changed
 * Updated PHPStan to v2
 * Updated Rector to v2
+* Updated phpunit.xml schema reference from 8.0 to 10.5
 ### Removed
 * Support for `icomefromthenet/reverse-regex` dependency. Only `ilario-pierbattista/reverse-regex` is now supported for the `regex()` generator (other forks are welcome).
 

@@ -48,7 +48,9 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
                 Generators::vector(
                     5,
                     Generators::suchThat(
-                        $this->isType('int'),
+                        function ($v) {
+                            return is_int($v);
+                        },
                         Generators::oneOf(
                             Generators::choose(0, 1000),
                             Generators::string()
