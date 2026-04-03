@@ -28,6 +28,7 @@ Eris is the `Greek goddess`_ of chaos, strife, and discord. It tries to break yo
    generators/scalar
    generators/collections
    generators/composite
+   generators/arbitrary
    generators/domain
    limits
    reproducibility
