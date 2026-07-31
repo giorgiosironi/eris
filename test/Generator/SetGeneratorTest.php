@@ -3,6 +3,7 @@ namespace Eris\Generator;
 
 use Eris\Random\RandomRange;
 use Eris\Random\RandSource;
+use Eris\Random\Source;
 
 class SetGeneratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -59,6 +60,34 @@ class SetGeneratorTest extends \PHPUnit\Framework\TestCase
             $generated = $generator($size, $this->rand)->unbox();
             $this->assertNoRepeatedElements($generated);
         }
+    }
+
+    public function testUsesTheConfiguredRandomSourceToChooseTheSetSize()
+    {
+        $source = new class implements Source {
+            public $calls = 0;
+
+            public function seed($seed)
+            {
+                return $this;
+            }
+
+            public function extractNumber()
+            {
+                $this->calls++;
+                return 0;
+            }
+
+            public function max()
+            {
+                return 100;
+            }
+        };
+        $generator = new SetGenerator(new ConstantGenerator(42));
+
+        $generator(5, new RandomRange($source));
+
+        $this->assertSame(1, $source->calls);
     }
 
     public function testStopsBeforeInfiniteLoopsInTryingToExtractNewElementsToPutInTheSt()

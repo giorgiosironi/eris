@@ -29,7 +29,7 @@ class SetGenerator implements Generator
 
     public function __invoke($size, RandomRange $rand)
     {
-        $setSize = rand(0, $size);
+        $setSize = $rand->rand(0, $size);
         $set = [];
         $input = [];
         $trials = 0;
