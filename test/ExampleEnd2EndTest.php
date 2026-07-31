@@ -117,6 +117,11 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
             (string) $this->theTest('testNumberOfIterationsCanBeConfigured')->attributes()['assertions'],
             "We configured a small number of iterations for this test, but a different number were performed"
         );
+        $this->assertEquals(
+            1,
+            (string) $this->theTest('testSingleIterationCanBeConfigured')->attributes()['assertions'],
+            "We configured a single iteration for this test, but a different number were performed"
+        );
         $this->assertLessThan(
             100,
             (string) $this->theTest('testTimeIntervalToRunForCanBeConfiguredAndAVeryLowNumberOfIterationsCanBeIgnored')->attributes()['assertions'],
