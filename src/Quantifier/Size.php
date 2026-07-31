@@ -72,6 +72,10 @@ class Size implements Countable
 
     public function limit($maximumNumber)
     {
+        if ($maximumNumber === 1) {
+            return new self([$this->at(0)]);
+        }
+
         $uniformSample = [];
         $factor = count($this->list) / ($maximumNumber - 1);
         for ($i = 0; $i < $maximumNumber; $i++) {
