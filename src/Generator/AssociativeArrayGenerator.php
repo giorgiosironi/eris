@@ -6,7 +6,10 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
- * @return AssociativeArrayGenerator
+ * @template K of array-key
+ * @template V
+ * @param array<K, Generator<V>|V> $generators
+ * @return AssociativeArrayGenerator<K, V>
  */
 function associative(array $generators)
 {
@@ -14,13 +17,18 @@ function associative(array $generators)
 }
 
 /**
- * @template-implements Generator<array<string, mixed>>
+ * @template-covariant K of array-key
+ * @template-covariant V
+ * @template-implements Generator<array<K, V>>
  */
 class AssociativeArrayGenerator implements Generator
 {
     private $generators;
     private $tupleGenerator;
 
+    /**
+     * @param array<K, Generator<V>|V> $generators
+     */
     public function __construct(array $generators)
     {
         $this->generators = $generators;

@@ -16,6 +16,8 @@
         <directory name="examples" />
         <ignoreFiles>
             <directory name="vendor" />
+            <!-- PHPStan type inference tests, see test/Types/generators.php -->
+            <directory name="test/Types" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

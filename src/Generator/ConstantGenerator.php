@@ -6,8 +6,9 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
- * @param mixed $value  the only value to generate
- * @return ConstantGenerator
+ * @template T
+ * @param T $value  the only value to generate
+ * @return ConstantGenerator<T>
  */
 function constant($value)
 {
@@ -15,18 +16,26 @@ function constant($value)
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<T>
  */
 class ConstantGenerator implements Generator
 {
     private $value;
 
+    /**
+     * @template U
+     * @param U $value
+     * @return self<U>
+     */
     public static function box($value)
     {
         return new self($value);
     }
 
+    /**
+     * @param T $value
+     */
     public function __construct($value)
     {
         $this->value = $value;

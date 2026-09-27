@@ -8,6 +8,8 @@ use Eris\Random\RandomRange;
 /**
  * Generates a positive or negative integer (with absolute value bounded by
  * the generation size).
+ *
+ * @return IntegerGenerator<int>
  */
 function int()
 {
@@ -16,12 +18,17 @@ function int()
 
 /**
  * Generates a positive integer (bounded by the generation size).
+ *
+ * @return IntegerGenerator<int<1, max>>
  */
 function pos()
 {
     return Generators::pos();
 }
 
+/**
+ * @return IntegerGenerator<int<0, max>>
+ */
 function nat()
 {
     return Generators::nat();
@@ -29,24 +36,34 @@ function nat()
 
 /**
  * Generates a negative integer (bounded by the generation size).
+ *
+ * @return IntegerGenerator<int<min, -1>>
  */
 function neg()
 {
     return Generators::neg();
 }
 
+/**
+ * @return ChooseGenerator
+ */
 function byte()
 {
     return Generators::byte();
 }
 
 /**
- * @template-implements Generator<int>
+ * @template-covariant T of int
+ * @phpstan-template-covariant T of int = int
+ * @template-implements Generator<T>
  */
 class IntegerGenerator implements Generator
 {
     private $mapFn;
 
+    /**
+     * @param (callable(int): T)|null $mapFn
+     */
     public function __construct(?callable $mapFn = null)
     {
         if (is_null($mapFn)) {

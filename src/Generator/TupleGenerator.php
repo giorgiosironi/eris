@@ -10,24 +10,33 @@ use Eris\Random\RandomRange;
  * tuple(Generator, Generator, Generator...)
  * Or an array of generators:
  * tuple(array $generators)
- * @return Generator\TupleGenerator
+ *
+ * @phpstan-template T
+ * @param mixed $generatorOrGenerators
+ * @param mixed ...$moreGenerators
+ * @phpstan-param array<Generator<T>|T>|Generator<T>|T $generatorOrGenerators
+ * @phpstan-param Generator<T>|T ...$moreGenerators
+ * @return TupleGenerator<mixed>
+ * @psalm-return TupleGenerator<mixed>
+ * @phpstan-return TupleGenerator<T>
  */
-function tuple()
+function tuple($generatorOrGenerators = [], ...$moreGenerators)
 {
-    return call_user_func_array(
-        [Generators::class, 'tuple'],
-        func_get_args()
-    );
+    return Generators::tuple($generatorOrGenerators, ...$moreGenerators);
 }
 
 /**
- * @template-implements Generator<list<mixed>>
+ * @template-covariant T
+ * @template-implements Generator<list<T>>
  */
 class TupleGenerator implements Generator
 {
     private $generators;
     private $numberOfGenerators;
 
+    /**
+     * @param array<Generator<T>|T> $generators
+     */
     public function __construct(array $generators)
     {
         $this->generators = ensureAreAllGenerators($generators);

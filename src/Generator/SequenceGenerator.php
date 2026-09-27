@@ -5,19 +5,27 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
+/**
+ * @template T
+ * @param Generator<T> $singleElementGenerator
+ * @return SequenceGenerator<T>
+ */
 function seq(Generator $singleElementGenerator)
 {
     return Generators::seq($singleElementGenerator);
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<list<T>>
  */
 class SequenceGenerator implements Generator
 {
     private $singleElementGenerator;
 
+    /**
+     * @param Generator<T> $singleElementGenerator
+     */
     public function __construct(Generator $singleElementGenerator)
     {
         $this->singleElementGenerator = $singleElementGenerator;

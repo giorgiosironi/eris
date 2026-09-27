@@ -6,8 +6,9 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
- * @param Generator $singleElementGenerator
- * @return SetGenerator
+ * @template T
+ * @param Generator<T> $singleElementGenerator
+ * @return SetGenerator<T>
  */
 function set($singleElementGenerator)
 {
@@ -15,13 +16,16 @@ function set($singleElementGenerator)
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<list<T>>
  */
 class SetGenerator implements Generator
 {
     private $singleElementGenerator;
 
+    /**
+     * @param Generator<T> $singleElementGenerator
+     */
     public function __construct(Generator $singleElementGenerator)
     {
         $this->singleElementGenerator = $singleElementGenerator;

@@ -5,13 +5,19 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
+/**
+ * @template T
+ * @param int $size
+ * @param Generator<T> $elementsGenerator
+ * @return VectorGenerator<T>
+ */
 function vector($size, Generator $elementsGenerator)
 {
     return Generators::vector($size, $elementsGenerator);
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<list<T>>
  */
 class VectorGenerator implements Generator
@@ -19,6 +25,10 @@ class VectorGenerator implements Generator
     private $generator;
     private $elementsGeneratorClass;
 
+    /**
+     * @param int $size
+     * @param Generator<T> $generator
+     */
     public function __construct($size, Generator $generator)
     {
         $this->generator = new TupleGenerator(

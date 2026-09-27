@@ -5,27 +5,44 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
-function elements(/*$a, $b, ...*/)
+/**
+ * elements($a, $b, ...) or elements([$a, $b, ...])
+ *
+ * @phpstan-template TFirst
+ * @phpstan-template TMore
+ * @param mixed $elementOrElements the array of all elements, or the first of several elements
+ * @param mixed ...$moreElements
+ * @phpstan-param TFirst $elementOrElements
+ * @phpstan-param TMore ...$moreElements
+ * @return ElementsGenerator<mixed>
+ * @phpstan-return ($moreElements is array{} ? ElementsGenerator<value-of<TFirst>> : ElementsGenerator<TFirst|TMore>)
+ */
+function elements($elementOrElements, ...$moreElements)
 {
-    return call_user_func_array(
-        [Generators::class, 'elements'],
-        func_get_args()
-    );
+    return Generators::elements($elementOrElements, ...$moreElements);
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<T>
  */
 class ElementsGenerator implements Generator
 {
     private $domain;
 
+    /**
+     * @template U
+     * @param array<U> $domain
+     * @return self<U>
+     */
     public static function fromArray(array $domain)
     {
         return new self($domain);
     }
 
+    /**
+     * @param array<T> $domain
+     */
     private function __construct($domain)
     {
         $this->domain = $domain;

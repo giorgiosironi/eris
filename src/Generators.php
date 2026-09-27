@@ -27,11 +27,24 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 final class Generators
 {
+    /**
+     * @template K of array-key
+     * @template V
+     * @param array<K, Generator<V>|V> $generators
+     * @return AssociativeArrayGenerator<K, V>
+     */
     public static function associative(array $generators)
     {
         return new AssociativeArrayGenerator($generators);
     }
 
+    /**
+     * @template TInner
+     * @template T
+     * @param Generator<TInner> $innerGenerator
+     * @param callable(TInner): Generator<T> $outerGeneratorFactory
+     * @return BindGenerator<TInner, T>
+     */
     public static function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
     {
         return new BindGenerator(
@@ -40,6 +53,9 @@ final class Generators
         );
     }
 
+    /**
+     * @return BooleanGenerator
+     */
     public static function bool()
     {
         return new BooleanGenerator();
@@ -74,8 +90,8 @@ final class Generators
      * The order of the parameters does not care since they are re-ordered by the
      * generator itself.
      *
-     * @param $x int One of the 2 boundaries of the range
-     * @param $y int The other boundary of the range
+     * @param int $lowerLimit One of the 2 boundaries of the range
+     * @param int $upperLimit The other boundary of the range
      * @return Generator\ChooseGenerator
      */
     public static function choose($lowerLimit, $upperLimit)
@@ -84,14 +100,20 @@ final class Generators
     }
 
     /**
-     * @param mixed $value the only value to generate
-     * @return ConstantGenerator
+     * @template T
+     * @param T $value the only value to generate
+     * @return ConstantGenerator<T>
      */
     public static function constant($value)
     {
         return ConstantGenerator::box($value);
     }
 
+    /**
+     * @param \DateTime|string|null $lowerLimit
+     * @param \DateTime|string|null $upperLimit
+     * @return DateGenerator
+     */
     public static function date($lowerLimit = null, $upperLimit = null)
     {
         $box = function ($date) {
@@ -116,32 +138,51 @@ final class Generators
         );
     }
 
-    public static function elements(/*$a, $b, ...*/)
+    /**
+     * elements($a, $b, ...) or elements([$a, $b, ...])
+     *
+     * @phpstan-template TFirst
+     * @phpstan-template TMore
+     * @param mixed $elementOrElements the array of all elements, or the first of several elements
+     * @param mixed ...$moreElements
+     * @phpstan-param TFirst $elementOrElements
+     * @phpstan-param TMore ...$moreElements
+     * @return Generator\ElementsGenerator<mixed>
+     * @phpstan-return ($moreElements is array{} ? Generator\ElementsGenerator<value-of<TFirst>> : Generator\ElementsGenerator<TFirst|TMore>)
+     */
+    public static function elements($elementOrElements, ...$moreElements)
     {
-        $arguments = func_get_args();
-        if (count($arguments) == 1) {
-            return Generator\ElementsGenerator::fromArray($arguments[0]);
-        } else {
-            return Generator\ElementsGenerator::fromArray($arguments);
+        if ($moreElements === []) {
+            return Generator\ElementsGenerator::fromArray($elementOrElements);
         }
+        return Generator\ElementsGenerator::fromArray([$elementOrElements, ...$moreElements]);
     }
 
+    /**
+     * @return FloatGenerator
+     */
     public static function float()
     {
         return new FloatGenerator();
     }
 
     /**
-     * @return FrequencyGenerator
+     * frequency([$frequency, $generator], [$frequency, $generator], ...)
+     *
+     * @template T
+     * @param array{int<0, max>, Generator<T>|T} ...$frequencyAndGenerator
+     * @return FrequencyGenerator<T>
      */
-    public static function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
+    public static function frequency(array ...$frequencyAndGenerator)
     {
-        return new FrequencyGenerator(func_get_args());
+        return new FrequencyGenerator($frequencyAndGenerator);
     }
 
     /**
      * Generates a positive or negative integer (with absolute value bounded by
      * the generation size).
+     *
+     * @return IntegerGenerator<int>
      */
     public static function int()
     {
@@ -150,18 +191,23 @@ final class Generators
 
     /**
      * Generates a positive integer (bounded by the generation size).
+     *
+     * @return IntegerGenerator<int<1, max>>
      */
     public static function pos()
     {
-        $mustBeStrictlyPositive = function ($n) {
+        $mustBeStrictlyPositive = function (int $n) {
             return abs($n) + 1;
         };
         return new IntegerGenerator($mustBeStrictlyPositive);
     }
 
+    /**
+     * @return IntegerGenerator<int<0, max>>
+     */
     public static function nat()
     {
-        $mustBeNatural = function ($n) {
+        $mustBeNatural = function (int $n) {
             return abs($n);
         };
         return new IntegerGenerator($mustBeNatural);
@@ -169,36 +215,53 @@ final class Generators
 
     /**
      * Generates a negative integer (bounded by the generation size).
+     *
+     * @return IntegerGenerator<int<min, -1>>
      */
     public static function neg()
     {
-        $mustBeStrictlyNegative = function ($n) {
+        $mustBeStrictlyNegative = function (int $n) {
             return (-1) * (abs($n) + 1);
         };
         return new IntegerGenerator($mustBeStrictlyNegative);
     }
 
+    /**
+     * @return ChooseGenerator
+     */
     public static function byte()
     {
         return new ChooseGenerator(0, 255);
     }
 
+    /**
+     * @template T
+     * @template U
+     * @param callable(T): U $function
+     * @param Generator<T> $generator
+     * @return MapGenerator<T, U>
+     */
     public static function map(callable $function, Generator $generator)
     {
         return new MapGenerator($function, $generator);
     }
 
+    /**
+     * @return NamesGenerator
+     */
     public static function names()
     {
         return NamesGenerator::defaultDataSet();
     }
 
     /**
-     * @return OneOfGenerator
+     * @template T
+     * @param Generator<T>|T ...$_generators
+     * @return OneOfGenerator<T>
      */
     public static function oneOf(...$_generators)
     {
-        return new OneOfGenerator(func_get_args());
+        return new OneOfGenerator($_generators);
     }
 
     /**
@@ -214,28 +277,38 @@ final class Generators
         return new RegexGenerator($expression);
     }
 
+    /**
+     * @template T
+     * @param Generator<T> $singleElementGenerator
+     * @return SequenceGenerator<T>
+     */
     public static function seq(Generator $singleElementGenerator)
     {
         return new SequenceGenerator($singleElementGenerator);
     }
 
     /**
-     * @param Generator $singleElementGenerator
-     * @return SetGenerator
+     * @template T
+     * @param Generator<T> $singleElementGenerator
+     * @return SetGenerator<T>
      */
     public static function set($singleElementGenerator)
     {
         return new SetGenerator($singleElementGenerator);
     }
 
+    /**
+     * @return StringGenerator
+     */
     public static function string()
     {
         return new StringGenerator();
     }
 
     /**
-     * @param array $input
-     * @return SubsetGenerator
+     * @template T
+     * @param array<T> $input
+     * @return SubsetGenerator<T>
      */
     public static function subset($input)
     {
@@ -243,8 +316,11 @@ final class Generators
     }
 
     /**
-     * @param callable|Constraint $filter
-     * @return SuchThatGenerator
+     * @template T
+     * @param (callable(T): bool)|Constraint $filter
+     * @param Generator<T> $generator
+     * @param int $maximumAttempts
+     * @return SuchThatGenerator<T>
      */
     public static function filter($filter, Generator $generator, $maximumAttempts = 100)
     {
@@ -252,8 +328,11 @@ final class Generators
     }
 
     /**
-     * @param callable|Constraint $filter
-     * @return SuchThatGenerator
+     * @template T
+     * @param (callable(T): bool)|Constraint $filter
+     * @param Generator<T> $generator
+     * @param int $maximumAttempts
+     * @return SuchThatGenerator<T>
      */
     public static function suchThat($filter, Generator $generator, $maximumAttempts = 100)
     {
@@ -265,19 +344,31 @@ final class Generators
      * tuple(Generator, Generator, Generator...)
      * Or an array of generators:
      * tuple(array $generators)
-     * @return Generator\TupleGenerator
+     *
+     * @phpstan-template T
+     * @param mixed $generatorOrGenerators
+     * @param mixed ...$moreGenerators
+     * @phpstan-param array<Generator<T>|T>|Generator<T>|T $generatorOrGenerators
+     * @phpstan-param Generator<T>|T ...$moreGenerators
+     * @return Generator\TupleGenerator<mixed>
+     * @phpstan-return Generator\TupleGenerator<T>
      */
-    public static function tuple()
+    public static function tuple($generatorOrGenerators = [], ...$moreGenerators)
     {
-        $arguments = func_get_args();
-        if (is_array($arguments[0])) {
-            $generators = $arguments[0];
+        if (is_array($generatorOrGenerators)) {
+            $generators = $generatorOrGenerators;
         } else {
-            $generators = $arguments;
+            $generators = [$generatorOrGenerators, ...$moreGenerators];
         }
         return new TupleGenerator($generators);
     }
 
+    /**
+     * @template T
+     * @param int $size
+     * @param Generator<T> $elementsGenerator
+     * @return VectorGenerator<T>
+     */
     public static function vector($size, Generator $elementsGenerator)
     {
         return new VectorGenerator($size, $elementsGenerator);

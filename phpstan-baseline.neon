@@ -487,75 +487,39 @@ parameters:
 			path: src/Facade.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(GeneratedValue\<T\>\)\: Unexpected token "\\n     \* ", expected variable at offset 201 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/Generator.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(Random\\RandomRange\)\: Unexpected token "\\n     \* ", expected variable at offset 74 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/Generator.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int The generation size\)\: Unexpected token "The", expected variable at offset 22 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/Generator.php
-
-		-
-			message: '#^PHPDoc tag @template T for method Eris\\Generator\\GeneratedValueSingle\:\:fromJustValue\(\) shadows @template T for class Eris\\Generator\\GeneratedValueSingle\.$#'
-			identifier: method.shadowTemplate
-			count: 1
-			path: src/Generator/GeneratedValueSingle.php
-
-		-
-			message: '#^PHPDoc tag @template T for method Eris\\Generator\\GeneratedValueSingle\:\:fromValueAndInput\(\) shadows @template T for class Eris\\Generator\\GeneratedValueSingle\.$#'
-			identifier: method.shadowTemplate
-			count: 1
-			path: src/Generator/GeneratedValueSingle.php
-
-		-
 			message: '#^Variable \$values might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: src/Quantifier/ForAll.php
 
 		-
-			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<array\<string, mixed\>\>\.$#'
+			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<array\<''cipher''\|''letter'', mixed\>\>\.$#'
 			identifier: varTag.nativeType
 			count: 1
 			path: test/Generator/AssociativeArrayGeneratorTest.php
 
 		-
-			message: '#^Call to an undefined method Eris\\Generator\\GeneratedValue\<list\<mixed\>\>\:\:first\(\)\.$#'
+			message: '#^Call to an undefined method Eris\\Generator\\GeneratedValue\<list\<int\>\>\:\:first\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: test/Generator/SequenceGeneratorTest.php
 
 		-
-			message: '#^Call to an undefined method Eris\\Generator\\GeneratedValue\<mixed\>\:\:last\(\)\.$#'
+			message: '#^Call to an undefined method Eris\\Generator\\GeneratedValue\<int\>\:\:last\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: test/Generator/SuchThatGeneratorTest.php
 
 		-
-			message: '#^Cannot call method generatorName\(\) on list\<mixed\>\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: test/Generator/TupleGeneratorTest.php
-
-		-
-			message: '#^Cannot call method unbox\(\) on list\<mixed\>\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: test/Generator/TupleGeneratorTest.php
-
-		-
-			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<list\<mixed\>\>\.$#'
+			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<list\<42\>\>\.$#'
 			identifier: varTag.nativeType
-			count: 2
+			count: 1
+			path: test/Generator/TupleGeneratorTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<list\>\.$#'
+			identifier: varTag.nativeType
+			count: 1
 			path: test/Generator/TupleGeneratorTest.php
 
 		-

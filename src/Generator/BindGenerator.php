@@ -5,20 +5,32 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
+/**
+ * @template TInner
+ * @template T
+ * @param Generator<TInner> $innerGenerator
+ * @param callable(TInner): Generator<T> $outerGeneratorFactory
+ * @return BindGenerator<TInner, T>
+ */
 function bind(Generator $innerGenerator, callable $outerGeneratorFactory)
 {
     return Generators::bind($innerGenerator, $outerGeneratorFactory);
 }
 
 /**
- * @psalm-template T
+ * @template TInner
+ * @template-covariant T
  * @template-implements Generator<T>
  */
 class BindGenerator implements Generator
 {
     private $innerGenerator;
     private $outerGeneratorFactory;
-    
+
+    /**
+     * @param Generator<TInner> $innerGenerator
+     * @param callable(TInner): Generator<T> $outerGeneratorFactory
+     */
     public function __construct($innerGenerator, $outerGeneratorFactory)
     {
         $this->innerGenerator = $innerGenerator;

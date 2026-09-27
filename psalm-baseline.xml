@@ -22,12 +22,6 @@
       <code><![CDATA[var_dump($set)]]></code>
     </ForbiddenCode>
   </file>
-  <file src="src/Generator.php">
-    <InvalidDocblock>
-      <code><![CDATA[public function __invoke($size, Random\RandomRange $rand);]]></code>
-      <code><![CDATA[public function shrink(GeneratedValue $element);]]></code>
-    </InvalidDocblock>
-  </file>
   <file src="src/Generator/AssociativeArrayGenerator.php">
     <InvalidArrayOffset>
       <code><![CDATA[$associativeArray[$key]]]></code>
@@ -42,20 +36,6 @@
     <ParamNameMismatch>
       <code><![CDATA[$callable]]></code>
     </ParamNameMismatch>
-  </file>
-  <file src="src/Generator/GeneratedValueSingle.php">
-    <InvalidDocblock>
-      <code><![CDATA[public static function fromJustValue($value, $generatorName = null)]]></code>
-      <code><![CDATA[public static function fromValueAndInput($value, $input, $generatorName = null)]]></code>
-    </InvalidDocblock>
-    <InvalidReturnStatement>
-      <code><![CDATA[new ArrayIterator([
-            $this
-        ])]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[\Traversable]]></code>
-    </InvalidReturnType>
   </file>
   <file src="src/Generator/MapGenerator.php">
     <ParamNameMismatch>
@@ -123,15 +103,18 @@
     </InternalMethod>
   </file>
   <file src="test/Generator/AssociativeArrayGeneratorTest.php">
-    <InvalidArgument>
-      <code><![CDATA[$array]]></code>
-    </InvalidArgument>
     <UndefinedInterfaceMethod>
       <code><![CDATA[$array]]></code>
       <code><![CDATA[$array]]></code>
-      <code><![CDATA[$array]]></code>
-      <code><![CDATA[$array]]></code>
     </UndefinedInterfaceMethod>
+  </file>
+  <file src="test/Generator/FrequencyGeneratorTest.php">
+    <InvalidArgument>
+      <code><![CDATA[[
+            [10, 42],
+            [false, 21],
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="test/Generator/SequenceGeneratorTest.php">
     <UndefinedInterfaceMethod>
@@ -147,16 +130,6 @@
     <UndefinedInterfaceMethod>
       <code><![CDATA[last]]></code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="test/Generator/TupleGeneratorTest.php">
-    <InvalidMethodCall>
-      <code><![CDATA[generatorName]]></code>
-      <code><![CDATA[generatorName]]></code>
-      <code><![CDATA[generatorName]]></code>
-      <code><![CDATA[unbox]]></code>
-      <code><![CDATA[unbox]]></code>
-      <code><![CDATA[unbox]]></code>
-    </InvalidMethodCall>
   </file>
   <file src="test/Listener/LogTest.php">
     <InternalClass>

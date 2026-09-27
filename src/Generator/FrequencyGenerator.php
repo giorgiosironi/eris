@@ -7,24 +7,28 @@ use InvalidArgumentException;
 use Eris\Random\RandomRange;
 
 /**
- * @return FrequencyGenerator
+ * frequency([$frequency, $generator], [$frequency, $generator], ...)
+ *
+ * @template T
+ * @param array{int<0, max>, Generator<T>|T} ...$frequencyAndGenerator
+ * @return FrequencyGenerator<T>
  */
-function frequency(/*$frequencyAndGenerator, $frequencyAndGenerator, ...*/)
+function frequency(array ...$frequencyAndGenerator)
 {
-    return call_user_func_array(
-        [Generators::class, 'frequency'],
-        func_get_args()
-    );
+    return Generators::frequency(...$frequencyAndGenerator);
 }
 
 /**
- * @psalm-template T
- * @template-implements Generator<Generator<T>>
+ * @template-covariant T
+ * @template-implements Generator<T>
  */
 class FrequencyGenerator implements Generator
 {
     private $generators;
 
+    /**
+     * @param array<array{int<0, max>, Generator<T>|T}> $generatorsWithFrequency
+     */
     public function __construct(array $generatorsWithFrequency)
     {
         if (empty($generatorsWithFrequency)) {
