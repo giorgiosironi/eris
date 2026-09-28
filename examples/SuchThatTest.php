@@ -71,7 +71,7 @@ class SuchThatTest extends \PHPUnit\Framework\TestCase
                     function ($n) {
                         return $n > 42;
                     },
-                    Generators::choose(0, 1000)
+                    Generators::choose(0, 200)
                 )
             )
             ->then($this->numberIsBiggerThan(100));

@@ -73,8 +73,10 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
     {
         $this->runExample('ShrinkingTest.php');
         $this->assertTestsAreFailing(2);
+        // PHPUnit 12.5 may fail to negate "contains" when the exported string
+        // contains unbalanced quotes (e.g. a'b"B), so both wordings are accepted
         static::assertMatchesRegularExpression(
-            "/Failed asserting that .* does not contain \"B\"/",
+            "/Failed asserting that .* (does not contain|contains) \"B\"/",
             (string) $this->theTest('testShrinkingAString')->failure
         );
         static::assertMatchesRegularExpression(
@@ -86,6 +88,10 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
 
     public function testShrinkingTimeLimitTest()
     {
+        // with a random seed, the first failing input may already be the minimal one
+        // (a string of exactly 11 characters): shrinking then ends in a single fast step
+        // and never reaches the time limit. A fixed seed makes the shrinking path deterministic.
+        $this->setEnvironmentVariable('ERIS_SEED', 1);
         $this->runExample('ShrinkingTimeLimitTest.php');
         $this->assertTestsAreFailing(2);
         $executionTime = (float) $this->theTest('testLengthPreservation')->attributes()['time'];
