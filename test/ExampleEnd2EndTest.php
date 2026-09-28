@@ -73,8 +73,10 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
     {
         $this->runExample('ShrinkingTest.php');
         $this->assertTestsAreFailing(2);
+        // PHPUnit 12.5 may fail to negate "contains" when the exported string
+        // contains unbalanced quotes (e.g. a'b"B), so both wordings are accepted
         static::assertMatchesRegularExpression(
-            "/Failed asserting that .* does not contain \"B\"/",
+            "/Failed asserting that .* (does not contain|contains) \"B\"/",
             (string) $this->theTest('testShrinkingAString')->failure
         );
         static::assertMatchesRegularExpression(
