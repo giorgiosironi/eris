@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Added
+* Generic type annotations for the values that generators produce (#208), thanks @sebastianbergmann.
 
 ## [1.1.0] - 2026-03-31
 ### Added
