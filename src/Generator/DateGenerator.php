@@ -6,6 +6,11 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 use DateTime;
 
+/**
+ * @param DateTime|string|null $lowerLimit
+ * @param DateTime|string|null $upperLimit
+ * @return DateGenerator
+ */
 function date($lowerLimit = null, $upperLimit = null)
 {
     return Generators::date($lowerLimit, $upperLimit);

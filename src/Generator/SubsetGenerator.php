@@ -9,8 +9,9 @@ use Eris\Random\RandomRange;
 use Eris\Generator;
 
 /**
- * @param array $input
- * @return SubsetGenerator
+ * @template T
+ * @param array<T> $input
+ * @return SubsetGenerator<T>
  */
 function subset($input)
 {
@@ -18,13 +19,16 @@ function subset($input)
 }
 
 /**
- * @psalm-template T
+ * @template-covariant T
  * @template-implements Generator<list<T>>
  */
 class SubsetGenerator implements Generator
 {
     private $universe;
-    
+
+    /**
+     * @param array<T> $universe
+     */
     public function __construct(array $universe)
     {
         $this->universe = $universe;

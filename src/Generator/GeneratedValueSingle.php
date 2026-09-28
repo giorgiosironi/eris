@@ -8,7 +8,7 @@ use ArrayIterator;
  * Parametric with respect to the type <T> of its value.
  * Immutable object, modifiers return a new GeneratedValueSingle instance.
  *
- * @template T
+ * @template-covariant T
  * @template-implements GeneratedValue<T>
  */
 final class GeneratedValueSingle implements GeneratedValue // TODO? interface ShrunkValue extends IteratorAggregate[, Countable]
@@ -26,12 +26,11 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * A value and the input that was used to derive it.
      * The input usually comes from another Generator.
      *
-     * @template T
-     * @psalm-param T $value
-     * @param mixed $value
+     * @template TValue
+     * @param TValue $value
      * @param GeneratedValueSingle|mixed $input
      * @param string $generatorName  'tuple'
-     * @return GeneratedValueSingle
+     * @return GeneratedValueSingle<TValue>
      */
     public static function fromValueAndInput($value, $input, $generatorName = null)
     {
@@ -41,17 +40,19 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     /**
      * Input will be copied from value.
      *
-     * @template T
-     * @psalm-param T $value
-     * @param mixed $value
+     * @template TValue
+     * @param TValue $value
      * @param string $generatorName  'tuple'
-     * @return GeneratedValueSingle
+     * @return GeneratedValueSingle<TValue>
      */
     public static function fromJustValue($value, $generatorName = null)
     {
         return new self($value, $value, $generatorName);
     }
-    
+
+    /**
+     * @param T $value
+     */
     private function __construct($value, $input, $generatorName, array $annotations = [])
     {
         if ($value instanceof self) {
@@ -72,8 +73,7 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
     }
 
     /**
-     * @psalm-return T
-     * @return mixed
+     * @return T
      */
     public function unbox()
     {
@@ -99,7 +99,13 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * $applyToValue is mapped over the value
      * to build the outer GeneratedValueSingle object $this->value field.
      *
-     * @return GeneratedValueSingle
+     * T in a parameter of the callable is a covariant position,
+     * which Psalm does not recognise (PHPStan does).
+     *
+     * @template U
+     * @param callable(T): U $applyToValue
+     * @return GeneratedValueSingle<U>
+     * @psalm-suppress InvalidTemplateParam
      */
     public function map(callable $applyToValue, $generatorName)
     {
@@ -116,7 +122,7 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
      * of wrapping of GeneratedValueSingle objects.
      *
      * @param string $generatorName  'tuple', 'vector'
-     * @return GeneratedValueSingle
+     * @return GeneratedValueSingle<T>
      */
     public function derivedIn($generatorName)
     {
@@ -128,6 +134,9 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
         );
     }
 
+    /**
+     * @return \Traversable<int, GeneratedValueSingle<T>>
+     */
     public function getIterator(): \Traversable
     {
         return new ArrayIterator([
@@ -140,6 +149,12 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
         return 1;
     }
 
+    /**
+     * @template U
+     * @param GeneratedValueSingle<mixed> $another
+     * @param callable(mixed, mixed): U $merge applied to the values and to the inputs
+     * @return GeneratedValueSingle<U>
+     */
     public function merge(GeneratedValueSingle $another, callable $merge)
     {
         if ($another->generatorName !== $this->generatorName) {
@@ -152,6 +167,11 @@ final class GeneratedValueSingle implements GeneratedValue // TODO? interface Sh
         );
     }
 
+    /**
+     * @template U
+     * @param GeneratedValueSingle<U> $value
+     * @return GeneratedValueOptions<T|U>
+     */
     public function add(GeneratedValueSingle $value)
     {
         return new GeneratedValueOptions([

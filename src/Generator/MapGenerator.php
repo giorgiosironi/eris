@@ -6,20 +6,32 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 
 // TODO: support calls like ($function . $generator)
+/**
+ * @template T
+ * @template U
+ * @param callable(T): U $function
+ * @param Generator<T> $generator
+ * @return MapGenerator<T, U>
+ */
 function map(callable $function, Generator $generator)
 {
     return Generators::map($function, $generator);
 }
 
 /**
- * @psalm-template T
- * @template-implements Generator<T>
+ * @template T
+ * @template-covariant U
+ * @template-implements Generator<U>
  */
 class MapGenerator implements Generator
 {
     private $map;
     private $generator;
-    
+
+    /**
+     * @param callable(T): U $map
+     * @param Generator<T> $generator
+     */
     public function __construct(callable $map, $generator)
     {
         $this->map = $map;

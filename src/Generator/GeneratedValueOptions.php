@@ -17,18 +17,29 @@ use LogicException;
  * value is expected. The last of the options is usually the more conservative
  * in shrinking, for example subtracting 1 for the IntegerGenerator.
  *
- * @psalm-template T
+ * @template-covariant T
  * @template-implements GeneratedValue<T>
  */
 class GeneratedValueOptions implements GeneratedValue
 {
+    /**
+     * @var array<int, GeneratedValueSingle<T>>
+     */
     private $generatedValues;
-    
+
+    /**
+     * @param array<int, GeneratedValueSingle<T>> $generatedValues
+     */
     public function __construct(array $generatedValues)
     {
         $this->generatedValues = $generatedValues;
     }
 
+    /**
+     * @template U
+     * @param GeneratedValue<U> $value
+     * @return GeneratedValue<U>
+     */
     public static function mostPessimisticChoice(GeneratedValue $value)
     {
         if ($value instanceof GeneratedValueOptions) {
@@ -37,11 +48,17 @@ class GeneratedValueOptions implements GeneratedValue
         return $value;
     }
 
+    /**
+     * @return GeneratedValueSingle<T>
+     */
     public function first()
     {
         return $this->generatedValues[0];
     }
 
+    /**
+     * @return GeneratedValueSingle<T>
+     */
     public function last()
     {
         if (count($this->generatedValues) == 0) {
@@ -50,6 +67,16 @@ class GeneratedValueOptions implements GeneratedValue
         return $this->generatedValues[count($this->generatedValues) - 1];
     }
 
+    /**
+     * T in a parameter of the callable is a covariant position,
+     * which Psalm does not recognise (PHPStan does).
+     *
+     * @template U
+     * @param callable(T): U $callable
+     * @param string $generatorName
+     * @return GeneratedValueOptions<U>
+     * @psalm-suppress InvalidTemplateParam
+     */
     public function map(callable $callable, $generatorName)
     {
         return new self(array_map(
@@ -66,7 +93,9 @@ class GeneratedValueOptions implements GeneratedValue
     }
 
     /**
-     * @return self
+     * @template U
+     * @param GeneratedValueSingle<U> $value
+     * @return GeneratedValueOptions<T|U>
      */
     public function add(GeneratedValueSingle $value)
     {
@@ -76,6 +105,10 @@ class GeneratedValueOptions implements GeneratedValue
         ));
     }
 
+    /**
+     * @param GeneratedValue<mixed> $value
+     * @return GeneratedValueOptions<T>
+     */
     public function remove(GeneratedValue $value)
     {
         $generatedValues = $this->generatedValues;
@@ -88,6 +121,7 @@ class GeneratedValueOptions implements GeneratedValue
 
     /**
      * @override
+     * @return T
      */
     public function unbox()
     {
@@ -119,6 +153,9 @@ class GeneratedValueOptions implements GeneratedValue
         return $this->last()->generatorName();
     }
 
+    /**
+     * @return \Traversable<int, GeneratedValueSingle<T>>
+     */
     public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->generatedValues);
@@ -129,6 +166,12 @@ class GeneratedValueOptions implements GeneratedValue
         return count($this->generatedValues);
     }
 
+    /**
+     * @template U
+     * @param GeneratedValueOptions<mixed> $generatedValueOptions
+     * @param callable(mixed, mixed): U $merge
+     * @return GeneratedValueOptions<U>
+     */
     public function cartesianProduct($generatedValueOptions, callable $merge)
     {
         $options = [];

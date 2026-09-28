@@ -5,15 +5,20 @@ use Countable;
 use IteratorAggregate;
 
 /**
- * @psalm-template T
- * @template-extends IteratorAggregate<integer,T>
+ * @template-covariant T
+ * @template-extends IteratorAggregate<int, GeneratedValueSingle<T>>
  */
 interface GeneratedValue extends IteratorAggregate, Countable
 {
     /**
-     * @param callable $applyToValue
+     * T in a parameter of the callable is a covariant position,
+     * which Psalm does not recognise (PHPStan does).
+     *
+     * @template U
+     * @param callable(T): U $applyToValue
      * @param string $generatorName
-     * @return GeneratedValue
+     * @return GeneratedValue<U>
+     * @psalm-suppress InvalidTemplateParam
      */
     public function map(callable $applyToValue, $generatorName);
 
@@ -23,7 +28,7 @@ interface GeneratedValue extends IteratorAggregate, Countable
     public function input();
 
     /**
-     * @return mixed
+     * @return T
      */
     public function unbox();
 }

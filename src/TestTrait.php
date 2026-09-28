@@ -253,7 +253,11 @@ trait TestTrait
     }
 
     /**
-     * @return Sample
+     * @template T
+     * @param Generator<T> $generator
+     * @param int $times
+     * @param int|null $size
+     * @return Sample<T>
      */
     public function sample(Generator $generator, $times = 10, $size = null)
     {
@@ -261,7 +265,11 @@ trait TestTrait
     }
 
     /**
-     * @return Sample
+     * @template T
+     * @param Generator<T> $generator
+     * @param Generator\GeneratedValue<T>|null $fromValue
+     * @param int|null $size
+     * @return Sample<T>
      */
     public function sampleShrink(Generator $generator, $fromValue = null, $size = null)
     {

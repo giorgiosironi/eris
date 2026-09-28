@@ -5,6 +5,9 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
+/**
+ * @return BooleanGenerator
+ */
 function bool()
 {
     return Generators::bool();

@@ -6,24 +6,26 @@ use Eris\Generators;
 use Eris\Random\RandomRange;
 
 /**
- * @return OneOfGenerator
+ * @template T
+ * @param Generator<T>|T ...$generators
+ * @return OneOfGenerator<T>
  */
-function oneOf(/*$a, $b, ...*/)
+function oneOf(...$generators)
 {
-    return call_user_func_array(
-        [Generators::class, 'oneOf'],
-        func_get_args()
-    );
+    return Generators::oneOf(...$generators);
 }
 
 /**
- * @psalm-template T
- * @template-implements Generator<Generator<T>>
+ * @template-covariant T
+ * @template-implements Generator<T>
  */
 class OneOfGenerator implements Generator
 {
     private $generator;
 
+    /**
+     * @param array<Generator<T>|T> $generators
+     */
     public function __construct($generators)
     {
         $this->generator = new FrequencyGenerator($this->allWithSameFrequency($generators));

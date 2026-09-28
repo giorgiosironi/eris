@@ -29,7 +29,7 @@ function charPrintableAscii()
 }
 
 /**
- * @template-implements Generator<string>
+ * @template-implements Generator<non-empty-string>
  */
 class CharacterGenerator implements Generator
 {
@@ -37,11 +37,17 @@ class CharacterGenerator implements Generator
     private $upperLimit;
     private $shrinkingProgression;
 
+    /**
+     * @return self
+     */
     public static function ascii()
     {
         return new self($lowerLimit = 0, $upperLimit = 127);
     }
 
+    /**
+     * @return self
+     */
     public static function printableAscii()
     {
         return new self($lowerLimit = 32, $upperLimit = 126);

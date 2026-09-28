@@ -5,6 +5,9 @@ use Eris\Generator;
 use Eris\Generators;
 use Eris\Random\RandomRange;
 
+/**
+ * @return NamesGenerator
+ */
 function names()
 {
     return Generators::names();
@@ -19,6 +22,7 @@ class NamesGenerator implements Generator
 
     /**
      * @link http://data.bfontaine.net/names/firstnames.txt
+     * @return self
      */
     public static function defaultDataSet()
     {

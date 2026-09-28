@@ -16,9 +16,9 @@ if (!defined('ERIS_PHP_INT_MIN')) {
  * The order of the parameters does not care since they are re-ordered by the
  * generator itself.
  *
- * @param $x int One of the 2 boundaries of the range
- * @param $y int The other boundary of the range
- * @return Generator\ChooseGenerator
+ * @param int $lowerLimit One of the 2 boundaries of the range
+ * @param int $upperLimit The other boundary of the range
+ * @return ChooseGenerator
  */
 function choose($lowerLimit, $upperLimit)
 {
