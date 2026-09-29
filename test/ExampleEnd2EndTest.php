@@ -143,6 +143,23 @@ class ExampleEnd2EndTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testErrorInPropertyTest()
+    {
+        $this->runExample('ErrorInPropertyTest.php');
+        $this->assertTestsAreFailing(2);
+        foreach ([
+            'testErrorRaisedByTheFirstExampleIsReportedAsItself',
+            'testErrorRaisedAfterMoreThanHalfOfTheExamplesIsReportedAsItself',
+        ] as $testName) {
+            $error = $this->theTest($testName)->error;
+            $this->assertSame(
+                'DivisionByZeroError',
+                (string) $error['type'],
+                "An Error raised by the property should be reported as itself, not as: " . $error
+            );
+        }
+    }
+
     public function testFloatTests()
     {
         $this->runExample('FloatTest.php');
