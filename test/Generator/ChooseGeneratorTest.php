@@ -32,6 +32,27 @@ class ChooseGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testPicksRandomlyAnIntegerAmongBoundariesThatAreFurtherApartThanPhpIntMax(): void
+    {
+        $generator = new ChooseGenerator(-PHP_INT_MAX, PHP_INT_MAX);
+        for ($i = 0; $i < 100; $i++) {
+            $value = $generator($this->size, $this->rand)->unbox();
+            static::assertIsInt($value);
+            $this->assertGreaterThanOrEqual(-PHP_INT_MAX, $value);
+            $this->assertLessThanOrEqual(PHP_INT_MAX, $value);
+        }
+    }
+
+    public function testPicksOddAndEvenIntegersAmongBoundariesThatAreFurtherApartThanTheRandomSourceCovers(): void
+    {
+        $generator = new ChooseGenerator(0, PHP_INT_MAX);
+        $parities = [];
+        for ($i = 0; $i < 100; $i++) {
+            $parities[$generator($this->size, $this->rand)->unbox() % 2] = true;
+        }
+        $this->assertCount(2, $parities);
+    }
+
     public function testShrinksLinearlyTowardsTheSmallerAbsoluteValue(): void
     {
         /* Not a good shrinking policy, it should start to shrink from 0 and move
