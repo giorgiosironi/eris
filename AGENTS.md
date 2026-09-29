@@ -13,6 +13,7 @@ Eris is a PHP library for property-based testing, integrating with PHPUnit.
 - `examples/` — example test cases demonstrating library usage
 - `docs/` — documentation source
 - `.docker/` — Dockerfile used by `docker-compose.yml`
+- `.agents/skills/` — agent skills (one folder per skill with a `SKILL.md`); `.claude/skills` is a symlink to it
 
 ## Requirements
 
@@ -88,3 +89,12 @@ Runs `php-cs-fixer` to fix code style issues.
 ```bash
 composer rector
 ```
+
+## Agent Skills
+
+Skills live in `.agents/skills/`. Create each new skill as `.agents/skills/<skill-name>/SKILL.md`, with a frontmatter declaring `name` and `description`. Do not create skills directly in `.claude/skills`: it is a symlink to `.agents/skills`.
+
+Available skills:
+
+- `check-ci` — fetch and analyse the latest failed CI run on the current branch
+- `read-issue` — fetch a GitHub issue with its comments and load it as context
