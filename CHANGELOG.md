@@ -9,6 +9,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Generic type annotations for the values that generators produce (#208), thanks @sebastianbergmann.
 ### Changed
 * The Composer dist archive now ships only `src/`, `composer.json`, `LICENSE`, `README.md` and `CHANGELOG.md`: development files (`test/`, `examples/`, `docs/`, tooling configuration, etc.) are excluded via `export-ignore` rules in `.gitattributes`. If you relied on any of them being installed in `vendor/`, install with `--prefer-source` or open an issue.
+### Fixed
+* An `Error` (such as `DivisionByZeroError` or `TypeError`) raised by a property is reported as itself instead of as an `OutOfBoundsException` about the evaluation ratio, and listeners are notified of it (#206), thanks @sebastianbergmann.
 
 ## [1.1.0] - 2026-03-31
 ### Added
