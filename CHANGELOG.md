@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+
+## [1.2.0] - 2026-09-30
 ### Added
 * Generic type annotations for the values that generators produce (#208), thanks @sebastianbergmann.
 ### Changed
@@ -172,7 +174,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Basic best-effort shrinking.
 * `sample()` and `sampleShrink()` for Generators.
 
-[Unreleased]: https://github.com/giorgiosironi/eris/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/giorgiosironi/eris/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/giorgiosironi/eris/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/giorgiosironi/eris/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/giorgiosironi/eris/compare/0.14.1...1.0.0
 [0.14.1]: https://github.com/giorgiosironi/eris/compare/0.14.0...0.14.1
