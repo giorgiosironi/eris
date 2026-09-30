@@ -10,6 +10,7 @@ use BadMethodCallException;
 use PHPUnit\Framework\Constraint\Constraint;
 use Exception;
 use RuntimeException;
+use Throwable;
 use Eris\Listener;
 use Eris\Random\RandomRange;
 
@@ -179,6 +180,12 @@ class ForAll
             } else {
                 throw $e;
             }
+        } catch (Throwable $t) {
+            // Listener::endPropertyVerification() only accepts an Exception,
+            // so listeners learn about an Error through a wrapper
+            $redTestException = new RuntimeException($t->getMessage(), -1, $t);
+
+            throw $t;
         } finally {
             $this->notifyListeners(
                 'endPropertyVerification',

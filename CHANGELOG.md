@@ -11,6 +11,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * The Composer dist archive now ships only `src/`, `composer.json`, `LICENSE`, `README.md` and `CHANGELOG.md`: development files (`test/`, `examples/`, `docs/`, tooling configuration, etc.) are excluded via `export-ignore` rules in `.gitattributes`. If you relied on any of them being installed in `vendor/`, install with `--prefer-source` or open an issue.
 ### Fixed
 * `choose()` can generate every integer of a range wider than `mt_getrandmax()` instead of only some of them, and generates only integers inside a range wider than `PHP_INT_MAX` instead of floats below its lower limit; a broken random source raises a `RuntimeException` instead of looping forever (#207), thanks @sebastianbergmann.
+* An `Error` (such as `DivisionByZeroError` or `TypeError`) raised by a property is reported as itself instead of as an `OutOfBoundsException` about the evaluation ratio, and listeners are notified of it (#206), thanks @sebastianbergmann.
 
 ## [1.1.0] - 2026-03-31
 ### Added

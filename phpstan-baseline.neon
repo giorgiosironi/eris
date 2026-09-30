@@ -148,6 +148,18 @@ parameters:
 			message: '#^PHPDoc tag @param has invalid value \(float from 0\.0 to 1\.0\)\: Unexpected token "from", expected variable at offset 24 on line 2$#'
 			identifier: phpDoc.parseError
 			count: 1
+			path: examples/ErrorInPropertyTest.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(integer  in seconds\)\: Unexpected token "in", expected variable at offset 147 on line 5$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: examples/ErrorInPropertyTest.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(float from 0\.0 to 1\.0\)\: Unexpected token "from", expected variable at offset 24 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
 			path: examples/ErrorTest.php
 
 		-
