@@ -75,6 +75,8 @@ The ``regex()`` Generator attempts to build a string matching the specified regu
 .. literalinclude:: ../../examples/RegexTest.php
    :language: php
 
+The ``*`` and ``+`` quantifiers are unbounded: the maximum number of repetitions is set by the library (100 by default) and can be changed with the second argument, e.g. ``regex("[a-z]+", 10)``. A third argument selects the source of randomness used by ``reverse-regex``: ``"simple"`` (default), ``"mersenne"`` or ``"srand"``, e.g. ``regex("[a-z]+", 10, "mersenne")``.
+
 Here is a sample of generated values from ``testStringsMatchingAParticularRegex``:
 
 .. code-block:: bash

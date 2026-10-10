@@ -44,6 +44,58 @@ class RegexGeneratorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @see https://github.com/giorgiosironi/eris/issues/193
+     */
+    #[DataProvider('unboundedQuantifierRegexes')]
+    public function testDoesNotCrashOnUnboundedQuantifiers($expression)
+    {
+        $generator = new RegexGenerator($expression);
+        for ($i = 0; $i < 20; $i++) {
+            $value = $generator($this->size, $this->rand)->unbox();
+            static::assertMatchesRegularExpression("/^(?:{$expression})$/s", (string) $value);
+        }
+    }
+
+    public function testUnboundedMaxLimitsTheRepetitionsOfStarAndPlus()
+    {
+        $generator = new RegexGenerator("a+b*", 3);
+        for ($i = 0; $i < 50; $i++) {
+            $value = $generator($this->size, $this->rand)->unbox();
+            static::assertMatchesRegularExpression("/^a{1,3}b{0,3}$/", $value);
+        }
+    }
+
+    #[DataProvider('randomGenerators')]
+    public function testRandomGeneratorIsConfigurable($random)
+    {
+        $generator = new RegexGenerator("[a-z]{5}", null, $random);
+        $value = $generator($this->size, $this->rand)->unbox();
+        static::assertMatchesRegularExpression("/^[a-z]{5}$/", $value);
+    }
+
+    public static function randomGenerators()
+    {
+        return [["srand"], ["mersenne"], ["simple"]];
+    }
+
+    public function testUnknownRandomGeneratorIsRejected()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new RegexGenerator("a", null, "unknown");
+    }
+
+    public static function unboundedQuantifierRegexes()
+    {
+        return [
+            ["a*"],
+            ["a+"],
+            ["[a-z]*"],
+            ["[a-z]+"],
+            ["\\d+\\.\\d*"],
+        ];
+    }
+
     public function testShrinkingIsNotImplementedYet()
     {
         $generator = new RegexGenerator(".*");
