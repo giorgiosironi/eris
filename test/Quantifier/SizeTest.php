@@ -36,9 +36,9 @@ class SizeTest extends \PHPUnit\Framework\TestCase
         $size = Size::withTriangleGrowth(1000)
             ->limit(1);
 
-        $this->assertCount(1, $size);
         $this->assertEquals(0, $size->at(0));
         $this->assertEquals(0, $size->at(1));
+        $this->assertCount(1, $size);
     }
 
     public static function limits()
