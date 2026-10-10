@@ -9,7 +9,7 @@ on:
 jobs:
   tests:
     name: Tests (PHP ${{ matrix.php }}, dependencies ${{ matrix.dependencies }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         php: [8.1]
@@ -24,13 +24,13 @@ jobs:
           - { php: 8.5, dependencies: "highest" }
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
       - name: Install dependencies
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
       - name: Run tests
@@ -38,7 +38,7 @@ jobs:
 
   phpunit-compatibility:
     name: Test End to End with php ${{ matrix.php }}, phpunit ${{ matrix.phpunit }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         include:
@@ -58,13 +58,13 @@ jobs:
           - { phpunit: 13, php: 8.5 }
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
       - name: Install dependencies
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
       - name: Download phpunit phar
         run: |
           wget -O phpunit https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar
