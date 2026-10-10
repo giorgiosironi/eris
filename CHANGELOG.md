@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Added
+* `regex()` accepts a `$random` argument (`srand`, `mersenne` or `simple`) to choose the `reverse-regex` random generator, `simple` by default.
+* `regex()` accepts an `$unboundedMax` argument to configure the maximum number of repetitions of `*` and `+` (requires `ilario-pierbattista/reverse-regex` ^0.7.0).
+### Fixed
+* `regex()` no longer throws a `ReverseRegex\Exception` on patterns with unbounded quantifiers such as `*` and `+`: they are now bounded by `reverse-regex` (#193).
 
 ## [1.2.1] - 2026-10-10
 ### Added

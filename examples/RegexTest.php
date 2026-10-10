@@ -7,7 +7,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     use Eris\TestTrait;
 
     /**
-     * Note that * and + modifiers are not supported. @see Generators::regex()
+     * Note that * and + are bounded by the second argument. @see Generators::regex()
      */
     public function testStringsMatchingAParticularRegex()
     {

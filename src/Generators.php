@@ -265,16 +265,18 @@ final class Generators
     }
 
     /**
-     * Note * and + modifiers cause an unbounded number of character to be generated
-     * (up to plus infinity) and as such they are not supported.
-     * Please use {1,N} and {0,N} instead of + and *.
+     * Note * and + modifiers are unbounded: the maximum number of repetitions
+     * is set by $unboundedMax, or by the default of the reverse-regex library
+     * when it is null.
      *
      * @param string $expression
+     * @param int|null $unboundedMax maximum number of repetitions for * and +
+     * @param string $random one of 'srand', 'mersenne' or 'simple': reverse-regex random generator to use
      * @return Generator\RegexGenerator
      */
-    public static function regex($expression)
+    public static function regex($expression, $unboundedMax = null, $random = 'simple')
     {
-        return new RegexGenerator($expression);
+        return new RegexGenerator($expression, $unboundedMax, $random);
     }
 
     /**
