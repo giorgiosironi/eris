@@ -21,6 +21,7 @@ jobs:
           - { php: 8.2, dependencies: "highest" }
           - { php: 8.3, dependencies: "highest" }
           - { php: 8.4, dependencies: "highest" }
+          - { php: 8.5, dependencies: "highest" }
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -45,12 +46,16 @@ jobs:
           - { phpunit: 10, php: 8.2 }
           - { phpunit: 10, php: 8.3 }
           - { phpunit: 10, php: 8.4 }
+          - { phpunit: 10, php: 8.5 }
           - { phpunit: 11, php: 8.2 }
           - { phpunit: 11, php: 8.3 }
           - { phpunit: 11, php: 8.4 }
+          - { phpunit: 11, php: 8.5 }
           - { phpunit: 12, php: 8.3 }
           - { phpunit: 12, php: 8.4 }
+          - { phpunit: 12, php: 8.5 }
           - { phpunit: 13, php: 8.4 }
+          - { phpunit: 13, php: 8.5 }
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+### Added
+* Support for PHP 8.5.
 
 ## [1.2.0] - 2026-09-30
 ### Added

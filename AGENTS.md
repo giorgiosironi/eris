@@ -30,6 +30,7 @@ make run-php-8.1   # PHP 8.1
 make run-php-8.2   # PHP 8.2
 make run-php-8.3   # PHP 8.3
 make run-php-8.4   # PHP 8.4
+make run-php-8.5   # PHP 8.5
 ```
 
 The project root is mounted at `/usr/src/eris` inside the container. All subsequent commands should be run from that path.
@@ -89,6 +90,10 @@ Runs `php-cs-fixer` to fix code style issues.
 ```bash
 composer rector
 ```
+
+## Changelog
+
+Update `CHANGELOG.md` (under `[Unreleased]`) for every non-trivial change that could affect the library users, e.g. new features, behaviour changes, fixes, and supported PHP/PHPUnit versions. Follow the existing format and reference the PR or issue number.
 
 ## Agent Skills
 

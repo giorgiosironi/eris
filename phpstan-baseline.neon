@@ -505,12 +505,6 @@ parameters:
 			path: src/Quantifier/ForAll.php
 
 		-
-			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<array\<''cipher''\|''letter'', mixed\>\>\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: test/Generator/AssociativeArrayGeneratorTest.php
-
-		-
 			message: '#^Call to an undefined method Eris\\Generator\\GeneratedValue\<list\<int\>\>\:\:first\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -521,18 +515,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: test/Generator/SuchThatGeneratorTest.php
-
-		-
-			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<list\<42\>\>\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: test/Generator/TupleGeneratorTest.php
-
-		-
-			message: '#^PHPDoc tag @var with type Eris\\Generator\\GeneratedValue is not subtype of native type Eris\\Generator\\GeneratedValueSingle\<list\>\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: test/Generator/TupleGeneratorTest.php
 
 		-
 			message: '#^Method Eris\\Listener\\Log\:\:shrinking\(\) invoked with 2 parameters, 1 required\.$#'
