@@ -13,3 +13,7 @@ run-php-8.3:
 .PHONY: run-php-8.4
 run-php-8.4:
 	docker compose run --remove-orphans php-8.4 sh
+
+.PHONY: run-php-8.5
+run-php-8.5:
+	docker compose run --remove-orphans php-8.5 sh
