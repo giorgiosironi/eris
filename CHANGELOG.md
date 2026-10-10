@@ -7,6 +7,9 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 ## [Unreleased]
 ### Added
 * Support for PHP 8.5.
+### Fixed
+* `Generator\set()` chooses the size of the set with the configured random source instead of PHP's global `rand()`, so the generated sets are reproducible from the Eris seed regardless of other uses of the global RNG. Sets generated for a given seed differ from previous versions (#204), thanks @matthiasgoergens.
+* A property run only once, e.g. with `#[ErisRepeat(repeat: 1)]` or `limitTo(1)`, no longer fails with a division by zero (#205), thanks @matthiasgoergens.
 
 ## [1.2.0] - 2026-09-30
 ### Added
