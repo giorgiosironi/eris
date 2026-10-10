@@ -9,7 +9,7 @@ on:
 jobs:
   tests:
     name: Tests (PHP ${{ matrix.php }}, dependencies ${{ matrix.dependencies }})
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         php: [8.1]
@@ -38,7 +38,7 @@ jobs:
 
   phpunit-compatibility:
     name: Test End to End with php ${{ matrix.php }}, phpunit ${{ matrix.phpunit }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         include:
