@@ -21,6 +21,17 @@ class LimitToTest extends \PHPUnit\Framework\TestCase
             });
     }
 
+    #[ErisRepeat(repeat: 1)]
+    public function testSingleIterationCanBeConfigured()
+    {
+        $this->forAll(
+            Generators::int()
+        )
+            ->then(function ($value) {
+                static::assertIsInt($value);
+            });
+    }
+
     /*
      * future feature
     public function testTimeIntervalToRunForCanBeConfiguredButItNeedsToProduceAtLeastHalfOfTheIterationsByDefault()
