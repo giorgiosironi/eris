@@ -8,6 +8,7 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 ### Added
 * `regex()` accepts a `$random` argument (`srand`, `mersenne` or `simple`) to choose the `reverse-regex` random generator, `simple` by default.
 * `regex()` accepts an `$unboundedMax` argument to configure the maximum number of repetitions of `*` and `+` (requires `ilario-pierbattista/reverse-regex` ^0.7.0).
+* Support for `ilario-pierbattista/reverse-regex` ^0.8.0, alongside ^0.7.0.
 ### Fixed
 * `regex()` no longer throws a `ReverseRegex\Exception` on patterns with unbounded quantifiers such as `*` and `+`: they are now bounded by `reverse-regex` (#193).
 
