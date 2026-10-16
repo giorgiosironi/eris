@@ -5,10 +5,12 @@ All notable changes to this project will be documented in this file.
 The project follows [semantic versioning](http://semver.org/). `BC` stands for a change that impacts `Backward Compatibility`.
 
 ## [Unreleased]
+
+## [1.3.0] - 2026-10-16
 ### Added
 * `regex()` accepts a `$random` argument (`srand`, `mersenne` or `simple`) to choose the `reverse-regex` random generator, `simple` by default.
-* `regex()` accepts an `$unboundedMax` argument to configure the maximum number of repetitions of `*` and `+` (requires `ilario-pierbattista/reverse-regex` ^0.7.0).
-* Support for `ilario-pierbattista/reverse-regex` ^0.8.0, alongside ^0.7.0.
+* `regex()` accepts an `$unboundedMax` argument to configure the maximum number of repetitions of `*` and `+` (requires `ilario-pierbattista/reverse-regex` ^0.7.0) (#217).
+* Support for `ilario-pierbattista/reverse-regex` ^0.8.0, alongside ^0.7.0 (#218).
 ### Fixed
 * `regex()` no longer throws a `ReverseRegex\Exception` on patterns with unbounded quantifiers such as `*` and `+`: they are now bounded by `reverse-regex` (#193).
 
@@ -187,7 +189,8 @@ The project follows [semantic versioning](http://semver.org/). `BC` stands for a
 * Basic best-effort shrinking.
 * `sample()` and `sampleShrink()` for Generators.
 
-[Unreleased]: https://github.com/giorgiosironi/eris/compare/1.2.1...HEAD
+[Unreleased]: https://github.com/giorgiosironi/eris/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/giorgiosironi/eris/compare/1.2.1...1.3.0
 [1.2.1]: https://github.com/giorgiosironi/eris/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/giorgiosironi/eris/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/giorgiosironi/eris/compare/1.0.0...1.1.0
