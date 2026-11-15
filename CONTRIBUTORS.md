@@ -8,7 +8,7 @@ Everyone that has contributed at least a commit to Eris.
 - Andreas Möller (@localheinz)
 - Marco Perone (@marcosh)
 - Luis Montealegre (@MontealegreLuis)
-- Davide Bellettini (@dbellettini)
+- Daphne Bellettini (@dbellettini)
 - Dave Marshall (@davedevelopment)
 - Nicolo Pignatelli (@nicolopignarocket)
 - Danilo Silva (@silvadanilo)
